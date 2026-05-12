@@ -1,0 +1,36 @@
+/* src/components/common/Header.css */
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-3) var(--space-4);
+  background-color: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.header__logo {
+  font-size: var(--font-lg);
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+.header__nav {
+  display: flex;
+  gap: var(--space-3);
+}
+
+.header__link {
+  font-size: var(--font-sm);
+  color: var(--color-text-light);
+  transition: color 0.2s;
+}
+
+.header__link:hover,
+.header__link.active {
+  color: var(--color-primary);
+  font-weight: 600;
+}
