@@ -1,5 +1,3 @@
-/* src/components/common/Header.css */
-
 .header {
   position: sticky;
   top: 0;
@@ -18,19 +16,72 @@
   color: var(--color-primary);
 }
 
-.header__nav {
+.header__actions {
+  position: relative;
   display: flex;
-  gap: var(--space-3);
+  gap: var(--space-1);
 }
 
-.header__link {
-  font-size: var(--font-sm);
+.header__icon-btn {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-lg);
+  border-radius: var(--radius-md);
   color: var(--color-text-light);
-  transition: color 0.2s;
+  transition: all 0.2s;
 }
 
-.header__link:hover,
-.header__link.active {
+.header__icon-btn:hover {
+  background-color: var(--color-bg);
   color: var(--color-primary);
-  font-weight: 600;
+}
+
+/* 드롭다운 */
+.header__menu {
+  position: absolute;
+  top: calc(100% + var(--space-2));
+  right: 0;
+  min-width: 180px;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  padding: var(--space-2);
+  display: flex;
+  flex-direction: column;
+  z-index: 20;
+}
+
+.header__menu-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3);
+  font-size: var(--font-sm);
+  color: var(--color-text);
+  border-radius: var(--radius-sm);
+  text-align: left;
+  transition: all 0.2s;
+}
+
+.header__menu-item:hover {
+  background-color: var(--color-bg);
+  color: var(--color-primary);
+}
+
+.header__menu-item--danger {
+  color: var(--color-danger);
+}
+
+.header__menu-item--danger:hover {
+  background-color: var(--color-bg);
+}
+
+.header__menu-divider {
+  height: 1px;
+  background-color: var(--color-border);
+  margin: var(--space-1) 0;
 }

@@ -2,8 +2,7 @@
 import { useEffect } from 'react'
 import './Modal.css'
 
-function Modal({ isOpen, onClose, title, children }) {
-  // ESC 키로 닫기
+function Modal({ isOpen, onClose, title, children, hideDefaultButton = false }) {
   useEffect(() => {
     if (!isOpen) return
     const onKey = (e) => {
@@ -17,13 +16,12 @@ function Modal({ isOpen, onClose, title, children }) {
 
   return (
     <div className="modal" onClick={onClose}>
-      <div
-        className="modal__content"
-        onClick={(e) => e.stopPropagation()}  /* 안쪽 클릭은 닫히지 않게 */
-      >
+      <div className="modal__content" onClick={(e) => e.stopPropagation()}>
         {title && <h3 className="modal__title">{title}</h3>}
         <div className="modal__body">{children}</div>
-        <button className="modal__close" onClick={onClose}>확인</button>
+        {!hideDefaultButton && (
+          <button className="modal__close" onClick={onClose}>확인</button>
+        )}
       </div>
     </div>
   )

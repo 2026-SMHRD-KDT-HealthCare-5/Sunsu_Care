@@ -1,0 +1,206 @@
+.my {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.my__page-header {
+  margin-bottom: var(--space-2);
+}
+
+.my__page-title {
+  font-size: var(--font-2xl);
+  font-weight: 700;
+}
+
+.my__section {
+  background-color: var(--color-surface);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  padding: var(--space-4);
+}
+
+.my__section-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-3);
+}
+
+.my__section-title {
+  font-size: var(--font-md);
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: var(--space-3);
+}
+
+.my__section-head .my__section-title {
+  margin-bottom: 0;
+}
+
+.my__edit {
+  font-size: var(--font-sm);
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+/* 사용자 정보 */
+.my__user {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.my__avatar {
+  width: 56px;
+  height: 56px;
+  background-color: var(--color-secondary);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-xl);
+}
+
+.my__email {
+  font-size: var(--font-md);
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.my__welcome {
+  font-size: var(--font-sm);
+  color: var(--color-text-light);
+}
+
+/* 프로필 리스트 */
+.my__profile {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.my__profile li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-2) 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.my__profile li:last-child {
+  border-bottom: none;
+}
+
+.my__profile strong {
+  font-size: var(--font-sm);
+  color: var(--color-text-light);
+  font-weight: 600;
+}
+
+.my__profile span {
+  font-size: var(--font-sm);
+  color: var(--color-text);
+  text-align: right;
+  max-width: 60%;
+}
+
+/* 빈 상태 */
+.my__empty {
+  color: var(--color-text-light);
+  font-size: var(--font-sm);
+  text-align: center;
+  padding: var(--space-3) 0;
+}
+
+.my__empty-block {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  align-items: center;
+}
+
+/* 히스토리 리스트 */
+.my__history {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.my__history-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3);
+  background-color: var(--color-bg);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.my__history-item:hover {
+  background-color: var(--color-secondary);
+  transform: translateY(-1px);
+}
+
+.my__history-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.my__history-name {
+  font-size: var(--font-sm);
+  font-weight: 600;
+  color: var(--color-text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.my__history-date {
+  font-size: var(--font-xs);
+  color: var(--color-text-light);
+  margin-top: var(--space-1);
+}
+
+.my__history-score {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--space-1);
+  flex-shrink: 0;
+}
+
+.my__history-num {
+  font-size: var(--font-lg);
+  font-weight: 700;
+  line-height: 1;
+}
+
+.my__history-score.is-success .my__history-num { color: var(--color-success); }
+.my__history-score.is-warning .my__history-num { color: var(--color-warning); }
+.my__history-score.is-danger  .my__history-num { color: var(--color-danger); }
+
+.my__history-badge {
+  font-size: var(--font-xs);
+  font-weight: 700;
+  padding: 2px var(--space-2);
+  border-radius: var(--radius-full);
+  color: #fff;
+}
+
+.my__history-score.is-success .my__history-badge { background-color: var(--color-success); }
+.my__history-score.is-warning .my__history-badge { background-color: var(--color-warning); }
+.my__history-score.is-danger  .my__history-badge { background-color: var(--color-danger); }
+
+/* 로그아웃 모달 액션 */
+.my__modal-actions {
+  display: flex;
+  gap: var(--space-2);
+  margin-top: var(--space-4);
+}
+
+.my__modal-actions > * {
+  flex: 1;
+}

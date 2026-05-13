@@ -1,0 +1,39 @@
+.result {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.result__actions {
+  display: flex;
+  gap: var(--space-2);
+  margin-top: var(--space-2);
+}
+
+.result__actions > * {
+  flex: 1;
+}
+
+/* 결과 없는 상태 */
+.result-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--space-3);
+  padding: var(--space-7) var(--space-4);
+}
+
+.result-empty__icon {
+  font-size: var(--font-3xl);
+}
+
+.result-empty__title {
+  font-size: var(--font-xl);
+  font-weight: 700;
+}
+
+.result-empty__desc {
+  color: var(--color-text-light);
+  font-size: var(--font-sm);
+}

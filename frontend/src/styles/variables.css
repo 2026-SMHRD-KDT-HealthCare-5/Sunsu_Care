@@ -1,4 +1,3 @@
-/* src/styles/variables.css */
 
 :root {
   /* ───── 색상 (메인 톤) ───── */
@@ -31,6 +30,7 @@
   --font-lg: 20px;
   --font-xl: 24px;
   --font-2xl: 32px;
+  --font-3xl: 56px;
 
   /* ───── 여백 ───── */
   --space-1: 4px;

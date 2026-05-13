@@ -40,8 +40,11 @@ a:hover {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  padding-bottom: 72px;
 }
 
 .main-layout__content {
   flex: 1;
 }
+/*  BottomNav가 약 56~64px이므로 여유 있게 72px. 
+디자인 교체 시 BottomNav 높이 바뀌면 이 값만 조정. */

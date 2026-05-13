@@ -1,0 +1,101 @@
+.avoid {
+  margin-bottom: var(--space-2);
+}
+
+.avoid__label {
+  display: block;
+  font-size: var(--font-sm);
+  color: var(--color-text-light);
+  font-weight: 600;
+  margin-bottom: var(--space-2);
+}
+
+.avoid__row {
+  display: flex;
+  gap: var(--space-2);
+  margin-bottom: var(--space-2);
+}
+
+.avoid__input {
+  flex: 1;
+  padding: var(--space-3) var(--space-4);
+  font-size: var(--font-md);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  transition: border-color 0.2s;
+}
+
+.avoid__input:focus {
+  border-color: var(--color-primary);
+}
+
+.avoid__btn {
+  padding: var(--space-3) var(--space-4);
+  background-color: var(--color-primary);
+  color: #fff;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+}
+
+.avoid__btn:hover {
+  background-color: var(--color-primary-dark);
+}
+
+.avoid__quick {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  align-items: center;
+  margin-bottom: var(--space-3);
+}
+
+.avoid__quick-label {
+  font-size: var(--font-xs);
+  color: var(--color-text-light);
+}
+
+.avoid__quick-btn {
+  padding: var(--space-1) var(--space-3);
+  font-size: var(--font-xs);
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  color: var(--color-text-light);
+  transition: all 0.2s;
+}
+
+.avoid__quick-btn:hover:not(:disabled) {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.avoid__quick-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.avoid__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.avoid__tag {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-1) var(--space-3);
+  background-color: var(--color-secondary);
+  color: var(--color-primary-dark);
+  border-radius: var(--radius-full);
+  font-size: var(--font-sm);
+  font-weight: 600;
+}
+
+.avoid__tag-x {
+  font-size: var(--font-md);
+  line-height: 1;
+  color: var(--color-primary-dark);
+  padding: 0 var(--space-1);
+}

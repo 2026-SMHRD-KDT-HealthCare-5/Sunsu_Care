@@ -1,76 +1,94 @@
-// src/pages/HomePage.jsx
-import { useState } from 'react'
 
-import mockProducts from '../data/mockProducts'
-import mockAnalysisResult, { mockHistory } from '../data/mockAnalysisResult'
-import mockUserProfile from '../data/mockUserProfile'
-
+import { useNavigate } from 'react-router-dom'
 import Button from '../components/common/Button'
-import Input from '../components/common/Input'
-import Loading from '../components/common/Loading'
-import Modal from '../components/common/Modal'
+import './HomePage.css'
 
 function HomePage() {
-
-  console.log('🧪 mockUserProfile:', mockUserProfile)
-  console.log('🧪 mockProducts:', mockProducts)
-  console.log('🧪 mockAnalysisResult:', mockAnalysisResult)
-  console.log('🧪 mockHistory:', mockHistory)
-  
-  const [name, setName] = useState('')
-  const [showLoading, setShowLoading] = useState(false)
-  const [showModal, setShowModal] = useState(false)
+  const navigate = useNavigate()
 
   return (
-    <div className="page">
-      <h1>🏠 메인 화면 (컴포넌트 데모)</h1>
+    <div className="page home">
+      {/* 1. 히어로 (서비스 소개) */}
+      <section className="home__hero">
+        <div className="home__hero-emoji">🌞</div>
+        <h1 className="home__title">
+          내 피부에 딱 맞는
+          <br />
+          선케어 찾기
+        </h1>
+        <p className="home__subtitle">
+          AI가 성분을 분석해서
+          <br />
+          당신에게 맞는 선크림을 추천해드려요
+        </p>
+      </section>
 
-      <h3 style={{ marginTop: 24 }}>Button</h3>
-      <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 12 }}>
-        <Button>기본</Button>
-        <Button variant="secondary">보조</Button>
-        <Button variant="outline">외곽선</Button>
-        <Button disabled>비활성</Button>
-      </div>
-      <Button size="lg" onClick={() => alert('AI 분석 시작!')}>
-        AI 분석하기 (큰 버튼)
-      </Button>
+      {/* 2. 메인 CTA 카드 2개 */}
+      <section className="home__cta">
+        <div
+          className="home__cta-card"
+          onClick={() => navigate('/profile')}
+        >
+          <div className="home__cta-icon">💆</div>
+          <h3 className="home__cta-title">맞춤 추천 받기</h3>
+          <p className="home__cta-desc">
+            내 피부 정보를 입력하고
+            <br />
+            추천 제품을 받아보세요
+          </p>
+          <Button size="lg">추천 받기 →</Button>
+        </div>
 
-      <h3 style={{ marginTop: 32 }}>Input</h3>
-      <Input
-        label="제품명"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        placeholder="예: 마일드 미네랄 선크림"
-      />
-      <Input
-        label="이메일"
-        type="email"
-        placeholder="example@suncare.com"
-        error="형식이 올바르지 않습니다"
-      />
+        <div
+          className="home__cta-card"
+          onClick={() => navigate('/scan')}
+        >
+          <div className="home__cta-icon">📷</div>
+          <h3 className="home__cta-title">기존 제품 분석</h3>
+          <p className="home__cta-desc">
+            제품 사진과 성분표를
+            <br />
+            올려 분석해보세요
+          </p>
+          <Button size="lg" variant="outline">
+            분석하기 →
+          </Button>
+        </div>
+      </section>
 
-      <h3 style={{ marginTop: 32 }}>Loading & Modal</h3>
-      <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-        <Button onClick={() => setShowLoading((v) => !v)}>
-          로딩 토글
-        </Button>
-        <Button variant="outline" onClick={() => setShowModal(true)}>
-          모달 열기
-        </Button>
-      </div>
-
-      {showLoading && <Loading message="AI가 분석 중이에요..." />}
-
-      <Modal
-        isOpen={showModal}
-        onClose={() => setShowModal(false)}
-        title="안내"
-      >
-        분석 결과를 저장하시겠어요?
-      </Modal>
+      {/* 3. 서비스 특징 */}
+      <section className="home__features">
+        <h2 className="home__features-title">SunCare의 특징</h2>
+        <ul className="home__features-list">
+          <li>
+            <span className="home__features-emoji">🔍</span>
+            <div>
+              <strong>YOLO + OCR 분석</strong>
+              <p>제품과 성분을 자동으로 인식해요</p>
+            </div>
+          </li>
+          <li>
+            <span className="home__features-emoji">💯</span>
+            <div>
+              <strong>피부 적합도 점수</strong>
+              <p>내 피부에 얼마나 맞는지 100점 만점으로</p>
+            </div>
+          </li>
+          <li>
+            <span className="home__features-emoji">🧴</span>
+            <div>
+              <strong>맞춤 세안 가이드</strong>
+              <p>분석 결과에 맞는 케어 방법까지 제공</p>
+            </div>
+          </li>
+        </ul>
+      </section>
     </div>
   )
 }
 
 export default HomePage
+
+// const navigate = useNavigate() → 페이지 이동 함수 생성
+// navigate('/profile') → /profile 경로로 이동
+// 카드(div) 전체에 onClick을 걸어서 카드 어디를 눌러도 이동

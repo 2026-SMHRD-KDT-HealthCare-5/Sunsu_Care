@@ -1,0 +1,113 @@
+
+.home {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+/* ───── 1. 히어로 ───── */
+.home__hero {
+  text-align: center;
+  padding: var(--space-5) 0 var(--space-3);
+}
+
+.home__hero-emoji {
+  font-size: 64px;
+  margin-bottom: var(--space-3);
+}
+
+.home__title {
+  font-size: var(--font-2xl);
+  font-weight: 700;
+  color: var(--color-text);
+  line-height: 1.3;
+  margin-bottom: var(--space-3);
+}
+
+.home__subtitle {
+  color: var(--color-text-light);
+  line-height: 1.6;
+}
+
+/* ───── 2. CTA 카드 ───── */
+.home__cta {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.home__cta-card {
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.home__cta-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.home__cta-icon {
+  font-size: 40px;
+  margin-bottom: var(--space-2);
+}
+
+.home__cta-title {
+  font-size: var(--font-lg);
+  font-weight: 700;
+  margin-bottom: var(--space-2);
+}
+
+.home__cta-desc {
+  color: var(--color-text-light);
+  font-size: var(--font-sm);
+  margin-bottom: var(--space-4);
+  line-height: 1.6;
+}
+
+/* ───── 3. 특징 섹션 ───── */
+.home__features {
+  background-color: var(--color-secondary);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+}
+
+.home__features-title {
+  font-size: var(--font-lg);
+  font-weight: 700;
+  margin-bottom: var(--space-4);
+  text-align: center;
+}
+
+.home__features-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.home__features-list li {
+  display: flex;
+  gap: var(--space-3);
+  align-items: flex-start;
+}
+
+.home__features-emoji {
+  font-size: 28px;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.home__features-list strong {
+  display: block;
+  margin-bottom: var(--space-1);
+  color: var(--color-text);
+}
+
+.home__features-list p {
+  color: var(--color-text-light);
+  font-size: var(--font-sm);
+}

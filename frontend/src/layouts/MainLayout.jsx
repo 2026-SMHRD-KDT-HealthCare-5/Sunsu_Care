@@ -1,7 +1,8 @@
-// src/layouts/MainLayout.jsx
+
 import { Outlet } from 'react-router-dom'
 import Header from '../components/common/Header'
 import Footer from '../components/common/Footer'
+import BottomNav from '../components/common/BottomNav'
 
 function MainLayout() {
   return (
@@ -11,6 +12,7 @@ function MainLayout() {
         <Outlet />
       </main>
       <Footer />
+      <BottomNav />
     </div>
   )
 }
