@@ -1,41 +1,29 @@
-
-import { findProductById } from '../../data/mockProducts'
+// src/components/result/RecommendProductList.jsx
 import './RecommendProductList.css'
 
-function RecommendProductList({ productIds }) {
-  // id 배열 → 실제 제품 객체 배열로 변환
-  const products = (productIds || [])
-    .map((id) => findProductById(id))
-    .filter(Boolean) // 못 찾은 id 제거
-
-  if (products.length === 0) return null
+function RecommendProductList({ recommendations }) {
+  if (!recommendations || recommendations.length === 0) return null
 
   return (
     <section className="recommend">
       <h3 className="recommend__title">✨ 추천 제품</h3>
       <ul className="recommend__list">
-        {products.map((product) => (
-          <li key={product.id} className="recommend__item">
-            <img
-              src={product.image}
-              alt={product.name}
-              className="recommend__image"
-            />
-            <div className="recommend__info">
-              <p className="recommend__brand">{product.brand}</p>
-              <h4 className="recommend__name">{product.name}</h4>
-              <p className="recommend__price">
-                {product.price.toLocaleString()}원
-              </p>
-              <a
-                href={product.shopUrl}
-                target="_blank"
-                rel="noreferrer noopener"
-                className="recommend__link"
-              >
-                쇼핑몰로 이동 →
-              </a>
+        {recommendations.map((reco) => (
+          <li key={reco.reco_idx} className="recommend__item">
+            <p className="recommend__brand">{reco.prod.brand_name}</p>
+            <h4 className="recommend__name">{reco.prod.prod_name}</h4>
+
+            <div className="recommend__specs">
+              <span className="recommend__chip">{reco.prod.spf_val}</span>
+              <span className="recommend__chip">{reco.prod.pa_val}</span>
+              <span className="recommend__chip recommend__chip--uv">
+                {reco.prod.uv_type}
+              </span>
             </div>
+
+            {reco.reco_reason && (
+              <p className="recommend__reason">💡 {reco.reco_reason}</p>
+            )}
           </li>
         ))}
       </ul>

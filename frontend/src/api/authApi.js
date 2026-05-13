@@ -1,24 +1,31 @@
-// import api from './axiosInstance'  
+// src/api/authApi.js
+// import api from './axiosInstance'
 
 const delay = (ms) => new Promise((r) => setTimeout(r, ms))
 
-export const login = async (email, password) => {
+export const login = async (id, password) => {
   await delay(500)
-  // 18단계 교체: const { data } = await api.post('/auth/login', { email, password })
-  // return data
+  // 18단계 교체: const { data } = await api.post('/auth/login', { id, password })
   return {
     token: 'mock-token-' + Date.now(),
-    user: { email },
+    user: {
+      user_idx: 1,
+      id,
+      name: 'Mock 사용자',
+      email: 'mock@example.com',
+      role: 'user',
+    },
   }
 }
 
-export const signup = async (email, password) => {
+export const signup = async ({ id, password, name, email, phone }) => {
   await delay(500)
-  // 18단계 교체: const { data } = await api.post('/auth/signup', { email, password })
+  // 18단계 교체:
+  // const { data } = await api.post('/auth/signup', { id, password, name, email, phone })
   // return data
   return {
     success: true,
-    user: { email },
+    user: { user_idx: 1, id, name, email },
   }
 }
 

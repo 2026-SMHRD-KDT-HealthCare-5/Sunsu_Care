@@ -1,4 +1,4 @@
-
+// src/components/result/ScoreCard.jsx
 import './ScoreCard.css'
 
 function getStatusClass(status) {
@@ -7,28 +7,20 @@ function getStatusClass(status) {
   return 'is-danger'
 }
 
-function ScoreCard({ result }) {
-  const statusClass = getStatusClass(result.status)
+function ScoreCard({ prod_name, brand_name, suitability_score, status }) {
+  const statusClass = getStatusClass(status)
 
   return (
     <div className={`score-card ${statusClass}`}>
-      {result.productImage && (
-        <img
-          src={result.productImage}
-          alt={result.productName}
-          className="score-card__image"
-        />
-      )}
-
-      <h2 className="score-card__name">{result.productName}</h2>
-      {result.brand && <p className="score-card__brand">{result.brand}</p>}
+      <h2 className="score-card__name">{prod_name}</h2>
+      {brand_name && <p className="score-card__brand">{brand_name}</p>}
 
       <div className="score-card__score">
-        <span className="score-card__number">{result.score}</span>
+        <span className="score-card__number">{suitability_score}</span>
         <span className="score-card__total">/ 100</span>
       </div>
 
-      <span className="score-card__badge">{result.status}</span>
+      <span className="score-card__badge">{status}</span>
     </div>
   )
 }

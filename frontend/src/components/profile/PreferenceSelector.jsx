@@ -2,15 +2,17 @@
 import './PreferenceSelector.css'
 
 const OPTIONS = [
-  { value: '유기자차', desc: '발림 좋고 가벼움' },
-  { value: '무기자차', desc: '민감 피부에 적합' },
-  { value: '혼합',     desc: '두 타입의 균형' },
+  { value: '에센스',   desc: '가볍고 산뜻한 발림' },
+  { value: '크림',     desc: '풍부한 보습력' },
+  { value: '젤',       desc: '청량하고 빠른 흡수' },
+  { value: '스틱',     desc: '휴대용, 핀포인트' },
+  { value: '스프레이', desc: '간편한 분사형' },
 ]
 
 function PreferenceSelector({ value, onChange }) {
   return (
     <div className="prefer">
-      <label className="prefer__label">선호 선크림 타입</label>
+      <label className="prefer__label">선호 제형</label>
       <div className="prefer__list">
         {OPTIONS.map((option) => (
           <button

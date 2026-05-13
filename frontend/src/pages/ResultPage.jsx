@@ -1,4 +1,4 @@
-
+// src/pages/ResultPage.jsx
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Button from '../components/common/Button'
@@ -7,30 +7,29 @@ import ReportSummary from '../components/result/ReportSummary'
 import RiskIngredientList from '../components/result/RiskIngredientList'
 import RecommendProductList from '../components/result/RecommendProductList'
 import { getLastResult } from '../utils/storage'
+import { fetchRecommendations } from '../api/analysisApi'
 import './ResultPage.css'
 
 function ResultPage() {
   const navigate = useNavigate()
-  // undefined = 아직 로딩 / null = 결과 없음 / 객체 = 결과 있음
   const [result, setResult] = useState(undefined)
+  const [recommendations, setRecommendations] = useState([])
 
   useEffect(() => {
-    setResult(getLastResult())
+    const r = getLastResult()
+    setResult(r)
+    if (r?.analysis_idx) {
+      fetchRecommendations(r.analysis_idx).then(setRecommendations)
+    }
   }, [])
 
-  // 1) 로딩 중
-  if (result === undefined) {
-    return null
-  }
+  if (result === undefined) return null
 
-  // 2) 결과 없음
   if (!result) {
     return (
       <div className="page result-empty">
         <div className="result-empty__icon">📊</div>
-        <h1 className="result-empty__title">
-          아직 분석 결과가 없어요
-        </h1>
+        <h1 className="result-empty__title">아직 분석 결과가 없어요</h1>
         <p className="result-empty__desc">
           제품을 스캔하면 결과가 여기에 나타나요.
         </p>
@@ -41,19 +40,24 @@ function ResultPage() {
     )
   }
 
-  // 3) 정상 결과
+  const ar = result.analysis_result || {}
+
   return (
     <div className="page result">
-      <ScoreCard result={result} />
-
-      <ReportSummary
-        keyIngredients={result.keyIngredients}
-        reason={result.reason}
+      <ScoreCard
+        prod_name={result.prod_name}
+        suitability_score={result.suitability_score}
+        status={ar.status}
       />
 
-      <RiskIngredientList items={result.riskIngredients} />
+      <ReportSummary
+        key_ingredients={ar.key_ingredients}
+        summary={ar.summary}
+      />
 
-      <RecommendProductList productIds={result.recommendations} />
+      <RiskIngredientList items={ar.risk_ingredients} />
+
+      <RecommendProductList recommendations={recommendations} />
 
       <div className="result__actions">
         <Button variant="outline" onClick={() => navigate('/scan')}>

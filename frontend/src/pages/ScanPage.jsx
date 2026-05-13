@@ -45,13 +45,21 @@ function ScanPage() {
     setIsAnalyzing(true)
     try {
       const result = await analyze({
-        productName,
-        productImage: productImg.file,
-        ingredientImage: ingredientImg.file,
+        prod_name: productName,
+        product_image: productImg.file,
+        ingredient_image: ingredientImg.file,
       })
 
       setLastResult(result)
-      addHistory(result)
+      addHistory({
+        analysis_idx: result.analysis_idx,
+        prod_name: result.prod_name,
+        suitability_score: result.suitability_score,
+        status: result.analysis_result?.status,
+        analyzed_at: result.analyzed_at,
+        // 상세 페이지용 전체 결과
+        _full: result,
+      })
       navigate('/result')
     } catch (err) {
       setError('분석 중 오류가 발생했어요. 다시 시도해주세요.')
@@ -59,15 +67,7 @@ function ScanPage() {
       setIsAnalyzing(false)
     }
   }
-
-  if (isAnalyzing) {
-    return (
-      <div className="page">
-        <Loading message="AI가 성분을 분석 중이에요... 약 1~2초 소요됩니다" />
-      </div>
-    )
-  }
-
+  
   return (
     <div className="page scan">
       <div className="scan__header">

@@ -1,4 +1,4 @@
-
+// src/pages/ProfilePage.jsx
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Button from '../components/common/Button'
@@ -7,50 +7,40 @@ import SkinTypeSelector from '../components/profile/SkinTypeSelector'
 import PreferenceSelector from '../components/profile/PreferenceSelector'
 import AvoidIngredientInput from '../components/profile/AvoidIngredientInput'
 import { PROFILE_OPTIONS } from '../data/mockUserProfile'
-import { getProfile, saveProfile } from '../utils/storage'
+import { fetchProfile, updateProfile } from '../api/profileApi'
 import './ProfilePage.css'
 
 const DEFAULT_PROFILE = {
-  gender: '',
-  skinType: '',
-  sensitive: false,
-  preferType: '',
-  avoidIngredients: [],
-  concerns: [],
+  skin_type: '',
+  senstive_yn: 0,           // 0=미선택, 1~5
+  prod_type: '',
+  avoid_ingredient: [],     // 배열 (API가 자동 변환)
 }
 
 function ProfilePage() {
   const navigate = useNavigate()
   const [profile, setProfile] = useState(DEFAULT_PROFILE)
   const [showSaved, setShowSaved] = useState(false)
+  const [submitting, setSubmitting] = useState(false)
 
-  // 페이지 열릴 때 저장된 프로필이 있으면 불러오기
   useEffect(() => {
-    const saved = getProfile()
-    if (saved) setProfile({ ...DEFAULT_PROFILE, ...saved })
+    fetchProfile().then((saved) => {
+      if (saved) setProfile({ ...DEFAULT_PROFILE, ...saved })
+    })
   }, [])
 
-  // 한 필드만 업데이트하는 헬퍼
   const updateField = (key, val) => {
     setProfile((prev) => ({ ...prev, [key]: val }))
   }
 
-  // 피부 고민 토글 (있으면 빼고, 없으면 추가)
-  const toggleConcern = (concern) => {
-    setProfile((prev) => {
-      const has = prev.concerns.includes(concern)
-      return {
-        ...prev,
-        concerns: has
-          ? prev.concerns.filter((c) => c !== concern)
-          : [...prev.concerns, concern],
-      }
-    })
-  }
-
-  const handleSave = () => {
-    saveProfile(profile)
-    setShowSaved(true)
+  const handleSave = async () => {
+    setSubmitting(true)
+    try {
+      await updateProfile(profile)
+      setShowSaved(true)
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   const handleAfterSave = () => {
@@ -62,76 +52,46 @@ function ProfilePage() {
     <div className="page profile">
       <div className="profile__header">
         <h1 className="profile__title">피부 정보 입력</h1>
-        <p className="profile__subtitle">
-          더 정확한 추천을 위해 알려주세요
-        </p>
-      </div>
-
-      {/* 성별 */}
-      <div className="profile__field">
-        <label className="profile__label">성별</label>
-        <div className="profile__radio-row">
-          {PROFILE_OPTIONS.gender.map((g) => (
-            <button
-              type="button"
-              key={g}
-              className={`profile__radio ${profile.gender === g ? 'is-active' : ''}`}
-              onClick={() => updateField('gender', g)}
-            >
-              {g === 'male' ? '남성' : '여성'}
-            </button>
-          ))}
-        </div>
+        <p className="profile__subtitle">더 정확한 추천을 위해 알려주세요</p>
       </div>
 
       <SkinTypeSelector
-        value={profile.skinType}
-        onChange={(v) => updateField('skinType', v)}
+        value={profile.skin_type}
+        onChange={(v) => updateField('skin_type', v)}
       />
 
-      {/* 민감도 */}
+      {/* 민감도 레벨 (1~5) */}
       <div className="profile__field">
-        <label className="profile__toggle">
-          <input
-            type="checkbox"
-            checked={profile.sensitive}
-            onChange={(e) => updateField('sensitive', e.target.checked)}
-          />
-          <span>민감한 피부예요</span>
-        </label>
-      </div>
-
-      <PreferenceSelector
-        value={profile.preferType}
-        onChange={(v) => updateField('preferType', v)}
-      />
-
-      <AvoidIngredientInput
-        value={profile.avoidIngredients}
-        onChange={(v) => updateField('avoidIngredients', v)}
-      />
-
-      {/* 피부 고민 (복수 선택) */}
-      <div className="profile__field">
-        <label className="profile__label">피부 고민 (복수 선택)</label>
-        <div className="profile__concerns">
-          {PROFILE_OPTIONS.concerns.map((c) => (
+        <label className="profile__label">민감도 레벨</label>
+        <div className="profile__levels">
+          {PROFILE_OPTIONS.sensitivity.map((opt) => (
             <button
               type="button"
-              key={c}
-              className={`profile__chip ${
-                profile.concerns.includes(c) ? 'is-active' : ''
+              key={opt.value}
+              className={`profile__level ${
+                profile.senstive_yn === opt.value ? 'is-active' : ''
               }`}
-              onClick={() => toggleConcern(c)}
+              onClick={() => updateField('senstive_yn', opt.value)}
             >
-              {c}
+              <strong>{opt.value}</strong>
+              <span>{opt.label}</span>
             </button>
           ))}
         </div>
       </div>
 
-      <Button size="lg" onClick={handleSave}>
-        저장하고 분석하러 가기 →
+      <PreferenceSelector
+        value={profile.prod_type}
+        onChange={(v) => updateField('prod_type', v)}
+      />
+
+      <AvoidIngredientInput
+        value={profile.avoid_ingredient}
+        onChange={(v) => updateField('avoid_ingredient', v)}
+      />
+
+      <Button size="lg" onClick={handleSave} disabled={submitting}>
+        {submitting ? '저장 중...' : '저장하고 분석하러 가기 →'}
       </Button>
 
       <Modal

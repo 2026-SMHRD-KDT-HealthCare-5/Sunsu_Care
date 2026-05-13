@@ -1,16 +1,16 @@
-
+// src/pages/LoginPage.jsx
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import Input from '../components/common/Input'
 import Button from '../components/common/Button'
 import { useAuth } from '../hooks/useAuth'
-import { validateEmail, validatePassword } from '../utils/validation'
+import { validateId, validatePassword } from '../utils/validation'
 import './Auth.css'
 
 function LoginPage() {
   const navigate = useNavigate()
   const { login } = useAuth()
-  const [email, setEmail] = useState('')
+  const [id, setId] = useState('')
   const [password, setPassword] = useState('')
   const [errors, setErrors] = useState({})
   const [submitError, setSubmitError] = useState('')
@@ -21,18 +21,18 @@ function LoginPage() {
     setSubmitError('')
 
     const newErrors = {
-      email: validateEmail(email),
+      id: validateId(id),
       password: validatePassword(password),
     }
     setErrors(newErrors)
-    if (newErrors.email || newErrors.password) return
+    if (newErrors.id || newErrors.password) return
 
     setSubmitting(true)
     try {
-      await login(email, password)
+      await login(id, password)
       navigate('/')
     } catch (err) {
-      setSubmitError('로그인에 실패했어요. 다시 시도해주세요.')
+      setSubmitError('로그인에 실패했어요. 아이디/비밀번호를 확인해주세요.')
     } finally {
       setSubmitting(false)
     }
@@ -47,12 +47,11 @@ function LoginPage() {
 
       <form className="auth__form" onSubmit={handleSubmit}>
         <Input
-          label="이메일"
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="example@suncare.com"
-          error={errors.email}
+          label="아이디"
+          value={id}
+          onChange={(e) => setId(e.target.value)}
+          placeholder="영문, 숫자 4~20자"
+          error={errors.id}
         />
         <Input
           label="비밀번호"

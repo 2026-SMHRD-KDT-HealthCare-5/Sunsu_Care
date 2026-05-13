@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Button from '../components/common/Button'
 import { getProfile, getLastResult } from '../utils/storage'
+import { fetchProfile } from '../api/profileApi'
 import {
   guideSteps,
   tipsByType,
@@ -17,24 +18,24 @@ function GuidePage() {
   const [result, setResult] = useState(null)
 
   useEffect(() => {
-    setProfile(getProfile())
+    fetchProfile().then(setProfile)
     setResult(getLastResult())
   }, [])
 
   // 피부 타입별 팁 (프로필 있을 때만)
-  const typeTips = profile?.skinType ? tipsByType[profile.skinType] : null
+  const typeTips = profile?.skin_type ? tipsByType[profile.skin_type] : null
 
   // 민감 피부 팁 (프로필이 sensitive=true일 때만)
-  const showSensitiveTips = profile?.sensitive === true
+  const showSensitiveTips = profile?.senstive_yn >= 3
 
   // 분석 결과의 주의 성분에 매칭되는 팁
-  const riskTips = (result?.riskIngredients || [])
+  const riskTips = (result?.analysis_result?.risk_ingredients || [])
     .map((item) => riskIngredientTips[item.name])
     .filter(Boolean)
 
   // 헤더 문구
-  const headerText = profile?.skinType
-    ? `${profile.skinType}${profile.sensitive ? '·민감' : ''} 피부를 위한`
+  const headerText = profile?.skin_type
+    ? `${profile.skin_type}${profile.senstive_yn >= 3 ? '·민감' : ''} 피부를 위한`
     : '맞춤'
 
   return (
@@ -68,7 +69,7 @@ function GuidePage() {
       {typeTips && (
         <section className="guide__section guide__section--tip">
           <h2 className="guide__section-title">
-            💡 {profile.skinType} 피부 추가 팁
+            💡 {profile.skin_type} 피부 추가 팁
           </h2>
           <ul className="guide__tips">
             {typeTips.map((tip, idx) => (

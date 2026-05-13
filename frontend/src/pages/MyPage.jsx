@@ -3,9 +3,10 @@ import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Button from '../components/common/Button'
 import Modal from '../components/common/Modal'
-import { getProfile, getHistory } from '../utils/storage'
 import { useAuth } from '../hooks/useAuth'
 import { formatDate } from '../utils/formatDate'
+import { fetchProfile } from '../api/profileApi'
+import { fetchHistory } from '../api/analysisApi'
 import './MyPage.css'
 
 function getStatusClass(status) {
@@ -22,8 +23,8 @@ function MyPage() {
   const [showLogout, setShowLogout] = useState(false)
 
   useEffect(() => {
-    setProfile(getProfile())
-    setHistory(getHistory())
+    fetchProfile().then(setProfile)
+    fetchHistory().then(setHistory)
   }, [])
 
   const handleLogout = () => {
@@ -66,10 +67,11 @@ function MyPage() {
         {profile ? (
           <ul className="my__profile">
             <li><strong>피부 타입</strong><span>{profile.skinType || '-'}</span></li>
-            <li><strong>민감도</strong><span>{profile.sensitive ? '민감' : '보통'}</span></li>
-            <li><strong>선호 타입</strong><span>{profile.preferType || '-'}</span></li>
-            <li><strong>피부 고민</strong><span>{profile.concerns?.join(', ') || '-'}</span></li>
-            <li><strong>기피 성분</strong><span>{profile.avoidIngredients?.join(', ') || '-'}</span></li>
+            <li><strong>민감도</strong><span>{profile.senstive_yn ? `Lv. ${profile.senstive_yn}` : '-'}</span></li>
+            <li><strong>선호 제형</strong><span>{profile.preferType || '-'}</span></li>
+            <li><strong>기피 성분</strong>
+            <span>{profile.avoid_ingredient?.join(', ') || '-'}</span>
+            </li>
           </ul>
         ) : (
           <p className="my__empty">아직 피부 정보를 입력하지 않았어요.</p>
@@ -91,16 +93,16 @@ function MyPage() {
           <ul className="my__history">
             {history.map((item) => (
               <li
-                key={item.id}
+                key={item.analysis_idx}
                 className="my__history-item"
-                onClick={() => navigate(`/history/${item.id}`)}
+                onClick={() => navigate(`/history/${item.analysis_idx}`)}
               >
                 <div className="my__history-main">
-                  <h3 className="my__history-name">{item.productName}</h3>
-                  <p className="my__history-date">{formatDate(item.createdAt)}</p>
+                  <h3 className="my__history-name">{item.prod_name}</h3>
+                  <p className="my__history-date">{formatDate(item.analyzed_at)}</p>
                 </div>
                 <div className={`my__history-score ${getStatusClass(item.status)}`}>
-                  <span className="my__history-num">{item.score}</span>
+                  <span className="my__history-num">{item.suitability_score}</span>
                   <span className="my__history-badge">{item.status}</span>
                 </div>
               </li>

@@ -1,4 +1,4 @@
-
+// src/pages/HistoryDetailPage.jsx
 import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import Button from '../components/common/Button'
@@ -6,7 +6,10 @@ import ScoreCard from '../components/result/ScoreCard'
 import ReportSummary from '../components/result/ReportSummary'
 import RiskIngredientList from '../components/result/RiskIngredientList'
 import RecommendProductList from '../components/result/RecommendProductList'
-import { findHistoryById } from '../utils/storage'
+import {
+  fetchHistoryDetail,
+  fetchRecommendations,
+} from '../api/analysisApi'
 import { formatDateTime } from '../utils/formatDate'
 import './HistoryDetailPage.css'
 
@@ -14,15 +17,21 @@ function HistoryDetailPage() {
   const navigate = useNavigate()
   const { id } = useParams()
   const [result, setResult] = useState(undefined)
+  const [recommendations, setRecommendations] = useState([])
 
   useEffect(() => {
-    setResult(findHistoryById(id))
+    fetchHistoryDetail(id).then((r) => {
+      // 히스토리에는 _full에 전체 데이터가 있을 수 있음
+      const full = r?._full || r
+      setResult(full || null)
+      if (full?.analysis_idx) {
+        fetchRecommendations(full.analysis_idx).then(setRecommendations)
+      }
+    })
   }, [id])
 
-  // 로딩 중
   if (result === undefined) return null
 
-  // 결과 없음
   if (!result) {
     return (
       <div className="page history-empty">
@@ -38,6 +47,8 @@ function HistoryDetailPage() {
     )
   }
 
+  const ar = result.analysis_result || {}
+
   return (
     <div className="page history-detail">
       <div className="history-detail__top">
@@ -49,17 +60,24 @@ function HistoryDetailPage() {
           ← 히스토리로
         </button>
         <span className="history-detail__date">
-          {formatDateTime(result.createdAt)}
+          {formatDateTime(result.analyzed_at)}
         </span>
       </div>
 
-      <ScoreCard result={result} />
-      <ReportSummary
-        keyIngredients={result.keyIngredients}
-        reason={result.reason}
+      <ScoreCard
+        prod_name={result.prod_name}
+        suitability_score={result.suitability_score}
+        status={ar.status}
       />
-      <RiskIngredientList items={result.riskIngredients} />
-      <RecommendProductList productIds={result.recommendations} />
+
+      <ReportSummary
+        key_ingredients={ar.key_ingredients}
+        summary={ar.summary}
+      />
+
+      <RiskIngredientList items={ar.risk_ingredients} />
+
+      <RecommendProductList recommendations={recommendations} />
 
       <Button size="lg" onClick={() => navigate('/scan')}>
         🔄 다시 분석하기

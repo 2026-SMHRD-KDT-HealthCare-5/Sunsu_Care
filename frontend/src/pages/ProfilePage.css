@@ -100,3 +100,41 @@
   color: var(--color-primary-dark);
   font-weight: 600;
 }
+/* 민감도 레벨 (5칸 그리드) */
+.profile__levels {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: var(--space-2);
+}
+
+.profile__level {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-2);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  transition: all 0.2s;
+}
+
+.profile__level strong {
+  font-size: var(--font-md);
+  color: var(--color-text);
+}
+
+.profile__level span {
+  font-size: var(--font-xs);
+  color: var(--color-text-light);
+}
+
+.profile__level.is-active {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.profile__level.is-active strong,
+.profile__level.is-active span {
+  color: #fff;
+}
