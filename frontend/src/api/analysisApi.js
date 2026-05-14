@@ -1,4 +1,3 @@
-// src/api/analysisApi.js
 // import api from './axiosInstance'
 import mockAnalysisResult, {
   mockHistory,
@@ -9,13 +8,11 @@ import { getHistory, findHistoryById } from '../utils/storage'
 
 const delay = (ms) => new Promise((r) => setTimeout(r, ms))
 
-export const analyze = async ({ prod_name, product_image, ingredient_image }) => {
+export const analyze = async ({ ingredient_image }) => {
   await delay(1500)
 
   // 18단계 교체:
   // const formData = new FormData()
-  // formData.append('prod_name', prod_name)
-  // if (product_image) formData.append('product_image', product_image)
   // formData.append('ingredient_image', ingredient_image)
   // const { data } = await api.post('/analyze', formData, {
   //   headers: { 'Content-Type': 'multipart/form-data' }
@@ -25,7 +22,6 @@ export const analyze = async ({ prod_name, product_image, ingredient_image }) =>
   return {
     ...mockAnalysisResult,
     analysis_idx: Date.now(),
-    prod_name,
     analyzed_at: new Date().toISOString(),
   }
 }

@@ -55,7 +55,6 @@
 
 ---
 
-
 ## 2. 회원가입 — `POST /auth/signup`
 
 **Request**
@@ -90,8 +89,6 @@
 ```
 
 ---
-
-
 
 ## 3. 로그아웃 — `POST /auth/logout`
 
@@ -159,21 +156,22 @@ null
 
 # 🔍 Analysis API (tb_upload + tb_analysis)
 
+
 ## 6. 제품 분석 — `POST /analyze`
 
 **Content-Type**: `multipart/form-data`
 
 **Request (FormData)**
 
-| 필드                 | 타입   | 필수 | 설명                 |
-| -------------------- | ------ | ---- | -------------------- |
-| `prod_name`        | string | ✓   | 제품명 (사용자 입력) |
-| `product_image`    | File   | -    | 제품 사진            |
-| `ingredient_image` | File   | ✓   | 성분표 사진          |
+| 필드                 | 타입 | 필수 | 설명                 |
+| -------------------- | ---- | ---- | -------------------- |
+| `ingredient_image` | File | ✓   | 성분표 사진 (이미지) |
 
-> 💡 백엔드는 내부적으로 tb_upload에 파일 저장 → tb_analysis 생성 → 추천 산출 → tb_recommendation 저장.
+> 📌 제품명은 백엔드가 **OCR로 자동 추출**합니다.
+> 📌 추출 실패 시 `prod_name`은 `"분석된 제품"` 같은 기본값으로 응답.
+>
 
-**Response 200**
+Response 200
 
 ```json
 {

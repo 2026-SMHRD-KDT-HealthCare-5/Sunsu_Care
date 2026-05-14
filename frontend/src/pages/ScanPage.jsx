@@ -1,10 +1,8 @@
 
-// src/pages/ScanPage.jsx
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Button from '../components/common/Button'
 import Loading from '../components/common/Loading'
-import ProductInput from '../components/product/ProductInput'
 import ImageUploader from '../components/product/ImageUploader'
 import { analyze } from '../api/analysisApi'
 import {
@@ -18,8 +16,6 @@ import './ScanPage.css'
 function ScanPage() {
   const navigate = useNavigate()
 
-  const [productName, setProductName] = useState('')
-  const productImg = useImagePreview()
   const ingredientImg = useImagePreview()
 
   const [error, setError] = useState('')
@@ -33,10 +29,6 @@ function ScanPage() {
   const handleAnalyze = async () => {
     setError('')
 
-    if (!productName.trim()) {
-      setError('제품명을 입력해주세요.')
-      return
-    }
     if (!ingredientImg.file) {
       setError('성분표 사진을 업로드해주세요.')
       return
@@ -45,8 +37,6 @@ function ScanPage() {
     setIsAnalyzing(true)
     try {
       const result = await analyze({
-        prod_name: productName,
-        product_image: productImg.file,
         ingredient_image: ingredientImg.file,
       })
 
@@ -57,7 +47,6 @@ function ScanPage() {
         suitability_score: result.suitability_score,
         status: result.analysis_result?.status,
         analyzed_at: result.analyzed_at,
-        // 상세 페이지용 전체 결과
         _full: result,
       })
       navigate('/result')
@@ -67,12 +56,20 @@ function ScanPage() {
       setIsAnalyzing(false)
     }
   }
-  
+
+  if (isAnalyzing) {
+    return (
+      <div className="page">
+        <Loading message="AI가 성분을 분석 중이에요... 약 1~2초 소요됩니다" />
+      </div>
+    )
+  }
+
   return (
     <div className="page scan">
       <div className="scan__header">
         <h1 className="scan__title">제품 성분 스캔</h1>
-        <p className="scan__subtitle">제품명과 성분표 사진을 올려주세요</p>
+        <p className="scan__subtitle">성분표 사진을 올려주세요</p>
       </div>
 
       {!hasProfile && (
@@ -88,19 +85,8 @@ function ScanPage() {
         </div>
       )}
 
-      <ProductInput
-        value={productName}
-        onChange={(e) => setProductName(e.target.value)}
-      />
-
       <ImageUploader
-        label="제품 사진 (선택)"
-        previewUrl={productImg.preview}
-        onFileChange={productImg.setFile}
-      />
-
-      <ImageUploader
-        label="성분표 사진 (필수)"
+        label="성분표 사진"
         previewUrl={ingredientImg.preview}
         onFileChange={ingredientImg.setFile}
       />
@@ -115,4 +101,3 @@ function ScanPage() {
 }
 
 export default ScanPage
-
