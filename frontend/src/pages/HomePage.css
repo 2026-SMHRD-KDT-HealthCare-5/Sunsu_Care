@@ -2,91 +2,241 @@
 .home {
   display: flex;
   flex-direction: column;
-  gap: var(--space-6);
+  background: var(--color-surface);
 }
 
-/* ───── 1. 히어로 ───── */
+/* ───────── 1. 히어로 ───────── */
 .home__hero {
-  text-align: center;
-  padding: var(--space-5) 0 var(--space-3);
+  position: relative;
+  width: 100%;
+  height: 580px;
+  overflow: hidden;
+  background-color: var(--color-beige);
 }
 
-.home__hero-emoji {
-  font-size: 64px;
-  margin-bottom: var(--space-3);
+.home__hero-text {
+  position: absolute;
+  top: 50%;
+  left: var(--space-5);
+  transform: translateY(-60%);
 }
 
-.home__title {
-  font-size: var(--font-2xl);
+.home__hero-title {
+  font-size: 36px;
   font-weight: 700;
+  color: #fff;
+  line-height: 1.2;
+  letter-spacing: -0.5px;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+}
+
+.home__hero-buttons {
+  position: absolute;
+  bottom: 70px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 80px;
+}
+
+/* 둥근 버튼 + 호흡 링 래퍼 */
+.home__circle-wrap {
+  position: relative;
+  width: 105px;
+  height: 105px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.home__circle-btn {
+  position: relative;
+  z-index: 2;
+  width: 105px;
+  height: 105px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.95);
   color: var(--color-text);
-  line-height: 1.3;
-  margin-bottom: var(--space-3);
+  font-size: var(--font-sm);
+  font-weight: 600;
+  line-height: 1.4;
+  text-align: center;
+  transition: all 0.2s;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+  cursor: pointer;
+  border: none;
 }
 
-.home__subtitle {
-  color: var(--color-text-light);
-  line-height: 1.6;
+.home__circle-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18);
+  background-color: #fff;
 }
 
-/* ───── 2. CTA 카드 ───── */
-.home__cta {
+.home__circle-btn:active {
+  transform: translateY(-1px);
+}
+
+/* ───────── 다중 아웃라인 호흡 링 ───────── */
+.home__ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border-radius: 50%;
+  background-color: #fff;
+  pointer-events: none;
+  z-index: 1;
+  will-change: transform, opacity;
+}
+
+.home__ring--1 {
+  width: 125px;
+  height: 125px;
+  opacity: 0.28;
+  animation: ring-pulse-1 4.5s ease-in-out infinite;
+}
+
+.home__ring--2 {
+  width: 155px;
+  height: 155px;
+  opacity: 0.2;
+  animation: ring-drift-2 6s ease-in-out infinite;
+}
+
+.home__ring--3 {
+  width: 185px;
+  height: 185px;
+  opacity: 0.13;
+  animation: ring-drift-3 7.5s ease-in-out infinite;
+}
+
+/* 오른쪽 버튼은 위상 차이로 비동기화 */
+.home__circle-wrap--b .home__ring--1 { animation-delay: -1.2s; }
+.home__circle-wrap--b .home__ring--2 { animation-delay: -2.5s; }
+.home__circle-wrap--b .home__ring--3 { animation-delay: -3.8s; }
+
+@keyframes ring-pulse-1 {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.28;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.08);
+    opacity: 0.18;
+  }
+}
+
+@keyframes ring-drift-2 {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.2;
+  }
+  33% {
+    transform: translate(-58%, -45%) scale(1.05);
+    opacity: 0.14;
+  }
+  66% {
+    transform: translate(-44%, -55%) scale(0.97);
+    opacity: 0.24;
+  }
+}
+
+@keyframes ring-drift-3 {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.13;
+  }
+  40% {
+    transform: translate(-42%, -54%) scale(1.06);
+    opacity: 0.08;
+  }
+  70% {
+    transform: translate(-56%, -46%) scale(0.94);
+    opacity: 0.17;
+  }
+}
+
+/* ───────── 2. 베이지 인트로 ───────── */
+.home__intro {
+  background-color: var(--color-beige);
+  padding: var(--space-7) var(--space-5);
+  text-align: center;
   display: flex;
   flex-direction: column;
-  gap: var(--space-4);
+  align-items: center;
+  gap: var(--space-5);
 }
 
-.home__cta-card {
-  background-color: var(--color-bg);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  padding: var(--space-5);
-  text-align: center;
-  cursor: pointer;
-  transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.home__cta-card:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
-}
-
-.home__cta-icon {
-  font-size: 40px;
-  margin-bottom: var(--space-2);
-}
-
-.home__cta-title {
-  font-size: var(--font-lg);
+.home__intro-title {
+  font-size: var(--font-xl);
   font-weight: 700;
-  margin-bottom: var(--space-2);
+  line-height: 1.5;
+  color: var(--color-text);
 }
 
-.home__cta-desc {
-  color: var(--color-text-light);
+.home__intro-list {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-2);
   font-size: var(--font-sm);
-  margin-bottom: var(--space-4);
-  line-height: 1.6;
+  color: var(--color-text);
 }
 
-/* ───── 3. 특징 섹션 ───── */
-.home__features {
-  background-color: var(--color-secondary);
-  border-radius: var(--radius-lg);
-  padding: var(--space-5);
+.home__intro-list li {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
 }
 
-.home__features-title {
-  font-size: var(--font-lg);
+.home__intro-mark {
+  color: var(--color-beige-dark);
   font-weight: 700;
-  margin-bottom: var(--space-4);
+  font-size: var(--font-md);
+  width: 16px;
   text-align: center;
+  flex-shrink: 0;
+}
+
+.home__start-btn {
+  padding: var(--space-3) var(--space-7);
+  background-color: var(--color-dark);
+  color: #fff;
+  border-radius: var(--radius-full);
+  font-size: var(--font-md);
+  font-weight: 600;
+  margin-top: var(--space-2);
+  transition: all 0.2s;
+  cursor: pointer;
+  border: none;
+}
+
+.home__start-btn:hover {
+  background-color: #000;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* ───────── 3. WHY 섹션 ───────── */
+.home__why {
+  padding: var(--space-7) var(--space-5);
+  background-color: var(--color-surface);
+  text-align: center;
+}
+
+.home__why-title {
+  font-size: var(--font-xl);
+  font-weight: 700;
+  margin-bottom: var(--space-6);
+  letter-spacing: 3px;
+  color: var(--color-text);
 }
 
 .home__features-list {
   display: flex;
   flex-direction: column;
   gap: var(--space-4);
+  text-align: left;
 }
 
 .home__features-list li {
@@ -110,4 +260,5 @@
 .home__features-list p {
   color: var(--color-text-light);
   font-size: var(--font-sm);
+  line-height: 1.5;
 }
