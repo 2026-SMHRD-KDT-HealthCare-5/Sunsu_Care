@@ -26,12 +26,12 @@
 
 ```json
 {
-  "id": "myaccount",
+  "email": "user@example.com",
   "password": "string"
 }
 ```
 
-> 📌 로그인 키는 **id**(아이디). email 아님.
+> 📌 로그인 키는 **email**.
 
 **Response 200**
 
@@ -40,7 +40,6 @@
   "token": "jwt-token-string",
   "user": {
     "user_idx": 1,
-    "id": "myaccount",
     "name": "정아인",
     "email": "user@example.com",
     "role": "user"
@@ -51,10 +50,11 @@
 **Response 401**
 
 ```json
-{ "message": "아이디 또는 비밀번호가 일치하지 않습니다." }
+{ "message": "이메일 또는 비밀번호가 일치하지 않습니다." }
 ```
 
 ---
+
 
 ## 2. 회원가입 — `POST /auth/signup`
 
@@ -62,15 +62,13 @@
 
 ```json
 {
-  "id": "myaccount",
-  "password": "string",
-  "name": "정아인",
   "email": "user@example.com",
-  "phone": "010-1234-5678"
+  "password": "string",
+  "name": "정아인"
 }
 ```
 
-> 📌 `role`은 백엔드에서 **자동 부여** (프론트에서 안 보냄).
+> 📌 `role`은 백엔드에서 **자동 부여**. `id`, `phone` 필드는 사용하지 않음 (2026-05-14 정책 변경).
 
 **Response 200**
 
@@ -79,7 +77,6 @@
   "success": true,
   "user": {
     "user_idx": 1,
-    "id": "myaccount",
     "name": "정아인",
     "email": "user@example.com"
   }
@@ -89,12 +86,12 @@
 **Response 409 (중복)**
 
 ```json
-{ "message": "이미 사용 중인 아이디입니다.", "field": "id" }
+{ "message": "이미 사용 중인 이메일입니다.", "field": "email" }
 ```
 
-> 💡 unique 제약: tb_user(email, phone). id도 보통 unique.
-
 ---
+
+
 
 ## 3. 로그아웃 — `POST /auth/logout`
 

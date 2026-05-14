@@ -79,12 +79,13 @@ frontend/src/
 ### tb_user (사용자)
 
 - `user_idx` (PK, AUTO_INCREMENT)
-- `id` (VARCHAR 50) — **로그인용 아이디**
+- ~~`id` (VARCHAR 50)~~ — 사용 안 함 (2026-05-14 정책: 이메일 로그인)
 - `password_hash` (VARCHAR 255)
-- `name`, `email`, `phone`
+- `name`, `email`
+- ~~`phone`~~ — 사용 안 함 (2026-05-14 정책)
 - `role` (VARCHAR 20) — 가입 시 자동 부여
 - `created_at`, `updated_at`, `deleted_at`
-- UNIQUE: (email, phone)
+- UNIQUE: email
 
 ### tb_profile (피부 프로필, User 1:1)
 
@@ -139,7 +140,6 @@ frontend/src/
 - `created_at`
 
 > 📌 응답 JSON 모양은 [`API_SPEC.md`](./API_SPEC.md) 참고.
->
 
 ## 🚀 실행 방법 (받아서 돌려보기)
 

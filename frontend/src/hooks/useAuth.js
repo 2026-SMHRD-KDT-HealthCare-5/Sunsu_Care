@@ -13,14 +13,12 @@ export function useAuth() {
   const [token, setToken] = useState(null)
   const [email, setEmail] = useState('')
   const [userName, setUserName] = useState('')
-  const [userId, setUserId] = useState('')
 
   useEffect(() => {
     const sync = () => {
       setToken(getAuthToken())
       setEmail(getUserEmail() || '')
       setUserName(localStorage.getItem('userName') || '')
-      setUserId(localStorage.getItem('userId') || '')
     }
     sync()
     window.addEventListener(AUTH_EVENT, sync)
@@ -31,11 +29,10 @@ export function useAuth() {
     }
   }, [])
 
-  const login = async (id, password) => {
-    const result = await loginApi(id, password)
+  const login = async (email, password) => {
+    const result = await loginApi(email, password)
     localStorage.setItem('authToken', result.token)
-    localStorage.setItem('userId', result.user.id || id)
-    localStorage.setItem('userEmail', result.user.email || '')
+    localStorage.setItem('userEmail', result.user.email || email)
     localStorage.setItem('userName', result.user.name || '')
     window.dispatchEvent(new Event(AUTH_EVENT))
     return result
@@ -54,7 +51,6 @@ export function useAuth() {
     isLoggedIn: !!token,
     userEmail: email,
     userName,
-    userId,
     login,
     logout,
   }

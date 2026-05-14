@@ -6,24 +6,20 @@ import Button from '../components/common/Button'
 import Modal from '../components/common/Modal'
 import { signup } from '../api/authApi'
 import {
-  validateId,
+  validateEmail,
   validatePassword,
   validatePasswordMatch,
   validateName,
-  validateEmail,
-  validatePhone,
 } from '../utils/validation'
 import './Auth.css'
 
 function SignupPage() {
   const navigate = useNavigate()
   const [form, setForm] = useState({
-    id: '',
+    email: '',
     password: '',
     confirm: '',
     name: '',
-    email: '',
-    phone: '',
   })
   const [errors, setErrors] = useState({})
   const [submitError, setSubmitError] = useState('')
@@ -38,12 +34,10 @@ function SignupPage() {
     setSubmitError('')
 
     const newErrors = {
-      id: validateId(form.id),
+      email: validateEmail(form.email),
       password: validatePassword(form.password),
       confirm: validatePasswordMatch(form.password, form.confirm),
       name: validateName(form.name),
-      email: validateEmail(form.email),
-      phone: validatePhone(form.phone),
     }
     setErrors(newErrors)
     if (Object.values(newErrors).some(Boolean)) return
@@ -51,11 +45,9 @@ function SignupPage() {
     setSubmitting(true)
     try {
       await signup({
-        id: form.id,
+        email: form.email,
         password: form.password,
         name: form.name,
-        email: form.email,
-        phone: form.phone,
       })
       setShowSuccess(true)
     } catch (err) {
@@ -79,11 +71,12 @@ function SignupPage() {
 
       <form className="auth__form" onSubmit={handleSubmit}>
         <Input
-          label="아이디"
-          value={form.id}
-          onChange={update('id')}
-          placeholder="영문, 숫자 4~20자"
-          error={errors.id}
+          label="이메일"
+          type="email"
+          value={form.email}
+          onChange={update('email')}
+          placeholder="example@suncare.com"
+          error={errors.email}
         />
         <Input
           label="비밀번호"
@@ -107,22 +100,6 @@ function SignupPage() {
           onChange={update('name')}
           placeholder="이름을 입력하세요"
           error={errors.name}
-        />
-        <Input
-          label="이메일"
-          type="email"
-          value={form.email}
-          onChange={update('email')}
-          placeholder="example@suncare.com"
-          error={errors.email}
-        />
-        <Input
-          label="연락처"
-          type="tel"
-          value={form.phone}
-          onChange={update('phone')}
-          placeholder="010-1234-5678"
-          error={errors.phone}
         />
 
         {submitError && <p className="auth__error">{submitError}</p>}
