@@ -1,4 +1,3 @@
-
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 import MainLayout from '../layouts/MainLayout'
@@ -11,6 +10,7 @@ import ResultPage from '../pages/ResultPage'
 import GuidePage from '../pages/GuidePage'
 import MyPage from '../pages/MyPage'
 import HistoryDetailPage from '../pages/HistoryDetailPage'
+import ShoppingPage from '../pages/ShoppingPage';
 
 function AppRouter() {
   return (
@@ -27,6 +27,7 @@ function AppRouter() {
             <Route path="/guide" element={<GuidePage />} />
             <Route path="/mypage" element={<MyPage />} />
             <Route path="/history/:id" element={<HistoryDetailPage />} />
+            <Route path="/ShoppingPage" element={<ShoppingPage />} />
             <Route
               path="*"
               element={
