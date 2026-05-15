@@ -46,5 +46,45 @@ a:hover {
 .main-layout__content {
   flex: 1;
 }
-/*  BottomNav가 약 56~64px이므로 여유 있게 72px. 
-디자인 교체 시 BottomNav 높이 바뀌면 이 값만 조정. */
+
+/* 1. 설문창이 켜졌을 때, 메인 레이아웃 내부의 일반 컨텐츠만 가리기 */
+body:has(.page.survey) .main-layout__content > *:not(.page.survey) {
+    display: none !important;
+}
+
+/* 2. 메인 레이아웃 하단 패딩 제거 */
+body:has(.page.survey) .main-layout {
+    padding-bottom: 0 !important;
+}
+
+/* 3. 메인 전용 하단 바/네비게이션 완벽 차단 */
+body:has(.page.survey) nav,
+body:has(.page.survey) .BottomNav,
+body:has(.page.survey) [class*="BottomNav"] {
+    display: none !important;
+}
+
+/* 4. 🚨 핵심: survey-footer가 "아닌" 모든 푸터 요소를 정밀 타격하여 숨김 */
+body:has(.page.survey) footer:not(.survey-footer),
+body:has(.page.survey) [class*="footer"]:not(.survey-footer) {
+    display: none !important;
+}
+
+/* 5. 기존 호환성용 modal-open 규칙에도 동일한 정밀 타격 적용 */
+body.modal-open .main-layout__content > *:not(.page.survey),
+body.modal-open nav,
+body.modal-open .BottomNav,
+body.modal-open [class*="BottomNav"],
+body.modal-open footer:not(.survey-footer),
+body.modal-open [class*="footer"]:not(.survey-footer) {
+    display: none !important;
+}
+
+html, body {
+  /* 스크롤바가 사라져도 그 공간을 유지하여 화면 틀어짐 방지 */
+  scrollbar-gutter: stable;
+}
+
+body:has(.page.survey) {
+  overflow: hidden !important; 
+}
