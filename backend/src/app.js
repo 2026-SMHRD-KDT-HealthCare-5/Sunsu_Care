@@ -11,10 +11,10 @@ const app=express()
 app.use(express.json())
 
 //각 요청 URL을 해당하는 라우터 호출
-const userRoutes= require("./routes/userRoutes")
+const authRoutes= require("./routes/authRoutes")
 
-//특정 URL 해당 라우터로 연결하기
-app.use("/user", userRoutes)
+//1. authApi 라우터 경로 설정
+app.use("/api/auth", authRoutes)
 
 //app 객체를 server에서 사용할 수 있도록 내보내기
 module.exports=app
