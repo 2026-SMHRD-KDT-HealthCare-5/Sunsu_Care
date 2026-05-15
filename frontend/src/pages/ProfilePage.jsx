@@ -29,7 +29,14 @@ const CONSTANTS = {
   ],
   ENV_OPTIONS: ['실내 (사무실/학교)', '야외 활동 (운동/현장)', '블루라이트 노출 많음'],
   CONCERN_OPTIONS: ['얼굴이 허옇게 뜨는 백탁', '바를 때 눈이 시림', '모공 막힘 및 트러블', '끈적이고 답답함'],
-  TEXTURE_OPTIONS: ['촉촉한 로션/에센스', '보송한 무기자차', '간편한 스틱/쿠션', '상관없음']
+  
+  // 트렌디한 UI를 위한 아이콘 및 설명 데이터
+  TEXTURE_OPTIONS: [
+    { id: '촉촉한 로션/에센스', label: '촉촉한 로션/에센스', desc: '수분크림처럼 부드럽고 투명하게', icon: 'fa-droplet' },
+    { id: '보송한 무기자차', label: '보송한 무기자차', desc: '유분기를 잡아주어 산뜻하게', icon: 'fa-soap' },
+    { id: '간편한 스틱/쿠션', label: '간편한 스틱/쿠션', desc: '손에 묻지 않고 어디서나 슥슥', icon: 'fa-wand-magic-sparkles' },
+    { id: '상관없음', label: '상관없음', desc: '내 피부에 가장 최적화된 제형으로', icon: 'fa-check' }
+  ]
 };
 
 const AI_QUESTIONS = {
@@ -42,7 +49,8 @@ const AI_QUESTIONS = {
 
 const calculateSkinType = (answers) => {
   if (!answers || !answers.diag1) return "미진단";
-  return "수분 부족형 지성 및 민감성 (AI 진단)";
+  // 실제 서비스 시 답변 로직에 따라 분기 가능
+  return "수분 부족형 지성 및 민감성";
 };
 
 function ProfilePage() {
@@ -74,7 +82,7 @@ function ProfilePage() {
   const getNextButtonText = () => {
     if (step === STEPS.AI_END) return '진단 완료하기';
     if (step === STEPS.AI_BRIDGE) return '맞춤 질문 이어가기';
-    if (step === STEPS.FINAL) return '완료하기';
+    if (step === STEPS.FINAL) return '나만의 맞춤 선크림 분석하기';
     return '다음';
   };
 
@@ -107,7 +115,6 @@ function ProfilePage() {
     }
   }, [navigate, clearAutoNavTimer]);
 
-  // 🛠️ 버그 수정 및 안정화된 handleSelect 함수
   const handleSelect = useCallback((field, value) => {
     clearAutoNavTimer();
     
@@ -119,8 +126,11 @@ function ProfilePage() {
     }
     
     setAnswers(newAnswers);
-    setIsAutoNavigating(true);
 
+    // 마지막 단계에서는 자동으로 넘어가지 않음
+    if (field === 'texture') return;
+
+    setIsAutoNavigating(true);
     const currentStepSnapshot = step; 
     timerRef.current = setTimeout(() => {
       handleNextStep(newAnswers, currentStepSnapshot);
@@ -142,7 +152,6 @@ function ProfilePage() {
 
   const progressPercentage = useMemo(() => {
     const isAiPath = !!answers.diag1 || step === STEPS.AI_BRIDGE || (step >= STEPS.AI_START && step <= STEPS.AI_END);
-    
     let currentProgressIndex = step;
     let totalStepsCount = STEPS.FINAL;
 
@@ -266,20 +275,36 @@ function ProfilePage() {
           </div>
         )}
 
-        {/* Step 11: 공통 질문 - 제형 */}
+        {/* Step 11: 최종 질문 - 제형 (Trendy Card UI) */}
         {step === STEPS.FINAL && (
           <div>
-            <h2 className="question-title">선호하는 선크림 제형이<br/>있나요?</h2>
-            <div className="option-list">
-              {CONSTANTS.TEXTURE_OPTIONS.map((opt) => (
-                <button key={opt} onClick={() => handleSelect('texture', opt)} className={`option-btn ${answers.texture === opt ? 'active' : ''}`}>{opt}</button>
+            <h2 className="question-title">마지막! 선호하는<br/>선크림 제형이 있나요?</h2>
+            <p className="question-desc-sub">가장 마음에 드는 스타일 하나를 선택해 주세요.</p>
+            <div className="texture-grid-wrap">
+              {CONSTANTS.TEXTURE_OPTIONS.map((item) => (
+                <div 
+                  key={item.id} 
+                  onClick={() => handleSelect('texture', item.id)} 
+                  className={`texture-card ${answers.texture === item.id ? 'active' : ''}`}
+                >
+                  <div className="texture-icon">
+                    <i className={`fa-solid ${item.icon}`}></i>
+                  </div>
+                  <div className="texture-text">
+                    <span className="texture-label">{item.label}</span>
+                    <span className="texture-desc">{item.desc}</span>
+                  </div>
+                  <div className="texture-checkbox">
+                    <i className={`fa-solid ${answers.texture === item.id ? 'fa-circle-check' : 'fa-circle'}`}></i>
+                  </div>
+                </div>
               ))}
             </div>
           </div>
         )}
       </main>
 
-      <footer className="survey-footer">
+      <footer className={`survey-footer ${step === STEPS.FINAL ? 'final-step' : ''}`}>
         {step > 1 && (
           <button 
             className="nav-btn prev" 

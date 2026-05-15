@@ -13,42 +13,37 @@
   --gray-900: #111111;
 }
 
-/* 1. 전체 화면 설정 */
+/* 전체 화면 설정 */
 .page.survey {
   position: fixed;
   top: 70px;
   left: 50%;
   transform: translateX(-50%);
-  
   width: calc(100% - 32px); 
   max-width: 420px;
-  
-  /* 다이나믹 뷰포트 대응 */
   height: calc(100vh - 70px); 
   height: calc(100dvh - 70px); 
-  
   border-top-left-radius: 24px;
   border-top-right-radius: 24px;
-
-  background-color: rgba(255, 255, 255, 0.9); 
+  background-color: rgba(255, 255, 255, 0.95); 
   backdrop-filter: blur(10px); 
   -webkit-backdrop-filter: blur(10px); 
-
   z-index: 9999;
   display: flex;
   flex-direction: column;
   overflow: hidden; 
   box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.08);
+  backface-visibility: hidden;
+  transform: translateX(-50%) translateZ(0); /* 기존 translateX와 합쳐서 작성 */
 }
 
-/* 2. 헤더 섹션 */
+/* 헤더 섹션 */
 .survey-header {
   height: 60px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 20px;
-  background: rgba(255, 255, 255, 0.8);
   flex-shrink: 0;
 }
 
@@ -61,7 +56,15 @@
 
 .survey-header .logo span { color: var(--primary-color); }
 
-/* 3. 진행률 바 */
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: var(--gray-500);
+  cursor: pointer;
+}
+
+/* 진행률 바 */
 .progress-container {
   width: 100%;
   height: 4px;
@@ -76,13 +79,14 @@
   transition: width 0.3s ease;
 }
 
-/* 4. 메인 질문 영역 */
+/* 메인 질문 영역 */
 .survey-main {
   flex: 1;
   padding: 30px 24px;
-  background-color: transparent;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
+  backface-visibility: hidden;
+  transform: translateZ(0); 
 }
 
 .survey-main::-webkit-scrollbar { display: none; }
@@ -92,11 +96,18 @@
   font-weight: 700;
   text-align: center;
   line-height: 1.5;
-  margin-bottom: 30px;
+  margin-bottom: 24px;
   color: var(--gray-900);
 }
 
-/* 5. 선택 버튼 스타일 */
+.question-subtitle {
+  display: block;
+  font-size: 0.9rem;
+  color: var(--primary-color);
+  margin-bottom: 8px;
+}
+
+/* 선택 버튼 기본 */
 .option-list { display: flex; flex-direction: column; gap: 12px; }
 
 .option-btn {
@@ -110,35 +121,35 @@
   font-weight: 500;
   transition: all 0.2s ease;
   cursor: pointer;
-  touch-action: manipulation; /* 모바일 터치 반응성 최적화 */
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent; /* 모바일 터치 시 파란 박스 제거 */
+  backface-visibility: hidden;
+  transform: translateZ(0);
 }
 
-.option-btn:active { transform: scale(0.98); background-color: var(--gray-50); }
-
-/* 일반 옵션 선택 시 */
 .option-btn.active {
-  border: 2px solid var(--primary-color);
-  background-color: #fff9f5;
+  /* 🚀 border와 outline 대신 보더 색상만 바꾸고 안쪽 그림자로 2px 효과 */
+  border-color: var(--primary-color);
+  box-shadow: inset 0 0 0 1px var(--primary-color); 
+  background-color: var(--primary-light);
   color: var(--primary-color);
-  font-weight: 700;
+  font-weight: 500; 
+  outline: none; 
 }
 
-/* '잘 모르겠음 / 기타' 전용 스타일 */
 .option-btn.unknown {
   background-color: var(--gray-50);
   border: 1px dashed var(--gray-300);
   color: var(--gray-500);
 }
 
-.option-btn.unknown:active {
-  background-color: var(--gray-100);
-}
-
 .option-btn.unknown.active {
-  border: 2px solid var(--gray-500);
+  border: 1px solid var(--gray-500); /* 2px -> 1px로 변경 */
+  outline: 1px solid var(--gray-500); /* 아웃라인 추가 */
   background-color: var(--gray-100);
   color: var(--gray-800);
-  font-weight: 700;
+  font-weight: 500; /* 두께 유지 */
+  text-shadow: 0.3px 0 0 var(--gray-800), -0.3px 0 0 var(--gray-800); /* 필요시 추가 */
 }
 
 /* 성별 선택 카드 */
@@ -155,10 +166,8 @@
   background: #ffffff;
   transition: all 0.2s;
   cursor: pointer;
-  touch-action: manipulation;
 }
 
-.gender-card:active { transform: scale(0.96); }
 .gender-card.active-male { border: 2px solid #3b82f6; background: #eff6ff; }
 .gender-card.active-female { border: 2px solid #ec4899; background: #fdf2f8; }
 
@@ -171,13 +180,63 @@
 .gender-icon.male { background: #3b82f6; }
 .gender-icon.female { background: #f472b6; }
 
-/* 6. 푸터 네비게이션 */
+/* 제형 선택 (Trendy 카드) */
+.question-desc-sub {
+  font-size: 0.95rem;
+  color: var(--gray-500);
+  text-align: center;
+  margin-top: -15px;
+  margin-bottom: 24px;
+}
+
+.texture-grid-wrap { display: flex; flex-direction: column; gap: 12px; }
+
+.texture-card {
+  display: flex;
+  align-items: center;
+  background-color: #ffffff;
+  border: 1px solid var(--gray-200);
+  border-radius: 16px;
+  padding: 16px 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.texture-card.active {
+  border: 2px solid var(--primary-color);
+  background-color: var(--primary-light);
+}
+
+.texture-icon {
+  width: 44px; height: 44px;
+  border-radius: 12px;
+  background-color: var(--gray-50);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem; color: var(--gray-700);
+  margin-right: 16px;
+  border: 1px solid var(--gray-100);
+}
+
+.texture-card.active .texture-icon {
+  background-color: var(--primary-color);
+  color: #fff;
+}
+
+.texture-text { display: flex; flex-direction: column; flex: 1; text-align: left; }
+.texture-label { font-size: 1rem; font-weight: 700; color: var(--gray-800); }
+.texture-card.active .texture-label { color: var(--primary-color); }
+.texture-desc { font-size: 0.85rem; color: var(--gray-500); }
+
+.texture-checkbox { font-size: 1.2rem; color: var(--gray-300); }
+.texture-card.active .texture-checkbox { color: var(--primary-color); }
+
+/* 푸터 네비게이션 */
 .survey-footer {
   padding: 15px 24px 35px;
   display: flex;
   gap: 10px;
-  background: rgba(255, 255, 255, 0.9);
-  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  background: #fff;
+  border-top: 1px solid var(--gray-100);
   flex-shrink: 0;
 }
 
@@ -189,146 +248,49 @@
   border: none;
   cursor: pointer;
   transition: 0.2s;
-  touch-action: manipulation;
 }
 
 .nav-btn.prev { flex: 1; background: #fff; border: 1px solid var(--gray-300); color: var(--gray-700); }
 .nav-btn.next { flex: 2; background: var(--primary-color); color: #fff; }
-.nav-btn.next:disabled { background: var(--gray-300); color: #fff; }
+.nav-btn.next:disabled { background: var(--gray-300); color: #fff; cursor: not-allowed; }
 
-/* 7. 애니메이션 및 모달 */
+/* 최종 단계 푸터 특화 */
+/* [수정] 최종 단계 푸터 특화 */
+.survey-footer.final-step .prev { 
+  /* flex 구조를 깨뜨리지 않고 비율을 자연스럽게 조절하거나, 
+     기존 flex: 1을 유지하면서 부드럽게 줄어들게 합니다. */
+  flex: 0.6; /* 👈 고정 px 대신 비율로 조절해 리플로우 방지 */
+  background-color: var(--gray-100); 
+  color: var(--gray-700); 
+  border: none; 
+  transition: all 0.3s ease; /* 👈 전환을 부드럽게 */
+}
+
+.survey-footer.final-step .next { 
+  flex: 2.4; /* 👈 합쳐서 전체 비율을 유지 */
+  background: linear-gradient(135deg, var(--primary-color) 0%, #e06c00 100%); 
+  box-shadow: 0 4px 16px rgba(255, 140, 0, 0.25); 
+  transition: all 0.3s ease;
+  
+  /* 혹시 모를 그래픽 연산 떨림 방지용 쉴드 */
+  backface-visibility: hidden;
+  transform: translateZ(0); 
+}
+
+/* 브릿지 화면 */
+.bridge-container { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 20px 10px; }
+.bridge-icon-wrap { font-size: 64px; color: var(--primary-color); margin-bottom: 20px; animation: scaleUp 0.5s ease forwards; }
+.bridge-title { font-size: 1.6rem; font-weight: 800; margin-bottom: 16px; }
+.bridge-description .highlight { color: var(--primary-color); font-weight: 700; background-color: var(--primary-light); padding: 2px 8px; border-radius: 6px; }
+.bridge-notice-box { width: 100%; background-color: var(--gray-50); border: 1px dashed var(--gray-300); padding: 18px; border-radius: 14px; text-align: left; margin-top: 20px; }
+
+/* 애니메이션 */
 @keyframes fadeInUp {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
 }
 .fade-in-up { animation: fadeInUp 0.4s ease-out forwards; }
 
-/* 모달 배경: 안전한 스크롤 패딩 추가 */
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 10000;
-  padding: 20px; /* 기기 높이가 작을 때를 대비한 최소 여백 */
-  overflow-y: auto; 
-}
-
-/* 모달 박스 */
-.modal-content {
-  background-color: #ffffff;
-  padding: 30px 24px;
-  border-radius: 20px;
-  width: 100%;
-  max-width: 360px;
-  text-align: center;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-  animation: fadeInUp 0.3s ease-out forwards;
-}
-
-.modal-content h3 {
-  font-size: 1.25rem;
-  font-weight: 700;
-  margin-bottom: 12px;
-  color: var(--gray-900);
-}
-
-.modal-content p {
-  font-size: 0.95rem;
-  color: #555555;
-  line-height: 1.6;
-  margin-bottom: 24px;
-  word-break: keep-all;
-}
-
-/* 확인 버튼 스타일 */
-.modal-confirm-btn {
-  width: 100%;
-  height: 50px;
-  background-color: var(--primary-color);
-  color: #ffffff;
-  border: none;
-  border-radius: 25px;
-  font-size: 1rem;
-  font-weight: 700;
-  cursor: pointer;
-  transition: background-color 0.2s;
-  touch-action: manipulation;
-}
-
-/* 호버 효과는 데스크톱(마우스 환경)에서만 작동하도록 제한하여 모바일 sticky 버그 방지 */
-@media (hover: hover) {
-  .modal-confirm-btn:hover {
-    background-color: var(--primary-hover);
-  }
-}
-
-/* 브릿지 화면 */
-.bridge-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  padding: 20px 10px;
-}
-
-.bridge-icon-wrap {
-  font-size: 64px;
-  color: var(--primary-color);
-  margin-bottom: 20px;
-  animation: scaleUp 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-}
-
-.bridge-title {
-  font-size: 1.6rem;
-  font-weight: 800;
-  color: var(--gray-900);
-  margin-bottom: 16px;
-}
-
-.bridge-description {
-  font-size: 1.05rem;
-  color: var(--gray-700);
-  line-height: 1.6;
-  margin-bottom: 30px;
-}
-
-.bridge-description .highlight {
-  color: var(--primary-color);
-  font-weight: 700;
-  background-color: var(--primary-light);
-  padding: 2px 8px;
-  border-radius: 6px;
-  display: inline-block;
-  margin-top: 4px;
-}
-
-.bridge-notice-box {
-  width: 100%;
-  background-color: var(--gray-50);
-  border: 1px dashed var(--gray-300);
-  padding: 18px;
-  border-radius: 14px;
-  text-align: left;
-}
-
-.bridge-notice-box p {
-  font-size: 0.92rem;
-  color: var(--gray-500);
-  line-height: 1.5;
-  margin: 0;
-}
-
-.bridge-notice-box strong {
-  color: var(--gray-800);
-}
-
-/* 애니메이션 */
 @keyframes scaleUp {
   from { transform: scale(0); opacity: 0; }
   to { transform: scale(1); opacity: 1; }
