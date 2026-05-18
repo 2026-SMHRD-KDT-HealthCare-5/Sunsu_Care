@@ -10,20 +10,20 @@ export const login = async (email, password) => {
     user: {
       user_idx: 1,
       email,
-      name: 'Mock 사용자',
+      nickname: 'Mock 사용자',
       role: 'user',
     },
   }
 }
 
-export const signup = async ({ email, password, name }) => {
+export const signup = async ({ email, password, nickname }) => {
   await delay(500)
   // 18단계 교체:
-  // const { data } = await api.post('/auth/signup', { email, password, name })
+  // const { data } = await api.post('/auth/signup', { email, password, nickname })
   // return data
   return {
     success: true,
-    user: { user_idx: 1, email, name },
+    user: { user_idx: 1, email, nickname },
   }
 }
 

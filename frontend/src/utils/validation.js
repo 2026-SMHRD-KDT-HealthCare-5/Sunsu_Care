@@ -21,9 +21,9 @@ export const validatePasswordMatch = (password, confirm) => {
   return ''
 }
 
-// 이름 (2자 이상)
-export const validateName = (name) => {
-  if (!name.trim()) return '이름을 입력해주세요.'
-  if (name.trim().length < 2) return '이름은 2자 이상이어야 합니다.'
+// 닉네임 (2자 이상)
+export const validateNickname = (nickname) => {
+  if (!nickname.trim()) return '닉네임을 입력해주세요.'
+  if (nickname.trim().length < 2) return '닉네임은 2자 이상이어야 합니다.'
   return ''
 }
