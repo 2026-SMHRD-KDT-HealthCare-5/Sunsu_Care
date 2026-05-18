@@ -12,5 +12,8 @@
   },
   "devDependencies": {
     "concurrently": "^8.2.2"
+  },
+  "dependencies": {
+    "python-dotenv": "^0.0.1-security"
   }
 }
