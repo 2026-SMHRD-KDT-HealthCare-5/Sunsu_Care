@@ -3,6 +3,11 @@
 @import "./reset.css";
 @import "./variables.css";
 
+html, body {
+  /* 스크롤바 공간 유지로 화면 틀어짐 방지 */
+  scrollbar-gutter: stable;
+}
+
 body {
   font-family: var(--font-family);
   font-size: var(--font-md);
@@ -17,7 +22,7 @@ body {
   justify-content: center;
 }
 
-/* 모든 페이지를 모바일처럼 가운데로 정렬 (PC에서도 좁게 보임) */
+/* 모바일 뷰포트 컨테이너 */
 .app-container {
   width: 100%;
   max-width: var(--max-width);
@@ -36,55 +41,45 @@ a:hover {
   color: var(--color-primary);
 }
 
+/* 메인 레이아웃 기본 구조 */
 .main-layout {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  padding-bottom: 72px;
+  padding-bottom: 72px; /* BottomNav 공간 */
+  transition: padding 0.2s ease;
 }
 
 .main-layout__content {
   flex: 1;
 }
 
-/* 1. 설문창이 켜졌을 때, 메인 레이아웃 내부의 일반 컨텐츠만 가리기 */
-body:has(.page.survey) .main-layout__content > *:not(.page.survey) {
-    display: none !important;
+/* ==========================================
+   🚨 상태 제어 (모달 및 특정 전체화면 모드)
+   ========================================== */
+
+/* 설문조사 또는 모달 활성화 시 body 스크롤 차단 */
+body.survey-mode,
+body.modal-open {
+  overflow: hidden;
+  position: fixed;
+  width: 100%;
+  height: 100%;
 }
 
-/* 2. 메인 레이아웃 하단 패딩 제거 */
-body:has(.page.survey) .main-layout {
-    padding-bottom: 0 !important;
+/* 설문조사 모드일 때 레이아웃 변형 (!important 제거) */
+body.survey-mode .main-layout {
+  padding-bottom: 0;
 }
 
-/* 3. 메인 전용 하단 바/네비게이션 완벽 차단 */
-body:has(.page.survey) nav,
-body:has(.page.survey) .BottomNav,
-body:has(.page.survey) [class*="BottomNav"] {
-    display: none !important;
-}
-
-/* 4. 🚨 핵심: survey-footer가 "아닌" 모든 푸터 요소를 정밀 타격하여 숨김 */
-body:has(.page.survey) footer:not(.survey-footer),
-body:has(.page.survey) [class*="footer"]:not(.survey-footer) {
-    display: none !important;
-}
-
-/* 5. 기존 호환성용 modal-open 규칙에도 동일한 정밀 타격 적용 */
+/* 설문조사 모드 시 숨겨야 할 요소들 정의 */
+body.survey-mode .main-layout__content > *:not(.page.survey),
+body.survey-mode nav,
+body.survey-mode .BottomNav,
+body.survey-mode footer:not(.survey-footer),
 body.modal-open .main-layout__content > *:not(.page.survey),
 body.modal-open nav,
 body.modal-open .BottomNav,
-body.modal-open [class*="BottomNav"],
-body.modal-open footer:not(.survey-footer),
-body.modal-open [class*="footer"]:not(.survey-footer) {
-    display: none !important;
-}
-
-html, body {
-  /* 스크롤바가 사라져도 그 공간을 유지하여 화면 틀어짐 방지 */
-  scrollbar-gutter: stable;
-}
-
-body:has(.page.survey) {
-  overflow: hidden !important; 
+body.modal-open footer:not(.survey-footer) {
+  display: none;
 }
