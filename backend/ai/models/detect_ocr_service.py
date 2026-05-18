@@ -9,11 +9,12 @@ from ultralytics import YOLO
 
 # 경로 설정
 current_dir = os.path.dirname(os.path.abspath(__file__))
-base_dir = os.path.dirname(current_dir)
+ai_dir = os.path.dirname(current_dir)
+backend_dir = os.path.dirname(ai_dir)
 
-model_path = os.path.join(base_dir, 'weights', 'best.pt')
-img_path = os.path.join(base_dir, 'data', 'box.jpg')
-runs_path = os.path.join(base_dir, 'runs')
+model_path = os.path.join(ai_dir, 'weights', 'best.pt')
+img_path = os.path.join(backend_dir, 'data', 'box.jpg')
+runs_path = os.path.join(ai_dir, 'runs')
 
 # CLOVA OCR API 정보
 API_URL = "https://hjtx8ks4c0.apigw.ntruss.com/custom/v1/52853/de7d1b721a1e0632b7cf04edf5032c8ecffa9f9a08492152b926f1a5a7e765d7/general"
