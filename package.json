@@ -1,5 +1,5 @@
 {
-  "name": "tp-root",
+  "name": "sunsu-care-root",
   "private": true,
   "workspaces": [
     "backend",
