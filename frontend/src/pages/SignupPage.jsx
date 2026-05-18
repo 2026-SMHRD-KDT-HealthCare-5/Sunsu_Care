@@ -95,10 +95,10 @@ function SignupPage() {
           error={errors.confirm}
         />
         <Input
-          label="이름"
+          label="닉네임"
           value={form.name}
           onChange={update('name')}
-          placeholder="이름을 입력하세요"
+          placeholder="닉네임을 입력하세요"
           error={errors.name}
         />
 

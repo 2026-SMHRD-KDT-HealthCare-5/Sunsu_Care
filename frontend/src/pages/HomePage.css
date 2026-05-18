@@ -8,17 +8,7 @@
 }
 
 /* 🌟 여백 조정을 위해 히어로 섹션 정렬 방식 변경 */
-.hero-section {
-  position: relative;
-  width: 100%;
-  height: 65vh; 
-  overflow: hidden;
-  display: flex;
-  /* 🌟 글씨와 버튼을 아래로 내리는 핵심 코드 */
-  align-items: flex-end; /* 하단 정렬 */
-  justify-content: center;
-  padding-bottom: 30px; /* 아래에서 50px 띄우기 */
-}
+/* HomePage.css - 이 부분들을 찾아서 교체해 주세요! */
 
 .hero-bg {
   position: absolute;
@@ -27,9 +17,32 @@
   width: 100%;
   height: 100%;
   background-size: cover;
-  background-position: center;
+  /* 🌟 배경 사진의 기준점을 중앙(center)에서 상단(top)으로 올려서 얼굴이 잘리지 않게 합니다 */
+  background-position: center 15%; 
   transition: opacity 1.5s ease-in-out;
   z-index: 0;
+}
+
+.hero-section {
+  position: relative;
+  width: 100%;
+  height: 65vh; 
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end; /* 글씨를 아래로 내림 */
+  justify-content: center;
+  padding-bottom: 40px; /* 🌟 밑바닥과의 여백을 조금 줄여서 글씨를 더 내립니다 */
+}
+
+.cta-wrapper {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px; /* 🌟 글씨와 동그라미 사이의 간격을 30px -> 20px로 줄여서 위쪽 공간을 확보합니다 */
+  width: 100%;
+  padding: 0 20px;
 }
 
 .hero-overlay {
@@ -42,16 +55,6 @@
   z-index: 1;
 }
 
-.cta-wrapper {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 30px;
-  width: 100%;
-  padding: 0 20px;
-}
 
 .hero-title {
   color: white;
@@ -84,7 +87,7 @@
   text-align: center;
   padding: 15px;
   font-weight: 800;
-  font-size: 1.05rem;
+  font-size: 1.35rem; 
   color: #111;
   cursor: pointer;
   box-shadow: 0 10px 30px rgba(0,0,0,0.15);
