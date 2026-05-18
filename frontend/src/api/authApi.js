@@ -19,7 +19,7 @@ export const login = async (email, password) => {
 export const signup = async ({ email, password, name }) => {
   await delay(500)
   // 18단계 교체:
-  // const { data } = await api.post('/auth/signup', { email, password, name })
+  // const { data } = await api.post('/auth/signup', { email, password, nickname })
   // return data
   return {
     success: true,

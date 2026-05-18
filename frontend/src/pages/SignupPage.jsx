@@ -97,7 +97,7 @@ function SignupPage() {
         <Input
           label="닉네임"
           value={form.name}
-          onChange={update('name')}
+          onChange={update('nickname')}
           placeholder="닉네임을 입력하세요"
           error={errors.name}
         />

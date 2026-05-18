@@ -1,15 +1,25 @@
-//express 설정
-//rotues 연결
+//1. app.js: 프레임워크 설정 + routes 연결
 
-const express=require('express')
-const userRoutes= require("./routes/userRoutes")
+// express 프레임워크 불러오기
+const express = require('express')
 
-const app=express()
+// CORS 설정 모듈 불러오기
+const cors = require('cors')
 
-//JSON 요청 받기
-app.use(express.json)
+// auth 관련 라우터 불러오기
+const authRoutes = require('./routes/authRoutes')
 
-app.use("/user", userRoutes)
+// express 앱 객체 생성
+const app = express()
 
-//모듈 내보내기
-module.exports=app
+// 다른 포트의 프론트 요청 허용
+app.use(cors())
+
+// JSON 요청 데이터를 JS 객체로 변환
+app.use(express.json())
+
+// auth API 라우터 연결
+app.use('/api/auth', authRoutes)
+
+// app 객체 내보내기
+module.exports = app

@@ -87,7 +87,11 @@
   text-align: center;
   padding: 15px;
   font-weight: 800;
+<<<<<<< HEAD
   font-size: 1.35rem; 
+=======
+  font-size: 1.3rem;
+>>>>>>> f0d8fa49e1e4abce4be5ab348b903a66e437d44a
   color: #111;
   cursor: pointer;
   box-shadow: 0 10px 30px rgba(0,0,0,0.15);
