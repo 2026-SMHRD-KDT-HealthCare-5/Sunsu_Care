@@ -1,21 +1,12 @@
-/* =========================================
-   MyPage.css - 전체 최적화 통합본
-   ========================================= */
+
 
 .mypage-container {
-<<<<<<< HEAD
-    padding-bottom: 100px; /* 하단 바와 겹치지 않게 여유 공간 */
-=======
     padding-bottom: 100px; 
->>>>>>> f0d8fa49e1e4abce4be5ab348b903a66e437d44a
     background-color: #f8fafc;
     min-height: 100vh;
 }
 
-<<<<<<< HEAD
 /* 🌟 공통 카드 스타일 */
-=======
->>>>>>> f0d8fa49e1e4abce4be5ab348b903a66e437d44a
 .mypage-card {
     background-color: #fff;
     border-radius: 20px;
@@ -25,10 +16,7 @@
     border: 1px solid #f1f5f9;
 }
 
-<<<<<<< HEAD
-/* 🌟 사용자 프로필 아이콘 (찌그러짐 방지 적용) */
-=======
->>>>>>> f0d8fa49e1e4abce4be5ab348b903a66e437d44a
+
 .profile-icon {
     width: 60px;
     height: 60px;
@@ -38,20 +26,15 @@
     align-items: center;
     justify-content: center;
     font-size: 30px;
-    flex-shrink: 0; /* 🌟 어떤 상황에서도 절대 찌그러지지 않게 함 */
+    flex-shrink: 0; 
 }
 
 /* 🌟 1. 내 피부 정보 (2x2 그리드 디자인) */
 .skin-info-grid {
     display: grid;
     grid-template-columns: 1fr 1fr; /* 2칸씩 배열 */
-    flex-shrink: 0; 
-}
-
-.skin-info-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr; 
     gap: 12px;
+    flex-shrink: 0; 
 }
 
 .skin-info-item {
@@ -138,7 +121,8 @@
 
 /* 🌟 3. 화면을 꽉 채우는 큼직한 정보 카드 (세로 3-4배 확대) */
 .history-slide-card {
-    flex: 0 0 100%; /* 🌟 카드 너비를 화면 100% 꽉 차게 1장씩 노출 */
+    flex: 0 0 calc(100% - 48px); /* 🌟 화면 넓이에 맞추면서 좌우 패딩을 고려해 카드 너비 설정 (오른쪽 잘림 방지) */
+    min-width: 280px; 
     min-height: 320px; /* 세로 길이를 정보가 많이 들어가게 확대 */
     scroll-snap-align: center;
     background: #fff;
@@ -154,8 +138,21 @@
     transition: transform 0.2s, border-color 0.2s;
 }
 
-.history-slide-card:hover { 
-    border-color: #ff8c00; 
+.history-slide-card {
+    flex: 0 0 100%; /* 🌟 여기를 다시 100%로 변경해서 화면에 꽉 차게! */
+    min-height: 320px;
+    scroll-snap-align: center;
+    background: #fff;
+    border: 1px solid #e2e8f0; 
+    border-radius: 20px;
+    padding: 24px;
+    display: flex; 
+    flex-direction: column; 
+    justify-content: space-between;
+    cursor: pointer; 
+    box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+    box-sizing: border-box; 
+    transition: transform 0.2s, border-color 0.2s;
 }
 
 /* 카드 상단 영역 (이름, 날짜, 점수) */
