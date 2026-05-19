@@ -1,4 +1,4 @@
-//1. app.js: 프레임워크 설정 + routes 연결
+//app.js: 프레임워크 설정 + routes 연결
 
 // express 프레임워크 불러오기
 const express = require('express')
