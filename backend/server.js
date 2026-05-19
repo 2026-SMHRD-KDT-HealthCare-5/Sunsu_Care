@@ -1,6 +1,6 @@
 // //서버 실행 부분
 
-
+require("dotenv").config();
 //app 불러오기
 const app = require('./src/app');
 
@@ -10,5 +10,4 @@ const PORT =3000;
 //서버시작
 app.listen(PORT, () => {
   console.log(`http://localhost:${PORT}에서 서버 실행 중...`);
->>>>>>> main
 });
