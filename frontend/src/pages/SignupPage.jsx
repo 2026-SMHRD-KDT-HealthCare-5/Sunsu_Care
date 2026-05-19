@@ -9,7 +9,7 @@ import {
   validateEmail,
   validatePassword,
   validatePasswordMatch,
-  validateName,
+  validateNickname,
 } from '../utils/validation'
 import './Auth.css'
 
@@ -19,7 +19,7 @@ function SignupPage() {
     email: '',
     password: '',
     confirm: '',
-    name: '',
+    nickname: '',
   })
   const [errors, setErrors] = useState({})
   const [submitError, setSubmitError] = useState('')
@@ -37,7 +37,7 @@ function SignupPage() {
       email: validateEmail(form.email),
       password: validatePassword(form.password),
       confirm: validatePasswordMatch(form.password, form.confirm),
-      name: validateName(form.name),
+      nickname: validateNickname(form.nickname),
     }
     setErrors(newErrors)
     if (Object.values(newErrors).some(Boolean)) return
@@ -47,7 +47,7 @@ function SignupPage() {
       await signup({
         email: form.email,
         password: form.password,
-        name: form.name,
+        nickname: form.nickname,
       })
       setShowSuccess(true)
     } catch (err) {

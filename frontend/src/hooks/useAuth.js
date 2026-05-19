@@ -12,13 +12,13 @@ const AUTH_EVENT = 'sun-care-auth-change'
 export function useAuth() {
   const [token, setToken] = useState(null)
   const [email, setEmail] = useState('')
-  const [userName, setUserName] = useState('')
+  const [userNickname, setUserNickname] = useState('')
 
   useEffect(() => {
     const sync = () => {
       setToken(getAuthToken())
       setEmail(getUserEmail() || '')
-      setUserName(localStorage.getItem('userName') || '')
+      setUserNickname(localStorage.getItem('userNickname') || '')
     }
     sync()
     window.addEventListener(AUTH_EVENT, sync)
@@ -33,7 +33,7 @@ export function useAuth() {
     const result = await loginApi(email, password)
     localStorage.setItem('authToken', result.token)
     localStorage.setItem('userEmail', result.user.email || email)
-    localStorage.setItem('userName', result.user.name || '')
+    localStorage.setItem('userNickname', result.user.nickname || '')
     window.dispatchEvent(new Event(AUTH_EVENT))
     return result
   }
@@ -50,7 +50,7 @@ export function useAuth() {
   return {
     isLoggedIn: !!token,
     userEmail: email,
-    userName,
+    userNickname,
     login,
     logout,
   }
