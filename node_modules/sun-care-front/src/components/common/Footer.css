@@ -1,0 +1,14 @@
+/* src/components/common/Footer.css */
+
+.footer {
+  margin-top: auto;
+  padding: var(--space-5) var(--space-4);
+  text-align: center;
+  border-top: 1px solid var(--color-border);
+  color: var(--color-text-light);
+  font-size: var(--font-xs);
+}
+
+.footer__sub {
+  margin-top: var(--space-1);
+}

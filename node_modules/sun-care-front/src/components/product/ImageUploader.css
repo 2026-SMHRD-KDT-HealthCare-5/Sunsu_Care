@@ -1,0 +1,89 @@
+.uploader {
+  margin-bottom: var(--space-2);
+}
+
+.uploader__label {
+  display: block;
+  font-size: var(--font-sm);
+  color: var(--color-text-light);
+  font-weight: 600;
+  margin-bottom: var(--space-2);
+}
+
+/* 업로드 전: 빈 박스 */
+.uploader__drop {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1);
+  padding: var(--space-6) var(--space-4);
+  background-color: var(--color-bg);
+  border: 2px dashed var(--color-border);
+  border-radius: var(--radius-lg);
+  color: var(--color-text-light);
+  transition: all 0.2s;
+}
+
+.uploader__drop:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.uploader__icon {
+  font-size: 32px;
+}
+
+.uploader__text {
+  font-size: var(--font-md);
+  font-weight: 600;
+}
+
+.uploader__hint {
+  font-size: var(--font-xs);
+}
+
+/* 업로드 후: 미리보기 + 액션 */
+.uploader__preview {
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background-color: var(--color-bg);
+}
+
+.uploader__img {
+  width: 100%;
+  max-height: 320px;
+  object-fit: contain;
+  background-color: var(--color-bg);
+}
+
+.uploader__actions {
+  display: flex;
+  gap: var(--space-2);
+  padding: var(--space-2);
+  background-color: var(--color-surface);
+  border-top: 1px solid var(--color-border);
+}
+
+.uploader__action {
+  flex: 1;
+  padding: var(--space-2);
+  font-size: var(--font-sm);
+  font-weight: 600;
+  color: var(--color-text-light);
+  background-color: var(--color-bg);
+  border-radius: var(--radius-md);
+  transition: all 0.2s;
+}
+
+.uploader__action:hover {
+  color: var(--color-primary);
+  background-color: var(--color-secondary);
+}
+
+.uploader__action--danger:hover {
+  color: var(--color-danger);
+  background-color: var(--color-bg);
+}
