@@ -1,0 +1,21 @@
+https://universe.roboflow.com/project-jeaft/product-kc4tx
+
+API_URL: https://hjtx8ks4c0.apigw.ntruss.com/custom/v1/52853/de7d1b721a1e0632b7cf04edf5032c8ecffa9f9a08492152b926f1a5a7e765d7/general
+
+SECRET_KEY: THViU253aGxZS3ZSY3NYTWVjQmpneHdkR0JWRHdyZUo=
+
+인식만
+
+from ultralytics import YOLO
+import cv2
+
+model = YOLO('best.pt')
+
+# 1. KeyError 방지: 모델이 가진 모든 클래스 개수만큼 이름을 'Sunscreen'으로 채워줍니다.
+# i는 클래스 번호이고, 이를 모두 'Sunscreen'이라는 이름으로 통일합니다.
+model.model.names = {i: 'Sunscreen' for i in range(len(model.model.names))}
+
+# 2. 이미지에서 박스 찾기 (box.jpg 파일이 YOLO 폴더 안에 있는지 확인!)
+results = model.predict(source='box.jpg', save=True, conf=0.6)
+
+print(f"탐지 완료! 모든 클래스가 'Sunscreen'으로 변경되었습니다.")

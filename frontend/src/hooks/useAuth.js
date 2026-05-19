@@ -29,14 +29,16 @@ export function useAuth() {
     }
   }, [])
 
-  const login = async (email, password) => {
-    const result = await loginApi(email, password)
-    localStorage.setItem('authToken', result.token)
-    localStorage.setItem('userEmail', result.user.email || email)
-    localStorage.setItem('userNickname', result.user.nickname || '')
-    window.dispatchEvent(new Event(AUTH_EVENT))
-    return result
-  }
+const login = async (email, password) => {
+  const result = await loginApi({ email, password })
+  const token = result.token ?? result.accessToken
+  const user = result.user ?? {}
+  localStorage.setItem('authToken', token)
+  localStorage.setItem('userEmail', user.email || email)
+  localStorage.setItem('userNickname', user.nickname || '')
+  window.dispatchEvent(new Event(AUTH_EVENT))
+  return result
+}
 
   const logout = async () => {
     try {
