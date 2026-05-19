@@ -2,10 +2,14 @@ from ultralytics import YOLO
 import cv2
 import os
 
-model_path = os.path.join('weights', 'best.pt')
-img_path = os.path.join('data', 'box.jpg')
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+AI_DIR = os.path.dirname(BASE_DIR)
+BACKEND_DIR = os.path.dirname(AI_DIR)
 
-target_dir = os.path.join(os.getcwd(), 'runs', 'predict_test')
+model_path = os.path.join(AI_DIR, 'weights', 'best.pt')
+img_path = os.path.join(BACKEND_DIR, 'data', 'box.jpg')
+
+target_dir = os.path.join(AI_DIR, 'runs', 'predict_test')
 
 model = YOLO(model_path)
 

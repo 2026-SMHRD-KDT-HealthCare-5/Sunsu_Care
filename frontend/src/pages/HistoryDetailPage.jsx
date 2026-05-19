@@ -5,7 +5,7 @@ import './HistoryDetailPage.css';
 const HistoryDetailPage = () => {
     const navigate = useNavigate();
 
-    // 🌟 사진에 있는 세부 내역 완벽 반영!
+    
     const report = {
         productName: "솔",
         score: 82,
@@ -69,4 +69,4 @@ const HistoryDetailPage = () => {
     );
 };
 
-export default HistoryDetailPage; // 🌟 엉뚱한 HomePage가 아닌 정상적인 이름!
+export default HistoryDetailPage; 

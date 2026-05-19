@@ -91,15 +91,15 @@ function SignupPage() {
           type="password"
           value={form.confirm}
           onChange={update('confirm')}
-          placeholder="비밀번호 한 번 더"
+          placeholder="비밀번호 재입력"
           error={errors.confirm}
         />
         <Input
           label="닉네임"
-          value={form.name}
-          onChange={update('name')}
+          value={form.nickname}
+          onChange={update('nickname')}
           placeholder="닉네임을 입력하세요"
-          error={errors.name}
+          error={errors.nickname}
         />
 
         {submitError && <p className="auth__error">{submitError}</p>}

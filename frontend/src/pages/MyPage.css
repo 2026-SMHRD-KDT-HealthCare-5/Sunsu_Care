@@ -1,6 +1,4 @@
-/* =========================================
-   MyPage.css - 전체 최적화 통합본
-   ========================================= */
+
 
 .mypage-container {
     padding-bottom: 100px; 
@@ -17,6 +15,8 @@
     border: 1px solid #f1f5f9;
 }
 
+
+>>>>>>> main
 .profile-icon {
     width: 60px;
     height: 60px;
@@ -33,6 +33,7 @@
     display: grid;
     grid-template-columns: 1fr 1fr; 
     gap: 12px;
+    flex-shrink: 0; 
 }
 
 .skin-info-item {
@@ -158,13 +159,13 @@
 /* 첫 번째 이미지 (여자) */
 .hero-bg-image.woman {
     background-image: url('/main_woman.png'); 
-    animation-delay: 0s; /* 바로 시작 */
+    animation-delay: 0s; 
 }
 
 /* 두 번째 이미지 (남자) */
 .hero-bg-image.man {
     background-image: url('/main_man.png');
-    animation-delay: 5s; /* 5초 뒤 시작해서 교차됨 */
+    animation-delay: 5s; 
 }
 
 /* 스무스한 크로스페이드 효과 키프레임 */

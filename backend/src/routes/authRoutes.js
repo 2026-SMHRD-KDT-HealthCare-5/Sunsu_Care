@@ -8,11 +8,19 @@ const express = require("express")
 const router = express.Router()
 
 // 관련 요청을 처리하는 controller 호출
+<<<<<<< HEAD
 const authlogin_Controller = require("../controllers/authlogin_Controller")
 
 // 1. 로그인 라우터
 // 최종 경로: POST /api/auth/login
 router.post("/login", authlogin_Controller.login);
+=======
+const authController = require("../controllers/authController")
+
+// 1. 회원가입 API
+// 최종 경로: POST/api/signup
+router.post("/signup",authController.signup)
+>>>>>>> main
 
 // router 객체를 app.js에서 사용할 수 있도록 내보내기
 module.exports = router

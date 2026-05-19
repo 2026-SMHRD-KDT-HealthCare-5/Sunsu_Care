@@ -1,33 +1,32 @@
-/* SideMenu.css */
-
 /* 사이드 메뉴 본체 */
 .side-menu {
   position: fixed;
   top: 0;
-  right: -100%; /* 처음엔 화면 밖에 숨김 */
-  width: 80%;
-  max-width: 320px;
+  right: -100vw; /* 기본은 화면 오른쪽 바깥에 완전히 숨김 */
+  width: min(420px, 90vw);
   height: 100vh;
   background-color: #ffffff;
   z-index: 1000;
-  transition: right 0.3s ease-in-out; /* 부드럽게 나오는 효과 */
+  transition: right 0.3s ease-in-out;
   display: flex;
   flex-direction: column;
-  box-shadow: -5px 0 25px rgba(0,0,0,0.1);
+  box-shadow: -5px 0 25px rgba(0, 0, 0, 0.1);
+  visibility: hidden;
 }
 
 .side-menu.active {
-  right: 0; /* 클래스가 active가 되면 화면 안으로 들어옴 */
+  right: max(0px, calc((100vw - var(--max-width, 480px)) / 2));
+  visibility: visible;
 }
 
 /* 어두운 배경 (오버레이) */
 .menu-overlay {
   position: fixed;
   top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.5);
+  left: max(0px, calc((100vw - var(--max-width, 480px)) / 2));
+  right: max(0px, calc((100vw - var(--max-width, 480px)) / 2));
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
   z-index: 999;
   display: none;
 }
@@ -52,7 +51,7 @@
 }
 
 .profile-icon {
-  color: #2563eb;
+  color: #ff8c00;
   font-size: 26px;
   margin-right: 12px;
 }
@@ -98,7 +97,7 @@
   width: 28px;
   text-align: left;
   margin-right: 12px;
-  color: #64748b;
+  color: #333;
   font-size: 18px;
 }
 
@@ -109,7 +108,7 @@
 
 /* 소제목 (MY ACCOUNT, SERVICE 등) */
 .group-title {
-  color: #2563eb;
+  color: #ff8c00;
   font-size: 12px;
   font-weight: 700;
   padding: 24px 24px 10px;
@@ -121,7 +120,7 @@
   padding: 20px;
   text-align: center;
   border-top: 1px solid #eee;
-  color: #94a3b8;
+  color: #333;
   font-size: 12px;
   background-color: #f8fafc;
 }
