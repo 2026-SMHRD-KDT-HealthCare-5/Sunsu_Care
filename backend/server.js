@@ -1,4 +1,4 @@
-//서버 실행 부분
+// //서버 실행 부분
 
 require("dotenv").config();
 //app 불러오기

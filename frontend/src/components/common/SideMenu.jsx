@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import './SideMenu.css'; // 방금 만든 CSS 연결
+import './SideMenu.css'; 
 
 const SideMenu = ({ isOpen, onClose }) => {
   const navigate = useNavigate();

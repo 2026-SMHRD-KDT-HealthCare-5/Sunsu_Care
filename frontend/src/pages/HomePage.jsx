@@ -1,18 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import './HomePage.css';
 
 const HomePage = () => {
     const navigate = useNavigate();
     const location = useLocation();
-    const [bgImage, setBgImage] = useState('/main_woman.png');
 
-    // 다른 페이지에서 해시태그(#)를 달고 넘어왔을 때를 위한 처리
+    // 해시태그(#) 대신 React Router의 state를 활용한 안전한 스크롤링
     useEffect(() => {
-        if (location.hash) {
-            const id = location.hash.replace('#', '');
+        if (location.state && location.state.targetId) {
             setTimeout(() => {
-                const element = document.getElementById(id);
+                const element = document.getElementById(location.state.targetId);
                 if (element) {
                     const y = element.getBoundingClientRect().top + window.scrollY - 60;
                     window.scrollTo({ top: y, behavior: 'smooth' });
@@ -23,20 +21,16 @@ const HomePage = () => {
         }
     }, [location]);
 
-    // 5초마다 배경 이미지 전환
-    useEffect(() => {
-        const interval = setInterval(() => {
-            setBgImage((prev) => 
-                prev === '/main_woman.png' ? '/main_man.png' : '/main_woman.png'
-            );
-        }, 5000);
-        return () => clearInterval(interval);
-    }, []);
-
     return (
         <div className="home-container">
             <section className="hero-section">
-                <div className="hero-bg" style={{ backgroundImage: `url(${bgImage})` }}></div>
+                
+                {/* 🌟 수정된 배경 영역: CSS 애니메이션으로 2장이 스무스하게 전환됨 */}
+                <div className="hero-bg">
+                    <div className="bg-image woman"></div>
+                    <div className="bg-image man"></div>
+                </div>
+                
                 <div className="hero-overlay"></div>
                 
                 <div className="cta-wrapper">
@@ -79,12 +73,11 @@ const HomePage = () => {
                     <button className="section-btn" style={{backgroundColor: '#fff', color: '#ff8c00', border: '1px solid #ff8c00'}} onClick={() => navigate('/ShoppingPage')}>보러가기 →</button>
                 </section>
 
-                {/* 🌟 4. 새로 추가된 세안 가이드 구역! */}
+                {/* 4. 세안 가이드 구역 */}
                 <section id="guide" className="content-section" style={{ marginBottom: '40px' }}>
                     <span className="section-tag">WASHING GUIDE</span>
                     <h2 className="section-title">맞춤 세안 가이드</h2>
                     <p className="section-desc">선크림 잔여물 없는 완벽한 세안법!<br/>내 피부에 맞는 세안 가이드를 확인하세요.</p>
-                    {/*  /guide 페이지로 연결됩니다 */}
                     <button className="section-btn" style={{backgroundColor: '#ffb347'}} onClick={() => navigate('/guide')}>가이드 보기 →</button>
                 </section>
 

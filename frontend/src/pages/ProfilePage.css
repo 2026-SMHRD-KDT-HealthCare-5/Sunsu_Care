@@ -155,7 +155,7 @@
 
 /* 성별 선택 카드 */
 .gender-wrap { 
-  /* 🌟 질문자님 피드백 반영: 남녀 버튼 비율 5:5 완벽 고정 */
+  /* 남녀 버튼 비율 5:5 완벽 고정 */
   display: flex; gap: 16px; width: 100%; box-sizing: border-box; 
 }
 
@@ -241,7 +241,7 @@
 
 /* 푸터 네비게이션 */
 .survey-footer {
-  /* 🌟 질문자님 피드백 반영: 아래 버튼이 삐져나가지 않고 완벽하게 줄이 맞도록 수정 */
+  
   width: 100%;
   padding: 15px 24px 30px; 
   display: flex;
@@ -249,7 +249,7 @@
   background: #fff;
   border-top: 1px solid var(--gray-100);
   flex-shrink: 0;
-  box-sizing: border-box; /* 🌟 핵심: 삐져나감 방지 마법 */
+  box-sizing: border-box; /* 🌟 핵심: 삐져나감 방지 */
 }
 
 .nav-btn {
@@ -260,7 +260,20 @@
   border: none;
   cursor: pointer;
   transition: 0.2s;
-  box-sizing: border-box; /* 🌟 핵심 */
+  box-sizing: border-box; 
+
+}
+.nav-btn.next:disabled {
+  background: #cbd5e1;
+  cursor: not-allowed;
+}
+
+.submit-button-container { /* 버튼을 감싸는 통 */
+    width: 100%;
+    padding: 20px 24px; /* 양옆 여백 동일하게! */
+    box-sizing: border-box; 
+    background: #fff; 
+>>>>>>> main
 }
 
 .nav-btn.prev { flex: 1; background: #fff; border: 1px solid var(--gray-300); color: var(--gray-700); }

@@ -48,7 +48,6 @@ export function useAuth() {
     localStorage.setItem('authToken', result.token)
     localStorage.setItem('userEmail', result.user.email || email)
     localStorage.setItem('userNickname', result.user.nickname || '')
-
     window.dispatchEvent(new Event(AUTH_EVENT))
 
     return result

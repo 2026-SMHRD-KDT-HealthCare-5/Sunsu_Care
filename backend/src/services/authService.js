@@ -1,5 +1,3 @@
-// service: 실제 회원가입 / 로그인 / 로그아웃 로직을 처리하는 파일
-
 // DB 연결 객체 호출
 const conn = require("../db/index");
 
