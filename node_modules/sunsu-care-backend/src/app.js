@@ -2,29 +2,9 @@
 const express = require('express');
 const cors = require('cors');
 
-<<<<<<< LEGbranch
-
-//express 프레임워크 호출
-const express=require('express')
-
-//express 함수 실행 후 app 객체 생성 (서버 설정 객체)
-const app=express()
-
-//JSON 형태 요청 데이터 받아서 JS 객체 형태로 변환하는 미들웨어
-app.use(express.json())
-
-//각 요청 URL을 해당하는 라우터 호출
-const authRoutes= require("./routes/authRoutes")
-
-//1. authApi 라우터 경로 설정
-app.use("/api/auth", authRoutes)
-
-//app 객체를 server에서 사용할 수 있도록 내보내기
-module.exports=app
-=======
 // 라우터 불러오기
 const authRoutes = require('./routes/authRoutes');
-const suncareRoutes = require('./routes/suncareRoutes'); // 🌟 추가: 선케어 라우터
+const suncareRoutes = require('./routes/suncareRoutes'); // 선케어 라우터
 
 // express 앱 객체 생성
 const app = express();
@@ -35,14 +15,16 @@ app.use(cors());
 
 // JSON 요청 데이터를 JS 객체로 변환
 app.use(express.json());
-
+// 폼 데이터 처리를 위한 설정
 app.use(express.urlencoded({ extended: true }));
 
 // 3. API 라우터 연결
 app.use('/api/auth', authRoutes);
-app.use('/api/suncare', suncareRoutes); // 🌟 추가: 선케어 분석 API 연결 (/api/suncare/analyze 등)
+app.use('/api/suncare', suncareRoutes); 
 
-// 라우터나 컨트롤러에서 에러가 발생했을 때 서버가 멈추지 않고 프론트엔드에 깔끔한 JSON 포맷으로 에러를 알려줍니다.
+// 4. 에러 처리 미들웨어
+// 라우터나 컨트롤러에서 에러가 발생했을 때 서버가 멈추지 않고 
+// 프론트엔드에 깔끔한 JSON 포맷으로 에러를 전달합니다.
 app.use((err, req, res, next) => {
     console.error("Express Error:", err.stack);
     res.status(err.status || 500).json({
@@ -53,4 +35,3 @@ app.use((err, req, res, next) => {
 
 // app 객체 내보내기
 module.exports = app;
->>>>>>> local

@@ -1,37 +1,17 @@
-<<<<<<< LEGbranch
-// //서버 실행 부분
-
-// //app 불러오기
-// const app = require("./src/app");
-
-// //포트 설정
-// const port = 3000;
-
-// //서버 시작
-// app.listen(port, () => {
-//     console.log(`${port}번 포트에서 서버 실행 중`);
-// });
-
-
-const app = require('./src/app');
-
-const PORT =3000;
-
-app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
-=======
-// 1. 환경변수 로드 (앱에서 가장 먼저 실행되어야 합니다!)
 require('dotenv').config();
 
-// 2. app 객체 불러오기 (폴더 구조에 맞게 경로 지정)
 const app = require('./src/utils/app'); 
 
-// 3. 포트 설정 (.env에 설정된 PORT=4000을 우선 적용, 없으면 3000)
 const PORT = process.env.PORT || 3000;
 
-// 4. 서버 시작
 app.listen(PORT, () => {
-  console.log(`🚀 Express 백엔드 서버가 http://localhost:${PORT} 에서 실행 중입니다.`);
-  console.log(`🔗 연결된 FastAPI 서버 주소: ${process.env.FASTAPI_BASE_URL}`);
->>>>>>> local
+    console.log('--------------------------------------------------');
+    console.log(`🚀 Express 백엔드 서버가 http://localhost:${PORT} 에서 실행 중입니다.`);
+    
+    if (process.env.FASTAPI_BASE_URL) {
+        console.log(`연결된 FastAPI 서버 주소: ${process.env.FASTAPI_BASE_URL}`);
+    } else {
+        console.warn('경고: .env 파일에 FASTAPI_BASE_URL이 설정되지 않았습니다.');
+    }
+    console.log('--------------------------------------------------');
 });
