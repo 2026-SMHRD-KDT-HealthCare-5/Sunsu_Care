@@ -1,66 +1,69 @@
 // src/pages/SignupPage.jsx
-import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-import Input from '../components/common/Input'
-import Button from '../components/common/Button'
-import Modal from '../components/common/Modal'
-import { signup } from '../api/authApi'
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import Input from "../components/common/Input";
+import Button from "../components/common/Button";
+import Modal from "../components/common/Modal";
+import { signup } from "../api/authApi";
 import {
   validateEmail,
   validatePassword,
   validatePasswordMatch,
   validateNickname,
-} from '../utils/validation'
-import './Auth.css'
+} from "../utils/validation";
+import "./Auth.css";
 
 function SignupPage() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [form, setForm] = useState({
-    email: '',
-    password: '',
-    confirm: '',
-    nickname: '',
-  })
-  const [errors, setErrors] = useState({})
-  const [submitError, setSubmitError] = useState('')
-  const [submitting, setSubmitting] = useState(false)
-  const [showSuccess, setShowSuccess] = useState(false)
+    email: "",
+    password: "",
+    confirm: "",
+    nickname: "",
+  });
+  const [errors, setErrors] = useState({});
+  const [submitError, setSubmitError] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
 
   const update = (key) => (e) =>
-    setForm((prev) => ({ ...prev, [key]: e.target.value }))
+    setForm((prev) => ({ ...prev, [key]: e.target.value }));
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
-    setSubmitError('')
+    e.preventDefault();
+    setSubmitError("");
 
     const newErrors = {
       email: validateEmail(form.email),
       password: validatePassword(form.password),
       confirm: validatePasswordMatch(form.password, form.confirm),
       nickname: validateNickname(form.nickname),
-    }
-    setErrors(newErrors)
-    if (Object.values(newErrors).some(Boolean)) return
+    };
+    setErrors(newErrors);
+    if (Object.values(newErrors).some(Boolean)) return;
 
-    setSubmitting(true)
+    setSubmitting(true);
     try {
       await signup({
         email: form.email,
         password: form.password,
         nickname: form.nickname,
-      })
-      setShowSuccess(true)
+      });
+      setShowSuccess(true);
     } catch (err) {
-      setSubmitError('회원가입에 실패했어요. 다시 시도해주세요.')
+      console.log("회원가입 요청 에러:", err);
+      console.log("서버 응답:", err.response?.data);
+      console.log("상태 코드:", err.response?.status);
+      setSubmitError("회원가입에 실패했어요. 다시 시도해주세요.");
     } finally {
-      setSubmitting(false)
+      setSubmitting(false);
     }
-  }
+  };
 
   const handleAfterSuccess = () => {
-    setShowSuccess(false)
-    navigate('/login')
-  }
+    setShowSuccess(false);
+    navigate("/login");
+  };
 
   return (
     <div className="page auth">
@@ -74,7 +77,7 @@ function SignupPage() {
           label="이메일"
           type="email"
           value={form.email}
-          onChange={update('email')}
+          onChange={update("email")}
           placeholder="example@suncare.com"
           error={errors.email}
         />
@@ -82,7 +85,7 @@ function SignupPage() {
           label="비밀번호"
           type="password"
           value={form.password}
-          onChange={update('password')}
+          onChange={update("password")}
           placeholder="6자 이상"
           error={errors.password}
         />
@@ -90,14 +93,14 @@ function SignupPage() {
           label="비밀번호 확인"
           type="password"
           value={form.confirm}
-          onChange={update('confirm')}
+          onChange={update("confirm")}
           placeholder="비밀번호 재입력"
           error={errors.confirm}
         />
         <Input
           label="닉네임"
           value={form.nickname}
-          onChange={update('nickname')}
+          onChange={update("nickname")}
           placeholder="닉네임을 입력하세요"
           error={errors.nickname}
         />
@@ -105,7 +108,7 @@ function SignupPage() {
         {submitError && <p className="auth__error">{submitError}</p>}
 
         <Button size="lg" type="submit" disabled={submitting}>
-          {submitting ? '가입 중...' : '가입하기'}
+          {submitting ? "가입 중..." : "가입하기"}
         </Button>
       </form>
 
@@ -124,7 +127,7 @@ function SignupPage() {
         로그인 화면으로 이동합니다.
       </Modal>
     </div>
-  )
+  );
 }
 
-export default SignupPage
+export default SignupPage;
