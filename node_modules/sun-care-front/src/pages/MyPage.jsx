@@ -1,3 +1,4 @@
+import { useAuth } from '../hooks/useAuth';
 import React, { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './MyPage.css';
@@ -6,6 +7,11 @@ const MyPage = () => {
     const navigate = useNavigate();
     const sliderRef = useRef(null);
     
+    const { isLoggedIn, userNickname, userEmail } = useAuth();
+    const displayName = isLoggedIn ? (userNickname || userEmail || '사용자') : '게스트';
+    const greeting = isLoggedIn ? '오늘도 좋은 하루 보내세요 ☀️' : 'SunCare에 오신 걸 환영해요';
+
+
     // 🌟 [중요 기능] 현재 슬라이드가 몇 번째인지 기억하는 State
     const [currentIndex, setCurrentIndex] = useState(1);
 
@@ -17,7 +23,7 @@ const MyPage = () => {
         avoid: "옥시벤존, 향료"
     };
 
-    // 🌟 [기능 수정] 히스토리 데이터를 5개로 늘렸습니다! (3개 -> 5개)
+    // 🌟 
     const historyData = [
         { id: 1, name: '솔', date: '2026.05.14', score: 82, status: '적합', keyIng: ['나이아신', '산화아연'], warnIng: ['옥시벤존'] },
         { id: 2, name: '마일드 선크림', date: '2026.05.14', score: 95, status: '최적', keyIng: ['판테놀'], warnIng: [] },
@@ -37,7 +43,7 @@ const MyPage = () => {
         }
     };
 
-    // 🌟 [마법의 기능] 스크롤 할 때마다 몇 번째인지 계산해서 숫자를 바꿉니다!
+    // 🌟 스크롤 할 때마다 몇 번째인지 계산해서 숫자를 바꿉니다!
     const handleSliderScroll = () => {
         if (sliderRef.current) {
             const scrollLeft = sliderRef.current.scrollLeft; // 현재 스크롤된 거리
@@ -62,8 +68,8 @@ const MyPage = () => {
                 <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
                     <div className="profile-icon">🌞</div>
                     <div>
-                        <h2 style={{ margin: 0, fontSize: '1.2rem' }}>게스트</h2>
-                        <p style={{ margin: 0, color: '#666' }}>SunCare에 오신 걸 환영해요</p>
+                        <h2 style={{ margin: 0, fontSize: '1.2rem' }}>{displayName}</h2>
+                        <p style={{ margin: 0, color: '#666' }}>{greeting}</p>  
                     </div>
                 </div>
             </div>
@@ -165,9 +171,15 @@ const MyPage = () => {
                 <button className="re-analyze-btn" onClick={() => navigate('/scan')}>
                     <i className="fa-solid fa-rotate-right"></i> 다시 분석
                 </button>
-                <button className="logout-btn-half">
-                    <i className="fa-solid fa-arrow-right-from-bracket"></i> 로그아웃
+            {isLoggedIn ? (
+               <button className="logout-btn-half" onClick={() => navigate('/logout')}>
+                  <i className="fa-solid fa-arrow-right-from-bracket"></i> 로그아웃
                 </button>
+             ) : (
+                <button className="logout-btn-half" onClick={() => navigate('/login')}>
+                    <i className="fa-solid fa-arrow-right-to-bracket"></i> 로그인
+                </button>
+            )}
             </div>
 
         </div>

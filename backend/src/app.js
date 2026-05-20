@@ -5,7 +5,7 @@ const cors = require('cors');
 // 라우터 불러오기
 const authRoutes = require('./routes/authRoutes'); //backend 회원관리 라우터 호출
 const profileRoutes =require('./routes/profileRoutes') //backend 프로필 라우터 호출
-const suncareRoutes = require('./routes/suncareRoutes'); // 선케어 라우터 호출
+// const suncareRoutes = require('./routes/suncareRoutes'); // 선케어 라우터 호출
 
 // express 앱 객체 생성
 const app = express();
@@ -23,7 +23,7 @@ app.use(express.urlencoded({ extended: true }));
 // 3. API 라우터 연결
 app.use('/api/auth', authRoutes); //backend 회원관리 라우터 연결
 app.use('/api/profile',profileRoutes) //backend 회원관리 라우터 연결
-app.use('/api/suncare', suncareRoutes); 
+// app.use('/api/suncare', suncareRoutes); 
 
 // 4. 에러 처리 미들웨어
 // 라우터나 컨트롤러에서 에러가 발생했을 때 서버가 멈추지 않고 

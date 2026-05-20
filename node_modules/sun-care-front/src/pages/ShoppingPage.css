@@ -11,7 +11,7 @@
     position: relative;
 }
 
-/* 상단 헤더 (팀 디자인 통일) */
+/* 상단 헤더  */
 .shopping-header {
     height: 60px;
     display: flex;
@@ -30,7 +30,7 @@
 }
 
 .shopping-header .logo span {
-    color: #ff8c00; /* 팀 오렌지 컬러 */
+    color: #ff8c00; 
 }
 
 .close-btn {
@@ -49,7 +49,7 @@
     gap: 16px; /* 카드 간격 */
 }
 
-/* 🌟 쇼핑몰 카드 (손도안 반영 핵심) */
+/* 🌟 쇼핑몰 카드  */
 .shop-card {
     background: #fff;
     border-radius: 16px;
@@ -65,7 +65,7 @@
 .shop-card:active {
     background-color: #fff9f5;
     border-color: #ff8c00;
-    transform: scale(0.98); /* 살짝 눌리는 효과 */
+    transform: scale(0.98); 
 }
 
 /* 왼쪽: 로고 박스 */
@@ -84,7 +84,7 @@
 .shop-logo-img {
     width: 100%;
     height: 100%;
-    object-fit: contain; /* 로고 이미지 안깨지게 */
+    object-fit: contain; 
 }
 
 /* 오른쪽: 설명 박스 */
@@ -108,7 +108,7 @@
 }
 
 .shop-benefit {
-    color: #ff8c00; /* 오렌지색 포인트 */
+    color: #ff8c00; 
     font-weight: 600;
     font-size: 0.85rem;
     margin-top: 2px;
