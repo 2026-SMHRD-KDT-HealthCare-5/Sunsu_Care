@@ -33,11 +33,6 @@ const getProfile = async (user_idx, callback) => {
 // 2. 프로필 저장/수정 함수
 const updateProfile = async (user_idx, profileData, callback) => {
   try {
-    const [dbInfo] = await conn.query("SELECT DATABASE() AS db_name");
-    console.log("현재 백엔드가 연결한 DB:", dbInfo);
-    const [columns] = await conn.query("DESC tb_profile");
-    console.log("백엔드 기준 tb_profile 컬럼:", columns);
-    
     const { skin_type, sensitivity, preferred_texture, avoid_ingredient } =
       profileData;
 
