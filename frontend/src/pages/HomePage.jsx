@@ -1,42 +1,37 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import './HomePage.css';
 
 const HomePage = () => {
     const navigate = useNavigate();
     const location = useLocation();
-    const [bgImage, setBgImage] = useState('/main_woman.png');
 
-    // 다른 페이지에서 해시태그(#)를 달고 넘어왔을 때를 위한 처리
+    // 해시태그(#) 대신 React Router의 state를 활용한 안전한 스크롤링
     useEffect(() => {
-        if (location.hash) {
-            const id = location.hash.replace('#', '');
+        if (location.state && location.state.targetId) {
             setTimeout(() => {
-                const element = document.getElementById(id);
+                const element = document.getElementById(location.state.targetId);
                 if (element) {
                     const y = element.getBoundingClientRect().top + window.scrollY - 60;
                     window.scrollTo({ top: y, behavior: 'smooth' });
                 }
             }, 100);
         } else {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            // 🌟 수정됨: 'smooth' 대신 'auto'를 사용하여 페이지 접속 시 스크롤 애니메이션 없이 즉시 맨 위를 보여줌
+            window.scrollTo({ top: 0, behavior: 'auto' });
         }
     }, [location]);
-
-    // 5초마다 배경 이미지 전환
-    useEffect(() => {
-        const interval = setInterval(() => {
-            setBgImage((prev) => 
-                prev === '/main_woman.png' ? '/main_man.png' : '/main_woman.png'
-            );
-        }, 5000);
-        return () => clearInterval(interval);
-    }, []);
 
     return (
         <div className="home-container">
             <section className="hero-section">
-                <div className="hero-bg" style={{ backgroundImage: `url(${bgImage})` }}></div>
+                
+                {/* 🌟 수정된 배경 영역: CSS 애니메이션으로 2장이 스무스하게 전환됨 */}
+                <div className="hero-bg">
+                    <div className="bg-image woman"></div>
+                    <div className="bg-image man"></div>
+                </div>
+                
                 <div className="hero-overlay"></div>
                 
                 <div className="cta-wrapper">
@@ -71,20 +66,30 @@ const HomePage = () => {
                     <button className="section-btn" style={{backgroundColor: '#333'}} onClick={() => navigate('/scan')}>분석하기 →</button>
                 </section>
 
-                {/* 3. 쇼핑 구역 */}
-                <section id="info" className="content-section">
-                    <span className="section-tag">MAGAZINE & SHOP</span>
-                    <h2 className="section-title">선케어 정보와 쇼핑</h2>
-                    <p className="section-desc">최신 선케어 트렌드 블로그와<br/>검증된 쇼핑몰을 만나보세요.</p>
-                    <button className="section-btn" style={{backgroundColor: '#fff', color: '#ff8c00', border: '1px solid #ff8c00'}} onClick={() => navigate('/ShoppingPage')}>보러가기 →</button>
+                {/* 3. 정보 공유 & 쇼핑 구역 (반반 분할) */}
+                <section id="info" className="split-banner-container">
+                    {/* 왼쪽 배너: 정보 공유 (GuidePage 이동) */}
+                    <div className="split-banner-card" onClick={() => navigate('/guide')}>
+                        <span className="split-subtitle">INFORMATION</span>
+                        <h3 className="split-title">정보 공유</h3>
+                        <p className="split-desc">유용한 선케어 꿀팁</p>
+                        <button className="split-btn">보러가기 &rarr;</button>
+                    </div>
+
+                    {/* 오른쪽 배너: 스마트 쇼핑 (ShoppingPage 이동) */}
+                    <div className="split-banner-card" onClick={() => navigate('/ShoppingPage')}>
+                        <span className="split-subtitle">SHOPPING</span>
+                        <h3 className="split-title">스마트 쇼핑</h3>
+                        <p className="split-desc">검증된 추천 제품</p>
+                        <button className="split-btn">보러가기 &rarr;</button>
+                    </div>
                 </section>
 
-                {/* 🌟 4. 새로 추가된 세안 가이드 구역! */}
+                {/* 4. 세안 가이드 구역 */}
                 <section id="guide" className="content-section" style={{ marginBottom: '40px' }}>
                     <span className="section-tag">WASHING GUIDE</span>
                     <h2 className="section-title">맞춤 세안 가이드</h2>
                     <p className="section-desc">선크림 잔여물 없는 완벽한 세안법!<br/>내 피부에 맞는 세안 가이드를 확인하세요.</p>
-                    {/*  /guide 페이지로 연결됩니다 */}
                     <button className="section-btn" style={{backgroundColor: '#ffb347'}} onClick={() => navigate('/guide')}>가이드 보기 →</button>
                 </section>
 

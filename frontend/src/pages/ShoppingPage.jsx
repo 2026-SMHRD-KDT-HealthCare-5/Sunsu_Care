@@ -54,7 +54,7 @@ const ShoppingPage = () => {
                         onClick={() => openMobileShop(shop.mobileUrl)}
                     >
                         <div className="shop-logo-wrap">
-                            {/* 🌟 이제 엑스박스 없이 이미지가 선명하게 보일 거예요! */}
+                            {}
                             <img src={shop.logoUrl} alt={shop.name} className="shop-logo-img" />
                         </div>
                         

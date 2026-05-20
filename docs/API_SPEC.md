@@ -40,7 +40,7 @@
   "token": "jwt-token-string",
   "user": {
     "user_idx": 1,
-    "name": "정아인",
+    "nickname": "정아인",
     "email": "user@example.com",
     "role": "user"
   }
@@ -63,7 +63,7 @@
 {
   "email": "user@example.com",
   "password": "string",
-  "name": "정아인"
+  "nickname": "정아인"
 }
 ```
 
@@ -76,7 +76,7 @@
   "success": true,
   "user": {
     "user_idx": 1,
-    "name": "정아인",
+    "nickname": "정아인",
     "email": "user@example.com"
   }
 }

@@ -1,23 +1,32 @@
 import React from 'react';
+import { useAuth } from '../../hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
-import './SideMenu.css'; // 방금 만든 CSS 연결
+import './SideMenu.css'; 
 
 const SideMenu = ({ isOpen, onClose }) => {
   const navigate = useNavigate();
+  const { isLoggedIn, userNickname, userEmail } = useAuth();
 
-  // 메뉴 클릭 시 이동하고 메뉴창 닫기
   const handleNav = (path) => {
     navigate(path);
     onClose();
+  };
+
+  const profileText = isLoggedIn
+    ? (userNickname || userEmail || '사용자')
+    : '로그인이 필요합니다';
+
+  const handleProfileClick = () => {
+    handleNav(isLoggedIn ? '/mypage' : '/login');
   };
 
   return (
     <>
       <div className={`side-menu ${isOpen ? 'active' : ''}`}>
         <div className="menu-header">
-          <div className="user-profile" onClick={() => handleNav('/login')}>
+          <div className="user-profile" onClick={handleProfileClick}>
             <i className="fa-regular fa-circle-user profile-icon"></i>
-            <span className="profile-text">로그인이 필요합니다</span>
+            <span className="profile-text">{profileText}</span>
           </div>
           <i className="fa-solid fa-xmark close-icon" onClick={onClose}></i>
         </div>
@@ -41,26 +50,35 @@ const SideMenu = ({ isOpen, onClose }) => {
               <i className="fa-solid fa-user-check"></i> <span>나의 피부 정보</span>
             </div>
             <div className="menu-item" onClick={() => handleNav('/mypage')}>
-              <i className="fa-solid fa-clock-rotate-left"></i> <span>분석 히스토리</span>
+               <i className="fa-solid fa-clock-rotate-left"></i> <span>분석 히스토리</span>
             </div>
+            {isLoggedIn ? (
+            <div className="menu-item" onClick={() => handleNav('/logout')}>
+              <i className="fa-solid fa-arrow-right-from-bracket"></i> <span>로그아웃</span>
+            </div>
+          ) : (
+            <div className="menu-item" onClick={() => handleNav('/login')}>
+              <i className="fa-solid fa-arrow-right-to-bracket"></i> <span>로그인</span>
+            </div>
+          )}
           </div>
 
           <div className="group-title">SERVICE</div>
           <div className="menu-group">
-            <div className="menu-item" onClick={() => window.open('https://m.search.naver.com/search.naver?query=선크림+추천', '_blank')}>
-              <i className="fa-solid fa-book-open"></i> <span>선케어 매거진 & 블로그</span>
+            {/* 🌟 1. 정보 공유 메뉴로 이름 변경 및 GuidePage로 연결 */}
+            <div className="menu-item" onClick={() => handleNav('/guide')}>
+              <i className="fa-solid fa-book-open"></i> <span>정보 공유</span>
             </div>
-          <div className="menu-item" onClick={() => handleNav('/ShoppingPage')}>
+            <div className="menu-item" onClick={() => handleNav('/ShoppingPage')}>
               <i className="fa-solid fa-bag-shopping"></i> <span>쇼핑</span>
             </div>  
           </div>
-        </div>
 
         <div className="menu-footer">
           <span>SUN-SCAN AI v2.0</span>
         </div>
       </div>
-      
+      </div>
       {/* 바깥 어두운 영역 누르면 닫히게 설정 */}
       <div className={`menu-overlay ${isOpen ? 'active' : ''}`} onClick={onClose}></div>
     </>

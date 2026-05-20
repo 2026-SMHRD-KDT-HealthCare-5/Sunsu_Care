@@ -1,3 +1,5 @@
+/* 5/18 ProfilePage.css 전체 덮어씌우기 */
+
 :root {
   --primary-color: #ff8c00;
   --primary-hover: #e07b00;
@@ -34,7 +36,7 @@
   overflow: hidden; 
   box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.08);
   backface-visibility: hidden;
-  transform: translateX(-50%) translateZ(0); /* 기존 translateX와 합쳐서 작성 */
+  transform: translateX(-50%) translateZ(0);
 }
 
 /* 헤더 섹션 */
@@ -122,13 +124,12 @@
   transition: all 0.2s ease;
   cursor: pointer;
   box-sizing: border-box;
-  -webkit-tap-highlight-color: transparent; /* 모바일 터치 시 파란 박스 제거 */
+  -webkit-tap-highlight-color: transparent;
   backface-visibility: hidden;
   transform: translateZ(0);
 }
 
 .option-btn.active {
-  /* 🚀 border와 outline 대신 보더 색상만 바꾸고 안쪽 그림자로 2px 효과 */
   border-color: var(--primary-color);
   box-shadow: inset 0 0 0 1px var(--primary-color); 
   background-color: var(--primary-light);
@@ -144,28 +145,36 @@
 }
 
 .option-btn.unknown.active {
-  border: 1px solid var(--gray-500); /* 2px -> 1px로 변경 */
-  outline: 1px solid var(--gray-500); /* 아웃라인 추가 */
+  border: 1px solid var(--gray-500); 
+  outline: 1px solid var(--gray-500);
   background-color: var(--gray-100);
   color: var(--gray-800);
-  font-weight: 500; /* 두께 유지 */
-  text-shadow: 0.3px 0 0 var(--gray-800), -0.3px 0 0 var(--gray-800); /* 필요시 추가 */
+  font-weight: 500; 
+  text-shadow: 0.3px 0 0 var(--gray-800), -0.3px 0 0 var(--gray-800); 
 }
 
 /* 성별 선택 카드 */
-.gender-wrap { display: flex; gap: 16px; }
+.gender-wrap { 
+  /* 남녀 버튼 비율 5:5 완벽 고정 */
+  display: flex; gap: 16px; width: 100%; box-sizing: border-box; 
+}
+
 .gender-card {
-  flex: 1;
-  padding: 30px 0;
+  flex: 1; /* 양쪽 똑같이 절반씩 나눔 */
+  aspect-ratio: 1 / 1; /* 🌟 찌그러지지 않고 완벽한 정사각형 유지 */
+  /* 패딩 대신 비율로 고정하여 삐져나가지 않게 처리 */
+  padding: 0;
   border-radius: 16px;
   border: 1px solid var(--gray-200);
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center; /* 아이콘과 텍스트를 정중앙 배치 */
   gap: 12px;
   background: #ffffff;
   transition: all 0.2s;
   cursor: pointer;
+  box-sizing: border-box; 
 }
 
 .gender-card.active-male { border: 2px solid #3b82f6; background: #eff6ff; }
@@ -232,12 +241,15 @@
 
 /* 푸터 네비게이션 */
 .survey-footer {
-  padding: 15px 24px 35px;
+  
+  width: 100%;
+  padding: 15px 24px 30px; 
   display: flex;
   gap: 10px;
   background: #fff;
   border-top: 1px solid var(--gray-100);
   flex-shrink: 0;
+  box-sizing: border-box; /* 🌟 핵심: 삐져나감 방지 */
 }
 
 .nav-btn {
@@ -248,6 +260,20 @@
   border: none;
   cursor: pointer;
   transition: 0.2s;
+  box-sizing: border-box; 
+
+}
+.nav-btn.next:disabled {
+  background: #cbd5e1;
+  cursor: not-allowed;
+}
+
+.submit-button-container { /* 버튼을 감싸는 통 */
+    width: 100%;
+    padding: 20px 24px; /* 양옆 여백 동일하게! */
+    box-sizing: border-box; 
+    background: #fff; 
+>>>>>>> main
 }
 
 .nav-btn.prev { flex: 1; background: #fff; border: 1px solid var(--gray-300); color: var(--gray-700); }
@@ -255,24 +281,19 @@
 .nav-btn.next:disabled { background: var(--gray-300); color: #fff; cursor: not-allowed; }
 
 /* 최종 단계 푸터 특화 */
-/* [수정] 최종 단계 푸터 특화 */
 .survey-footer.final-step .prev { 
-  /* flex 구조를 깨뜨리지 않고 비율을 자연스럽게 조절하거나, 
-     기존 flex: 1을 유지하면서 부드럽게 줄어들게 합니다. */
-  flex: 0.6; /* 👈 고정 px 대신 비율로 조절해 리플로우 방지 */
+  flex: 0.6; 
   background-color: var(--gray-100); 
   color: var(--gray-700); 
   border: none; 
-  transition: all 0.3s ease; /* 👈 전환을 부드럽게 */
+  transition: all 0.3s ease; 
 }
 
 .survey-footer.final-step .next { 
-  flex: 2.4; /* 👈 합쳐서 전체 비율을 유지 */
+  flex: 2.4; 
   background: linear-gradient(135deg, var(--primary-color) 0%, #e06c00 100%); 
   box-shadow: 0 4px 16px rgba(255, 140, 0, 0.25); 
   transition: all 0.3s ease;
-  
-  /* 혹시 모를 그래픽 연산 떨림 방지용 쉴드 */
   backface-visibility: hidden;
   transform: translateZ(0); 
 }
