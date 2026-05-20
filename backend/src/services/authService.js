@@ -7,13 +7,16 @@ const bcrypt = require("bcrypt");
 // JWT 토큰 라이브러리
 const jwt = require("jsonwebtoken");
 
-// 암호화 강도
+// 해시 처리 단계 지정
+// 해시: 고정된 형태를 다른 값으로 변환하는 과정
 const SALT_ROUNDS = 10;
 
 // 1. 회원가입 처리 함수
+// async: 함수 내부에서 await를 사용할 수 있게 해주는 키워드
 const signup = async (email, password, nickname, callback) => {
   try {
     // 1-1. 비밀번호 암호화
+    // password를 bcrypt로 해시처리 후 작업 끝날때까지 await로 기다린 후 완성된 hash password를 변수에 저장
     const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
 
     // 1-2. SQL문 작성
@@ -24,13 +27,19 @@ const signup = async (email, password, nickname, callback) => {
     `;
 
     // 1-3. SQL문 실행
+    //conn.query(SQL문, [SQL에 넣을 값들], 실행 후 처리할 함수)
     conn.query(sql, [email, hashedPassword, nickname, "user"], (err, rows) => {
       if (err) {
         console.log("회원가입 DB 저장 에러:", err);
-        return callback(err, null);
-      }
 
-      return callback(null, rows);
+        //callback 함수
+        //rows: DB insert 실행 후 MYSQL이 반환한 결과 객체
+        //result: service에서 가공해서 만든 최종 결과
+        return callback(err, null);
+      } else {
+        console.log("회원가입 DB 저장 성공", rows);
+        return callback(null, rows);
+      }
     });
   } catch (err) {
     console.log("비밀번호 암호화 에러:", err);
@@ -40,7 +49,7 @@ const signup = async (email, password, nickname, callback) => {
 
 // 2. 로그인 처리 함수
 const login = (email, password, callback) => {
-  // 2-1. 이메일 기준으로 사용자 조회
+  // SQL문 작성
   const sql = `
     SELECT 
       user_idx,
@@ -56,6 +65,9 @@ const login = (email, password, callback) => {
     if (err) {
       console.log("로그인 DB 조회 에러:", err);
       return callback(err, null);
+    }
+    else{
+      console.log("로그인 DB 조회 성공")
     }
 
     // 2-2. 이메일에 해당하는 사용자가 없는 경우
@@ -79,7 +91,7 @@ const login = (email, password, callback) => {
         });
       }
 
-      // 2-4. JWT 토큰 생성
+      // 2-4. JWT 토큰 생성 -> jwt.sign(토큰에 담을 데이터, 비밀키, 옵션)
       const token = jwt.sign(
         {
           user_idx: user.user_idx,
@@ -90,7 +102,7 @@ const login = (email, password, callback) => {
         process.env.JWT_SECRET,
         {
           expiresIn: "1h",
-        }
+        },
       );
 
       // 2-5. 로그인 성공 결과를 controller로 전달
@@ -132,3 +144,6 @@ module.exports = {
   login,
   logout,
 };
+
+//jwt.sign(토큰에 담을 데이터, 비밀키, 옵션): 토큰생성
+//jwt.verify(): 토큰검증
