@@ -2,21 +2,16 @@ import os
 from pathlib import Path
 from dotenv import load_dotenv
 
-# 1. 경로 계산: 현재 파일에서 4번 올라가면 루트(TP 폴더)에 도달
-# models -> ai -> backend -> TP
-BASE_DIR = Path(__file__).resolve().parent.parent.parent.parent
+# 1. BASE_DIR을 현재 파일(config.py) 기준으로 수정합니다.
+# config.py가 backend/src/config.py에 있다고 가정할 때
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
-# 2. .env 파일 강제 로드 (루트의 .env를 타겟팅)
-env_path = BASE_DIR / ".env"
+# 2. .env 파일 경로를 backend 폴더 내부로 고정합니다.
+env_path = BASE_DIR / "backend" / ".env"
 load_dotenv(dotenv_path=env_path)
 
 class Config:
-    BASE_DIR = BASE_DIR
-    
-    # 데이터베이스 및 기타 설정
-    DATABASE_URL = os.getenv("DATABASE_URL")
-    
-    # 모델 경로: 루트(BASE_DIR)로부터 상대 경로 계산
+    # 3. 모델 경로 계산도 backend 기준이 되도록 수정
     _env_model_path = os.getenv("MODEL_PATH", "ai/weights/best.pt")
     MODEL_PATH = str(BASE_DIR / "backend" / _env_model_path)
     
@@ -24,16 +19,17 @@ class Config:
     SECRET_KEY = os.getenv("CLOVA_SECRET_KEY")
     MAX_IMAGE_SIZE = int(os.getenv("MAX_IMAGE_SIZE", 10485760))
     INTERNAL_TOKEN = os.getenv("INTERNAL_TOKEN")
+    DATABASE_URL = os.getenv("DATABASE_URL")
 
     @classmethod
     def validate_config(cls):
-        """환경 변수 및 필수 파일 검증"""
-        # 하나라도 비어있으면 안 됨
+        # 4. 필수 변수 체크
         if not all([cls.API_URL, cls.SECRET_KEY, cls.DATABASE_URL, cls.INTERNAL_TOKEN]):
             raise ValueError(
                 f"치명적 오류: .env 파일에서 필수 환경 변수가 누락되었습니다. "
-                f"(확인 경로: {cls.BASE_DIR / '.env'})"
+                f"(확인 경로: {env_path})"
             )
         
+        # 5. 모델 경로 존재 여부 체크
         if not os.path.exists(cls.MODEL_PATH):
             raise FileNotFoundError(f"모델 파일을 찾을 수 없습니다: {cls.MODEL_PATH}")

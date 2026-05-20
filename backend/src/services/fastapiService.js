@@ -1,26 +1,27 @@
-import axios from 'axios';
-import FormData from 'form-data';
-import crypto from 'crypto';
-import db from '../db/index.js'; // DB 커넥션 풀 가져오기
+const axios = require('axios');
+const FormData = require('form-data');
+const crypto = require('crypto');
 
+// .env에서 환경 변수 불러오기 (이미 상단에 선언되어 있음)
 const FASTAPI = process.env.FASTAPI_BASE_URL;
 const INTERNAL_TOKEN = process.env.INTERNAL_TOKEN;
 
 /**
- * 1. AI 분석 시작 요청 (FastAPI에게 작업을 던짐)
+ * 1. AI 분석 시작 요청 (로직 유지)
  */
-export async function startSuncareAnalyze(file) {
+async function startSuncareAnalyze(file, options = {}) {
   const form = new FormData();
-  // Buffer 데이터를 전달할 때는 파일명과 컨텐츠 타입을 명시하는 것이 중요합니다.
   form.append('file', file.buffer, { 
-    filename: file.originalname, 
-    contentType: file.mimetype 
+    filename: options.filename || 'image.jpg', 
+    contentType: options.contentType || 'image/jpeg' 
   });
   
-  // FastAPI가 분석 완료 후 호출할 Express의 주소
-  form.append('callback_url', `${process.env.EXTERNAL_BASE_URL}/api/callbacks/suncare`);
+  // 콜백 URL 구성
+  if (options.callback_url) {
+    form.append('callback_url', options.callback_url);
+  }
   
-  const requestId = crypto.randomUUID();
+  const requestId = options.request_id || crypto.randomUUID();
   form.append('request_id', requestId);
 
   const { data } = await axios.post(
@@ -35,53 +36,29 @@ export async function startSuncareAnalyze(file) {
     }
   );
 
-  // FastAPI가 생성한 task_id와 함께 반환
-  return { taskId: data.task_id, requestId, status: data.status };
+  return { task_id: data.task_id, status: data.status };
 }
 
 /**
- * 2. 분석 결과 조회 (FastAPI를 거치지 않고 MySQL DB에서 직접 조회)
- * 💡 이 방식이 FastAPI 서버 부하를 줄이고 응답 속도가 더 빠릅니다.
+ * 2. 분석 결과 조회 (DB 삭제 후 API 직접 조회로 일원화)
  */
-export async function getTaskStatusFromDb(taskId) {
+async function getTaskFromApi(taskId) {
   try {
-    const query = `
-      SELECT task_id, request_id, status, result, updated_at 
-      FROM ocr_tasks 
-      WHERE task_id = ?
-    `;
-    
-    // index.js에서 만든 pool을 사용하여 쿼리 실행
-    const [rows] = await db.query(query, [taskId]);
-
-    if (rows.length === 0) {
-      return null;
-    }
-
-    return {
-      taskId: rows[0].task_id,
-      requestId: rows[0].request_id,
-      status: rows[0].status,
-      result: rows[0].result, // JSON 컬럼은 자동으로 객체로 변환됨
-      updatedAt: rows[0].updated_at
-    };
+    const { data } = await axios.get(
+      `${FASTAPI}/api/v1/tasks/${taskId}`,
+      { 
+        headers: { 'Authorization': `Bearer ${INTERNAL_TOKEN}` }, 
+        timeout: 10000 
+      }
+    );
+    return data;
   } catch (error) {
-    console.error("DB 조회 중 오류 발생:", error);
+    console.error("FastAPI 상태 조회 실패:", error.message);
     throw error;
   }
 }
 
-/**
- * 3. (선택사항) FastAPI에게 직접 상태 물어보기
- * DB 조회가 여의치 않거나 FastAPI의 실시간 상태가 필요할 때 사용합니다.
- */
-export async function getTaskFromApi(taskId) {
-  const { data } = await axios.get(
-    `${FASTAPI}/api/v1/tasks/${taskId}`,
-    { 
-      headers: { 'Authorization': `Bearer ${INTERNAL_TOKEN}` }, 
-      timeout: 10000 
-    }
-  );
-  return data;
-}
+module.exports = {
+  startSuncareAnalyze,
+  getTaskStatus: getTaskFromApi // 이름 통일
+};
