@@ -140,6 +140,12 @@ function ProfilePage() {
   const handlePrev = () => {
     clearAutoNavTimer();
 
+    // 🌟 추가된 부분: 만약 현재 1단계(GENDER)라면 이전 페이지(또는 홈)로 돌아가기
+    if (step === STEPS.GENDER) {
+      navigate(-1); // 브라우저 뒤로가기 효과 (홈으로 가고 싶다면 navigate('/') 도 좋습니다)
+      return;
+    }
+
     setStep(prev => {
       if (prev === STEPS.COMMON_START) {
         return answers.diag1 ? STEPS.AI_BRIDGE : STEPS.BASIC_TYPE;
@@ -305,7 +311,7 @@ function ProfilePage() {
       </main>
 
       <footer className={`survey-footer ${step === STEPS.FINAL ? 'final-step' : ''}`}>
-        {step > 1 && (
+        
           <button 
             className="nav-btn prev" 
             onClick={handlePrev}
@@ -313,7 +319,7 @@ function ProfilePage() {
           >
             이전
           </button>
-        )}
+        
         <button 
           className="nav-btn next" 
           onClick={() => handleNextStep(answers, step)}

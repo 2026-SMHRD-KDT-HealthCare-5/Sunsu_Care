@@ -90,7 +90,7 @@ const HomePage = () => {
                     <span className="section-tag">WASHING GUIDE</span>
                     <h2 className="section-title">맞춤 세안 가이드</h2>
                     <p className="section-desc">선크림 잔여물 없는 완벽한 세안법!<br/>내 피부에 맞는 세안 가이드를 확인하세요.</p>
-                    <button className="section-btn" style={{backgroundColor: '#ffb347'}} onClick={() => navigate('/guide')}>가이드 보기 →</button>
+                    <button className="section-btn" style={{backgroundColor: '#ff8c00'}} onClick={() => navigate('/guide')}>가이드 보기 →</button>
                 </section>
 
             </div>

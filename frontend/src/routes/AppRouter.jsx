@@ -1,5 +1,5 @@
+// src/routers/AppRouter.jsx
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-
 import MainLayout from '../layouts/MainLayout'
 import HomePage from '../pages/HomePage'
 import LoginPage from '../pages/LoginPage'
@@ -18,6 +18,7 @@ function AppRouter() {
     <BrowserRouter>
       <div className="app-container">
         <Routes>
+          {/* 🌟 원래대로 MainLayout 안으로 다시 쏙 넣어줍니다! */}
           <Route element={<MainLayout />}>
             <Route path="/" element={<HomePage />} />
             <Route path="/login" element={<LoginPage />} />
@@ -30,15 +31,7 @@ function AppRouter() {
             <Route path="/mypage" element={<MyPage />} />
             <Route path="/history/:id" element={<HistoryDetailPage />} />
             <Route path="/ShoppingPage" element={<ShoppingPage />} />
-            <Route
-              path="*"
-              element={
-                <div className="page">
-                  <h1>404</h1>
-                  <p>페이지를 찾을 수 없어요.</p>
-                </div>
-              }
-            />
+            <Route path="*" element={<div className="page"><h1>404</h1></div>} />
           </Route>
         </Routes>
       </div>
@@ -46,4 +39,4 @@ function AppRouter() {
   )
 }
 
-export default AppRouter
+export default AppRouter;
