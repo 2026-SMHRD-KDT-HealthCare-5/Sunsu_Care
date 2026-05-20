@@ -7,36 +7,24 @@ const signup = (req, res) => {
   const { email, password, nickname } = req.body;
 
   // 1-1. 입력값 검증 
-  if (!email || !password || !nickname) 
-  {
-    //400: 요청값 오류
-    //.json(): 응답 데이터 json 형태로 출력
-    return res.status(400).json( //
-      {
+  if (!email || !password || !nickname) {
+    // 400: 요청값 오류
+    // .json(): 응답 데이터 json 형태로 출력
+    return res.status(400).json({
       success: false,
       message: "이메일, 비밀번호, 닉네임을 모두 입력하세요",
-      }
-    );
+    });
   }
 
   // authService의 signup 함수에 매개변수 값 넘겨서 DB에 저장/처리
-  authService.signup(email, password, nickname, (err, rows) => {
+  // 수정한 이유:
+  // service에서 success, status, message, user 형태의 최종 응답 객체를 만들어 넘기기 때문에
+  // controller에서는 result를 그대로 응답으로 내보내면 됨
+  authService.signup(email, password, nickname, (err, result) => {
     if (err) {
       console.log("회원가입 에러:", err);
 
-      // 중복 이메일 에러
-      if (err.code === "ER_DUP_ENTRY") 
-      {
-          //409: 데이터 충돌 
-          return res.status(409).json(
-          {
-            success: false,
-            message: "이미 사용 중인 이메일입니다.",
-          }
-        );
-      }
-
-      //DB/서버 에레 검출  (500: 서버 내부 오류)
+      // DB/서버 에러 검출 (500: 서버 내부 오류)
       return res.status(500).json({
         success: false,
         message: "회원가입 실패",
@@ -44,17 +32,10 @@ const signup = (req, res) => {
       });
     }
 
-    // 회원가입 성공 응답 (201: 성공 실행)
-    return res.status(201).json({
-      success: true,
-      message: "회원가입 성공",
-      user: {
-        user_idx: rows.insertId,
-        email,
-        nickname,
-        role: "user",
-      },
-    });
+    // 수정한 이유:
+    // 회원가입 성공은 201, 이메일 중복은 409처럼
+    // service에서 넘겨준 status 값에 따라 응답 상태코드를 결정함
+    return res.status(result.status).json(result);
   });
 };
 
