@@ -48,3 +48,24 @@ Body:
 프론트 요청: POST/user (JSON 형태로 데이터 보냄)
 라우터: router.post("/user/:id", usercontroller.getuser) = (URL, 실행할 함수)
 백엔드: const name =req.body.name, const age = req.body.age
+
+# 3. GitHub 순서
+git add . 
+git commit -m "커밋메세지" 
+git push origin JHWbranch
+
+git checkout main 
+git pull origin main
+
+git checkout JHWbranch 
+git merge main
+
+[1] conflict 안남 
+git push origin JHWbranch
+
+[2] conflict 남
+conflict 해결
+git add .
+git commit -m "커밋메세지"
+git push origin JHWbranch
+github 사이트가서 compare & pull request 버튼 클릭
