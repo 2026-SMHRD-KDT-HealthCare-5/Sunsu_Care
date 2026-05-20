@@ -22,6 +22,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // 3. API 라우터 연결
 app.use('/api/auth', authRoutes); //backend 회원관리 라우터 연결
+app.use('/api/profile',profileRoutes) //backend 회원관리 라우터 연결
 app.use('/api/suncare', suncareRoutes); 
 
 // 4. 에러 처리 미들웨어
