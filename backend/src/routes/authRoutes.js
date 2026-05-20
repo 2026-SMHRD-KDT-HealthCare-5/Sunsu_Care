@@ -1,26 +1,17 @@
-//routes: 요청에 대한 각 URL을 어떤 controller 함수로 연결할지 정의
+const express = require("express");
+const router = express.Router();
 
-// express 프레임워크 호출
-const express = require("express")
+// 모든 기능을 통합 관리할 컨트롤러를 가져옵니다.
+const authController = require("../controllers/authController");
 
-// express.Router 객체 생성
-// URL을 기능별로 나누기 위한 라우터
-const router = express.Router()
+// 1. 회원가입 API (기존 기능 유지)
+router.post("/signup", authController.signup);
 
-// 관련 요청을 처리하는 controller 호출
-const authController = require("../controllers/authController")
+// 2. 로그인 API (기존 두 컨트롤러의 로그인 로직 비교 후 하나 선택)
+// 만약 authlogin_Controller의 로직이 더 중요하다면 아래를 사용하세요.
+router.post("/login", authController.login); 
 
-// 1. 회원가입 API
-// 최종 경로: POST/api/signup
-router.post("/signup",authController.signup)
+// 3. 로그아웃 API (기존 기능 유지)
+router.post("/logout", authController.logout);
 
-// 2. 로그인 API
-// 최종 경로: POST/api/login
-router.post("/login", authController.login)
-
-// 3. 로그아웃 API
-// 최종 경로: POST/api/logout
-router.post("/logout",authController.logout)
-
-// router 객체를 app.js에서 사용할 수 있도록 내보내기
-module.exports = router
+module.exports = router;

@@ -58,10 +58,12 @@ class OcrService:
                     detected_physical.add(p_ing)
                     
             # 유기 자차 매칭
+            ing_lower = ing.lower()
             for c_ing in self.chemical_ingredients:
-                if c_ing in ing:
+                c_ing_lower = c_ing.lower()
+                if c_ing_lower in ing_lower:
                     detected_chemical.add(c_ing)
-                elif is_long_token and fuzz.partial_ratio(c_ing, ing) >= 90:
+                elif is_long_token and fuzz.partial_ratio(c_ing_lower, ing_lower) >= 90:
                     detected_chemical.add(c_ing)
 
         has_physical = len(detected_physical) > 0

@@ -5,7 +5,6 @@ import logging
 
 from anyio import to_thread
 
-from backend.ai.models.database import update_task_status
 from backend.ai.models.ocr_service import OcrService # 이것도 절대 경로로 변경
 
 logger = logging.getLogger("pipeline_worker")
@@ -22,11 +21,16 @@ async def async_pipeline_processor(
     ocr_service: OcrService,
     lock: asyncio.Lock,
     callback_url: str | None = None,
-    request_id: str | None = None
+    request_id: str | None = None,
+    task_store: dict = None
 ):
+    def update_local_status(status, result=None, error=None):
+        if task_store and task_id in task_store:
+            task_store[task_id].update({"status": status, "result": result, "error": error})
+
     try:
         # 1. 상태 변경
-        await to_thread.run_sync(update_task_status, task_id, "PROCESSING")
+        update_local_status("PROCESSING")
 
         # 2. 이미지 전처리
         try:
@@ -96,43 +100,27 @@ async def async_pipeline_processor(
         }
 
         # 7. DB 저장
-        await to_thread.run_sync(
-            update_task_status,
-            task_id,
-            "COMPLETED",
-            analysis_result
-        )
+        update_local_status("COMPLETED", result=analysis_result)
 
         # 8. Callback 전송
         if callback_url:
-            try:
+            with contextlib.suppress(Exception):
                 await post_callback(callback_url, final_payload)
-            except Exception as cb_err:
-                # 콜백 실패 로그에 task_id 추가하여 추적 용이성 확보
-                logger.error(f"[{task_id}] 콜백 전송 실패: {cb_err}")
 
     except Exception as e:
-        logger.error(
-            f"[{task_id}] 파이프라인 에러: {str(e)}",
-            exc_info=True
-        )
-
-        err_payload = {
-            "task_id": task_id,
-            "request_id": request_id,
-            "status": "FAILED",
-            "error": str(e)
-        }
-
-        try:
-            await to_thread.run_sync(
-                update_task_status,
-                task_id,
-                "FAILED",
-                {"error": str(e)}
-            )
-        finally:
-            # DB 업데이트 실패 여부와 무관하게 콜백은 시도
+            logger.error(f"[{task_id}] 파이프라인 에러: {str(e)}", exc_info=True)
+            
+            # 메모리 상태 업데이트 (에러 발생)
+            update_local_status("FAILED", error=str(e))
+            
+            # 콜백 전송
+            err_payload = {
+                "task_id": task_id,
+                "request_id": request_id,
+                "status": "FAILED",
+                "error": str(e)
+            }
+            
             if callback_url:
                 with contextlib.suppress(Exception):
                     await post_callback(callback_url, err_payload)
