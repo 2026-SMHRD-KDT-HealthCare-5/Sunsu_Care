@@ -12,6 +12,16 @@ const SideMenu = ({ isOpen, onClose }) => {
     onClose();
   };
 
+  // 로그인 필요한 경로 이동 (안 됐으면 /login?redirect=경로 로)
+  const handleNavWithAuth = (path) => {
+    if (isLoggedIn) {
+      navigate(path);
+    } else {
+      navigate(`/login?redirect=${encodeURIComponent(path)}`);
+    }
+    onClose();
+  };
+
   const profileText = isLoggedIn
     ? (userNickname || userEmail || '사용자')
     : '로그인이 필요합니다';
@@ -36,10 +46,10 @@ const SideMenu = ({ isOpen, onClose }) => {
             <div className="menu-item" onClick={() => handleNav('/')}>
               <i className="fa-solid fa-house"></i> <span>HOME</span>
             </div>
-            <div className="menu-item" onClick={() => handleNav('/profile')}>
+            <div className="menu-item" onClick={() => handleNavWithAuth('/profile')}>
               <i className="fa-solid fa-wand-magic-sparkles"></i> <span>AI 추천 맞춤케어</span>
             </div>
-            <div className="menu-item" onClick={() => handleNav('/scan')}>
+            <div className="menu-item" onClick={() => handleNavWithAuth('/scan')}>
               <i className="fa-solid fa-magnifying-glass-chart"></i> <span>제품 성분 정밀분석</span>
             </div>
           </div>

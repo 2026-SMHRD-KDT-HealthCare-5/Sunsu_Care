@@ -1,6 +1,6 @@
 // src/pages/LoginPage.jsx
 import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import Input from '../components/common/Input'
 import Button from '../components/common/Button'
 import { useAuth } from '../hooks/useAuth'
@@ -10,6 +10,8 @@ import './Auth.css'
 function LoginPage() {
   const navigate = useNavigate()
   const { login } = useAuth()
+  const [searchParams] = useSearchParams()
+  const redirect = searchParams.get('redirect') || '/'
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [errors, setErrors] = useState({})
@@ -30,7 +32,7 @@ function LoginPage() {
     setSubmitting(true)
     try {
       await login(email, password)
-      navigate('/')
+      navigate(redirect)
     } catch (err) {
       setSubmitError('로그인에 실패했어요. 이메일/비밀번호를 확인해주세요.')
     } finally {
@@ -72,7 +74,7 @@ function LoginPage() {
 
       <p className="auth__link">
         아직 회원이 아니신가요?
-        <Link to="/signup">회원가입</Link>
+        <Link to={`/signup?redirect=${encodeURIComponent(redirect)}`}>회원가입</Link>
       </p>
     </div>
   )

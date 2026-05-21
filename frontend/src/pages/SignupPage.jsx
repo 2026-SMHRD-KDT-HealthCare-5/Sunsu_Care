@@ -1,6 +1,6 @@
 // src/pages/SignupPage.jsx
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import Input from "../components/common/Input";
 import Button from "../components/common/Button";
 import Modal from "../components/common/Modal";
@@ -15,6 +15,8 @@ import "./Auth.css";
 
 function SignupPage() {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const redirect = searchParams.get("redirect") || "/";
   const [form, setForm] = useState({
     email: "",
     password: "",
@@ -62,7 +64,7 @@ function SignupPage() {
 
   const handleAfterSuccess = () => {
     setShowSuccess(false);
-    navigate("/login");
+    navigate(`/login?redirect=${encodeURIComponent(redirect)}`);
   };
 
   return (
@@ -114,7 +116,7 @@ function SignupPage() {
 
       <p className="auth__link">
         이미 회원이신가요?
-        <Link to="/login">로그인</Link>
+        <Link to={`/login?redirect=${encodeURIComponent(redirect)}`}>로그인</Link>
       </p>
 
       <Modal
