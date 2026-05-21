@@ -14,7 +14,7 @@ const SALT_ROUNDS = 10;
 
 // 1. 회원가입 처리 함수
 // async: 함수 내부에서 await를 사용할 수 있게 해주는 키워드
-const signup = async (email, password, nickname, callback) => {
+const signup = async (email, password, nickname) => {
   try {
     console.log("현재 수정한 authService.js signup 실행됨");
 
@@ -47,7 +47,10 @@ const signup = async (email, password, nickname, callback) => {
     // 기존에는 MySQL이 반환한 rows 객체를 그대로 controller로 전달했음
     // 하지만 프론트에서는 success, message, user 같은 일정한 응답 구조가 필요함
     // 그래서 service에서 회원가입 성공 응답 객체를 가공해서 controller로 전달함
-    return callback(null, {
+    // 추가 수정 이유:
+    // callback 방식 대신 async/await 방식으로 controller에서 결과를 받을 수 있도록
+    // callback(null, result)가 아니라 result 객체를 return함
+    return {
       success: true,
       status: 201,
       message: "회원가입 성공",
@@ -57,7 +60,7 @@ const signup = async (email, password, nickname, callback) => {
         nickname,
         role: "user",
       },
-    });
+    };
   } catch (err) {
     console.log("회원가입 처리 에러:", err);
 
@@ -68,22 +71,25 @@ const signup = async (email, password, nickname, callback) => {
     // 서버가 crash 될 수 있음
     // 따라서 중복 이메일은 서버 에러가 아니라 사용자가 처리할 수 있는 요청 문제로 보고
     // success: false 응답 객체를 만들어 controller로 전달함
+    // 추가 수정 이유:
+    // callback 방식 제거에 따라 중복 이메일도 result 객체를 return함
     if (err.code === "ER_DUP_ENTRY") {
-      return callback(null, {
+      return {
         success: false,
         status: 409,
         message: "이미 사용 중인 이메일입니다.",
-      });
+      };
     }
 
     // 비밀번호 암호화, DB 연결 문제 등 예상하지 못한 에러는 controller에서 500 처리
-    return callback(err, null);
+    // callback 방식 제거에 따라 에러를 throw해서 controller의 catch에서 처리함
+    throw err;
   }
 };
 
 // 2. 로그인 처리 함수
 // async: 함수 내부에서 await를 사용할 수 있게 해주는 키워드
-const login = async (email, password, callback) => {
+const login = async (email, password) => {
   try {
     // SQL문 작성
     const sql = `
@@ -108,10 +114,10 @@ const login = async (email, password, callback) => {
 
     // 2-2. 이메일에 해당하는 사용자가 없는 경우
     if (rows.length === 0) {
-      return callback(null, {
+      return {
         success: false,
         message: "이메일 또는 비밀번호가 올바르지 않습니다.",
-      });
+      };
     }
 
     const user = rows[0];
@@ -120,10 +126,10 @@ const login = async (email, password, callback) => {
     const isMatch = await bcrypt.compare(password, user.password_hash);
 
     if (!isMatch) {
-      return callback(null, {
+      return {
         success: false,
         message: "이메일 또는 비밀번호가 올바르지 않습니다.",
-      });
+      };
     }
 
     // 2-4. JWT 토큰 생성 -> jwt.sign(토큰에 담을 데이터, 비밀키, 옵션)
@@ -144,7 +150,10 @@ const login = async (email, password, callback) => {
     );
 
     // 2-5. 로그인 성공 결과를 controller로 전달
-    return callback(null, {
+    // 추가 수정 이유:
+    // callback 방식 대신 async/await 방식으로 controller에서 결과를 받을 수 있도록
+    // callback(null, result)가 아니라 result 객체를 return함
+    return {
       success: true,
       message: "로그인 성공",
       token,
@@ -154,29 +163,31 @@ const login = async (email, password, callback) => {
         nickname: user.nickname,
         role: user.role,
       },
-    });
+    };
   } catch (err) {
     console.log("로그인 처리 에러:", err);
 
     // 수정한 이유:
     // DB 조회, 비밀번호 비교, JWT 토큰 생성 중 발생한 예외를
     // controller로 넘겨서 500 서버 에러로 응답하기 위함
-    return callback(err, null);
+    // callback 방식 제거에 따라 에러를 throw해서 controller의 catch에서 처리함
+    throw err;
   }
 };
 
 // 3. 로그아웃 처리 함수
-const logout = (callback) => {
+const logout = async () => {
   try {
     // JWT 방식에서는 서버에서 토큰을 직접 삭제하지 않음
     // 프론트에서 localStorage에 저장된 authToken을 삭제하면 로그아웃 처리
-    return callback(null, {
+    // callback 방식 대신 async/await 방식으로 controller에서 결과를 받을 수 있도록 result 객체를 return함
+    return {
       success: true,
       message: "로그아웃 성공",
-    });
+    };
   } catch (err) {
     console.log("로그아웃 처리 에러:", err);
-    return callback(err, null);
+    throw err;
   }
 };
 

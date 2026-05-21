@@ -1,6 +1,7 @@
 // 1. 모듈 불러오기
 const express = require('express');
 const cors = require('cors');
+const path = require('path');
 
 // 라우터 불러오기
 const authRoutes = require('./routes/authRoutes'); //backend 회원관리 라우터 호출
