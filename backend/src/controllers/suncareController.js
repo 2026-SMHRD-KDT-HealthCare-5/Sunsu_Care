@@ -1,5 +1,8 @@
+// root/backend/src/controllers/suncareController
+
 const fastapiService = require('../services/fastapiService');
-const response = require('../utils/response'); // 공통 응답 포맷이 있다면 활용
+const response = require('../utils/response');
+const profileService = require('../services/profileService');
 
 /**
  * 선케어 성분 분석 요청 컨트롤러
@@ -17,16 +20,22 @@ const analyzeSuncare = async (req, res) => {
         // 2. 추가 정보 추출 (필요 시)
         const { callback_url, request_id } = req.body;
 
-        // 3. FastAPI 서비스 호출
-        // fastapiService.analyzeImage는 FastAPI의 /api/v1/suncare/analyze로 요청을 보냄
+        // 3. 유저 프로필 데이터 조회
+        const user_idx = req.user.user_idx;
+        const userProfile = await profileService.getProfileByUserId(user_idx) || {}; // 없으면 빈 객체
+
+        // 4. FastAPI 서비스 호출
         const result = await fastapiService.analyzeImage(req.file.buffer, {
             filename: req.file.originalname,
             contentType: req.file.mimetype,
-            callback_url: callback_url || null,
-            request_id: request_id || `req_${Date.now()}`
+            user_profile: {
+                skin_type: userProfile.skin_type || '정보없음',
+                sensitivity: userProfile.senstive_yn || 'N',
+                avoid_ingredient: JSON.parse(userProfile.avoid_ingredient || '[]')
+            }
         });
 
-        // 4. 결과 반환 (FastAPI에서 준 task_id 포함)
+        // 5. 결과 반환
         return res.status(202).json({
             success: true,
             message: "분석 작업이 접수되었습니다.",

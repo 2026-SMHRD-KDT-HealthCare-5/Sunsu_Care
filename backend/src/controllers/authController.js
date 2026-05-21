@@ -3,73 +3,112 @@
 const authService = require("../services/authService");
 
 // 1. 회원가입 API 요청 처리
-const signup = (req, res) => {
-  const { email, password, nickname } = req.body;
+const signup = async (req, res) => {
+  try {
+    console.log("회원가입 요청 body:", req.body);
 
-  // 1-1. 입력값 검증 
-  if (!email || !password || !nickname) {
-    // 400: 요청값 오류
-    // .json(): 응답 데이터 json 형태로 출력
-    return res.status(400).json({
-      success: false,
-      message: "이메일, 비밀번호, 닉네임을 모두 입력하세요",
-    });
-  }
+    const { email, password, nickname } = req.body;
 
-  // authService의 signup 함수에 매개변수 값 넘겨서 DB에 저장/처리
-  // 수정한 이유:
-  // service에서 success, status, message, user 형태의 최종 응답 객체를 만들어 넘기기 때문에
-  // controller에서는 result를 그대로 응답으로 내보내면 됨
-  authService.signup(email, password, nickname, (err, result) => {
-    if (err) {
-      console.log("회원가입 에러:", err);
+    // 1-1. 입력값 검증
+    if (!email || !password || !nickname) {
+      console.log("회원가입 입력값 누락:", {
+        email: !!email,
+        password: !!password,
+        nickname: !!nickname,
+      });
 
-      // DB/서버 에러 검출 (500: 서버 내부 오류)
-      return res.status(500).json({
+      // 400: 요청값 오류
+      // .json(): 응답 데이터 json 형태로 출력
+      return res.status(400).json({
         success: false,
-        message: "회원가입 실패",
-        error: err.message,
+        message: "이메일, 비밀번호, 닉네임을 모두 입력하세요",
       });
     }
+
+    console.log("authService.signup 호출 직전:", {
+      email,
+      nickname,
+      passwordLength: password.length,
+    });
+
+    // authService의 signup 함수에 매개변수 값 넘겨서 DB에 저장/처리
+    // 수정한 이유:
+    // service에서 success, status, message, user 형태의 최종 응답 객체를 만들어 넘기기 때문에
+    // controller에서는 result를 그대로 응답으로 내보내면 됨
+    // 추가 수정 이유:
+    // authService가 callback 방식이 아니라 async/await 방식으로 변경되었기 때문에
+    // Promise로 감싸지 않고 await authService.signup(...)으로 직접 결과를 받음
+    const result = await authService.signup(email, password, nickname);
+
+    console.log("authService.signup 결과:", result);
 
     // 수정한 이유:
     // 회원가입 성공은 201, 이메일 중복은 409처럼
     // service에서 넘겨준 status 값에 따라 응답 상태코드를 결정함
+    console.log("회원가입 응답 status:", result.status);
+
     return res.status(result.status).json(result);
-  });
+  } catch (err) {
+    console.log("회원가입 에러:", err);
+    console.log("회원가입 에러 message:", err.message);
+    console.log("회원가입 에러 code:", err.code);
+
+    // DB/서버 에러 검출 (500: 서버 내부 오류)
+    return res.status(500).json({
+      success: false,
+      message: "회원가입 실패",
+      error: err.message,
+    });
+  }
 };
 
 // 2. 로그인 API 요청 처리
-const login = (req, res) => {
-  const { email, password } = req.body;
+const login = async (req, res) => {
+  try {
+    console.log("로그인 요청 body:", req.body);
 
-  // 2-1. 입력값 검증
-  if (!email || !password) {
-    return res.status(400).json({
-      success: false,
-      message: "이메일과 비밀번호를 모두 입력하세요",
-    });
-  }
+    const { email, password } = req.body;
 
-  // authService의 login 함수에 매개변수 값 넘겨서 DB에 저장/처리
-  authService.login(email, password, (err, result) => {
-    if (err) {
-      console.log("로그인 에러:", err);
+    // 2-1. 입력값 검증
+    if (!email || !password) {
+      console.log("로그인 입력값 누락:", {
+        email: !!email,
+        password: !!password,
+      });
 
-      return res.status(500).json({
+      return res.status(400).json({
         success: false,
-        message: "로그인 실패",
-        error: err.message,
+        message: "이메일과 비밀번호를 모두 입력하세요",
       });
     }
 
+    console.log("authService.login 호출 직전:", {
+      email,
+      passwordLength: password.length,
+    });
+
+    // authService의 login 함수에 매개변수 값 넘겨서 DB에 저장/처리
+    // 수정한 이유:
+    // 기존에는 callback 안에서 result를 받았지만,
+    // authService가 async/await 방식으로 변경되었기 때문에
+    // await authService.login(...)으로 직접 결과를 받음
+    const result = await authService.login(email, password);
+
+    console.log("authService.login 결과:", result);
+
     // 이메일 또는 비밀번호가 틀린 경우
     if (!result.success) {
+      console.log("로그인 실패 result:", result);
+
       return res.status(401).json({
         success: false,
         message: result.message,
       });
     }
+
+    console.log("로그인 성공 user:", result.user);
+    console.log("로그인 성공 token 존재 여부:", !!result.token);
+    console.log("로그인 성공 token 앞부분:", result.token?.slice(0, 20));
 
     // 로그인 성공 응답
     return res.status(200).json({
@@ -78,27 +117,44 @@ const login = (req, res) => {
       user: result.user,
       token: result.token,
     });
-  });
+  } catch (err) {
+    console.log("로그인 에러:", err);
+    console.log("로그인 에러 message:", err.message);
+    console.log("로그인 에러 code:", err.code);
+
+    return res.status(500).json({
+      success: false,
+      message: "로그인 실패",
+      error: err.message,
+    });
+  }
 };
 
 // 3. 로그아웃 API 요청 처리
-const logout = (req, res) => {
-  authService.logout((err, result) => {
-    if (err) {
-      console.log("로그아웃 에러:", err);
+const logout = async (req, res) => {
+  try {
+    // 수정한 이유:
+    // 기존에는 callback 안에서 result를 받았지만,
+    // authService가 async/await 방식으로 변경되었기 때문에
+    // await authService.logout()으로 직접 결과를 받음
+    const result = await authService.logout();
 
-      return res.status(500).json({
-        success: false,
-        message: "로그아웃 실패",
-        error: err.message,
-      });
-    }
+    console.log("authService.logout 결과:", result);
 
     return res.status(200).json({
       success: true,
       message: result.message,
     });
-  });
+  } catch (err) {
+    console.log("로그아웃 에러:", err);
+    console.log("로그아웃 에러 message:", err.message);
+
+    return res.status(500).json({
+      success: false,
+      message: "로그아웃 실패",
+      error: err.message,
+    });
+  }
 };
 
 module.exports = {
