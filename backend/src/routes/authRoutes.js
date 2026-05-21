@@ -1,3 +1,4 @@
+
 //routes: 요청에 대한 각 URL을 어떤 controller 함수로 연결할지 정의
 
 // express 프레임워크 호출
@@ -24,3 +25,5 @@ router.post("/logout",authController.logout)
 
 // router 객체를 app.js에서 사용할 수 있도록 내보내기
 module.exports = router
+
+

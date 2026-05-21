@@ -5,6 +5,7 @@ const conn = require("../db/index");
 // async: 함수 내부에서 await를 사용할 수 있게 해주는 키워드
 const getProfile = async (user_idx) => {
   try {
+    console.log("===== 프로필 조회 service 진입 =====")
     console.log("getProfile service user_idx:", user_idx);
     console.log("getProfile service user_idx 타입:", typeof user_idx);
 

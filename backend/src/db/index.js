@@ -1,21 +1,15 @@
-// DB 연결 (src/db/index.js)
-
-// 1. mysql2 모듈 가져오기 (Promise 기반으로 쓰기 위해 /promise를 붙여줍니다)
+// src/db/index.js
 const mysql = require("mysql2/promise");
 
-// 2. 사용할 db 정보 정의
-const db_info = {
-  host: "project-db-campus.smhrd.com",
-  port: 3312,
-  user: "cd_25K_HI5_p2_3",
-  password: "smhrd3",
-  database: "cd_25K_HI5_p2_3",
+const pool = mysql.createPool({
+  host: process.env.DB_HOST || "project-db-campus.smhrd.com",
+  port: process.env.DB_PORT || 3312,
+  user: process.env.DB_USER || "cd_25K_HI5_p2_3",
+  password: process.env.DB_PASSWORD || "smhrd3",
+  database: process.env.DB_NAME || "cd_25K_HI5_p2_3",
   waitForConnections: true,
-  connectionLimit: 10, // 동시에 유지할 최대 연결 수
+  connectionLimit: 10,
   queueLimit: 0
-};
-
-// 3. db 커넥션 풀 객체 생성 및 내보내기
-const pool = mysql.createPool(db_info);
+});
 
 module.exports = pool;

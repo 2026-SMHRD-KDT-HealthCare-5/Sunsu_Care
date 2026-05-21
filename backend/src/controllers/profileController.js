@@ -4,6 +4,8 @@ const profileService = require("../services/profileService")
 // 1. 프로필 조회 API 요청 처리 함수
 const getProfile = async (req, res) => {
   try {
+    console.log("===== 프로필 조회 controller 진입 =====")
+
     //요청 객체 안에 user 정보 확인
     console.log("req.user:", req.user)
 
@@ -77,6 +79,8 @@ const getProfile = async (req, res) => {
 // 2. 프로필 저장/수정 API 요청 처리 함수
 const updateProfile = async (req, res) => {
   try {
+    console.log("===== 프로필 저장/수정 controller 진입 =====")
+
     console.log("req.user:", req.user)
     console.log("req.body:", req.body)
 
