@@ -1,14 +1,11 @@
 //모듈 불러오기
 const express = require('express');
 const cors = require('cors');
-const path = require('path');
-require('dotenv').config({ path: path.join(__dirname, '.env') });
-
 
 //라우터 불러오기
 const authRoutes = require('./routes/authRoutes'); //backend 회원관리 라우터 호출
 const profileRoutes =require('./routes/profileRoutes') //backend 프로필 라우터 호출
-// const suncareRoutes = require('./routes/suncareRoutes'); // 선케어 라우터 호출
+const suncareRoutes = require('./routes/suncareRoutes'); // 선케어 라우터 호출
 
 //express 앱 객체 생성
 const app = express();

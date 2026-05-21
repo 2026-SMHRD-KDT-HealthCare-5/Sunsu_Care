@@ -1,22 +1,27 @@
+// backend/src/services/fastapiService.js
+
 const axios = require('axios');
 const FormData = require('form-data');
 const crypto = require('crypto');
 
-// .env에서 환경 변수 불러오기 (이미 상단에 선언되어 있음)
 const FASTAPI = process.env.FASTAPI_BASE_URL;
 const INTERNAL_TOKEN = process.env.INTERNAL_TOKEN;
 
-/**
- * 1. AI 분석 시작 요청 (로직 유지)
- */
-async function startSuncareAnalyze(file, options = {}) {
+ // 1. AI 분석 시작 요청 (이미지 + 유저 프로필 전송)
+async function analyzeImage(fileBuffer, options = {}) { // 이름을 컨트롤러와 맞춤
   const form = new FormData();
-  form.append('file', file.buffer, { 
+  
+  // 이미지 추가
+  form.append('file', fileBuffer, { 
     filename: options.filename || 'image.jpg', 
     contentType: options.contentType || 'image/jpeg' 
   });
   
-  // 콜백 URL 구성
+  // 유저 프로필 데이터를 JSON 문자열로 변환하여 추가
+  if (options.user_profile) {
+    form.append('user_profile', JSON.stringify(options.user_profile));
+  }
+  
   if (options.callback_url) {
     form.append('callback_url', options.callback_url);
   }
@@ -39,9 +44,6 @@ async function startSuncareAnalyze(file, options = {}) {
   return { task_id: data.task_id, status: data.status };
 }
 
-/**
- * 2. 분석 결과 조회 (DB 삭제 후 API 직접 조회로 일원화)
- */
 async function getTaskFromApi(taskId) {
   try {
     const { data } = await axios.get(
@@ -59,6 +61,6 @@ async function getTaskFromApi(taskId) {
 }
 
 module.exports = {
-  startSuncareAnalyze,
-  getTaskStatus: getTaskFromApi // 이름 통일
+  analyzeImage, // 컨트롤러 호출 이름에 맞게 변경
+  getTaskStatus: getTaskFromApi
 };

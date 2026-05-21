@@ -94,3 +94,46 @@ class OcrService:
                 "chemical": list(detected_chemical)
             }
         }
+    
+    def evaluate_compatibility(self, analysis_result, user_profile):
+        """
+        analysis_result: 위에서 만든 성분 분석 결과
+        user_profile: Node.js에서 넘겨받은 유저 정보 (dict)
+        """
+        score = 100
+        reasons = []
+        status = "RECOMMENDED" # RECOMMENDED, CAUTION, NOT_RECOMMENDED
+
+        # 1. 기피 성분 체크 (최우선)
+        avoid_ingredients = user_profile.get('avoid_ingredient', [])
+        if isinstance(avoid_ingredients, str):
+            try:
+                import json
+                avoid_ingredients = json.loads(avoid_ingredients)
+            except:
+                avoid_ingredients = []
+                
+        found_avoid = [ing for ing in (analysis_result['detected_ingredients']['physical'] + 
+                                      analysis_result['detected_ingredients']['chemical']) 
+                      if ing in avoid_ingredients]
+        
+        if found_avoid:
+            score -= 60
+            status = "NOT_RECOMMENDED"
+            reasons.append(f"기피 성분({', '.join(found_avoid)})이 포함되어 있습니다.")
+
+        # 2. 민감도 체크
+        if user_profile.get('sensitivity') == 'Y' and analysis_result['suncare_type'] == '유기자차':
+            score -= 20
+            status = "CAUTION" if status != "NOT_RECOMMENDED" else status
+            reasons.append("유기자차 성분이 민감한 피부에 자극을 줄 수 있습니다.")
+
+        # 3. 피부 타입별 보정 (예시: 지성)
+        if user_profile.get('skin_type') == '지성' and analysis_result['suncare_type'] == '무기자차':
+            reasons.append("무기자차 특유의 사용감이 답답할 수 있습니다.")
+
+        return {
+            "score": max(score, 0),
+            "status": status,
+            "reasons": reasons
+        }

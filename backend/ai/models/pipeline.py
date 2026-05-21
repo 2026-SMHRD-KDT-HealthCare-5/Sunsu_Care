@@ -1,3 +1,5 @@
+# //backend/ai/models/pipelin.py
+
 import asyncio
 import contextlib
 import httpx
@@ -22,14 +24,14 @@ async def async_pipeline_processor(
     lock: asyncio.Lock,
     callback_url: str | None = None,
     request_id: str | None = None,
-    task_store: dict = None
+    task_store: dict = None,
+    user_profile: dict = None  # ★ 1. 인자 추가
 ):
     def update_local_status(status, result=None, error=None):
         if task_store and task_id in task_store:
             task_store[task_id].update({"status": status, "result": result, "error": error})
 
     try:
-        # 1. 상태 변경
         update_local_status("PROCESSING")
 
         # 2. 이미지 전처리
@@ -67,40 +69,40 @@ async def async_pipeline_processor(
         
         # 5. 분석 및 결과 조합
         if not boxes or len(boxes) == 0:
-            # YOLO 미검출 시 Fallback
             if ocr_fields:
-                full_ocr_text = " ".join([
-                    field.get("text", "")
-                    for field in ocr_fields
-                    if "text" in field
-                ])
+                full_ocr_text = " ".join([field.get("text", "") for field in ocr_fields if "text" in field])
                 analysis_result = ocr_service.analyze_suncare_ingredients(full_ocr_text)
             else:
                 analysis_result = {
-                    "is_suncare": False,
-                    "suncare_type": "성분표 및 텍스트 미검출",
-                    "tags": [],
-                    "detected_ingredients": {
-                        "physical": [],
-                        "chemical": []
-                    }
+                    "is_suncare": False, "suncare_type": "성분표 및 텍스트 미검출",
+                    "tags": [], "detected_ingredients": {"physical": [], "chemical": []}
                 }
         else:
-            # 정상 워크플로우 (텍스트 - 박스 매칭)
             matched_lines = ocr_service.match_text_to_boxes(boxes, ocr_fields)
             target_text = matched_lines[0] if matched_lines else ""
             analysis_result = ocr_service.analyze_suncare_ingredients(target_text)
 
-        # 6. 최종 Payload 구성
+        # 2. 개인화된 적합도 평가 추가
+        # OCR 분석 결과와 넘겨받은 유저 프로필을 대조합니다.
+        compatibility = {}
+        if user_profile and analysis_result.get("is_suncare"):
+            compatibility = ocr_service.evaluate_compatibility(analysis_result, user_profile)
+        
+        # 6. 최종 Payload 구성 (compatibility 포함)
+        final_result = {
+            "ingredients": analysis_result, # 성분 분석 정보
+            "compatibility": compatibility  # 내 피부 적합도 정보
+        }
+
         final_payload = {
             "task_id": task_id,
             "request_id": request_id,
             "status": "COMPLETED",
-            "result": analysis_result
+            "result": final_result
         }
 
-        # 7. DB 저장
-        update_local_status("COMPLETED", result=analysis_result)
+        # 7. DB(메모리) 저장
+        update_local_status("COMPLETED", result=final_result)
 
         # 8. Callback 전송
         if callback_url:

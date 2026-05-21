@@ -1,3 +1,5 @@
+# //backend/ai/models/main.py
+
 import uuid
 import os
 from pathlib import Path
@@ -5,6 +7,7 @@ from dotenv import load_dotenv
 from fastapi import FastAPI, UploadFile, File, HTTPException, BackgroundTasks, Form, Header, Depends
 from anyio import to_thread
 import asyncio
+import json
 
 # 1. 환경 설정 및 초기화
 # .env 경로: backend/.env
@@ -38,6 +41,7 @@ def verify_internal_token(authorization: str = Header(None)):
 async def analyze(
     background_tasks: BackgroundTasks,
     file: UploadFile = File(...),
+    user_profile: str = Form(...), # ★ Node.js에서 보낸 JSON 문자열 받기
     callback_url: str | None = Form(default=None),
     request_id: str | None = Form(default=None),
     _auth: None = Depends(verify_internal_token)
@@ -55,15 +59,17 @@ async def analyze(
 
     task_id = str(uuid.uuid4())
     file_bytes = await file.read()
+    
+    # JSON 문자열을 파이썬 딕셔너리로 변환
+    profile_dict = json.loads(user_profile)
 
-    # 메모리에 상태 저장
     task_store[task_id] = {
         "status": "PENDING",
         "request_id": request_id,
         "result": None
     }
 
-    # 파이프라인 백그라운드 등록
+    # 파이프라인 백그라운드 등록 (profile_dict 추가 전달)
     background_tasks.add_task(
         async_pipeline_processor,
         task_id,
@@ -72,7 +78,8 @@ async def analyze(
         model_lock,
         callback_url,
         request_id,
-        task_store
+        task_store,
+        profile_dict # ★ 유저 프로필 추가
     )
 
     return {
