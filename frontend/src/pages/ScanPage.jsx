@@ -1,22 +1,19 @@
-
-import { useState, useEffect } from 'react'
+// frontend/src/pages/ScanPage.jsx
+import { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Button from '../components/common/Button'
 import Loading from '../components/common/Loading'
 import ImageUploader from '../components/product/ImageUploader'
-import { analyze } from '../api/analysisApi'
-import {
-  getProfile,
-  setLastResult,
-  addHistory,
-} from '../utils/storage'
+import { analyze, getTaskStatus } from '../api/analysisApi'
+import { getProfile } from '../utils/storage'
 import { useImagePreview } from '../hooks/useImagePreview'
 import './ScanPage.css'
 
 function ScanPage() {
   const navigate = useNavigate()
-
   const ingredientImg = useImagePreview()
+  
+  const intervalRef = useRef(null);
 
   const [error, setError] = useState('')
   const [isAnalyzing, setIsAnalyzing] = useState(false)
@@ -27,40 +24,49 @@ function ScanPage() {
   }, [])
 
   const handleAnalyze = async () => {
-    setError('')
+    setIsAnalyzing(true);
+    setError('');
 
-    if (!ingredientImg.file) {
-      setError('성분표 사진을 업로드해주세요.')
-      return
-    }
-
-    setIsAnalyzing(true)
     try {
-      const result = await analyze({
-        ingredient_image: ingredientImg.file,
-      })
+        // 1. 서버에 분석 요청
+        const { task_id } = await analyze(ingredientImg.file);
 
-      setLastResult(result)
-      addHistory({
-        analysis_idx: result.analysis_idx,
-        prod_name: result.prod_name,
-        suitability_score: result.suitability_score,
-        status: result.analysis_result?.status,
-        analyzed_at: result.analyzed_at,
-        _full: result,
-      })
-      navigate('/result')
+        // 2. 폴링 시작
+        intervalRef.current = setInterval(async () => {
+            try {
+                const statusData = await getTaskStatus(task_id);
+                
+                if (statusData.status === 'completed') {
+                    clearInterval(intervalRef.current);
+                    navigate('/result/' + task_id);
+                } else if (statusData.status === 'failed') {
+                    clearInterval(intervalRef.current);
+                    setError('분석에 실패했습니다.');
+                    setIsAnalyzing(false);
+                }
+            } catch (err) {
+                clearInterval(intervalRef.current);
+                setError('상태 확인 중 오류가 발생했습니다.');
+                setIsAnalyzing(false);
+            }
+        }, 2000); 
     } catch (err) {
-      setError('분석 중 오류가 발생했어요. 다시 시도해주세요.')
-    } finally {
-      setIsAnalyzing(false)
+        setError('분석 요청에 실패했습니다.');
+        setIsAnalyzing(false);
     }
-  }
+  };
+
+  // 4. 컴포넌트 언마운트 시 인터벌 정리
+  useEffect(() => {
+    return () => {
+        if (intervalRef.current) clearInterval(intervalRef.current);
+    };
+  }, []);
 
   if (isAnalyzing) {
     return (
       <div className="page">
-        <Loading message="AI가 성분을 분석 중이에요... 약 1~2초 소요됩니다" />
+        <Loading message="AI가 성분을 정밀 분석 중이에요... 잠시만 기다려주세요" />
       </div>
     )
   }

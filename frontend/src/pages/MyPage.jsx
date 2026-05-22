@@ -1,6 +1,7 @@
 import { useAuth } from '../hooks/useAuth';
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { fetchProfile } from '../api/profileApi';
 import './MyPage.css';
 
 const MyPage = () => {
@@ -11,19 +12,39 @@ const MyPage = () => {
     const displayName = isLoggedIn ? (userNickname || userEmail || '사용자') : '게스트';
     const greeting = isLoggedIn ? '오늘도 좋은 하루 보내세요 ☀️' : 'SunCare에 오신 걸 환영해요';
 
-
-    // 🌟 [중요 기능] 현재 슬라이드가 몇 번째인지 기억하는 State
     const [currentIndex, setCurrentIndex] = useState(1);
 
-    // 피부 정보 샘플 데이터 (이건 그대로 유지)
-    const mySkinInfo = {
-        type: "건성",
-        sensitivity: "민감성",
-        texture: "무기자차 크림",
-        avoid: "옥시벤존, 향료"
-    };
+    const [mySkinInfo, setMySkinInfo] = useState({
+        type: "-",
+        activity_env: "-",
+        texture: "-",
+        avoid: "-"
+    });
 
-    // 🌟 
+    useEffect(() => {
+        const loadProfile = async () => {
+            if (!isLoggedIn) return; // 로그인 안 되어 있으면 호출 안 함
+            try {
+                const data = await fetchProfile();
+                if (data) {
+                    setMySkinInfo({
+                        type: data.skin_type || "미설정",
+                        activity_env: data.activity_env || "미설정",
+                        texture: data.prod_type || "미설정",
+                        // avoid_ingredient가 배열이면 문자열로 결합, 문자열이면 그대로 노출
+                        avoid: Array.isArray(data.avoid_ingredient) 
+                                ? data.avoid_ingredient.join(', ') 
+                                : (data.avoid_ingredient || "미설정")
+                    });
+                }
+            } catch (error) {
+                console.error("프로필 정보를 불러오지 못했습니다.", error);
+            }
+        };
+        loadProfile();
+    }, [isLoggedIn]);
+
+    // 분석 히스토리 샘플 데이터 (유지)
     const historyData = [
         { id: 1, name: '솔', date: '2026.05.14', score: 82, status: '적합', keyIng: ['나이아신', '산화아연'], warnIng: ['옥시벤존'] },
         { id: 2, name: '마일드 선크림', date: '2026.05.14', score: 95, status: '최적', keyIng: ['판테놀'], warnIng: [] },
@@ -32,7 +53,7 @@ const MyPage = () => {
         { id: 5, name: '새로운 샘플 2', date: '2026.05.12', score: 77, status: '주의', keyIng: ['세라마이드'], warnIng: ['향료'] },
     ];
 
-    // 화살표 스크롤 함수는 그대로 유지
+    // 화살표 스크롤 함수 (유지)
     const scrollSlider = (direction) => {
         if (sliderRef.current) {
             const scrollAmount = sliderRef.current.offsetWidth; 
@@ -43,7 +64,6 @@ const MyPage = () => {
         }
     };
 
-    // 🌟 스크롤 할 때마다 몇 번째인지 계산해서 숫자를 바꿉니다!
     const handleSliderScroll = () => {
         if (sliderRef.current) {
             const scrollLeft = sliderRef.current.scrollLeft; // 현재 스크롤된 거리
@@ -63,7 +83,6 @@ const MyPage = () => {
         <div className="mypage-container">
             <h1 style={{ padding: '20px', margin: 0, fontSize: '1.5rem' }}>마이페이지</h1>
 
-            {/* 사용자 정보 */}
             <div className="mypage-card">
                 <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
                     <div className="profile-icon">🌞</div>
@@ -74,7 +93,7 @@ const MyPage = () => {
                 </div>
             </div>
 
-            {/* 내 피부 정보 (그리드 스타일 그대로 유지) */}
+            {/* 내 피부 정보 */}
             <div className="mypage-card">
                 <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20px', alignItems: 'center' }}>
                     <h3 style={{ margin: 0, display:'flex', gap:'8px', alignItems:'center' }}>
@@ -90,9 +109,10 @@ const MyPage = () => {
                         <span className="info-label">피부 타입</span>
                         <span className="info-value tag-blue">{mySkinInfo.type}</span>
                     </div>
+                    {/* 🌟 [변경] 민감도 -> 활동 환경으로 수정 적용 */}
                     <div className="skin-info-item">
-                        <span className="info-label">민감도</span>
-                        <span className="info-value tag-red">{mySkinInfo.sensitivity}</span>
+                        <span className="info-label">활동 환경</span>
+                        <span className="info-value tag-red">{mySkinInfo.activity_env}</span>
                     </div>
                     <div className="skin-info-item">
                         <span className="info-label">선호 제형</span>
@@ -105,10 +125,9 @@ const MyPage = () => {
                 </div>
             </div>
 
-            {/* 🌟 분석 히스토리 (타이틀 변경 & 스크롤 감지 추가) */}
+            {/* 🌟 분석 히스토리 */}
             <div className="mypage-card history-section">
                 <div className="history-header">
-                    {/* 🌟 타이틀 수정: 분석 히스토리 (현재번째/총개수) */}
                     <h3 style={{ margin: 0 }}>📊 분석 히스토리 ({currentIndex}/{historyData.length})</h3>
                     <div className="slider-controls">
                         <button onClick={() => scrollSlider('left')} className="slider-arrow">
@@ -120,7 +139,6 @@ const MyPage = () => {
                     </div>
                 </div>
 
-                {/* 🌟 중요: onScroll 이벤트를 달아서 스크롤을 감지하게 합니다! */}
                 <div className="history-slider" ref={sliderRef} onScroll={handleSliderScroll}>
                     {historyData.map((item) => (
                         <div key={item.id} className="history-slide-card" onClick={() => navigate(`/history/${item.id}`)}>
@@ -135,10 +153,8 @@ const MyPage = () => {
                                 </div>
                             </div>
                             
-                            {/* 🌟 카드 중단: 2번째 사진처럼 디테일하게 복구된 영역! */}
                             <div className="slide-card-body">
                                 <div className="mini-ing-section key">
-                                    {/* 이 부분이 다시 살아났습니다! */}
                                     <div className="mini-ing-title">
                                         <i className="fa-solid fa-gem"></i> 매칭된 핵심 성분
                                     </div>
@@ -149,7 +165,6 @@ const MyPage = () => {
 
                                 {item.warnIng && item.warnIng.length > 0 && (
                                     <div className="mini-ing-section warn">
-                                        {/* 이 부분이 다시 살아났습니다! */}
                                         <div className="mini-ing-title">
                                             <i className="fa-solid fa-triangle-exclamation"></i> 주의 성분 발견
                                         </div>
@@ -166,7 +181,7 @@ const MyPage = () => {
                 </div>
             </div>
 
-            {/* 🌟 하단 버튼: 2개로 나누어 배치 */}
+            {/* 🌟 하단 버튼 */}
             <div className="action-btn-container">
                 <button className="re-analyze-btn" onClick={() => navigate('/scan')}>
                     <i className="fa-solid fa-rotate-right"></i> 다시 분석

@@ -26,7 +26,7 @@ function AppRouter() {
             <Route path="/signup" element={<SignupPage />} />
             <Route path="/profile" element={<ProfilePage />} />
             <Route path="/scan" element={<ScanPage />} />
-            <Route path="/result" element={<ResultPage />} />
+            <Route path="/result/:taskId" element={<ResultPage />} />
             <Route path="/guide" element={<GuidePage />} />
             <Route path="/mypage" element={<MyPage />} />
             <Route path="/history/:id" element={<HistoryDetailPage />} />

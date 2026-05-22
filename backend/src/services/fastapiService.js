@@ -1,66 +1,63 @@
 // backend/src/services/fastapiService.js
-
 const axios = require('axios');
 const FormData = require('form-data');
 const crypto = require('crypto');
 
-const FASTAPI = process.env.FASTAPI_BASE_URL;
+// .env에 설정된 URL을 사용하되, 없으면 기본값 사용
+const FASTAPI = process.env.FASTAPI_BASE_URL || 'http://127.0.0.1:8000';
 const INTERNAL_TOKEN = process.env.INTERNAL_TOKEN;
 
- // 1. AI 분석 시작 요청 (이미지 + 유저 프로필 전송)
-async function analyzeImage(fileBuffer, options = {}) { // 이름을 컨트롤러와 맞춤
+// 1. AI 분석 시작 요청
+async function analyzeImage(fileBuffer, options = {}) {
   const form = new FormData();
-  
-  // 이미지 추가
   form.append('file', fileBuffer, { 
     filename: options.filename || 'image.jpg', 
     contentType: options.contentType || 'image/jpeg' 
   });
   
-  // 유저 프로필 데이터를 JSON 문자열로 변환하여 추가
-  if (options.user_profile) {
-    form.append('user_profile', JSON.stringify(options.user_profile));
-  }
-  
-  if (options.callback_url) {
-    form.append('callback_url', options.callback_url);
-  }
+  if (options.user_profile) form.append('user_profile', JSON.stringify(options.user_profile));
+  if (options.callback_url) form.append('callback_url', options.callback_url);
   
   const requestId = options.request_id || crypto.randomUUID();
   form.append('request_id', requestId);
+  
+  console.log("=== Node.js가 요청을 보낼 주소 확인 ===");
+  console.log("FASTAPI_BASE_URL:", FASTAPI); 
+  
+  const url = `${FASTAPI}/api/v1/suncare/analyze`;
+  console.log(`[FastAPI 요청] POST ${url}`);
 
-  const { data } = await axios.post(
-    `${FASTAPI}/api/v1/suncare/analyze`,
-    form,
-    { 
-      headers: { 
-        ...form.getHeaders(), 
-        'Authorization': `Bearer ${INTERNAL_TOKEN}` 
-      }, 
-      timeout: 15000 
-    }
-  );
+  const { data } = await axios.post(url, form, { 
+    headers: { ...form.getHeaders(), 'Authorization': `Bearer ${INTERNAL_TOKEN}` }, 
+    timeout: 15000 
+  });
 
   return { task_id: data.task_id, status: data.status };
 }
 
-async function getTaskFromApi(taskId) {
+// 2. 상태 조회 (중복 제거 & 에러 상세 출력)
+async function getTaskStatus(taskId) {
+  const url = `${FASTAPI}/api/v1/tasks/${taskId}`;
+  console.log(`[FastAPI 요청] GET ${url}`);
+  
   try {
-    const { data } = await axios.get(
-      `${FASTAPI}/api/v1/tasks/${taskId}`,
-      { 
-        headers: { 'Authorization': `Bearer ${INTERNAL_TOKEN}` }, 
-        timeout: 10000 
-      }
-    );
+    const { data } = await axios.get(url, {
+      headers: { 'Authorization': `Bearer ${INTERNAL_TOKEN}` },
+      timeout: 10000
+    });
     return data;
   } catch (error) {
-    console.error("FastAPI 상태 조회 실패:", error.message);
+    // 상세 에러 로그 출력
+    if (error.response) {
+      console.error(`[FastAPI 에러] 상태코드: ${error.response.status}, 메시지: ${JSON.stringify(error.response.data)}`);
+    } else {
+      console.error(`[FastAPI 통신실패] 메시지: ${error.message}`);
+    }
     throw error;
   }
 }
 
 module.exports = {
-  analyzeImage, // 컨트롤러 호출 이름에 맞게 변경
-  getTaskStatus: getTaskFromApi
+  analyzeImage,
+  getTaskStatus
 };

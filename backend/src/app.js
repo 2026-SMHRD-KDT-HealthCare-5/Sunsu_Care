@@ -22,7 +22,7 @@ app.use(express.urlencoded({ extended: true }));
 //API 라우터 연결
 app.use('/api/auth', authRoutes); //backend 회원관리 라우터 연결
 app.use('/api/profile',profileRoutes) //backend 회원관리 라우터 연결
-// app.use('/api/suncare', suncareRoutes); 
+app.use('/api/suncare', suncareRoutes); 
 
 //에러 처리 미들웨어
 // 라우터나 컨트롤러에서 에러가 발생했을 때 서버가 멈추지 않고 

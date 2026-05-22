@@ -1,63 +1,93 @@
-// src/pages/ResultPage.jsx
-import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import Button from '../components/common/Button'
-import ScoreCard from '../components/result/ScoreCard'
-import ReportSummary from '../components/result/ReportSummary'
-import RiskIngredientList from '../components/result/RiskIngredientList'
-import RecommendProductList from '../components/result/RecommendProductList'
-import { getLastResult } from '../utils/storage'
-import { fetchRecommendations } from '../api/analysisApi'
-import './ResultPage.css'
+// frontend/src/pages/ResultPage.jsx
+import { useEffect, useState } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import { getTaskStatus, getAnalysisResult } from '../api/analysisApi'; 
+import ScoreCard from '../components/result/ScoreCard';
+import ReportSummary from '../components/result/ReportSummary';
+import RiskIngredientList from '../components/result/RiskIngredientList';
+import RecommendProductList from '../components/result/RecommendProductList';
+import Button from '../components/common/Button';
+import './ResultPage.css';
 
 function ResultPage() {
-  const navigate = useNavigate()
-  const [result, setResult] = useState(undefined)
-  const [recommendations, setRecommendations] = useState([])
+  const navigate = useNavigate();
+  const { taskId } = useParams();
+  const [report, setReport] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  useEffect(() => {
-    const r = getLastResult()
-    setResult(r)
-    if (r?.analysis_idx) {
-      fetchRecommendations(r.analysis_idx).then(setRecommendations)
-    }
-  }, [])
+useEffect(() => {
+    if (!taskId) return;
 
-  if (result === undefined) return null
+    let timeoutId;
 
-  if (!result) {
+    const pollStatus = async () => {
+      try {
+        // 1. 상태 조회
+        const data = await getTaskStatus(taskId);
+        
+        if (data.status === 'completed') {
+          // 분석 완료 -> DB에서 결과 가져오기
+          const fullResult = await getAnalysisResult(taskId);
+          setReport(fullResult.result);
+          setLoading(false);
+        } else {
+          // 분석 중이면 2초 뒤 재시도
+          timeoutId = setTimeout(pollStatus, 2000);
+        }
+      } catch (err) {
+        // 404 에러인 경우 -> 아직 분석이 안 끝났거나 FastAPI가 응답 전인 것
+        console.warn("FastAPI에서 아직 결과를 찾을 수 없음 (404), 대기 후 재시도...");
+        timeoutId = setTimeout(pollStatus, 2000);
+      }
+    };
+
+    // 1초 뒤에 첫 폴링 시작 (서버가 준비할 시간을 줍니다)
+    timeoutId = setTimeout(pollStatus, 1000);
+
+    return () => clearTimeout(timeoutId);
+}, [taskId]);
+
+  // 1. 로딩 중 화면
+  if (loading) {
     return (
-      <div className="page result-empty">
-        <div className="result-empty__icon">📊</div>
-        <h1 className="result-empty__title">아직 분석 결과가 없어요</h1>
-        <p className="result-empty__desc">
-          제품을 스캔하면 결과가 여기에 나타나요.
-        </p>
-        <Button size="lg" onClick={() => navigate('/scan')}>
-          제품 분석하러 가기 →
-        </Button>
+      <div className="page loading">
+        <div className="spinner"></div>
+        <h1>AI가 성분을 정밀 분석 중입니다...</h1>
+        <p>잠시만 기다려주세요.</p>
       </div>
-    )
+    );
   }
 
-  const ar = result.analysis_result || {}
+  // 2. 에러 발생 화면
+  if (error) {
+    return (
+      <div className="page error">
+        <h1>{error}</h1>
+        <Button onClick={() => navigate('/scan')}>제품 스캔 페이지로 이동</Button>
+      </div>
+    );
+  }
+
+  // 3. 데이터가 없는 경우
+  if (!report) return <div className="page">분석된 데이터가 없습니다.</div>;
 
   return (
     <div className="page result">
       <ScoreCard
-        prod_name={result.prod_name}
-        suitability_score={result.suitability_score}
-        status={ar.status}
+        prod_name={report.prod_name}
+        suitability_score={report.score}
+        status={report.status}
       />
-
+      
       <ReportSummary
-        key_ingredients={ar.key_ingredients}
-        summary={ar.summary}
+        key_ingredients={report.key_ingredients}
+        summary={report.summary}
       />
 
-      <RiskIngredientList items={ar.risk_ingredients} />
+      <RiskIngredientList items={report.risk_ingredients} />
 
-      <RecommendProductList recommendations={recommendations} />
+      <RecommendProductList recommendations={report.recommendations} />
 
       <div className="result__actions">
         <Button variant="outline" onClick={() => navigate('/scan')}>
@@ -68,7 +98,7 @@ function ResultPage() {
         </Button>
       </div>
     </div>
-  )
+  );
 }
 
-export default ResultPage
+export default ResultPage;

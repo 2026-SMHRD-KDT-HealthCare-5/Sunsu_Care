@@ -1,4 +1,4 @@
-# Sun手 Care
+# Sunsu Care
 ## YOLO 기반 선케어 제품 이미지 분석 및 맞춤형 추천 서비스
 
 사용자가 선케어 제품 이미지를 업로드하면 YOLO 기반의 객체 탐지 기술로 제품을 식별하고 OCR을 통해 성분을 분석하여 사용자의 피부 타입에 최적화된 맞춤형 제품을 추천해 주는 통합 플랫폼입니다.
@@ -7,14 +7,9 @@
 
 ### 핵심 기술
 
-**객체 탐지**
-YOLOv8 모델을 활용하여 다양한 선케어 제품 패키지를 탐지하고 식별합니다.
-
-**텍스트 인식**
-CLOVA OCR API를 사용하여 제품 패키지의 전성분 정보를 추출합니다.
-
-**추천 알고리즘**
-사용자 피부 타입과 추출된 성분 데이터를 분석하여 맞춤형 스코어링을 수행합니다.
+* 객체 탐지: YOLOv8 모델을 활용하여 다양한 선케어 제품 패키지를 탐지하고 식별합니다.
+* 텍스트 인식: CLOVA OCR API를 사용하여 제품 패키지의 전성분 정보를 추출합니다.
+* 추천 알고리즘: 사용자 피부 타입과 추출된 성분 데이터를 분석하여 맞춤형 스코어링을 수행합니다.
 
 ---
 
@@ -22,35 +17,40 @@ CLOVA OCR API를 사용하여 제품 패키지의 전성분 정보를 추출합�
 
 본 프로젝트는 npm workspaces를 활용하여 프런트엔드와 백엔드를 통합 관리합니다.
 
-**Project Root**
-- **backend** : Node.js API 서버 및 YOLO/OCR 분석 엔진
-- **frontend** : React 및 Vite 기반 사용자 인터페이스
-- **docs** : API 명세 및 서비스 설계 문서
-- **package.json** : 통합 워크스페이스 설정
-- **README.md** : 프로젝트 메인 가이드
+* backend: Node.js API 서버 및 YOLO/OCR 분석 엔진
+* frontend: React 및 Vite 기반 사용자 인터페이스
+* docs: API 명세 및 서비스 설계 문서
+* package.json: 통합 워크스페이스 설정
+* README.md: 프로젝트 메인 가이드
 
 ---
 
 ### 시작하기
 
-**1. 환경 설정**
-- Node.js 18.x 이상
-- Python 3.9 이상
-- MySQL
+* 환경 설정
+  - Node.js 18.x 이상
+  - Python 3.9 이상
+  - MySQL
 
-**2. 의존성 설치**
-루트 폴더에서 다음 명령어를 실행합니다.
-`npm install`
+* 의존성 설치
+  - 루트 폴더에서 다음 명령어를 실행합니다:
+    ```bash
+    # Node.js 패키지 설치
+    npm install
+    
+    # Python 라이브러리 설치 (requirements.txt 사용)
+    pip install -r requirements.txt
+    ```
 
-**3. 서비스 실행**
-- 전체 서비스 실행: `npm run dev`
-- 백엔드만 실행: `npm run back`
-- 프런트엔드만 실행: `npm run front`
+* 서비스 실행
+  - 전체 서비스 실행: npm run dev
+  - 백엔드만 실행: npm run back
+  - 프런트엔드만 실행: npm run front
 
 ---
 
 ### 상세 문서
 
 상세한 명세 및 로직 설계는 아래 문서를 참조하십시오.
-- API 명세서 (docs/ 폴더)
-- 선케어 추천 로직 설계 (docs/ 폴더)
+* API 명세서 (docs/ 폴더)
+* 선케어 추천 로직 설계 (docs/ 폴더)

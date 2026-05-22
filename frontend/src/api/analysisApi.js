@@ -1,51 +1,44 @@
-// import api from './axiosInstance'
-import mockAnalysisResult, {
-  mockHistory,
-  mockRecommendations,
-  findResultByIdx,
-} from '../data/mockAnalysisResult'
-import { getHistory, findHistoryById } from '../utils/storage'
+// frontend/src/api/analysisApi.js
+import api from './axiosInstance';
 
-const delay = (ms) => new Promise((r) => setTimeout(r, ms))
+// 1. 제품 사진 분석 요청
+export const analyze = async (file) => {
+    const formData = new FormData();
+    formData.append('file', file);
 
-export const analyze = async ({ ingredient_image }) => {
-  await delay(1500)
+    const response = await api.post('/suncare/upload', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' }
+    });
+    return response.data; // { task_id: "..." }
+};
 
-  // 18단계 교체:
-  // const formData = new FormData()
-  // formData.append('ingredient_image', ingredient_image)
-  // const { data } = await api.post('/analyze', formData, {
-  //   headers: { 'Content-Type': 'multipart/form-data' }
-  // })
-  // return data
+// 2. 분석 상태 폴링
+export const getTaskStatus = async (taskId) => {
+    const response = await api.get(`/suncare/tasks/${taskId}`);
+    return response.data;
+};
 
-  return {
-    ...mockAnalysisResult,
-    analysis_idx: Date.now(),
-    analyzed_at: new Date().toISOString(),
-  }
-}
-
-// 히스토리 목록 (mock: localStorage + 정적 mockHistory)
+// 3. 히스토리 목록 조회
 export const fetchHistory = async () => {
-  await delay(300)
-  // 18단계: const { data } = await api.get('/analyses'); return data
-  const stored = getHistory()
-  return stored.length > 0 ? stored : mockHistory
-}
+    const response = await api.get('/suncare/analyses'); // 백엔드 라우터에 맞게 경로 확인
+    return response.data;
+};
 
-// 히스토리 상세
+// 4. 히스토리 상세 조회
 export const fetchHistoryDetail = async (analysis_idx) => {
-  await delay(300)
-  // 18단계: const { data } = await api.get(`/analyses/${analysis_idx}`); return data
-  const stored = findHistoryById(analysis_idx)
-  if (stored) return stored
-  return findResultByIdx(Number(analysis_idx))
-}
+    const response = await api.get(`/suncare/analyses/${analysis_idx}`);
+    return response.data;
+};
 
-// 분석 결과의 추천 제품
+// 5. 분석 결과의 추천 제품 조회
 export const fetchRecommendations = async (analysis_idx) => {
-  await delay(300)
-  // 18단계: const { data } = await api.get('/recommendations', { params: { analysis_idx } })
-  return mockRecommendations
-}
+    const response = await api.get('/suncare/recommendations', { 
+        params: { analysis_idx } 
+    });
+    return response.data;
+};
+
+export const getAnalysisResult = async (taskId) => {
+    const response = await api.get(`/suncare/results/${taskId}`);
+    return response.data;
+};

@@ -1,7 +1,6 @@
-//  모든 API가 공유할 axios 인스턴스. baseURL, 타임아웃, 인증 토큰 자동 첨부.
-
-// src/api/axiosInsta3ios'
+// frontend/src/api/axiosInstance.js
 import axios from 'axios'
+
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL,
   timeout: 10000,

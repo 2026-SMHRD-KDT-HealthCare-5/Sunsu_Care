@@ -133,6 +133,14 @@ CREATE TABLE tb_ingredient
 -- 테이블 Comment 설정 SQL - tb_ingredient
 ALTER TABLE tb_ingredient COMMENT '성분 정보';
 
+CREATE TABLE tb_analysis_log (
+    log_idx INT NOT NULL AUTO_INCREMENT COMMENT '이력 번호',
+    task_id VARCHAR(100) NOT NULL COMMENT 'FastAPI 작업 ID',
+    analysis_result JSON NOT NULL COMMENT '분석 결과 JSON',
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '분석 일시',
+    PRIMARY KEY (log_idx)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 
 -- tb_upload Table Create SQL
 -- 테이블 생성 SQL - tb_upload

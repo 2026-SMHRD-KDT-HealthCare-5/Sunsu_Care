@@ -1,6 +1,8 @@
+// frontend/src/pages/ProfilePage.jsx
 import React, { useState, useMemo, useCallback, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './ProfilePage.css';
+import { updateProfile } from '../api/profileApi';
 
 const STEPS = {
   GENDER: 1,
@@ -86,7 +88,7 @@ function ProfilePage() {
     return '다음';
   };
 
-  const handleNextStep = useCallback((currentAnswers, currentStep) => {
+  const handleNextStep = useCallback(async (currentAnswers, currentStep) => {
     clearAutoNavTimer();
 
     if (currentStep === STEPS.BASIC_TYPE) {
@@ -107,8 +109,27 @@ function ProfilePage() {
       if (currentAnswers.basicType === '모름') {
         finalData.basicType = calculateSkinType(currentAnswers);
       }
+      
+      // 기존 로컬스토리지 저장 로직 (필요시 유지 또는 삭제)
       localStorage.setItem('userProfile', JSON.stringify(finalData));
-      navigate('/result');
+      
+      // 🌟 [추가된 부분] 백엔드 DB 스키마에 맞게 payload 구성 및 전송
+      const dbPayload = {
+        skin_type: finalData.basicType,
+        activity_env: finalData.env,
+        prod_type: finalData.texture,
+        avoid_ingredient: finalData.concern
+      };
+
+      try {
+        await updateProfile(dbPayload); // DB에 설문 결과 저장!
+        
+        // navigate('/scan'); 
+        navigate('/scan'); 
+      } catch (error) {
+        console.error("프로필 저장 실패:", error);
+        alert("프로필 저장에 실패했습니다. 다시 시도해주세요.");
+      }
     }
     else {
       setStep(prev => prev + 1);
@@ -140,7 +161,6 @@ function ProfilePage() {
   const handlePrev = () => {
     clearAutoNavTimer();
 
-    // 🌟 추가된 부분: 만약 현재 1단계(GENDER)라면 이전 페이지(또는 홈)로 돌아가기
     if (step === STEPS.GENDER) {
       navigate(-1); // 브라우저 뒤로가기 효과 (홈으로 가고 싶다면 navigate('/') 도 좋습니다)
       return;

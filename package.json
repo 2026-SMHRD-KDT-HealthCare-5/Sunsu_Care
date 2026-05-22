@@ -8,7 +8,8 @@
   "scripts": {
     "back": "npm run dev --workspace=backend",
     "front": "npm run dev --workspace=frontend",
-    "dev": "concurrently \"npm run back\" \"npm run front\""
+    "ai": "uvicorn backend.ai.models.main:app --host 127.0.0.1 --port 8000 --reload",
+    "dev": "concurrently \"npm run back\" \"npm run front\" \"npm run ai\""
   },
   "devDependencies": {
     "concurrently": "^8.2.2"
@@ -16,6 +17,7 @@
   "dependencies": {
     "axios": "^1.16.1",
     "bcrypt": "^6.0.0",
+    "httpx": "^3.0.1",
     "jsonwebtoken": "^9.0.3",
     "python-dotenv": "^0.0.1-security"
   }

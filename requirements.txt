@@ -1,0 +1,16 @@
+# Web Framework & Server
+fastapi
+uvicorn
+
+# Database & Config
+pymysql
+python-dotenv
+
+# Network
+httpx
+
+# AI & Data Processing
+numpy
+pandas
+opencv-python
+rapidfuzz

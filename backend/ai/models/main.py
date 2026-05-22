@@ -79,7 +79,7 @@ async def analyze(
         callback_url,
         request_id,
         task_store,
-        profile_dict # ★ 유저 프로필 추가
+        profile_dict
     )
 
     return {
