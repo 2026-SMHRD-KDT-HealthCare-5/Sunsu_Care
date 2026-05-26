@@ -1,20 +1,26 @@
 // frontend/src/api/analysisApi.js
 import api from './axiosInstance';
+import { getProfile } from '../utils/storage';
 
 // 1. 제품 사진 분석 요청
 export const analyze = async (file) => {
+    // 로컬 스토리지 등에 저장된 사용자 피부 프로필 가져오기
+    const profile = getProfile() || {}; 
+    
     const formData = new FormData();
     formData.append('file', file);
+    formData.append('user_profile', JSON.stringify(profile)); 
 
-    const response = await api.post('/suncare/upload', formData, {
+    const response = await api.post('/suncare/analyze', formData, {
         headers: { 'Content-Type': 'multipart/form-data' }
     });
-    return response.data; // { task_id: "..." }
+    
+    return response.data; // { status: "ACCEPTED", task_id: "..." }
 };
 
-// 2. 분석 상태 폴링
+// 2. 분석 상태 폴링 (경로에 /tasks가 포함되므로 axiosInstance가 알아서 8001로 보냄)
 export const getTaskStatus = async (taskId) => {
-    const response = await api.get(`/suncare/tasks/${taskId}`);
+    const response = await api.get(`/tasks/${taskId}`);
     return response.data;
 };
 

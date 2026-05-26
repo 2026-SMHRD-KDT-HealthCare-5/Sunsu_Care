@@ -5,6 +5,7 @@ import os
 from pathlib import Path
 from dotenv import load_dotenv
 from fastapi import FastAPI, UploadFile, File, HTTPException, BackgroundTasks, Form, Header, Depends
+from fastapi.middleware.cors import CORSMiddleware
 from anyio import to_thread
 import asyncio
 import json
@@ -22,6 +23,16 @@ from backend.ai.models.ocr_service import OcrService
 
 # 2. 앱 및 서비스 초기화
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"], 
+    allow_credentials=True,
+    allow_methods=["GET", "POST", "OPTIONS", "PUT", "DELETE"], # 메서드 명시
+    allow_headers=["*"], # 모든 헤더 허용
+    expose_headers=["*"] # 브라우저가 응답 헤더에 접근할 수 있게 설정
+)
+
 model_lock = asyncio.Lock()
 ocr_service = OcrService()
 task_store = {} 
@@ -97,4 +108,9 @@ async def get_task(
     if not task:
         raise HTTPException(status_code=404, detail="Task not found")
 
-    return task
+    return {
+        "task_id": task_id,
+        "status": task["status"], 
+        "result": task.get("result"),
+        "error": task.get("error")
+    }

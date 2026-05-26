@@ -8,7 +8,7 @@
   "scripts": {
     "back": "npm run dev --workspace=backend",
     "front": "npm run dev --workspace=frontend",
-    "ai": "uvicorn backend.ai.models.main:app --host 127.0.0.1 --port 8000 --reload",
+    "ai": "uvicorn backend.ai.models.main:app --host 127.0.0.1 --port 8001 --reload",
     "dev": "concurrently \"npm run back\" \"npm run front\" \"npm run ai\""
   },
   "devDependencies": {
