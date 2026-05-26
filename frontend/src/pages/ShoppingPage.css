@@ -1,17 +1,18 @@
 /* ShoppingPage.css */
 
+/* 🌟 1. 전체 화면 꽉 채우기 (가로폭 제한 해제!) */
 .shopping-container {
     width: 100%;
-    height: 100vh;
-    background-color: #f8fafc; /* 연한 회색 배경 */
+    min-height: 100vh; /* height 대신 min-height로 주면 내용이 길어져도 안 잘려요 */
+    background-color: #ffffff; /* 화면 꽉 채울 땐 흰색이 가장 깔끔합니다 */
     display: flex;
     flex-direction: column;
-    max-width: 420px; /* 모바일 뼈대 고정 */
-    margin: 0 auto;
     position: relative;
+    /* max-width: 420px; <-- 삭제됨! */
+    /* margin: 0 auto;   <-- 삭제됨! */
 }
 
-/* 상단 헤더  */
+/* 상단 헤더 */
 .shopping-header {
     height: 60px;
     display: flex;
@@ -26,17 +27,17 @@
     font-family: 'Urbanist', sans-serif;
     font-weight: 800;
     font-size: 1.2rem;
-    color: #333;
+    color: #222; /* 🌟 진님 통일 컬러: 블랙 */
 }
 
 .shopping-header .logo span {
-    color: #ff8c00; 
+    color: #ff8c00; /* 🌟 진님 통일 컬러: 주황 */
 }
 
 .close-btn {
     font-size: 24px;
     cursor: pointer;
-    color: #333;
+    color: #222; /* 🌟 진님 통일 컬러: 블랙 */
 }
 
 /* 쇼핑몰 리스트 영역 */
@@ -49,8 +50,10 @@
     gap: 16px; /* 카드 간격 */
 }
 
-/* 🌟 쇼핑몰 카드  */
+/* 🌟 2. 쇼핑몰 카드 꽉 채우기 */
 .shop-card {
+    width: 100%; /* 카드 너비를 화면에 꽉 차게 설정 */
+    box-sizing: border-box; /* 패딩 때문에 옆으로 삐져나가는 것 방지 */
     background: #fff;
     border-radius: 16px;
     padding: 20px;
@@ -79,6 +82,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-shrink: 0; /* 🌟 화면이 좁아져도 로고가 찌그러지지 않게 방어 */
 }
 
 .shop-logo-img {
@@ -98,7 +102,7 @@
 .shop-name {
     font-size: 1.1rem;
     font-weight: 700;
-    color: #1a1a1a;
+    color: #222; /* 🌟 진님 통일 컬러: 블랙 */
 }
 
 .shop-desc {
@@ -108,7 +112,7 @@
 }
 
 .shop-benefit {
-    color: #ff8c00; 
+    color: #ff8c00; /* 🌟 진님 통일 컬러: 주황 */
     font-weight: 600;
     font-size: 0.85rem;
     margin-top: 2px;

@@ -6,7 +6,6 @@ import LoginPage from '../pages/LoginPage'
 import SignupPage from '../pages/SignupPage'
 import ProfilePage from '../pages/ProfilePage'
 import ScanPage from '../pages/ScanPage'
-import ResultPage from '../pages/ResultPage'
 import GuidePage from '../pages/GuidePage'
 import MyPage from '../pages/MyPage'
 import HistoryDetailPage from '../pages/HistoryDetailPage'
@@ -23,7 +22,7 @@ function AppRouter() {
             <Route path="/signup" element={<SignupPage />} />
             <Route path="/profile" element={<ProfilePage />} />
             <Route path="/scan" element={<ScanPage />} />
-            <Route path="/result" element={<ResultPage />} />
+          
             <Route path="/guide" element={<GuidePage />} />
             <Route path="/mypage" element={<MyPage />} />
             <Route path="/history/:id" element={<HistoryDetailPage />} />
