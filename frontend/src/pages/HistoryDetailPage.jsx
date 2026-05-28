@@ -1,32 +1,129 @@
-import React from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useNavigate, useLocation, useParams } from 'react-router-dom';
+import { generateAIReason, fetchRecommendations } from '../api/analysisApi';
+import { fetchProfile } from '../api/profileApi';
+import { getProductImageUrl } from '../utils/imageUrl';
 import './HistoryDetailPage.css';
 
 const HistoryDetailPage = () => {
     const navigate = useNavigate();
     const location = useLocation();
+    const { id: paramId } = useParams();
 
-    // 💡 마이페이지에서 전달받은 데이터를 사용, 없으면 기본값(폴백) 적용
-    const report = location.state?.analysisData || {
-        productName: "분석된 제품",
-        score: 0,
-        status: "알 수 없음",
-        keyIngredients: [],
-        reason: "분석 데이터를 불러올 수 없습니다.",
-        warnIngredients: []
+    // 🌟 MyPage에서 넘어온 item 데이터 구조에 맞추기
+    // item = { id, name, date, score, status, keyIng: [string], warnIng: [string] }
+    const raw = location.state?.analysisData;
+    const report = {
+        name: raw?.name || "분석된 제품",
+        date: raw?.date || "",
+        score: raw?.score ?? 0,
+        status: raw?.status || "알 수 없음",
+        keyIng: Array.isArray(raw?.keyIng) ? raw.keyIng : [],
+        warnIng: Array.isArray(raw?.warnIng) ? raw.warnIng : []
     };
+
+    // 🤖 Gemini AI 추천 이유 상태
+    const [aiReason, setAiReason] = useState('');
+    const [reasonLoading, setReasonLoading] = useState(true);
+    const [reasonError, setReasonError] = useState('');
+
+    // 🎁 추천 제품 TOP 3 상태
+    const [recommendations, setRecommendations] = useState([]);
+    const [recoLoading, setRecoLoading] = useState(true);
+
+    useEffect(() => {
+        let mounted = true;
+        const loadRecs = async () => {
+            try {
+                const data = await fetchRecommendations();
+                if (mounted) {
+                    setRecommendations(Array.isArray(data) ? data : []);
+                    setRecoLoading(false);
+                }
+            } catch (err) {
+                console.error('[HistoryDetail] 추천 제품 조회 실패:', err);
+                if (mounted) setRecoLoading(false);
+            }
+        };
+        loadRecs();
+        return () => { mounted = false; };
+    }, []);
+
+    useEffect(() => {
+        let isMounted = true;
+
+        const loadAIReason = async () => {
+            // 데이터가 없으면 호출하지 않음
+            if (!raw?.name) {
+                if (isMounted) {
+                    setAiReason('분석 데이터가 없어 추천 이유를 생성할 수 없습니다.');
+                    setReasonLoading(false);
+                }
+                return;
+            }
+
+            try {
+                // 사용자 피부 타입 가져오기 (있으면)
+                let skinType = '미설정';
+                try {
+                    const profile = await fetchProfile();
+                    if (profile?.skin_type) skinType = profile.skin_type;
+                } catch (e) {
+                    console.warn('[HistoryDetail] 프로필 조회 실패, 미설정으로 진행');
+                }
+
+                if (!isMounted) return;
+
+                const data = await generateAIReason({
+                    analysisIdx: paramId,   // 캐시 키
+                    prodName: report.name,
+                    score: report.score,
+                    keyIng: report.keyIng,
+                    warnIng: report.warnIng,
+                    skinType
+                });
+
+                if (isMounted) {
+                    setAiReason(data.reason || '추천 이유를 받아오지 못했습니다.');
+                    setReasonLoading(false);
+                    if (data.cached) {
+                        console.log('💾 [HistoryDetail] 캐시된 AI 응답 사용');
+                    }
+                }
+            } catch (err) {
+                const status = err.response?.status;
+                const backendData = err.response?.data;
+                const userReason = backendData?.reason || '사용자 피부 타입과 분석된 성분을 종합하여 적합도를 평가했습니다.';
+
+                console.error('[HistoryDetail] AI 추천 이유 생성 실패:', backendData?.message || err.message);
+
+                if (isMounted) {
+                    // 429 (한도 초과)는 친절한 메시지로 표시
+                    if (status === 429) {
+                        setReasonError('AI 요청 한도 초과 — 1분 후 새로고침해보세요');
+                    } else {
+                        setReasonError(`AI 호출 실패: ${backendData?.message || err.message}`);
+                    }
+                    setAiReason(userReason);
+                    setReasonLoading(false);
+                }
+            }
+        };
+
+        loadAIReason();
+        return () => { isMounted = false; };
+    }, [raw?.name, report.score]);
 
     return (
         <div className="legacy-detail-container fade-in-up">
-            <div style={{ display: 'flex', justifyContent: 'flex-end', paddingBottom: '10px' }}>
-                <button onClick={() => navigate(-1)} style={{ background: 'none', border: 'none', fontSize: '1.5rem', cursor: 'pointer', color: '#64748b' }}>
+            <div className="legacy-detail-close-wrap">
+                <button onClick={() => navigate(-1)} className="legacy-detail-close-btn">
                     <i className="fa-solid fa-xmark"></i>
                 </button>
             </div>
 
-            {/* 1. 최상단 점수판 */}
+            {/* 1. 최상단 점수판 (제품명 표시 없음) */}
             <div className="legacy-detail-score-card">
-                <h2 className="legacy-detail-title">{report.productName}</h2>
                 <div className="legacy-detail-score">
                     {report.score}<span> / 100</span>
                 </div>
@@ -35,74 +132,125 @@ const HistoryDetailPage = () => {
                 </span>
             </div>
 
-            {/* 2 & 3. 핵심 성분 & 추천 이유 */}
+            {/* 2. 핵심 성분 */}
             <div className="legacy-detail-card">
                 <h4 className="legacy-sec-title">
-                    <i className="fa-solid fa-heart" style={{color:'#3b82f6'}}></i> 핵심 성분
+                    <i className="fa-solid fa-heart icon-heart"></i> 핵심 성분
                 </h4>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                    {report.keyIngredients.map((ing, idx) => (
-                        <div className="legacy-key-row" key={idx}>
-                            <span className="legacy-key-name">{ing.name}</span>
-                            <span className="legacy-key-desc">{ing.desc || "주요 성분"}</span>
-                        </div>
-                    ))}
-                </div>
-
-                <div className="legacy-divider"></div>
-
-                <h4 className="legacy-sec-title">
-                    <i className="fa-solid fa-book-open" style={{color:'#ef4444'}}></i> 추천 이유
-                </h4>
-                <p className="legacy-reason-text">{report.reason}</p>
-            </div>
-
-            {/* 4. 주의 성분 */}
-            <div className="legacy-detail-card">
-                <h4 className="legacy-sec-title">
-                    <i className="fa-solid fa-triangle-exclamation" style={{color:'#ea580c'}}></i> 주의 성분
-                </h4>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                    {/* 💡 디버깅용: report.warnIngredients가 실제로 존재하는지 확인 */}
-                    {console.log("DEBUG: 주의 성분 데이터 확인 ->", report.warnIngredients)}
-                    
-                    {Array.isArray(report.warnIngredients) && report.warnIngredients.length > 0 ? (
-                        report.warnIngredients.map((ing, idx) => (
-                            <div className="legacy-warn-row" key={idx}>
-                                <span className="legacy-warn-name">{ing.name || "알 수 없음"}</span>
-                                <span className="legacy-warn-desc">{ing.desc || "주의 필요"}</span>
+                <div className="legacy-ing-list">
+                    {report.keyIng.length > 0 ? (
+                        report.keyIng.map((ingName, idx) => (
+                            <div className="legacy-key-row" key={idx}>
+                                <span className="legacy-key-name">{ingName}</span>
+                                <span className="legacy-key-desc">주요 성분</span>
                             </div>
                         ))
                     ) : (
-                        <p style={{ color: '#64748b', fontSize: '0.9rem' }}>주의가 필요한 성분이 없습니다.</p>
+                        <p className="legacy-empty-msg">매칭된 핵심 성분이 없습니다.</p>
                     )}
                 </div>
             </div>
 
-            {/* 5. 추천 제품 리스트 (상단 카드 형태 유지) */}
+            {/* 3. 주의 성분 */}
             <div className="legacy-detail-card">
                 <h4 className="legacy-sec-title">
-                    <i className="fa-solid fa-wand-magic-sparkles" style={{color:'#ff8c00'}}></i> 추천 제품
+                    <i className="fa-solid fa-triangle-exclamation icon-warn"></i> 주의 성분
                 </h4>
-                {/* 기존 추천 제품 UI 유지 */}
-                <div className="legacy-recom-card">
-                    <span className="legacy-recom-brand">SunSafe</span>
-                    <h5 className="legacy-recom-name">마일드 미네랄 선크림</h5>
-                    <div className="legacy-recom-tags">
-                        <span className="legacy-recom-tag">SPF50+</span>
-                        <span className="legacy-recom-tag">PA++++</span>
-                        <span className="legacy-recom-tag solid">무기자차</span>
-                    </div>
+                <div className="legacy-ing-list">
+                    {report.warnIng.length > 0 ? (
+                        report.warnIng.map((ingName, idx) => (
+                            <div className="legacy-warn-row" key={idx}>
+                                <span className="legacy-warn-name">{ingName}</span>
+                                <span className="legacy-warn-desc">주의 필요</span>
+                            </div>
+                        ))
+                    ) : (
+                        <p className="legacy-empty-msg">주의가 필요한 성분이 없습니다.</p>
+                    )}
                 </div>
+            </div>
+
+            {/* 4. 추천 이유 (Gemini AI 생성) */}
+            <div className="legacy-detail-card">
+                <h4 className="legacy-sec-title">
+                    <i className="fa-solid fa-book-open icon-book"></i> 적합도 분석
+                    <span className="legacy-ai-badge">Google Gemini</span>
+                </h4>
+                {reasonLoading ? (
+                    <p className="legacy-reason-text legacy-reason-loading">
+                        <i className="fa-solid fa-spinner fa-spin icon-spinner"></i>
+                        AI가 맞춤형 추천 이유를 작성하고 있어요...
+                    </p>
+                ) : (
+                    <>
+                        <p className="legacy-reason-text">{aiReason}</p>
+                        {reasonError && (
+                            <p className="legacy-reason-error">⚠️ {reasonError}</p>
+                        )}
+                    </>
+                )}
+            </div>
+
+            {/* 5. 추천 제품 (대안 제시) - 사용자 프로필 기반 TOP 3 */}
+            <div className="legacy-detail-card">
+                <h4 className="legacy-sec-title">
+                    <i className="fa-solid fa-wand-magic-sparkles icon-wand"></i> 사용자 적합도 기반 추천 제품 TOP 3
+                </h4>
+                {recoLoading ? (
+                    <p className="legacy-empty-msg">
+                        <i className="fa-solid fa-spinner fa-spin"></i> 추천 제품을 찾는 중...
+                    </p>
+                ) : recommendations.length === 0 ? (
+                    <p className="legacy-empty-msg">아직 추천 가능한 제품이 없습니다.</p>
+                ) : (
+                    recommendations.map((rec) => {
+                        const imgUrl = getProductImageUrl(rec.image_filename);
+                        return (
+                            <div className="legacy-recom-card" key={rec.prod_idx}>
+                                <div className="legacy-recom-thumb">
+                                    {imgUrl ? (
+                                        <img
+                                            src={imgUrl}
+                                            alt={rec.prod_name}
+                                            onError={(e) => {
+                                                e.currentTarget.onerror = null;
+                                                e.currentTarget.style.display = 'none';
+                                                e.currentTarget.parentElement.classList.add('no-image');
+                                            }}
+                                        />
+                                    ) : (
+                                        <div className="legacy-recom-thumb-placeholder">
+                                            <i className="fa-solid fa-image"></i>
+                                        </div>
+                                    )}
+                                </div>
+                                <div className="legacy-recom-info">
+                                    <div className="legacy-recom-head">
+                                        <span className="legacy-recom-brand">{rec.brand_name}</span>
+                                        <span className={`legacy-recom-score ${rec.status === '적합' || rec.status === '최적' ? 'safe' : 'warn'}`}>
+                                            {rec.score}점
+                                        </span>
+                                    </div>
+                                    <h5 className="legacy-recom-name">{rec.prod_name}</h5>
+                                    <div className="legacy-recom-tags">
+                                        {rec.spf_val && <span className="legacy-recom-tag">{rec.spf_val}</span>}
+                                        {rec.pa_val && <span className="legacy-recom-tag">{rec.pa_val}</span>}
+                                        {rec.uv_type && <span className="legacy-recom-tag solid">{rec.uv_type}</span>}
+                                    </div>
+                                </div>
+                            </div>
+                        );
+                    })
+                )}
             </div>
 
             {/* 6. 하단 버튼 영역 */}
             <div className="legacy-btn-group">
                 <button className="legacy-btn-outline" onClick={() => navigate('/scan')}>
-                    <i className="fa-solid fa-rotate" style={{color:'#3b82f6', marginRight:'6px'}}></i> 재분석
+                    <i className="fa-solid fa-rotate icon-rotate"></i> 재분석
                 </button>
                 <button className="legacy-btn-solid" onClick={() => navigate('/guide')}>
-                    <i className="fa-solid fa-book" style={{marginRight:'6px'}}></i> 세안 가이드
+                    <i className="fa-solid fa-book icon-book-white"></i> 세안 가이드
                 </button>
             </div>
         </div>

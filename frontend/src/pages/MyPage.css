@@ -6,10 +6,66 @@
 .mypage-container {
     max-width: 500px;
     margin: 0 auto;
-    background-color: #f8fafc;
+    background-color: #fcfcfc;
     min-height: 100vh;
+    padding-top: 20px;
     padding-bottom: 40px;
 }
+
+/* 🌟 페이지 상단 제목 (나의 피부 정보) */
+.mypage-title {
+    margin: 0 20px 16px 30px;
+    font-size: 1.1rem;
+    color: #1C1E22;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.mypage-title i { color: #1C1E22; }
+
+/* 🌟 사용자 카드 내부 (프로필 아이콘 + 이름/인사말) */
+.mypage-user-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+.mypage-user-info h2 { margin: 0; font-size: 1.2rem; }
+.mypage-user-info p { margin: 0; color: #666; }
+
+/* 🌟 카드 헤더 (제목 + 우측 액션 링크) */
+.mypage-card-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    align-items: center;
+}
+.mypage-card-title {
+    margin: 0;
+    font-size: 1rem;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+.mypage-card-title .icon-droplet { color: #3b82f6; }
+.mypage-card-link {
+    color: #666;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 0.7rem;
+}
+
+/* 🌟 히스토리 카드 제목 */
+.mypage-history-title {
+    margin: 0;
+    font-size: 1rem;
+}
+
+/* 🌟 빈 상태 미니 태그 */
+.mini-tag.empty { color: #94a3b8; }
+.mini-ing-section.safe-clean .mini-ing-title { color: #16a34a; margin-bottom: 0; }
+
+/* 🌟 슬라이드 카드 푸터(상세 리포트 보기) - 클릭 가능 */
+.slide-card-footer { cursor: pointer; }
 
 .mypage-card {
     background: #ffffff;
@@ -135,15 +191,30 @@
     display: none;
 }
 
+/* 🌟 슬라이드 단위 wrapper (날짜는 카드 밖, 카드는 안) */
+.history-slide-wrapper {
+    flex: 0 0 100%;
+    scroll-snap-align: center;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 🌟 카드 박스 바깥, 우상단 날짜 */
+.slide-date-top {
+    align-self: flex-end;
+    font-size: 0.9rem;
+    color: #94a3b8;
+    font-weight: 500;
+    padding: 0 6px 8px 0;
+}
+
 /* 🌟🌟🌟 5월 15일 원본의 큼직하고 찌그러짐 없는 카드 UI 복원 🌟🌟🌟 */
 .history-slide-card {
-    flex: 0 0 100%;
-    min-height: 350px; /* 충분한 높이 확보 */
-    scroll-snap-align: center;
+    min-height: 320px;
     background: #fff;
     border: 1px solid #e2e8f0;
     border-radius: 20px;
-    padding: 28px; /* 시원시원한 내부 여백 */
+    padding: 28px;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
@@ -184,13 +255,32 @@
     align-items: flex-end;
 }
 
-/* 5월 15일 원본의 큼직하고 존재감 넘치는 900 굵기의 스코어 노출 */
+/* 🌟 새 점수 영역 (제품명 제거 후 중앙 정렬) */
+.slide-card-score-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    border-bottom: 1px solid #f1f5f9;
+    padding-bottom: 18px;
+    margin-bottom: 20px;
+    gap: 8px;
+}
+
+/* 🌟 점수 (히스토리 상세 페이지와 동일한 톤) */
 .score-num {
     font-size: 2.3rem;
     font-weight: 900;
-    color: #ff8c00;
+    color: #22c55e;       /* 상세페이지와 동일한 초록 */
     line-height: 1;
     margin-bottom: 6px;
+}
+
+/* "/ 100" 보조 텍스트 (상세페이지의 legacy-detail-score span과 동일 스타일) */
+.score-total {
+    font-size: 1rem;
+    color: #94a3b8;
+    font-weight: 600;
 }
 
 .status-badge {
@@ -201,7 +291,8 @@
     color: white;
 }
 
-.status-badge.safe { background-color: #16a34a; }
+/* 상세 페이지(legacy-status-badge)와 동일한 색상으로 통일 */
+.status-badge.safe { background-color: #22c55e; }
 .status-badge.warn { background-color: #ef4444; }
 
 /* 🌟🌟🌟 요약 코드를 걷어내고 5월 15일 원본의 시원시원한 내부 성분 카드 복원 🌟🌟🌟 */

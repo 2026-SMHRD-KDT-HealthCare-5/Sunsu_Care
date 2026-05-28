@@ -7,13 +7,27 @@ const api = axios.create({
 })
 
 api.interceptors.request.use((config) => {
-  // 1. AI 서버용 요청 (경로에 suncare나 tasks가 포함될 때)
-  if (config.url.includes('/suncare') || config.url.includes('/tasks')) {
-    config.baseURL = 'http://127.0.0.1:8001/api/v1'; 
+  // 1. Express(일반) 서버로 보내야 하는 suncare 경로들 (DB 접근 필요한 것들)
+  // - /suncare/upload : 이미지 업로드 + tb_upload 저장
+  // - /suncare/analyses : 사용자 분석 히스토리 조회 (JWT 필요)
+  // - /suncare/callbacks : FastAPI 콜백 수신
+  // - /suncare/results : 분석 결과 조회
+  const expressSuncarePaths = ['/suncare/upload', '/suncare/analyses', '/suncare/callbacks', '/suncare/results', '/suncare/ai-reason', '/suncare/recommendations'];
+  const isExpressSuncare = expressSuncarePaths.some(p => config.url.startsWith(p));
+
+  if (isExpressSuncare) {
+    // Express 서버 + 사용자 JWT 토큰
+    config.baseURL = import.meta.env.VITE_API_BASE_URL;
+    const authToken = localStorage.getItem('authToken');
+    if (authToken) {
+      config.headers.Authorization = `Bearer ${authToken}`;
+    }
+  } else if (config.url.includes('/suncare') || config.url.includes('/tasks')) {
+    // 2. 그 외 suncare/tasks 경로는 FastAPI 직접 호출 (내부 토큰)
+    config.baseURL = 'http://127.0.0.1:8001/api/v1';
     config.headers.Authorization = `Bearer ${import.meta.env.VITE_INTERNAL_TOKEN}`;
-  } 
-  // 2. 일반 서버용 요청
-  else {
+  } else {
+    // 3. 그 외 일반 Express 서버용 요청
     config.baseURL = import.meta.env.VITE_API_BASE_URL;
     const authToken = localStorage.getItem('authToken');
     if (authToken) {

@@ -144,6 +144,7 @@ async def get_task(
         raise HTTPException(status_code=404, detail="해당 작업을 찾을 수 없습니다.")
     return {"task_id": task_id, **task}
 
+
 @app.get("/health")
 async def health_check():
     return {"status": "ok"}

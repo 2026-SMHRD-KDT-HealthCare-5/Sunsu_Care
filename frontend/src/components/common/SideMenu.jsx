@@ -1,7 +1,8 @@
 import React from 'react';
 import { useAuth } from '../../hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
-import './SideMenu.css'; 
+import { fetchHistory } from '../../api/analysisApi';
+import './SideMenu.css';
 
 const SideMenu = ({ isOpen, onClose }) => {
   const navigate = useNavigate();
@@ -18,6 +19,39 @@ const SideMenu = ({ isOpen, onClose }) => {
       navigate(path);
     } else {
       navigate(`/login?redirect=${encodeURIComponent(path)}`);
+    }
+    onClose();
+  };
+
+  // 🌟 분석 히스토리 클릭 → 최신 분석 상세 페이지로 이동
+  const handleHistoryClick = async () => {
+    if (!isLoggedIn) {
+      navigate(`/login?redirect=${encodeURIComponent('/mypage')}`);
+      onClose();
+      return;
+    }
+
+    try {
+      const data = await fetchHistory();
+      if (data && data.length > 0) {
+        const latest = data[0];
+        const item = {
+          id: latest.analysis_idx,
+          name: latest.prod_name || '분석된 제품',
+          date: new Date(latest.joined_at).toLocaleDateString(),
+          score: latest.match_score ?? 0,
+          status: latest.match_status || (latest.match_score >= 75 ? '적합' : '주의'),
+          keyIng: latest.key_ingredients ? latest.key_ingredients.split(',') : [],
+          warnIng: latest.warn_ingredients ? latest.warn_ingredients.split(',') : []
+        };
+        navigate(`/history/${item.id}`, { state: { analysisData: item } });
+      } else {
+        // 분석 이력 없으면 마이페이지로
+        navigate('/mypage');
+      }
+    } catch (err) {
+      console.error('[SideMenu] 히스토리 조회 실패:', err);
+      navigate('/mypage');
     }
     onClose();
   };
@@ -59,7 +93,7 @@ const SideMenu = ({ isOpen, onClose }) => {
             <div className="menu-item" onClick={() => handleNav('/mypage')}>
               <i className="fa-solid fa-user-check"></i> <span>나의 피부 정보</span>
             </div>
-            <div className="menu-item" onClick={() => handleNav('/mypage')}>
+            <div className="menu-item" onClick={handleHistoryClick}>
                <i className="fa-solid fa-clock-rotate-left"></i> <span>분석 히스토리</span>
             </div>
             {isLoggedIn ? (
