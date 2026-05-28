@@ -62,7 +62,7 @@
 
 /* 🌟 빈 상태 미니 태그 */
 .mini-tag.empty { color: #94a3b8; }
-.mini-ing-section.safe-clean .mini-ing-title { color: #16a34a; margin-bottom: 0; }
+.mini-ing-section.safe-clean .mini-ing-title { color: #3a3a3a; margin-bottom: 0; }
 
 /* 🌟 슬라이드 카드 푸터(상세 리포트 보기) - 클릭 가능 */
 .slide-card-footer { cursor: pointer; }
@@ -121,20 +121,9 @@
 }
 
 /* 배지 색상 동기화 패치 */
-.info-value.tag-blue {
-    background-color: #3b82f6 !important;
-    color: #ffffff !important;
-}
-
-/* 기피 성분 배지색 수정 (신뢰감 주는 오가닉 그린) */
-.info-value.tag-green {
-    background-color: #10b981 !important;
-    color: #ffffff !important;
-}
-
-.info-value.tag-gray {
-    background-color: #64748b;
-    color: #ffffff;
+.info-value.tag {
+    background-color: #fff3e0 !important;
+    color: #3a3a3a !important;
 }
 
 /* --- 3. 🌟 5월 15일 원본 디자인 복원: 분석 히스토리 슬라이더 영역 --- */
@@ -305,11 +294,11 @@
 }
 
 .mini-ing-section { padding: 16px; border-radius: 12px; border: 1px solid transparent; }
-.mini-ing-section.key { background-color: #fff7ed; border-color: #fed7aa; } 
+.mini-ing-section.key { background-color: #fff3e0; border-color: #9cc522; } 
 .mini-ing-section.warn { background-color: #fef2f2; border-left: 4px solid #ef4444; border-radius: 8px; }
 
 .mini-ing-title { font-size: 0.95rem; font-weight: 800; margin-bottom: 12px; display: flex; align-items: center; gap: 6px; }
-.mini-ing-section.key .mini-ing-title { color: #ea580c; }
+.mini-ing-section.key .mini-ing-title { color: #3a3a3a; }
 .mini-ing-section.warn .mini-ing-title { color: #ef4444; }
 
 .mini-ing-tags { display: flex; flex-wrap: wrap; gap: 8px; }

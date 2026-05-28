@@ -51,7 +51,7 @@ const MyPage = () => {
                 console.error("프로필 로드 실패:", err);
             }
 
-            // 1. DB에서 과거 내역 가져오기 (백엔드에서 점수 계산해서 저장하므로 그대로 사용)
+            // 1. DB에서 과거 내역 가져오기
             try {
                 const dbData = await fetchHistory();
                 console.log('🟡 [MyPage] DB fetchHistory 결과:', dbData);
@@ -70,32 +70,25 @@ const MyPage = () => {
                 console.error("히스토리 로드 실패:", err);
             }
 
-            // 2. ScanPage에서 라우터를 타고 넘어온 실시간 분석 데이터가 있다면 맨 앞에 추가
+            // 2. ScanPage에서 넘어온 실시간 분석 데이터가 있다면 맨 앞에 추가
             if (location.state?.newAnalysis) {
                 const data = location.state.newAnalysis;
-                console.log('🔴 [MyPage] newAnalysis ingredients:', data.ingredients);
-                console.log('🔴 [MyPage] detected_ingredients:', data.ingredients?.detected_ingredients);
-
                 const detectedIngredients = data.ingredients?.detected_ingredients || [];
 
-                // 🌟 핵심 성분: skin_warning에 '도움' 또는 '기능성' 포함된 것 (좋은 성분)
                 const keyIngredients = detectedIngredients
                     .filter(i => i.skin_warning && (i.skin_warning.includes('도움') || i.skin_warning.includes('기능성')))
                     .slice(0, 3)
                     .map(i => i.ingre_name);
 
-                // 🌟 주의 성분: ewg_grade가 3 이상 (EWG 기준 위험 등급)
                 const warnIngredients = detectedIngredients
                     .filter(i => i.ewg_grade >= 3)
                     .slice(0, 3)
                     .map(i => i.ingre_name);
 
-                // 🌟 적합도 점수: 프로필 + 검출 성분 종합 계산
-                const { score: calcScore, status: calcStatus, breakdown } = calculateCompatibility(
+                const { score: calcScore, status: calcStatus } = calculateCompatibility(
                     detectedIngredients,
                     userProfile || {}
                 );
-                console.log('⚖️ [MyPage] 점수 계산:', { score: calcScore, status: calcStatus, breakdown });
 
                 const newItem = {
                     id: data.analysis_idx || 'new-' + Date.now(),
@@ -106,32 +99,21 @@ const MyPage = () => {
                     keyIng: keyIngredients,
                     warnIng: warnIngredients
                 };
-                console.log('🟣 [MyPage] 만들어진 newItem:', newItem);
 
-                // 🌟 중복 체크 1: ID 매칭
                 let isExist = finalHistory.some(item => item.id === newItem.id);
 
-                // 🌟 중복 체크 2: 검출 성분이 완전히 동일한 기존 항목이 있는지 (fingerprint 비교)
                 if (!isExist) {
-                    const newFingerprint = detectedIngredients
-                        .map(i => i.ingre_name)
-                        .sort()
-                        .join('|');
+                    const newFingerprint = detectedIngredients.map(i => i.ingre_name).sort().join('|');
                     isExist = finalHistory.some(item => {
                         const itemFingerprint = [
                             ...(item.keyIng || []),
                             ...(item.warnIng || [])
                         ].sort().join('|');
-                        // DB 데이터는 keyIng/warnIng만 가져오므로 완벽 매칭은 어려움
-                        // 부분 매칭(핵심+주의 성분 동일)로 중복 판단
                         return itemFingerprint && itemFingerprint === [
                             ...newItem.keyIng,
                             ...newItem.warnIng
                         ].sort().join('|');
                     });
-                    if (isExist) {
-                        console.log('🔁 [MyPage] 같은 성분 조합의 분석이 이미 있음 - 신규 추가 안 함');
-                    }
                 }
 
                 if (!isExist) {
@@ -139,7 +121,7 @@ const MyPage = () => {
                 }
             }
 
-            // 만약 서버 데이터도 없고 방금 분석한 데이터도 없다면 더미 노출
+            // 데이터 없을 시 더미 데이터
             if (finalHistory.length === 0) {
                 finalHistory = [
                     { id: 1, name: '메디힐 마데카소사이드 선세럼', date: '2026.05.14', score: 82, status: '적합', keyIng: ['나이아신', '산화아연'], warnIng: ['옥시벤존'] },
@@ -147,15 +129,12 @@ const MyPage = () => {
                 ];
             }
 
-            // 즉시 상태 갱신하여 뷰(View) 리렌더링 유도
-            console.log('⚫ [MyPage] 최종 finalHistory:', finalHistory);
             setHistoryData(finalHistory);
-            setCurrentIndex(1); // 슬라이더 인덱스 첫 번째로 강제 초기화
+            setCurrentIndex(1);
         };
 
         loadPageData();
         
-    // 💡 중요: 객체인 location.state 대신 가공한 원시 문자열 트리거(newAnalysisTrigger)를 배치합니다.
     }, [isLoggedIn, newAnalysisTrigger]);
 
     // 슬라이더 제어 로직
@@ -169,8 +148,12 @@ const MyPage = () => {
     const handleSliderScroll = () => {
         if (sliderRef.current) {
             const cardWidth = sliderRef.current.offsetWidth;
-            const newIndex = Math.round(sliderRef.current.scrollLeft / cardWidth) + 1;
-            if (newIndex >= 1 && newIndex <= historyData.length) setCurrentIndex(newIndex);
+            const scrollLeft = sliderRef.current.scrollLeft;
+            const newIndex = Math.round(scrollLeft / cardWidth) + 1;
+            
+            if (newIndex !== currentIndex && newIndex >= 1 && newIndex <= historyData.length) {
+                setCurrentIndex(newIndex);
+            }
         }
     };
 
@@ -179,18 +162,25 @@ const MyPage = () => {
 
     return (
         <div className="mypage-container">
-            {/* 🌟 페이지 상단 제목 */}
+            {/* 🌟 CSS 복원: 페이지 상단 제목 */}
             <h1 className="mypage-title">
                 <i className="fa-solid fa-user-check"></i>
                 나의 피부 정보
             </h1>
 
             {/* ── 사용자 카드 ── */}
-            <div className="mypage-card">
+            <div 
+                className="mypage-card" 
+                onClick={() => navigate('/account-settings')} 
+                style={{ cursor: 'pointer', transition: 'all 0.2s' }}
+            >
                 <div className="mypage-user-info">
                     <div className="profile-icon">🌞</div>
-                    <div>
-                        <h2>{displayName}</h2>
+                    <div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                            <h2>{displayName}</h2>
+                            <i className="fa-solid fa-chevron-right" style={{ color: '#cbd5e1' }}></i>
+                        </div>
                         <p>{greeting}</p>
                     </div>
                 </div>
@@ -210,19 +200,19 @@ const MyPage = () => {
                 <div className="skin-info-grid">
                     <div className="skin-info-item">
                         <span className="info-label">피부 타입</span>
-                        <span className="info-value tag-blue">{mySkinInfo.type}</span>
+                        <span className="info-value tag">{mySkinInfo.type}</span>
                     </div>
                     <div className="skin-info-item">
                         <span className="info-label">활동 환경</span>
-                        <span className="info-value tag-blue">{mySkinInfo.activity_env}</span>
+                        <span className="info-value tag">{mySkinInfo.activity_env}</span>
                     </div>
                     <div className="skin-info-item">
                         <span className="info-label">선호 제형</span>
-                        <span className="info-value tag-gray">{mySkinInfo.texture}</span>
+                        <span className="info-value tag">{mySkinInfo.texture}</span>
                     </div>
                     <div className="skin-info-item">
                         <span className="info-label">기피 성분</span>
-                        <span className="info-value tag-green">{mySkinInfo.avoid}</span>
+                        <span className="info-value tag">{mySkinInfo.avoid}</span>
                     </div>
                 </div>
             </div>
@@ -230,21 +220,37 @@ const MyPage = () => {
             {/* ── 분석 히스토리 ── */}
             <div className="mypage-card history-section">
                 <div className="history-header">
-                    <h3 className="mypage-history-title">📊 분석 히스토리 ({historyData.length > 0 ? `${currentIndex}/${historyData.length}` : '0/0'})</h3>
+                    <h3 className="mypage-history-title">📊 분석 히스토리 ({historyData.length > 0 ? currentIndex : 0}/{historyData.length})</h3>
                     <div className="slider-controls">
-                        <button onClick={() => scrollSlider('left')} className="slider-arrow"><i className="fa-solid fa-chevron-left"></i></button>
-                        <button onClick={() => scrollSlider('right')} className="slider-arrow"><i className="fa-solid fa-chevron-right"></i></button>
+                        {/* CSS :hover 효과를 위해 비활성 상태의 스타일만 인라인으로 최소한 적용 */}
+                        <button 
+                            onClick={() => scrollSlider('left')} 
+                            className="slider-arrow"
+                            disabled={currentIndex <= 1}
+                            style={currentIndex <= 1 ? { opacity: 0.3, cursor: 'default', backgroundColor: '#f8fafc' } : {}}
+                        >
+                            <i className="fa-solid fa-chevron-left"></i>
+                        </button>
+
+                        <button 
+                            onClick={() => scrollSlider('right')} 
+                            className="slider-arrow"
+                            disabled={currentIndex >= historyData.length}
+                            style={currentIndex >= historyData.length ? { opacity: 0.3, cursor: 'default', backgroundColor: '#f8fafc' } : {}}
+                        >
+                            <i className="fa-solid fa-chevron-right"></i>
+                        </button>
                     </div>
                 </div>
 
                 <div className="history-slider" ref={sliderRef} onScroll={handleSliderScroll}>
                     {historyData.map((item) => (
+                        /* 🌟 CSS 복원: wrapper 태그 부활 및 날짜 외부 배치 */
                         <div key={item.id} className="history-slide-wrapper">
-                            {/* 🌟 날짜는 카드 박스 밖, 우상단 */}
                             <span className="slide-date-top">{item.date}</span>
-
+                            
                             <div className="history-slide-card">
-                                {/* 점수 + 상태 배지 (제품명 제거, 중앙 정렬) */}
+                                {/* 🌟 CSS 복원: 제품명 제거 후 중앙 정렬된 점수 박스 */}
                                 <div className="slide-card-score-area">
                                     <span className="score-num">
                                         {item.score}<span className="score-total"> / 100</span>
@@ -253,37 +259,40 @@ const MyPage = () => {
                                         {item.status}
                                     </span>
                                 </div>
-                            <div className="slide-card-body">
-                                <div className="mini-ing-section key">
-                                    <div className="mini-ing-title">
-                                        <i className="fa-solid fa-gem"></i> 매칭된 핵심 성분
-                                    </div>
-                                    <div className="mini-ing-tags">
-                                        {item.keyIng.length > 0
-                                            ? item.keyIng.map((ing, i) => <span key={i} className="mini-tag">{ing}</span>)
-                                            : <span className="mini-tag empty">매칭된 핵심 성분 없음</span>}
-                                    </div>
-                                </div>
-                                {item.warnIng.length > 0 ? (
-                                    <div className="mini-ing-section warn">
+                                
+                                <div className="slide-card-body">
+                                    <div className="mini-ing-section key">
                                         <div className="mini-ing-title">
-                                            <i className="fa-solid fa-triangle-exclamation"></i> 주의 성분 발견
+                                            <i className="fa-solid fa-gem"></i> 매칭된 핵심 성분
                                         </div>
                                         <div className="mini-ing-tags">
-                                            {item.warnIng.map((ing, i) => <span key={i} className="mini-tag">{ing}</span>)}
+                                            {item.keyIng.length > 0 
+                                                ? item.keyIng.map((ing, i) => <span key={i} className="mini-tag">{ing}</span>)
+                                                : <span className="mini-tag empty">매칭된 핵심 성분 없음</span>}
                                         </div>
                                     </div>
-                                ) : (
-                                    <div className="mini-ing-section safe-clean">
-                                        <div className="mini-ing-title">
-                                            <i className="fa-solid fa-shield-heart"></i> 주의 필요 성분 없음
+
+                                    {item.warnIng && item.warnIng.length > 0 ? (
+                                        <div className="mini-ing-section warn">
+                                            <div className="mini-ing-title">
+                                                <i className="fa-solid fa-triangle-exclamation"></i> 주의 성분 발견
+                                            </div>
+                                            <div className="mini-ing-tags">
+                                                {item.warnIng.map((ing, i) => <span key={i} className="mini-tag">{ing}</span>)}
+                                            </div>
                                         </div>
-                                    </div>
-                                )}
-                            </div>
-                            <div className="slide-card-footer" onClick={() => navigate(`/history/${item.id}`, { state: { analysisData: item } })}>
-                                상세 리포트 확인하기 <i className="fa-solid fa-arrow-right"></i>
-                            </div>
+                                    ) : (
+                                        <div className="mini-ing-section safe-clean">
+                                            <div className="mini-ing-title">
+                                                <i className="fa-solid fa-shield-heart"></i> 주의 필요 성분 없음
+                                            </div>
+                                        </div>
+                                    )}
+                                </div>
+                                
+                                <div className="slide-card-footer" onClick={() => navigate(`/history/${item.id}`, { state: { analysisData: item } })}>
+                                    상세 리포트 확인하기 <i className="fa-solid fa-arrow-right"></i>
+                                </div>
                             </div>
                         </div>
                     ))}
