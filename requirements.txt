@@ -5,15 +5,14 @@ uvicorn[standard]
 # Database (SQLAlchemy + Async Driver)
 sqlalchemy
 asyncmy
-pymysql
-aiomysql
 
 # Config & Validation
 pydantic-settings
+python-dotenv
 
 # AI & Image Processing
 ultralytics
-opencv-python
+opencv-python-headless
 numpy
 Pillow
 
