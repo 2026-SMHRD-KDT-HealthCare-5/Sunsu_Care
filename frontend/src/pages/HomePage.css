@@ -1,3 +1,16 @@
+/* CSS 파일 최상단에 추가 */
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+
+body, html, * {
+    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
+}
+
+
+body, html {
+  background-color: #fdeac9 !important; /* 🌟 모바일 화면 바깥쪽 전체 배경*/
+  margin: 0;
+  padding: 0;
+}
 
 .home-container {
   width: 100%;
@@ -84,7 +97,7 @@
   text-align: center;
   padding: 15px;
   font-weight: 800;
-  font-size: 1.35rem; 
+  font-size: 1.6rem; 
   color: #111;
   cursor: pointer;
   box-shadow: 0 10px 30px rgba(0,0,0,0.15);

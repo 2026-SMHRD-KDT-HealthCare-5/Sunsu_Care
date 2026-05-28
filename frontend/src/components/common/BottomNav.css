@@ -42,3 +42,18 @@
   font-size: var(--font-xs);
   font-weight: 600;
 }
+
+/* 🌟 하단 내비게이션 바 고정  */
+.bottom-nav-container { 
+    position: fixed;   /* 화면에서 절대적인 위치를 가지게 함 */
+    bottom: 0;         /* 화면 맨 밑바닥에 붙임 */
+    left: 0;
+    width: 100%;       /* 가로를 꽉 채움 */
+    max-width: 500px;  /* (선택) 앱 최대 가로 너비가 500px이라면 이것도 추가! 없으면 빼세요 */
+    z-index: 9999;     /* 다른 요소들보다 항상 맨 위에 떠 있도록 설정 */
+    background-color: #ffffff; /* 배경색이 투명해지지 않도록 확실히 흰색 지정 */
+    border-top: 1px solid #f1f5f9; /* 구분선 유지 */
+    
+    /*  모바일 홈 화면에서 버튼을 편하게 누르기 위한 여백 (아이폰 하단 바 등) */
+    padding-bottom: env(safe-area-inset-bottom); 
+}

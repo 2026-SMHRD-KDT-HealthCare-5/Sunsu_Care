@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { fetchProfile } from '../api/profileApi';
 import { calculateSuitability } from '../utils/analyzeEngine'; 
-import './HistoryDetailPage.css'; // 🌟 기획서 원본 디자인 유지
+import './HistoryDetailPage.css';
 
 const HistoryDetailPage = () => {
     const { id } = useParams(); 
@@ -11,13 +11,17 @@ const HistoryDetailPage = () => {
     const [userProfile, setUserProfile] = useState(null);
     const [isLoading, setIsLoading] = useState(true); 
 
-    // 🌟 1. 저장 팝업창 관리를 위한 State 추가
-    const [showSaveModal, setShowSaveModal] = useState(false);
-    
-    // 임시 저장된 5개의 히스토리 리스트 (실제로는 백엔드에서 받아옵니다)
+    // 🌟 1. 예쁜 커스텀 알림창(모달) 상태 관리
+    const [modal, setModal] = useState({
+        isOpen: false,
+        type: 'alert', // 'alert'(확인 버튼만) 또는 'confirm'(확인/취소 버튼)
+        message: '',
+        onConfirm: null // 확인 버튼을 눌렀을 때 실행할 함수
+    });
+
     const [mockSavedList, setMockSavedList] = useState([
         { id: 1, name: '메디힐 마데카소사이드 선세럼', date: '2026.05.14' },
-        { id: 2, name: '마일드 선크림', date: '2026.05.14' },
+        { id: 2, name: '솔', date: '2026.05.14' },
         { id: 3, name: '톤업 선밀크', date: '2026.05.13' },
         { id: 4, name: '닥터지 그린 마일드 업 선', date: '2026.05.12' },
         { id: 5, name: '이니스프리 수분 선크림', date: '2026.05.11' }
@@ -83,26 +87,70 @@ const HistoryDetailPage = () => {
         return calculateSuitability(userProfile, product);
     }, [userProfile, product]);
 
-    // 🌟 2. 저장하기 버튼 클릭 시 로직
+    const currentIndex = mockSavedList.findIndex(item => Number(item.id) === Number(id));
+    const hasPrev = currentIndex > 0;
+    const hasNext = currentIndex >= 0 && currentIndex < mockSavedList.length - 1;
+
+    const goPrev = () => {
+        if (hasPrev) navigate(`/history/${mockSavedList[currentIndex - 1].id}`);
+    };
+    const goNext = () => {
+        if (hasNext) navigate(`/history/${mockSavedList[currentIndex + 1].id}`);
+    };
+
+    // 🌟 2. 커스텀 팝업창을 띄우는 저장 로직 (현재 창에 머무름)
     const handleSaveClick = () => {
         if (mockSavedList.length >= 5) {
-            // 5개가 꽉 찼으면 모달창 띄우기
-            setShowSaveModal(true);
+            setModal({
+                isOpen: true,
+                type: 'alert',
+                message: '저장은 5개까지 가능합니다.\n새로 저장하려면 기존 기록을 삭제해 주세요.'
+            });
         } else {
-            // 공간이 있으면 바로 저장 후 이동
-            alert("✨ 성공적으로 저장되었습니다!");
-            navigate('/mypage');
+            setModal({
+                isOpen: true,
+                type: 'alert',
+                message: '✨ 성공적으로 저장되었습니다!',
+                onConfirm: null // 💡 이동 없이 팝업만 닫고 현재 창에 머무름
+            });
         }
     };
 
-    // 🌟 3. 모달창 안에서 기존 기록 '삭제 후 저장' 클릭 시 로직
-    const handleDeleteAndSave = (targetId) => {
-        if (window.confirm("선택한 기존 기록을 삭제하고 현재 분석 결과를 저장할까요?")) {
-            setMockSavedList(mockSavedList.filter(item => item.id !== targetId));
-            setShowSaveModal(false);
-            alert("✨ 기존 기록이 교체되어 새롭게 저장되었습니다!");
-            navigate('/mypage');
+    // 🌟 3. 커스텀 팝업창을 띄우는 삭제 로직 (삭제 후 다음 항목으로 이동)
+    const handleDeleteClick = () => {
+        setModal({
+            isOpen: true,
+            type: 'confirm',
+            message: '정말로 이 분석 결과를 삭제하시겠습니까?',
+            onConfirm: () => {
+                // 💡 확인 클릭 시: 리스트 업데이트
+                const updatedList = mockSavedList.filter(item => Number(item.id) !== Number(id));
+                setMockSavedList(updatedList);
+                
+                // 💡 삭제 완료 팝업 띄우기 및 이동 경로 설정
+                setModal({
+                    isOpen: true,
+                    type: 'alert',
+                    message: '🗑️ 삭제되었습니다!',
+                    onConfirm: () => {
+                        // 확인을 누르면 다음 항목으로 스르륵 이동!
+                        if (updatedList.length > 0) {
+                            navigate(`/history/${updatedList[0].id}`);
+                        } else {
+                            navigate('/mypage'); 
+                        }
+                    }
+                });
+            }
+        });
+    };
+
+    // 🌟 4. 팝업창 닫기 (또는 확인 시 함수 실행) 핸들러
+    const handleModalConfirm = () => {
+        if (modal.onConfirm) {
+            modal.onConfirm();
         }
+        setModal({ ...modal, isOpen: false });
     };
 
     if (isLoading || !analysisResult) {
@@ -110,9 +158,22 @@ const HistoryDetailPage = () => {
     }
 
     return (
-        <div className="legacy-detail-container fade-in-up">
+        <div className="legacy-detail-container fade-in-up">  
             
-            {/* 기존 예쁜 화면 영역 그대로 유지 (점수판, 성분 등) */}
+            <h1 style={{ margin: '0 0 20px 7px', fontSize: '1.1rem', display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <i className="fa-solid fa-clock-rotate-left" style={{ color: '#1C1E22' }}></i>
+                분석 히스토리 ({currentIndex >= 0 ? currentIndex + 1 : 1}/{mockSavedList.length})
+            </h1>
+
+            <div className="history-nav-arrows">
+                <button className="history-nav-btn" onClick={goPrev} disabled={!hasPrev}>
+                    <i className="fa-solid fa-chevron-left"></i>
+                </button>
+                <button className="history-nav-btn" onClick={goNext} disabled={!hasNext}>
+                    <i className="fa-solid fa-chevron-right"></i>
+                </button>
+            </div>
+            
             <div className="legacy-detail-score-card">
                 <h2 className="legacy-detail-title">{product.name}</h2>
                 <div className="legacy-detail-score">
@@ -202,10 +263,9 @@ const HistoryDetailPage = () => {
                 </div>
             </div>
 
-            {/* ── 4. 수정된 하단 버튼 영역 (저장 버튼 및 안내 문구 추가) ── */}
             <div className="legacy-btn-group" style={{ marginBottom: '12px' }}>
-                <button className="legacy-btn-outline" onClick={() => navigate(-1)}>
-                    <i className="fa-solid fa-arrow-left" style={{marginRight:'6px'}}></i> 뒤로
+                <button className="legacy-btn-outline" onClick={handleDeleteClick}>
+                    <i className="fa-solid fa-trash" style={{marginRight:'6px'}}></i> 삭제하기
                 </button>
                 <button className="legacy-btn-solid" onClick={handleSaveClick}>
                     <i className="fa-solid fa-bookmark" style={{marginRight:'6px'}}></i> 저장하기
@@ -216,50 +276,39 @@ const HistoryDetailPage = () => {
                 💡 분석 결과 히스토리는 최대 5개까지 저장 가능합니다.
             </div>
 
-            {/* ── 5. 저장 공간 5개 초과 시 뜨는 예쁜 팝업 모달창 ── */}
-            {showSaveModal && (
+            {/* 🌟 5. 예쁘고 심플하게 만든 커스텀 알림창 (모달) */}
+            {modal.isOpen && (
                 <div style={{
                     position: 'fixed', top: 0, left: 0, right: 0, bottom: 0,
-                    backgroundColor: 'rgba(0,0,0,0.55)', display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: 9999, padding: '20px'
+                    backgroundColor: 'rgba(0,0,0,0.4)', display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: 9999
                 }}>
                     <div className="fade-in-up" style={{
-                        background: '#ffffff', borderRadius: '20px', padding: '24px', width: '100%', maxWidth: '400px', boxShadow: '0 10px 25px rgba(0,0,0,0.1)'
+                        background: '#ffffff', borderRadius: '16px', padding: '28px 24px', width: '320px', textAlign: 'center', boxShadow: '0 10px 25px rgba(0,0,0,0.1)'
                     }}>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
-                            <h3 style={{ margin: 0, fontSize: '1.1rem', color: '#ef4444', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                                <i className="fa-solid fa-triangle-exclamation"></i> 저장 공간 초과 (5/5)
-                            </h3>
-                            <button onClick={() => setShowSaveModal(false)} style={{ background: 'none', border: 'none', fontSize: '1.4rem', cursor: 'pointer', color: '#cbd5e1' }}>
-                                <i className="fa-solid fa-xmark"></i>
-                            </button>
-                        </div>
-                        
-                        <p style={{ fontSize: '0.9rem', color: '#475569', marginBottom: '20px', lineHeight: '1.5' }}>
-                            더 이상 새로운 결과를 저장할 수 없습니다.<br/>새로 저장하려면 <strong>기존 기록 중 1개를 삭제</strong>해주세요.
+                        <p style={{ fontSize: '1.05rem', color: '#1e293b', margin: '0 0 24px 0', lineHeight: '1.5', whiteSpace: 'pre-wrap', fontWeight: '600' }}>
+                            {modal.message}
                         </p>
-                        
-                        {/* 기존 저장 리스트 */}
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', maxHeight: '250px', overflowY: 'auto', paddingRight: '4px' }}>
-                            {mockSavedList.map(item => (
-                                <div key={item.id} style={{
-                                    display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '12px 14px', border: '1px solid #e2e8f0', borderRadius: '12px', backgroundColor: '#f8fafc'
-                                }}>
-                                    <div>
-                                        <div style={{ fontSize: '0.9rem', fontWeight: '800', color: '#1e293b' }}>{item.name}</div>
-                                        <div style={{ fontSize: '0.8rem', color: '#94a3b8', marginTop: '4px', fontWeight:'500' }}>{item.date}</div>
-                                    </div>
-                                    <button onClick={() => handleDeleteAndSave(item.id)} style={{
-                                        backgroundColor: '#ef4444', color: 'white', border: 'none', padding: '8px 12px', borderRadius: '8px', fontSize: '0.8rem', fontWeight: '700', cursor: 'pointer'
-                                    }}>
-                                        삭제
-                                    </button>
-                                </div>
-                            ))}
+                        <div style={{ display: 'flex', gap: '10px', justifyContent: 'center' }}>
+                            {/* type이 'confirm'일 때만 취소 버튼 렌더링 */}
+                            {modal.type === 'confirm' && (
+                                <button 
+                                    onClick={() => setModal({ ...modal, isOpen: false })} 
+                                    style={{ flex: 1, padding: '12px', borderRadius: '10px', border: '1px solid #cbd5e1', background: '#ffffff', color: '#64748b', fontWeight: '700', fontSize: '0.95rem', cursor: 'pointer' }}
+                                >
+                                    취소
+                                </button>
+                            )}
+                            <button 
+                                onClick={handleModalConfirm} 
+                                style={{ flex: 1, padding: '12px', borderRadius: '10px', border: 'none', background: '#ff8c00', color: '#ffffff', fontWeight: '700', fontSize: '0.95rem', cursor: 'pointer' }}
+                            >
+                                확인
+                            </button>
                         </div>
                     </div>
                 </div>
             )}
-            
+
         </div>
     );
 };

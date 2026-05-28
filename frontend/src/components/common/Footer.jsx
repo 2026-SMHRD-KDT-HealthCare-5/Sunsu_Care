@@ -2,12 +2,8 @@
 import './Footer.css'
 
 function Footer() {
-  return (
-    <footer className="footer">
-      <p>© 2026 SunCare</p>
-      <p className="footer__sub">YOLO 기반 선케어 제품 분석 서비스</p>
-    </footer>
-  )
+  // 🌟 null을 반환하면 화면에서 완전히 사라지고, 에러도 나지 않습니다!
+  return null;
 }
 
 export default Footer

@@ -7,7 +7,6 @@ import SideMenu from './SideMenu';
 
 function Header() {
   const navigate = useNavigate();
- 
   const { isLoggedIn, logout } = useAuth();
   
   // 메뉴 열림/닫힘 상태 관리 스위치
@@ -15,20 +14,14 @@ function Header() {
 
   return (
     <header className="header">
-      {}
-      <Link to="/" className="header__logo">🌞 SunCare</Link>
+      {/* 🌟 1. 🌞 이모지 대신 세련된 태양 아이콘으로 교체 (간격 조절 포함) */}
+      <Link to="/" className="header__logo" style={{ display: 'flex', alignItems: 'center', gap: '6px', textDecoration: 'none' }}>
+        <i className="fa-solid fa-sun" style={{ color: '#ff8c00' }}></i>
+        Sun手Care
+      </Link>
 
       <div className="header__actions">
-        {}
-        <button
-          type="button"
-          className="header__icon-btn"
-          onClick={() => navigate(isLoggedIn ? '/mypage' : '/login')}
-          aria-label={isLoggedIn ? '마이페이지' : '로그인'}
-        >
-          👤
-        </button>
-
+        
         {/* 작대기 3개 버튼 (누르면 사이드 메뉴 열림) */}
         <button
           type="button"
