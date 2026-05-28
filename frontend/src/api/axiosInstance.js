@@ -9,7 +9,7 @@ const api = axios.create({
 api.interceptors.request.use((config) => {
   // 1. AI 서버용 요청 (경로에 suncare나 tasks가 포함될 때)
   if (config.url.includes('/suncare') || config.url.includes('/tasks')) {
-    config.baseURL = 'http://localhost:8001/api/v1'; // 포트를 8001로 고정
+    config.baseURL = 'http://127.0.0.1:8001/api/v1'; 
     config.headers.Authorization = `Bearer ${import.meta.env.VITE_INTERNAL_TOKEN}`;
   } 
   // 2. 일반 서버용 요청
