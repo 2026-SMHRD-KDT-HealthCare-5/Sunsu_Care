@@ -7,30 +7,40 @@ import numpy as np
 from PIL import Image
 from rapidfuzz import fuzz, process
 from backend.ai.models.config import get_settings
-from backend.src.db.connection import get_db_connection
+# 의존성 함수 대신 비동기 세션 팩토리와 SQLAlchemy text 객체를 임포트합니다.
+from backend.src.db.connection import AsyncSessionLocal
+from sqlalchemy import text
 
 class OcrService:
     def __init__(self):
         self.settings = get_settings()
         self.ocr_url = self.settings.CLOVA_API_URL
         self.ocr_secret = self.settings.CLOVA_SECRET_KEY
-        self.ingredient_dict = self._load_ingredients_from_db()
+        self.ingredient_dict = {}  # 인스턴스 생성 시점에는 빈 값으로 초기화합니다.
     
-    def _load_ingredients_from_db(self):
+    # main.py의 lifespan에서 서버 기동 시 호출할 비동기 초기화 함수
+    async def initialize(self):
+        self.ingredient_dict = await self._load_ingredients_from_db()
+    
+    # 비동기 방식으로 마스터 데이터를 조회하도록 수정
+    async def _load_ingredients_from_db(self):
         ingredient_dict = {}
-        conn = get_db_connection()
-        try:
-            with conn.cursor() as cursor:
-                sql = "SELECT ingre_name, ewg_grade, skin_warning FROM tb_ingredient"
-                cursor.execute(sql)
-                results = cursor.fetchall()
+        
+        async with AsyncSessionLocal() as session:
+            try:
+                sql = text("SELECT ingre_name, ewg_grade, skin_warning FROM tb_ingredient")
+                result = await session.execute(sql)
+                results = result.fetchall()
+                
                 for row in results:
-                    ingredient_dict[row['ingre_name']] = {
-                        'ewg': row['ewg_grade'],
-                        'warning': row['skin_warning']
+                    # SQLAlchemy 튜플 결과 인덱스 접근 (row[0]: 이름, row[1]: 등급, row[2]: 경고)
+                    ingredient_dict[row[0]] = {
+                        'ewg': row[1],
+                        'warning': row[2]
                     }
-        finally:
-            conn.close()
+            except Exception as e:
+                print(f"OcrService DB 로드 중 에러 발생: {e}")
+                
         return ingredient_dict
 
     def preprocess_image_bytes(self, image_bytes: bytes):
@@ -64,8 +74,8 @@ class OcrService:
         text_fields = []
         for image in result.get("images", []):
             for field in image.get("fields", []):
-                text = field.get("inferText") or ""
-                if text: text_fields.append({"text": text})
+                text_val = field.get("inferText") or ""
+                if text_val: text_fields.append({"text": text_val})
         return text_fields
 
     def analyze_suncare_ingredients(self, raw_text: str) -> dict:

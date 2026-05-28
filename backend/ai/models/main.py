@@ -10,6 +10,7 @@ import logging
 from fastapi import FastAPI, UploadFile, File, HTTPException, BackgroundTasks, Form, Header, Depends, status
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import ValidationError
+from contextlib import asynccontextmanager
 
 # 1. 환경 설정 및 초기화
 from backend.ai.models.config import Config
@@ -56,6 +57,26 @@ def verify_internal_token(authorization: str = Header(None)):
             status_code=status.HTTP_403_FORBIDDEN,
             detail="유효하지 않은 토큰입니다."
         )
+    
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    logger.info("Starting up AI Service: Loading DB Master Data...")
+    try:
+        await ocr_service.initialize()
+        logger.info("AI Service Initialized Successfully.")
+    except Exception as e:
+        logger.error(f"Failed to initialize OCR Service Data: {e}")
+    yield
+    logger.info("Shutting down AI Service...")
+
+# 2. 앱 및 서비스 초기화 (lifespan 추가)
+app = FastAPI(title="Sunscare AI API", lifespan=lifespan)
+
+ocr_service = OcrService()
+matcher = Ingredient_Matcher()
+model_lock = asyncio.Lock()
+task_store = {}
+INTERNAL_TOKEN = Config.INTERNAL_TOKEN
 
 # 4. 엔드포인트
 @app.post("/api/v1/suncare/analyze", status_code=status.HTTP_202_ACCEPTED)
