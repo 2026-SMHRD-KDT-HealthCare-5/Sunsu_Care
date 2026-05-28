@@ -7,19 +7,12 @@ const api = axios.create({
 })
 
 api.interceptors.request.use((config) => {
-  // 1. AI 서버 분석 관련 요청 분기
+  // 1. AI 서버용 요청 (경로에 suncare나 tasks가 포함될 때)
   if (config.url.includes('/suncare') || config.url.includes('/tasks')) {
-    config.baseURL = 'http://localhost:8001/api/v1'; 
-    
-    const token = import.meta.env.VITE_INTERNAL_TOKEN;
-    
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
-    } else {
-      console.error(".env 파일에서 VITE_INTERNAL_TOKEN을 찾을 수 없습니다.");
-    }
+    config.baseURL = 'http://localhost:8001/api/v1'; // 포트를 8001로 고정
+    config.headers.Authorization = `Bearer ${import.meta.env.VITE_INTERNAL_TOKEN}`;
   } 
-  // 2. 일반 백엔드(Node.js) 요청
+  // 2. 일반 서버용 요청
   else {
     config.baseURL = import.meta.env.VITE_API_BASE_URL;
     const authToken = localStorage.getItem('authToken');
@@ -27,7 +20,6 @@ api.interceptors.request.use((config) => {
       config.headers.Authorization = `Bearer ${authToken}`;
     }
   }
-
   return config;
 }, (error) => Promise.reject(error));
 

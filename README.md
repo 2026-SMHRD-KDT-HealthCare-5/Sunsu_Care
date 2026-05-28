@@ -34,7 +34,7 @@
 npm install
 
 AI 서버 필수 라이브러리 설치
-pip install fastapi uvicorn ultralytics python-multipart pymysql rapidfuzz python-dotenv Pillow numpy requests
+pip install -r requirements.txt
 
 #### 3. 서비스 실행
 루트 폴더에서 실행

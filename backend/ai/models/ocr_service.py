@@ -1,35 +1,24 @@
 # backend/ai/models/ocr_service.py
-import requests
-import json
 import io
 import re
+import json
+import requests
 import numpy as np
 from PIL import Image
-from rapidfuzz import fuzz
-from backend.ai.models.config import Config
-import pymysql
-from urllib.parse import urlparse
+from rapidfuzz import fuzz, process
+from backend.ai.models.config import get_settings
+from backend.src.db.connection import get_db_connection
 
 class OcrService:
     def __init__(self):
+        self.settings = get_settings()
+        self.ocr_url = self.settings.CLOVA_API_URL
+        self.ocr_secret = self.settings.CLOVA_SECRET_KEY
         self.ingredient_dict = self._load_ingredients_from_db()
-        # Config에 정의된 변수명(API_URL, SECRET_KEY)을 그대로 사용
-        self.ocr_url = Config.API_URL 
-        self.ocr_secret = Config.SECRET_KEY
-
+    
     def _load_ingredients_from_db(self):
-        db_url = Config.DATABASE_URL
-        parsed = urlparse(db_url.replace("mysql+pymysql://", "http://"))
-        conn = pymysql.connect(
-            host=parsed.hostname,
-            port=parsed.port or 3312,
-            user=parsed.username,
-            password=parsed.password,
-            db=parsed.path.lstrip('/'),
-            charset='utf8mb4',
-            cursorclass=pymysql.cursors.DictCursor
-        )
         ingredient_dict = {}
+        conn = get_db_connection()
         try:
             with conn.cursor() as cursor:
                 sql = "SELECT ingre_name, ewg_grade, skin_warning FROM tb_ingredient"
@@ -51,7 +40,6 @@ class OcrService:
         return np.array(image)
 
     def request_full_image_ocr(self, image_np: np.ndarray):
-        print(">>> [OCR_SERVICE] 네이버 OCR API 호출 시작") # 무조건 찍힘
         img = Image.fromarray(image_np)
         buffer = io.BytesIO()
         img.save(buffer, format="JPEG")
@@ -70,7 +58,6 @@ class OcrService:
         response = requests.post(self.ocr_url, headers=headers, data={"message": json.dumps(data)}, files=files)
         
         if response.status_code != 200:
-            print(f">>> [OCR_SERVICE] 에러 발생! 상태코드: {response.status_code}, 내용: {response.text}")
             return []
 
         result = response.json()
@@ -78,30 +65,31 @@ class OcrService:
         for image in result.get("images", []):
             for field in image.get("fields", []):
                 text = field.get("inferText") or ""
-                if text:
-                    text_fields.append({"text": text})
-        
-        print(f">>> [OCR_SERVICE] 텍스트 추출 완료: {len(text_fields)}개 필드")
+                if text: text_fields.append({"text": text})
         return text_fields
 
     def analyze_suncare_ingredients(self, raw_text: str) -> dict:
-        if not raw_text or not raw_text.strip():
+        if not raw_text:
             return {"is_suncare": False, "detected_ingredients": []}
 
         raw_text = re.sub(r'[\d\.]', '', raw_text) 
-        raw_tokens = re.split(r'[,.\n\s]+', raw_text)
-        ingredients_list = [t.strip() for t in raw_tokens if len(t.strip()) > 1]
+        tokens = [t.strip() for t in re.split(r'[,.\n\s]+', raw_text) if len(t.strip()) > 1]
 
         detected = []
-        for ing in ingredients_list:
-            for master_name in self.ingredient_dict.keys():
-                if len(master_name) < 2: continue
-                score = fuzz.partial_ratio(master_name, ing)
-                if master_name in ing or score >= 85: 
-                    if {"name": master_name} not in detected:
-                        detected.append({"name": master_name})
-                        print(f"DEBUG: 성분 매칭 성공! ({ing} -> {master_name}, 점수: {score})")
-                    break
+        master_names = list(self.ingredient_dict.keys())
+
+        for token in tokens:
+            # 1. 직매칭
+            if token in self.ingredient_dict:
+                if {"name": token} not in detected:
+                    detected.append({"name": token})
+                continue
+            
+            # 2. 퍼지 매칭
+            match = process.extractOne(token, master_names, scorer=fuzz.partial_ratio)
+            if match and match[1] >= 85:
+                if {"name": match[0]} not in detected:
+                    detected.append({"name": match[0]})
 
         return {"is_suncare": len(detected) > 0, "detected_ingredients": detected}
 
@@ -125,3 +113,7 @@ class OcrService:
 
     def evaluate_compatibility(self, analysis_result, user_profile):
         return {"score": 85, "message": "사용자 피부에 적합합니다."}
+    
+    def get_text(self, image_bytes: bytes):
+        image_np = self.preprocess_image_bytes(image_bytes)
+        return self.request_full_image_ocr(image_np)
