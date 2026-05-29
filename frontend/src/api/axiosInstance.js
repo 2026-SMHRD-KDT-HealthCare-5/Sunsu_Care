@@ -12,7 +12,7 @@ api.interceptors.request.use((config) => {
   // - /suncare/analyses : 사용자 분석 히스토리 조회 (JWT 필요)
   // - /suncare/callbacks : FastAPI 콜백 수신
   // - /suncare/results : 분석 결과 조회
-  const expressSuncarePaths = ['/suncare/upload', '/suncare/analyses', '/suncare/callbacks', '/suncare/results', '/suncare/ai-reason', '/suncare/recommendations'];
+  const expressSuncarePaths = ['/suncare/upload', '/suncare/analyses', '/suncare/callbacks', '/suncare/results', '/suncare/ai-reason', '/suncare/recommendations', '/suncare/analyses/'];
   const isExpressSuncare = expressSuncarePaths.some(p => config.url.startsWith(p));
 
   if (isExpressSuncare) {

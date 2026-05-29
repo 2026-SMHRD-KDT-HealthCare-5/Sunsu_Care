@@ -527,6 +527,105 @@ const getRecommendationsHandler = async (req, res) => {
   }
 };
 
+// ============================================================
+// 8) POST /analyses/:id/save : 분석 히스토리 저장 (최대 5개 유지)
+//    이미 저장돼 있으면 알림, 5개 초과 시 가장 오래된 항목 자동 삭제
+// ============================================================
+const saveAnalysisHandler = async (req, res) => {
+  try {
+    const userIdx = req.user?.user_idx;
+    if (!userIdx) {
+      return res.status(401).json({ success: false, message: '사용자 정보를 확인할 수 없습니다.' });
+    }
+
+    const { id } = req.params;
+    const analysisIdx = Number(id);
+    if (!analysisIdx || isNaN(analysisIdx)) {
+      return res.status(400).json({ success: false, message: '잘못된 분석 ID입니다.' });
+    }
+
+    // 1) 해당 분석이 본인 것인지 검증
+    const [ownRows] = await db.execute(
+      `SELECT a.analysis_idx FROM tb_analysis a
+         JOIN tb_upload u ON a.file_idx = u.file_idx
+        WHERE a.analysis_idx = ? AND u.user_idx = ?`,
+      [analysisIdx, userIdx]
+    );
+    if (ownRows.length === 0) {
+      return res.status(404).json({ success: false, message: '해당 분석을 찾을 수 없습니다.' });
+    }
+
+    // 2) 현재 사용자의 저장된 분석 목록 조회 (최신순)
+    const [allRows] = await db.execute(
+      `SELECT a.analysis_idx, a.analyzed_at FROM tb_analysis a
+         JOIN tb_upload u ON a.file_idx = u.file_idx
+        WHERE u.user_idx = ?
+        ORDER BY a.analyzed_at DESC`,
+      [userIdx]
+    );
+
+    // 3) 이미 저장된 분석이면 그대로 OK
+    const exists = allRows.some(row => row.analysis_idx === analysisIdx);
+    if (exists && allRows.length <= 5) {
+      return res.json({ success: true, alreadySaved: true, count: allRows.length });
+    }
+
+    // 4) 5개 초과 시 가장 오래된 것 삭제
+    let removedOldest = false;
+    if (allRows.length >= 5) {
+      // 현재 보고 있는 분석은 제외하고, 가장 오래된 것 찾기
+      const candidates = allRows.filter(r => r.analysis_idx !== analysisIdx);
+      const oldest = candidates[candidates.length - 1];   // 가장 오래된 (정렬 DESC)
+      if (oldest) {
+        await db.execute(`DELETE FROM tb_analysis WHERE analysis_idx = ?`, [oldest.analysis_idx]);
+        removedOldest = true;
+        console.log(`[/analyses/save] 5개 한도 초과 → analysis_idx=${oldest.analysis_idx} 자동 삭제`);
+      }
+    }
+
+    return res.json({ success: true, alreadySaved: exists, removedOldest });
+  } catch (err) {
+    console.error('[/analyses/save Error]:', err);
+    return res.status(500).json({ success: false, message: '저장 중 오류가 발생했습니다.', error: err.message });
+  }
+};
+
+// ============================================================
+// 9) DELETE /analyses/:id : 분석 히스토리 삭제 (본인 분석만)
+// ============================================================
+const deleteAnalysisHandler = async (req, res) => {
+  try {
+    const userIdx = req.user?.user_idx;
+    if (!userIdx) {
+      return res.status(401).json({ success: false, message: '사용자 정보를 확인할 수 없습니다.' });
+    }
+
+    const { id } = req.params;
+    const analysisIdx = Number(id);
+    if (!analysisIdx || isNaN(analysisIdx)) {
+      return res.status(400).json({ success: false, message: '잘못된 분석 ID입니다.' });
+    }
+
+    // 본인 분석인지 확인 후 삭제
+    const [result] = await db.execute(
+      `DELETE a FROM tb_analysis a
+         JOIN tb_upload u ON a.file_idx = u.file_idx
+        WHERE a.analysis_idx = ? AND u.user_idx = ?`,
+      [analysisIdx, userIdx]
+    );
+
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ success: false, message: '해당 분석을 찾을 수 없거나 권한이 없습니다.' });
+    }
+
+    console.log(`[/analyses DELETE] user_idx=${userIdx} → analysis_idx=${analysisIdx} 삭제 완료`);
+    return res.json({ success: true, message: '삭제되었습니다.' });
+  } catch (err) {
+    console.error('[/analyses DELETE Error]:', err);
+    return res.status(500).json({ success: false, message: '삭제 중 오류가 발생했습니다.', error: err.message });
+  }
+};
+
 module.exports = {
   uploadHandler,
   getTaskStatusHandler,
@@ -534,5 +633,7 @@ module.exports = {
   getResultsHandler,
   getAnalysesHandler,
   aiReasonHandler,
-  getRecommendationsHandler
+  getRecommendationsHandler,
+  saveAnalysisHandler,
+  deleteAnalysisHandler
 };

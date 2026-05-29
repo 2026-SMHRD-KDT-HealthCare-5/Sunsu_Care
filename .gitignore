@@ -24,3 +24,5 @@ Thumbs.db
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+# --- 개인 메모 파일 ---
+sunsucare_ppt_prompt*.md

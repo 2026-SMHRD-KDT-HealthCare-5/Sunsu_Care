@@ -1,109 +1,119 @@
 /* ==========================================================================
-   5월 15일 기획서 완벽 복원 전용 스타일 (HistoryDetailPage.css)
+   HistoryDetailPage 스타일 — MyPage와 통일된 톤
+   메인: #ff8c00 (주황)
+   포인트: 앰버(#b45309), 그린(#059669), 레드(#dc2626)
    ========================================================================== */
 
 .legacy-detail-container {
     max-width: 500px;
     margin: 0 auto;
-    background-color: #fcfcfc; /* 기획서 원본의 부드러운 배경색 */
+    background-color: #fafafa;          /* MyPage와 동일 */
     min-height: 100vh;
     padding: 20px 20px 60px 20px;
     box-sizing: border-box;
 }
 
-/* 1. 최상단 점수 카드 (초록색 테두리) */
+/* 1. 최상단 점수 카드 — 메인 주황 테두리 */
 .legacy-detail-score-card {
-    border: 2px solid #22c55e;
+    border: 2px solid #ff8c00;
     border-radius: 16px;
-    padding: 24px 20px;
+    padding: 28px 20px;
     text-align: center;
     background: #ffffff;
     margin-bottom: 16px;
 }
 .legacy-detail-title {
-    font-size: 1.25rem;
-    font-weight: 800;
-    color: #1e293b;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #1f2937;
     margin: 0 0 10px 0;
 }
+
+/* 점수 — 메인 주황 + 크게 (MyPage와 동일) */
 .legacy-detail-score {
-    font-size: 2.8rem;
+    font-size: 3.5rem;
     font-weight: 900;
-    color: #22c55e;
+    color: #ff8c00;
     line-height: 1;
     margin-bottom: 12px;
+    letter-spacing: -2px;
 }
 .legacy-detail-score span {
-    font-size: 1.1rem;
-    color: #94a3b8;
+    font-size: 1.05rem;
+    color: #d1d5db;
     font-weight: 600;
+    letter-spacing: 0;
 }
+
+/* 상태 배지 */
 .legacy-status-badge {
-    padding: 4px 16px;
+    padding: 5px 16px;
     border-radius: 20px;
     font-size: 0.85rem;
     font-weight: 700;
     color: white;
 }
-.legacy-status-badge.safe { background-color: #22c55e; }
-.legacy-status-badge.warn { background-color: #ef4444; }
+.legacy-status-badge.safe { background-color: #ff8c00; }     /* 메인 주황 */
+.legacy-status-badge.warn { background-color: #dc2626; }
 
-/* 2. 공통 라운드 박스 */
+/* 2. 공통 라운드 박스 — MyPage 카드와 동일 */
 .legacy-detail-card {
-    border: 1px solid #e2e8f0;
-    border-radius: 16px;
+    border: 1px solid #f0f0f0;
+    border-radius: 14px;
     padding: 20px;
     background: #ffffff;
     margin-bottom: 16px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+    box-shadow: none;
 }
 .legacy-sec-title {
-    font-size: 0.95rem;
-    font-weight: 800;
+    font-size: 1rem;
+    font-weight: 700;
     margin: 0 0 14px 0;
     display: flex;
     align-items: center;
     gap: 8px;
-    color: #1e293b;
+    color: #1f2937;
 }
 
-/* 3. 핵심 성분 행 (주황색) */
+/* 3. 핵심 성분 행 — 꿀빛 앰버 (MyPage 핵심 성분과 통일) */
 .legacy-key-row {
-    background-color: #fff7ed;
+    background-color: #fffbeb;
+    border: 1px solid #fde68a;
     padding: 12px 16px;
-    border-radius: 8px;
+    border-radius: 10px;
     display: flex;
     align-items: center;
     gap: 12px;
 }
 .legacy-key-name {
-    color: #ea580c;
-    font-weight: 800;
+    color: #b45309;
+    font-weight: 700;
     font-size: 0.9rem;
     min-width: 110px;
 }
 .legacy-key-desc {
-    color: #64748b;
+    color: #92837b;
     font-size: 0.85rem;
     font-weight: 500;
 }
 
-/* 추천 이유 선 및 텍스트 */
+/* 추천 이유 영역 */
 .legacy-divider {
-    border-top: 1px dashed #e2e8f0;
+    border-top: 1px dashed #f0f0f0;
     margin: 20px 0;
 }
 .legacy-reason-text {
-    font-size: 0.88rem;
-    color: #475569;
-    line-height: 1.6;
+    font-size: 0.92rem;
+    color: #4b5563;
+    line-height: 1.65;
     margin: 0;
 }
 
-/* 4. 주의 성분 행 (빨간색) */
+/* 4. 주의 성분 행 — 빨강 (MyPage 주의 성분과 통일) */
 .legacy-warn-row {
     background-color: #fef2f2;
-    border-left: 4px solid #ef4444;
+    border: 1px solid #fecaca;
+    border-left: 4px solid #dc2626;
     padding: 12px 16px;
     border-radius: 8px;
     display: flex;
@@ -111,53 +121,59 @@
     gap: 4px;
 }
 .legacy-warn-name {
-    color: #ef4444;
-    font-weight: 800;
+    color: #dc2626;
+    font-weight: 700;
     font-size: 0.95rem;
 }
 .legacy-warn-desc {
-    color: #64748b;
+    color: #92837b;
     font-size: 0.85rem;
 }
 
-/* 5. 추천 제품 리스트 (세로형) */
+/* 5. 추천 제품 리스트 */
 .legacy-recom-card {
-    background-color: #fafaf9;
-    border: 1px solid #f5f5f4;
+    background-color: #fafafa;
+    border: 1px solid #f0f0f0;
     border-radius: 12px;
-    padding: 18px;
-    margin-bottom: 12px;
+    padding: 16px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: stretch;
+    gap: 14px;
 }
 .legacy-recom-card:last-child {
     margin-bottom: 0;
 }
 .legacy-recom-brand {
     font-size: 0.75rem;
-    color: #a8a29e;
+    color: #92837b;
     font-weight: 700;
 }
 .legacy-recom-name {
-    font-size: 1.05rem;
-    font-weight: 800;
-    color: #1e293b;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #1f2937;
     margin: 4px 0 10px 0;
 }
 .legacy-recom-tags {
     display: flex;
     gap: 6px;
-    margin-bottom: 14px;
+    margin-bottom: 0;
+    flex-wrap: wrap;
 }
 .legacy-recom-tag {
-    background-color: #ffedd5;
+    background-color: #fff7ed;
     color: #ea580c;
     font-size: 0.7rem;
     padding: 3px 8px;
     border-radius: 12px;
-    font-weight: 800;
+    font-weight: 700;
+    border: 1px solid #fed7aa;
 }
 .legacy-recom-tag.solid {
-    background-color: #ea580c;
+    background-color: #ff8c00;
     color: #ffffff;
+    border-color: #ff8c00;
 }
 .legacy-recom-desc {
     background-color: #ffffff;
@@ -173,7 +189,7 @@
     font-weight: 500;
 }
 
-/* 6. 하단 버튼 그룹 */
+/* 6. 하단 버튼 그룹 — 메인 주황 통일 */
 .legacy-btn-group {
     display: flex;
     gap: 12px;
@@ -182,24 +198,32 @@
 .legacy-btn-outline {
     flex: 1;
     border: 1px solid #ff8c00;
-    color: #3b82f6;
+    color: #ff8c00;
     background-color: #ffffff;
-    padding: 16px;
+    padding: 14px;
     border-radius: 12px;
-    font-weight: 800;
-    font-size: 1rem;
+    font-weight: 700;
+    font-size: 0.95rem;
     cursor: pointer;
+    transition: all 0.2s;
+}
+.legacy-btn-outline:hover {
+    background-color: #fff7ed;
 }
 .legacy-btn-solid {
     flex: 1;
     background-color: #ff8c00;
     color: #ffffff;
     border: none;
-    padding: 16px;
+    padding: 14px;
     border-radius: 12px;
-    font-weight: 800;
-    font-size: 1rem;
+    font-weight: 700;
+    font-size: 0.95rem;
     cursor: pointer;
+    transition: background-color 0.2s;
+}
+.legacy-btn-solid:hover {
+    background-color: #e67e22;
 }
 
 /* 애니메이션 */
@@ -210,7 +234,7 @@
 }
 
 /* ============================================================
-   🌟 인라인 스타일 → CSS 이관 (정리)
+   🌟 보조 스타일 (인라인 → 클래스 통합)
    ============================================================ */
 
 /* 상단 닫기 버튼 영역 */
@@ -222,16 +246,20 @@
 .legacy-detail-close-btn {
     background: none;
     border: none;
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     cursor: pointer;
-    color: #64748b;
+    color: #9ca3af;
+    transition: color 0.2s;
+}
+.legacy-detail-close-btn:hover {
+    color: #ff8c00;
 }
 
-/* 섹션 타이틀 안의 아이콘 색상 */
-.legacy-sec-title .icon-heart { color: #3b82f6; }
-.legacy-sec-title .icon-warn { color: #ea580c; }
-.legacy-sec-title .icon-book { color: #ef4444; }
-.legacy-sec-title .icon-wand { color: #ff8c00; }
+/* 섹션 타이틀 안의 아이콘 색상 (의미별 통일) */
+.legacy-sec-title .icon-heart { color: #b45309; }   /* 핵심성분 — 앰버 */
+.legacy-sec-title .icon-warn { color: #dc2626; }    /* 주의성분 — 레드 */
+.legacy-sec-title .icon-book { color: #ff8c00; }    /* 추천이유 — 메인 주황 */
+.legacy-sec-title .icon-wand { color: #ff8c00; }    /* 추천제품 — 메인 주황 */
 
 /* 핵심/주의 성분 리스트 컨테이너 */
 .legacy-ing-list {
@@ -242,35 +270,61 @@
 
 /* 빈 상태 안내문 */
 .legacy-empty-msg {
-    color: #64748b;
-    font-size: 0.9rem;
+    color: #6b7280;
+    font-size: 0.875rem;
 }
 
 /* AI 생성 라벨 */
 .legacy-ai-badge {
     margin-left: 8px;
     font-size: 0.7rem;
-    color: #94a3b8;
+    color: #9ca3af;
     font-weight: 500;
+    background-color: #f9fafb;
+    padding: 2px 8px;
+    border-radius: 10px;
+    border: 1px solid #f0f0f0;
 }
 
 /* AI 추천 이유 로딩 / 에러 */
 .legacy-reason-loading {
-    color: #94a3b8;
+    color: #9ca3af;
     font-style: italic;
 }
 .legacy-reason-loading .icon-spinner {
     margin-right: 6px;
+    color: #ff8c00;
 }
 .legacy-reason-error {
     font-size: 0.75rem;
-    color: #94a3b8;
+    color: #9ca3af;
     margin-top: 6px;
 }
 
 /* 하단 버튼 아이콘 색/여백 */
-.legacy-btn-outline .icon-rotate { color: #3b82f6; margin-right: 6px; }
+.legacy-btn-outline .icon-rotate { color: #ff8c00; margin-right: 6px; }
 .legacy-btn-solid .icon-book-white { margin-right: 6px; }
+
+/* 🗑️ 삭제 버튼 (왼쪽, danger 변형) */
+.legacy-btn-outline.danger {
+    border-color: #fecaca;
+    color: #dc2626;
+}
+.legacy-btn-outline.danger:hover {
+    background-color: #fef2f2;
+    border-color: #dc2626;
+}
+.legacy-btn-outline.danger .icon-trash {
+    color: #dc2626;
+    margin-right: 6px;
+}
+
+/* 버튼 비활성화 (저장/삭제 진행 중) */
+.legacy-btn-outline:disabled,
+.legacy-btn-solid:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
 
 /* 🌟 추천 제품 카드 헤더 (브랜드명 + 점수 같은 줄) */
 .legacy-recom-head {
@@ -280,38 +334,33 @@
     margin-bottom: 4px;
 }
 
-/* 추천 제품 점수 배지 */
+/* 추천 제품 점수 배지 — 메인 주황 톤 */
 .legacy-recom-score {
     font-size: 0.85rem;
-    font-weight: 800;
-    padding: 2px 10px;
+    font-weight: 700;
+    padding: 3px 10px;
     border-radius: 12px;
 }
 .legacy-recom-score.safe {
-    color: #16a34a;
-    background-color: #dcfce7;
+    color: #ff8c00;
+    background-color: #fff7ed;
+    border: 1px solid #fed7aa;
 }
 .legacy-recom-score.warn {
-    color: #ef4444;
-    background-color: #fee2e2;
-}
-
-/* 🌟 추천 카드: 썸네일 + 정보 가로 배치 */
-.legacy-recom-card {
-    display: flex;
-    align-items: stretch;
-    gap: 14px;
+    color: #dc2626;
+    background-color: #fef2f2;
+    border: 1px solid #fecaca;
 }
 
 /* 썸네일 영역 */
 .legacy-recom-thumb {
-    flex: 0 0 88px;
-    width: 88px;
-    height: 88px;
-    border-radius: 12px;
+    flex: 0 0 80px;
+    width: 80px;
+    height: 80px;
+    border-radius: 10px;
     overflow: hidden;
-    background-color: #f8fafc;
-    border: 1px solid #e2e8f0;
+    background-color: #fafafa;
+    border: 1px solid #f0f0f0;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -323,18 +372,18 @@
     display: block;
 }
 .legacy-recom-thumb-placeholder {
-    color: #cbd5e1;
-    font-size: 1.8rem;
+    color: #d1d5db;
+    font-size: 1.6rem;
 }
 .legacy-recom-thumb.no-image {
-    background: linear-gradient(135deg, #fff7ed 0%, #fef3c7 100%);
+    background: linear-gradient(135deg, #fff7ed 0%, #fffbeb 100%);
 }
 .legacy-recom-thumb.no-image::before {
     content: '\f03e';
     font-family: 'Font Awesome 6 Free';
     font-weight: 900;
     color: #fdba74;
-    font-size: 1.8rem;
+    font-size: 1.6rem;
 }
 
 /* 정보 영역 (썸네일 옆) */

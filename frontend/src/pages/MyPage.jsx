@@ -168,21 +168,22 @@ const MyPage = () => {
                 나의 피부 정보
             </h1>
 
-            {/* ── 사용자 카드 ── */}
-            <div 
-                className="mypage-card" 
-                onClick={() => navigate('/account-settings')} 
-                style={{ cursor: 'pointer', transition: 'all 0.2s' }}
+            {/* ── 사용자 카드 (탭하면 회원 정보 관리로 이동) ── */}
+            <div
+                className={`mypage-user-card ${isLoggedIn ? 'is-clickable' : ''}`}
+                onClick={isLoggedIn ? () => navigate('/account-settings') : undefined}
             >
                 <div className="mypage-user-info">
                     <div className="profile-icon">🌞</div>
-                    <div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                            <h2>{displayName}</h2>
-                            <i className="fa-solid fa-chevron-right" style={{ color: '#cbd5e1' }}></i>
-                        </div>
+                    <div className="mypage-user-info-text">
+                        <h2>{displayName}</h2>
                         <p>{greeting}</p>
                     </div>
+                    {isLoggedIn && (
+                        <span className="mypage-user-edit-hint">
+                            <i className="fa-solid fa-pen"></i> 정보 관리
+                        </span>
+                    )}
                 </div>
             </div>
 
@@ -297,22 +298,6 @@ const MyPage = () => {
                         </div>
                     ))}
                 </div>
-            </div>
-
-            {/* ── 하단 단축 제어 버튼 ── */}
-            <div className="action-btn-container">
-                <button className="re-analyze-btn" onClick={() => navigate('/scan')}>
-                    <i className="fa-solid fa-rotate-right"></i> 다시 분석
-                </button>
-                {isLoggedIn ? (
-                    <button className="logout-btn-half" onClick={() => navigate('/logout')}>
-                        <i className="fa-solid fa-arrow-right-from-bracket"></i> 로그아웃
-                    </button>
-                ) : (
-                    <button className="logout-btn-half" onClick={() => navigate('/login')}>
-                        <i className="fa-solid fa-arrow-right-to-bracket"></i> 로그인
-                    </button>
-                )}
             </div>
         </div>
     );

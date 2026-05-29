@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useLocation, useParams } from 'react-router-dom';
-import { generateAIReason, fetchRecommendations } from '../api/analysisApi';
+import { generateAIReason, fetchRecommendations, deleteAnalysis, saveAnalysis } from '../api/analysisApi';
 import { fetchProfile } from '../api/profileApi';
 import { getProductImageUrl } from '../utils/imageUrl';
 import './HistoryDetailPage.css';
@@ -30,6 +30,54 @@ const HistoryDetailPage = () => {
     // 🎁 추천 제품 TOP 3 상태
     const [recommendations, setRecommendations] = useState([]);
     const [recoLoading, setRecoLoading] = useState(true);
+
+    // 🗑️ 저장 / 삭제 버튼 진행 중 상태
+    const [busy, setBusy] = useState(false);
+
+    // 저장 (이미 DB에 있으면 알림만, 없으면 저장 시도)
+    const handleSave = async () => {
+        if (!paramId) {
+            alert('저장할 분석 데이터가 없습니다.');
+            return;
+        }
+        try {
+            setBusy(true);
+            const result = await saveAnalysis(paramId);
+            if (result?.alreadySaved) {
+                alert('✅ 이미 분석 히스토리에 저장되어 있습니다.');
+            } else if (result?.removedOldest) {
+                alert(`✅ 분석 결과가 저장되었습니다.\n(저장 한도 5개 초과로 가장 오래된 분석이 자동 삭제되었습니다)`);
+            } else {
+                alert('✅ 분석 히스토리에 저장되었습니다.');
+            }
+        } catch (err) {
+            console.error('[HistoryDetail] 저장 실패:', err);
+            alert(err.response?.data?.message || '저장 중 오류가 발생했습니다.');
+        } finally {
+            setBusy(false);
+        }
+    };
+
+    // 삭제 (확인 후 DB에서 제거, 마이페이지로 이동)
+    const handleDelete = async () => {
+        if (!paramId) {
+            alert('삭제할 분석 데이터가 없습니다.');
+            return;
+        }
+        const ok = window.confirm('이 분석 히스토리를 삭제하시겠습니까?\n삭제된 데이터는 복구할 수 없습니다.');
+        if (!ok) return;
+        try {
+            setBusy(true);
+            await deleteAnalysis(paramId);
+            alert('🗑️ 분석 히스토리가 삭제되었습니다.');
+            navigate('/mypage');
+        } catch (err) {
+            console.error('[HistoryDetail] 삭제 실패:', err);
+            alert(err.response?.data?.message || '삭제 중 오류가 발생했습니다.');
+        } finally {
+            setBusy(false);
+        }
+    };
 
     useEffect(() => {
         let mounted = true;
@@ -116,12 +164,6 @@ const HistoryDetailPage = () => {
 
     return (
         <div className="legacy-detail-container fade-in-up">
-            <div className="legacy-detail-close-wrap">
-                <button onClick={() => navigate(-1)} className="legacy-detail-close-btn">
-                    <i className="fa-solid fa-xmark"></i>
-                </button>
-            </div>
-
             {/* 1. 최상단 점수판 (제품명 표시 없음) */}
             <div className="legacy-detail-score-card">
                 <div className="legacy-detail-score">
@@ -244,13 +286,13 @@ const HistoryDetailPage = () => {
                 )}
             </div>
 
-            {/* 6. 하단 버튼 영역 */}
+            {/* 6. 하단 버튼 영역 (삭제 / 저장) */}
             <div className="legacy-btn-group">
-                <button className="legacy-btn-outline" onClick={() => navigate('/scan')}>
-                    <i className="fa-solid fa-rotate icon-rotate"></i> 재분석
+                <button className="legacy-btn-outline danger" onClick={handleDelete} disabled={busy}>
+                    <i className="fa-solid fa-trash icon-trash"></i> 삭제
                 </button>
-                <button className="legacy-btn-solid" onClick={() => navigate('/guide')}>
-                    <i className="fa-solid fa-book icon-book-white"></i> 세안 가이드
+                <button className="legacy-btn-solid" onClick={handleSave} disabled={busy}>
+                    <i className="fa-solid fa-bookmark icon-book-white"></i> 저장
                 </button>
             </div>
         </div>

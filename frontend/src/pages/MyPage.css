@@ -6,52 +6,107 @@
 .mypage-container {
     max-width: 500px;
     margin: 0 auto;
-    background-color: #fcfcfc;
+    background-color: #fafafa;  /* 깔끔한 라이트 그레이 */
     min-height: 100vh;
     padding-top: 20px;
     padding-bottom: 40px;
 }
 
-/* 🌟 페이지 상단 제목 (나의 피부 정보) */
+/* 🌟 페이지 상단 제목 */
 .mypage-title {
-    margin: 0 20px 16px 30px;
+    margin: 0 20px 16px 20px;
     font-size: 1.1rem;
-    color: #1C1E22;
+    font-weight: 700;
+    color: #1f2937;
     display: flex;
     align-items: center;
     gap: 10px;
 }
-.mypage-title i { color: #1C1E22; }
+.mypage-title i { color: #ff8c00; }
 
-/* 🌟 사용자 카드 내부 (프로필 아이콘 + 이름/인사말) */
+/* 🌟 사용자 카드 (탭하면 /account-settings 이동) - 미니멀 디자인 */
+.mypage-user-card {
+    background: #ffffff;
+    border: 1px solid #f0f0f0;
+    border-radius: 14px;
+    padding: 20px;
+    margin: 0 20px 16px 20px;
+    transition: all 0.2s ease;
+}
+
+.mypage-user-card.is-clickable {
+    cursor: pointer;
+}
+.mypage-user-card.is-clickable:hover {
+    border-color: #ff8c00;
+    background-color: #fffaf3;
+}
+
+/* "정보 관리" 안내 배지 - 단순한 아웃라인 스타일 */
+.mypage-user-edit-hint {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: #ff8c00;
+    background-color: #ffffff;
+    border: 1px solid #ff8c00;
+    padding: 6px 12px;
+    border-radius: 999px;
+    white-space: nowrap;
+    flex-shrink: 0;
+    transition: all 0.2s;
+}
+.mypage-user-card.is-clickable:hover .mypage-user-edit-hint {
+    background-color: #ff8c00;
+    color: #ffffff;
+}
+
+/* 🌟 사용자 카드 내부 (프로필 아이콘 + 이름/인사말 + 정보관리 배지) */
 .mypage-user-info {
     display: flex;
-    align-items: center;
+    align-items: center;   /* 카드 높이 기준 모두 수직 중앙 */
     gap: 15px;
 }
-.mypage-user-info h2 { margin: 0; font-size: 1.2rem; }
-.mypage-user-info p { margin: 0; color: #666; }
+.mypage-user-info h2 { margin: 0; font-size: 1.15rem; font-weight: 700; color: #1f2937; }
+.mypage-user-info p { margin: 0; color: #6b7280; font-size: 0.875rem; }
 
-/* 🌟 카드 헤더 (제목 + 우측 액션 링크) */
+/* 텍스트 영역 (이름 + 인사말) */
+.mypage-user-info-text {
+    flex: 1;               /* 가운데 영역 차지 (배지를 자동으로 오른쪽 끝으로 밀어냄) */
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;          /* 긴 닉네임 줄바꿈 대비 */
+}
+
+/* 🌟 카드 헤더 (심플) */
 .mypage-card-header {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 20px;
+    margin-bottom: 16px;
     align-items: center;
 }
 .mypage-card-title {
     margin: 0;
     font-size: 1rem;
+    color: #1f2937;
     display: flex;
     gap: 8px;
     align-items: center;
-}
-.mypage-card-title .icon-droplet { color: #3b82f6; }
-.mypage-card-link {
-    color: #666;
-    cursor: pointer;
     font-weight: 700;
-    font-size: 0.7rem;
+}
+.mypage-card-title .icon-droplet { color: #ff8c00; }
+.mypage-card-link {
+    color: #6b7280;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.8rem;
+    transition: color 0.2s;
+}
+.mypage-card-link:hover {
+    color: #ff8c00;
 }
 
 /* 🌟 히스토리 카드 제목 */
@@ -69,23 +124,23 @@
 
 .mypage-card {
     background: #ffffff;
-    border-radius: 16px;
+    border-radius: 14px;
     padding: 20px;
-    margin: 0 20px 20px 20px;
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.04); /* 5월 15일 특유의 부드럽고 깊은 그림자 */
-    border: 1px solid #f1f5f9;
+    margin: 0 20px 16px 20px;
+    border: 1px solid #f0f0f0;          /* 깔끔한 회색 테두리 */
+    box-shadow: none;                    /* 그림자 제거로 미니멀하게 */
 }
 
 .profile-icon {
-    font-size: 2.2rem;
-    background: #fff3e0;
-    width: 55px;
-    height: 55px;
+    font-size: 1.8rem;
+    background: #fff7ed;                /* 옅은 베이지 */
+    width: 52px;
+    height: 52px;
     display: flex;
     justify-content: center;
     align-items: center;
     border-radius: 50%;
-    border: 1px solid #fed7aa;
+    flex-shrink: 0;
 }
 
 /* --- 2. 내 피부 정보 네칸 그리드 스타일 --- */
@@ -96,9 +151,9 @@
 }
 
 .skin-info-item {
-    background-color: #f8fafc;
-    border: 1px solid #e2e8f0;
-    border-radius: 12px;
+    background-color: #fafafa;       /* 컨테이너와 동일 */
+    border: 1px solid #f0f0f0;
+    border-radius: 10px;
     padding: 12px;
     display: flex;
     flex-direction: column;
@@ -107,23 +162,22 @@
 
 .info-label {
     font-size: 0.78rem;
-    color: #64748b;
-    font-weight: 700;
+    color: #6b7280;
+    font-weight: 600;
 }
 
 .info-value {
-    font-size: 0.85rem;
+    font-size: 0.875rem;
     font-weight: 700;
-    padding: 4px 8px;
-    border-radius: 6px;
-    text-align: center;
-    display: inline-block;
+    color: #1f2937;
 }
 
-/* 배지 색상 동기화 패치 */
+/* 태그 - 미니멀: 배경 없이 글자만 강조 */
 .info-value.tag {
-    background-color: #fff3e0 !important;
-    color: #3a3a3a !important;
+    color: #1f2937;
+    background-color: transparent;
+    border: none;
+    padding: 0;
 }
 
 /* --- 3. 🌟 5월 15일 원본 디자인 복원: 분석 히스토리 슬라이더 영역 --- */
@@ -145,18 +199,22 @@
 }
 
 .slider-arrow {
-    width: 38px; /* 큼직하고 존재감 넘치는 화살표 복원 */
-    height: 38px;
+    width: 36px;
+    height: 36px;
     border-radius: 50%;
-    border: 1px solid #e2e8f0;
-    background: #fff;
+    border: 1px solid #e5e7eb;
+    background: #ffffff;
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    color: #334155;
+    color: #6b7280;
     transition: all 0.2s;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+}
+.slider-arrow:hover {
+    border-color: #ff8c00;
+    color: #ff8c00;
+    background-color: #fff;
 }
 
 .slider-arrow:hover {
@@ -201,9 +259,9 @@
 .history-slide-card {
     min-height: 320px;
     background: #fff;
-    border: 1px solid #e2e8f0;
-    border-radius: 20px;
-    padding: 28px;
+    border: 1px solid #f0f0f0;
+    border-radius: 16px;
+    padding: 24px;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
@@ -212,7 +270,6 @@
 }
 
 .history-slide-card:hover {
-    transform: translateY(-2px);
     border-color: #ff8c00;
 }
 
@@ -220,9 +277,9 @@
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    border-bottom: 1px solid #f1f5f9;
-    padding-bottom: 18px;
-    margin-bottom: 20px;
+    border-bottom: 1px solid #f0f0f0;
+    padding-bottom: 16px;
+    margin-bottom: 16px;
 }
 
 .slide-card-title {
@@ -250,27 +307,32 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
+    padding: 8px 0 16px 0;
     border-bottom: 1px solid #f1f5f9;
     padding-bottom: 18px;
     margin-bottom: 20px;
     gap: 8px;
 }
 
-/* 🌟 점수 (히스토리 상세 페이지와 동일한 톤) */
+/* 🌟 점수 (메인 주황 #ff8c00 — 크고 시원하게) */
 .score-num {
-    font-size: 2.3rem;
+    font-size: 3.5rem;
     font-weight: 900;
-    color: #22c55e;       /* 상세페이지와 동일한 초록 */
+    color: #ff8c00;
     line-height: 1;
-    margin-bottom: 6px;
+    margin-bottom: 8px;
+    letter-spacing: -2px;
 }
 
-/* "/ 100" 보조 텍스트 (상세페이지의 legacy-detail-score span과 동일 스타일) */
+/* "/ 100" 보조 텍스트 — 톤 다운 (점수에 시선이 집중되도록) */
 .score-total {
-    font-size: 1rem;
-    color: #94a3b8;
+    font-size: 1.05rem;
+    color: #d1d5db;
     font-weight: 600;
+    letter-spacing: 0;
 }
+
+/* (.score-total 정의는 위쪽에 통합됨) */
 
 .status-badge {
     padding: 4px 12px;
@@ -293,18 +355,59 @@
     margin: 15px 0 20px 0;
 }
 
-.mini-ing-section { padding: 16px; border-radius: 12px; border: 1px solid transparent; }
-.mini-ing-section.key { background-color: #fff3e0; border-color: #9cc522; } 
-.mini-ing-section.warn { background-color: #fef2f2; border-left: 4px solid #ef4444; border-radius: 8px; }
+.mini-ing-section { padding: 14px; border-radius: 10px; border: 1px solid transparent; }
 
-.mini-ing-title { font-size: 0.95rem; font-weight: 800; margin-bottom: 12px; display: flex; align-items: center; gap: 6px; }
-.mini-ing-section.key .mini-ing-title { color: #3a3a3a; }
-.mini-ing-section.warn .mini-ing-title { color: #ef4444; }
+/* ✨ 핵심 성분 (매칭된 좋은 성분 — 햇살 같은 꿀빛 앰버, 메인 주황과 자연스럽게 어울림) */
+.mini-ing-section.key {
+    background-color: #fffbeb;
+    border-color: #fde68a;
+}
+.mini-ing-section.key .mini-ing-title { color: #b45309; }   /* 진한 앰버 */
+.mini-ing-section.key .mini-tag {
+    background: #ffffff;
+    color: #92400e;                                          /* 갈색 톤 앰버 */
+    border: 1px solid #fde68a;
+}
 
-.mini-ing-tags { display: flex; flex-wrap: wrap; gap: 8px; }
-.mini-tag { 
-    background: #fff; padding: 8px 12px; border-radius: 8px; 
-    font-size: 0.9rem; color: #334155; font-weight: 700; box-shadow: 0 1px 3px rgba(0,0,0,0.05); 
+/* 🔴 주의 성분 발견 (위험 — 빨강) */
+.mini-ing-section.warn { background-color: #fef2f2; border-color: #fecaca; }
+.mini-ing-section.warn .mini-ing-title { color: #dc2626; }
+.mini-ing-section.warn .mini-tag {
+    background: #ffffff;
+    color: #991b1b;
+    border: 1px solid #fecaca;
+}
+
+/* 🌿 주의 필요 성분 없음 (안전 — 따뜻한 세이지 그린) */
+.mini-ing-section.safe-clean {
+    background-color: #ecfdf5;
+    border-color: #a7f3d0;
+}
+.mini-ing-section.safe-clean .mini-ing-title {
+    color: #059669;                                          /* 살짝 더 따뜻한 그린 */
+    margin-bottom: 0;
+}
+
+/* 기본 미니 타이틀 */
+.mini-ing-title {
+    font-size: 0.875rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* 기본 미니 태그 */
+.mini-ing-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.mini-tag {
+    background: #ffffff;
+    padding: 6px 10px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    color: #374151;
+    font-weight: 600;
+    border: 1px solid #f0f0f0;
 }
 
 .slide-card-footer {

@@ -96,6 +96,11 @@ const SideMenu = ({ isOpen, onClose }) => {
             <div className="menu-item" onClick={handleHistoryClick}>
                <i className="fa-solid fa-clock-rotate-left"></i> <span>분석 히스토리</span>
             </div>
+            {isLoggedIn && (
+              <div className="menu-item" onClick={() => handleNav('/account-settings')}>
+                <i className="fa-solid fa-gear"></i> <span>회원 정보 관리</span>
+              </div>
+            )}
             {isLoggedIn ? (
             <div className="menu-item" onClick={() => handleNav('/logout')}>
               <i className="fa-solid fa-arrow-right-from-bracket"></i> <span>로그아웃</span>

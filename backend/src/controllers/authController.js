@@ -157,8 +157,49 @@ const logout = async (req, res) => {
   }
 };
 
+// 4. 닉네임 변경
+const updateNickname = async (req, res) => {
+  try {
+    const user_idx = req.user?.user_idx;
+    const { nickname } = req.body;
+    const result = await authService.updateNickname(user_idx, nickname);
+    return res.status(result.status).json(result);
+  } catch (err) {
+    console.log('닉네임 변경 컨트롤러 에러:', err);
+    return res.status(500).json({ success: false, message: '닉네임 변경 실패', error: err.message });
+  }
+};
+
+// 5. 비밀번호 변경
+const updatePassword = async (req, res) => {
+  try {
+    const user_idx = req.user?.user_idx;
+    const { currentPassword, newPassword } = req.body;
+    const result = await authService.updatePassword(user_idx, currentPassword, newPassword);
+    return res.status(result.status).json(result);
+  } catch (err) {
+    console.log('비밀번호 변경 컨트롤러 에러:', err);
+    return res.status(500).json({ success: false, message: '비밀번호 변경 실패', error: err.message });
+  }
+};
+
+// 6. 회원 탈퇴
+const deleteAccount = async (req, res) => {
+  try {
+    const user_idx = req.user?.user_idx;
+    const result = await authService.deleteAccount(user_idx);
+    return res.status(result.status).json(result);
+  } catch (err) {
+    console.log('회원 탈퇴 컨트롤러 에러:', err);
+    return res.status(500).json({ success: false, message: '회원 탈퇴 실패', error: err.message });
+  }
+};
+
 module.exports = {
   signup,
   login,
   logout,
+  updateNickname,
+  updatePassword,
+  deleteAccount,
 };

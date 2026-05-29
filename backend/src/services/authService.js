@@ -192,10 +192,102 @@ const logout = async () => {
   }
 };
 
+// 4. 닉네임 변경 처리 함수
+const updateNickname = async (user_idx, newNickname) => {
+  try {
+    if (!newNickname || newNickname.trim().length < 2) {
+      return {
+        success: false,
+        status: 400,
+        message: '닉네임은 2자 이상 입력해주세요.',
+      };
+    }
+
+    const sql = `UPDATE tb_user SET nickname = ?, updated_at = NOW() WHERE user_idx = ? AND deleted_at IS NULL`;
+    const [result] = await conn.query(sql, [newNickname.trim(), user_idx]);
+
+    if (result.affectedRows === 0) {
+      return {
+        success: false,
+        status: 404,
+        message: '사용자를 찾을 수 없습니다.',
+      };
+    }
+
+    return {
+      success: true,
+      status: 200,
+      message: '닉네임이 변경되었습니다.',
+      nickname: newNickname.trim(),
+    };
+  } catch (err) {
+    console.log('닉네임 변경 에러:', err);
+    throw err;
+  }
+};
+
+// 5. 비밀번호 변경 처리 함수
+const updatePassword = async (user_idx, currentPassword, newPassword) => {
+  try {
+    if (!currentPassword || !newPassword) {
+      return { success: false, status: 400, message: '현재 비밀번호와 새 비밀번호를 모두 입력해주세요.' };
+    }
+    if (newPassword.length < 6) {
+      return { success: false, status: 400, message: '새 비밀번호는 6자 이상이어야 합니다.' };
+    }
+
+    // 현재 비밀번호 확인
+    const [rows] = await conn.query(
+      'SELECT password_hash FROM tb_user WHERE user_idx = ? AND deleted_at IS NULL',
+      [user_idx]
+    );
+    if (rows.length === 0) {
+      return { success: false, status: 404, message: '사용자를 찾을 수 없습니다.' };
+    }
+
+    const isMatch = await bcrypt.compare(currentPassword, rows[0].password_hash);
+    if (!isMatch) {
+      return { success: false, status: 401, message: '현재 비밀번호가 일치하지 않습니다.' };
+    }
+
+    // 새 비밀번호 해시 후 저장
+    const hashed = await bcrypt.hash(newPassword, SALT_ROUNDS);
+    await conn.query(
+      'UPDATE tb_user SET password_hash = ?, updated_at = NOW() WHERE user_idx = ?',
+      [hashed, user_idx]
+    );
+
+    return { success: true, status: 200, message: '비밀번호가 변경되었습니다.' };
+  } catch (err) {
+    console.log('비밀번호 변경 에러:', err);
+    throw err;
+  }
+};
+
+// 6. 회원 탈퇴 (소프트 삭제 - deleted_at 표시)
+const deleteAccount = async (user_idx) => {
+  try {
+    const sql = `UPDATE tb_user SET deleted_at = NOW(), updated_at = NOW() WHERE user_idx = ? AND deleted_at IS NULL`;
+    const [result] = await conn.query(sql, [user_idx]);
+
+    if (result.affectedRows === 0) {
+      return { success: false, status: 404, message: '이미 탈퇴된 계정이거나 사용자를 찾을 수 없습니다.' };
+    }
+
+    return { success: true, status: 200, message: '회원 탈퇴가 완료되었습니다.' };
+  } catch (err) {
+    console.log('회원 탈퇴 에러:', err);
+    throw err;
+  }
+};
+
 module.exports = {
   signup,
   login,
   logout,
+  updateNickname,
+  updatePassword,
+  deleteAccount,
 };
 
 //jwt.sign(토큰에 담을 데이터, 비밀키, 옵션): 토큰생성

@@ -34,4 +34,10 @@ router.post('/ai-reason', authMiddleware, express.json(), ctrl.aiReasonHandler);
 // 7) 사용자 프로필 기반 추천 제품 TOP 3
 router.get('/recommendations', authMiddleware, ctrl.getRecommendationsHandler);
 
+// 8) 분석 히스토리 저장 (최대 5개, 초과 시 가장 오래된 것 자동 삭제)
+router.post('/analyses/:id/save', authMiddleware, ctrl.saveAnalysisHandler);
+
+// 9) 분석 히스토리 삭제
+router.delete('/analyses/:id', authMiddleware, ctrl.deleteAnalysisHandler);
+
 module.exports = router;

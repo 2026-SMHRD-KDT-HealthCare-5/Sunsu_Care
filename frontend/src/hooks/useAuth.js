@@ -57,11 +57,20 @@ const login = async (email, password) => {
     }
   }
 
+  // 닉네임 로컬 갱신 (DB 변경 후 즉시 UI 반영용)
+  const refreshNickname = (newNickname) => {
+    if (newNickname) {
+      localStorage.setItem('userNickname', newNickname)
+      window.dispatchEvent(new Event(AUTH_EVENT))
+    }
+  }
+
   return {
     isLoggedIn: !!token,
     userEmail: email,
     userNickname,
     login,
     logout,
+    refreshNickname,
   }
 }

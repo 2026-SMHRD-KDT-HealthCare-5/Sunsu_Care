@@ -10,18 +10,25 @@ const router = express.Router()
 
 // 관련 요청을 처리하는 controller 호출
 const authController = require("../controllers/authController")
+const authMiddleware = require("../middlewares/authMiddleware")
 
 // 1. 회원가입 API
-// 최종 경로: POST/api/signup
-router.post("/signup",authController.signup)
+router.post("/signup", authController.signup)
 
 // 2. 로그인 API
-// 최종 경로: POST/api/login
 router.post("/login", authController.login)
 
 // 3. 로그아웃 API
-// 최종 경로: POST/api/logout
-router.post("/logout",authController.logout)
+router.post("/logout", authController.logout)
+
+// 4. 닉네임 변경 (JWT 필요)
+router.put("/nickname", authMiddleware, authController.updateNickname)
+
+// 5. 비밀번호 변경 (JWT 필요)
+router.put("/password", authMiddleware, authController.updatePassword)
+
+// 6. 회원 탈퇴 (JWT 필요)
+router.delete("/me", authMiddleware, authController.deleteAccount)
 
 // router 객체를 app.js에서 사용할 수 있도록 내보내기
 module.exports = router

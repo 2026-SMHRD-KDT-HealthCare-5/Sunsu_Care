@@ -39,7 +39,7 @@ CREATE TABLE `tb_profile` (
   `prod_type`         varchar(50) NOT NULL COMMENT '선호 제형',
   `avoid_ingredient`  varchar(50) NOT NULL COMMENT '기피 성분',
   `joined_at`         datetime NOT NULL COMMENT '등록 일시',
-  `updated_at`        datetime DEFAULT NULL,
+  `updated_at`        datetime DEFAULT NULL COMMENT '수정일시',
   PRIMARY KEY (`profile_idx`),
   KEY `FK_tb_profile_user_id_tb_user_user_idx` (`user_id`),
   CONSTRAINT `FK_tb_profile_user_id_tb_user_user_idx`

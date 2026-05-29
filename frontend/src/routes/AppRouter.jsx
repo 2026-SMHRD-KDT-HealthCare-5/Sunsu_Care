@@ -10,7 +10,8 @@ import ScanPage from '../pages/ScanPage'
 import GuidePage from '../pages/GuidePage'
 import MyPage from '../pages/MyPage'
 import HistoryDetailPage from '../pages/HistoryDetailPage'
-import ShoppingPage from '../pages/ShoppingPage';
+import ShoppingPage from '../pages/ShoppingPage'
+import AccountSettings from '../pages/AccountSettings'
 
 function AppRouter() {
   return (
@@ -29,6 +30,7 @@ function AppRouter() {
             <Route path="/mypage" element={<MyPage />} />
             <Route path="/history/:id" element={<HistoryDetailPage />} />
             <Route path="/ShoppingPage" element={<ShoppingPage />} />
+            <Route path="/account-settings" element={<AccountSettings />} />
             <Route path="*" element={<div className="page"><h1>404</h1></div>} />
           </Route>
         </Routes>

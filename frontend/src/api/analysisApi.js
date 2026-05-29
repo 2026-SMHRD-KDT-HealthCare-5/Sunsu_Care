@@ -63,3 +63,15 @@ export const generateAIReason = async ({ analysisIdx, prodName, score, keyIng, w
     });
     return response.data; // { reason: "...", cached: boolean }
 };
+
+// 8. 분석 히스토리 저장 (최대 5개, 초과 시 가장 오래된 것 자동 삭제)
+export const saveAnalysis = async (analysisIdx) => {
+    const response = await api.post(`/suncare/analyses/${analysisIdx}/save`);
+    return response.data; // { success, alreadySaved?, removedOldest? }
+};
+
+// 9. 분석 히스토리 삭제
+export const deleteAnalysis = async (analysisIdx) => {
+    const response = await api.delete(`/suncare/analyses/${analysisIdx}`);
+    return response.data;
+};
