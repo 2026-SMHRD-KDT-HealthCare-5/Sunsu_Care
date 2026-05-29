@@ -6,60 +6,31 @@
    - 폰트/배경은 global.css + variables.css 에서 관리
    ========================================================================== */
 
-/* 🌟 로컬 변수: MyPage 전용 디자인 토큰 */
-.mypage-container,
-.mypage-container * {
-  --mp-primary: #ff8c00;
-  --mp-primary-dark: #e67d00;
-  --mp-primary-pale: #fff7ed;
-  --mp-primary-border: #fed7aa;
-  --mp-avatar-ring: #fff3e0;
-
-  --mp-bg-page: #fafafa;
-  --mp-bg-card: #ffffff;
-  --mp-bg-soft: #fafafa;
-
-  --mp-border-card: #f0f0f0;
-  --mp-border-soft: #e5e7eb;
-  --mp-border-strong: #cbd5e1;
-
-  --mp-text-strong: #1f2937;
-  --mp-text-title: #1e293b;
-  --mp-text-body: #374151;
-  --mp-text-muted: #6b7280;
-  --mp-text-soft: #94a3b8;
-
-  /* 시맨틱 컬러 (안전/주의 — 사용자 승인 톤) */
-  --mp-key-bg: #fffbeb;          /* 따뜻한 꿀빛 앰버 */
-  --mp-key-border: #fde68a;
-  --mp-key-title: #b45309;
-  --mp-key-tag-text: #92400e;
-
-  --mp-warn-bg: #fef2f2;         /* 부드러운 레드 */
-  --mp-warn-border: #fecaca;
-  --mp-warn-title: #dc2626;
-  --mp-warn-tag-text: #991b1b;
-
-  --mp-safe-bg: #ecfdf5;         /* 세이지 그린 */
-  --mp-safe-border: #a7f3d0;
-  --mp-safe-title: #059669;
-
-  --mp-status-safe: #22c55e;
-  --mp-status-warn: #ef4444;
-
-  /* 피부 정보 tag — 단일 통일 (#ffedd5 BG + 메인 오렌지 글자) */
-  --mp-tag-bg:   #ffedd5;
-  --mp-tag-text: #ff8c00;
-
-  --mp-shadow-card: 0 6px 16px rgba(0, 0, 0, 0.04);
-  --mp-shadow-arrow: 0 2px 4px rgba(0, 0, 0, 0.03);
-  --mp-shadow-hover: 0 8px 20px rgba(255, 140, 0, 0.08);
-
-  --mp-transition: all 0.2s ease;
-}
-
-/* ===== 페이지 컨테이너 ===== */
+/* 🌟 로컬 변수: MyPage 전용 디자인 토큰 (구역별 매핑 완료) */
 .mypage-container {
+  /* 핵심 브랜드 & 포인트 컬러 */
+  --mp-primary: #ff8c00;
+  
+  /* 배경 & 보더 컬러 */
+  --mp-bg-page: #f8fafc;     /* 페이지 전체 배경 (연한 쿨그레이/베이지 톤 대응) */
+  --mp-bg-card: #ffffff;     /* 카드 배경 (순백색) */
+  --mp-border-card: #f1f5f9; /* 카드 외곽 연한 테두리 */
+  --mp-border-soft: #e2e8f0; /* 내부 요소 연한 테두리 */
+  
+  /* 텍스트 컬러 (상단 상속이 아닌 각 구역에서 직접 호출됨) */
+  --mp-text-title: #1c1e22;  /* 최상위 타이틀 (가장 어두운 흑색) */
+  --mp-text-main: #1f2937;   /* 기본 텍스트 (어두운 회색 - 성분명, 타이틀 등) */
+  --mp-text-sub: #64748b;    /* 서브 텍스트 (라벨, 서브제목 등) */
+  --mp-text-muted: #94a3b8;  /* 비활성 텍스트 (날짜, 슬라이더 화살표 등) */
+  
+  /* 상태/섹션 특화 컬러 */
+  --mp-status-safe: #22c55e; /* 안전/적합 (초록) */
+  --mp-status-warn: #ef4444; /* 주의/경고 (빨강) */
+  --mp-key-bg: #fff7ed;      /* 핵심 성분 배경 (연한 오렌지) */
+  --mp-key-border: #ffedd5;  /* 핵심 성분 테두리 */
+  --mp-safe-bg: #f0fdf4;     /* 안전 성분 배경 (연한 초록) */
+  --mp-safe-border: #dcfce7; /* 안전 성분 테두리 */
+
   max-width: 500px;
   margin: 0 auto;
   background-color: var(--mp-bg-page);
@@ -68,27 +39,31 @@
   padding-bottom: 40px;
 }
 
+/* ===== 페이지 타이틀 ===== */
 .mypage-title {
   margin: 0 0 20px 26px;
   font-size: 1.1rem;
+  font-weight: 800;
   display: flex;
   align-items: center;
   gap: 10px;
-  color: #1C1E22;
+  color: var(--mp-text-title); /* 명시적 적용 */
 }
-.mypage-title i { color: #1C1E22; }
+.mypage-title i { 
+  color: var(--mp-text-title); 
+}
 
 /* ===== 공통 카드 ===== */
 .mypage-card {
   background: var(--mp-bg-card);
   border: 1px solid var(--mp-border-card);
-  border-radius: 14px;
+  border-radius: 16px;
   padding: 20px;
-  margin: 0 20px 16px 20px;
-  box-shadow: none;
+  margin: 0 20px 20px 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
 }
 
-/* ===== 사용자 카드 ===== */
+/* ===== 사용자 프로필 카드 ===== */
 .mypage-user-row {
   display: flex;
   align-items: center;
@@ -107,7 +82,7 @@
   font-weight: 800;
   font-size: 1.5rem;
   flex-shrink: 0;
-  border: 2px solid var(--mp-avatar-ring);
+  border: 2px solid #fff3e0;
 }
 
 .mypage-user-text {
@@ -115,53 +90,34 @@
   display: flex;
   flex-direction: column;
   gap: 4px;
-  min-width: 0;
 }
 
 .mypage-user-name {
   margin: 0;
   font-size: 1.15rem;
   font-weight: 700;
-  color: var(--mp-text-strong);
+  color: var(--mp-text-main); /* 명시적 어두운 색상 */
 }
 
 .mypage-user-greeting {
   margin: 0;
-  color: var(--mp-text-muted);
+  color: var(--mp-text-sub); /* 서브 텍스트(회색) 처리 */
   font-size: 0.875rem;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-.mypage-user-greeting .icon-sun {
-  color: var(--mp-primary);
 }
 
-/* 사용자 카드 우측: 회원정보 관리 (연필 아이콘) */
 .mypage-user-action {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  color: var(--mp-text-muted);    /* 평상시: "수정하기"와 동일한 그레이 */
-  font-size: 1.1rem;
+  color: var(--mp-text-sub);
+  font-size: 1.2rem;
   cursor: pointer;
-  transition: color 0.2s ease;
-  min-width: 36px;
   padding: 6px;
+  transition: color 0.2s ease;
 }
 
-/* 🌟 연필 hover — "수정하기"와 동일: 색상만 그레이 → 오렌지 */
 .mypage-user-action:hover {
-  color: var(--mp-primary);
+  color: var(--mp-primary); 
 }
 
-/* 클릭 가능한 사용자 카드 (로그인 시 → /account-settings) — hover 효과 없음, 클릭만 */
-.mypage-user-card.is-clickable {
-  cursor: pointer;
-}
-
-/* ===== 카드 헤더 (수정하기 링크) ===== */
+/* ===== 내 피부 정보 (카드 헤더) ===== */
 .mypage-card-header {
   display: flex;
   justify-content: space-between;
@@ -171,64 +127,64 @@
 
 .mypage-card-title {
   margin: 0;
-  font-size: 1rem;
-  color: var(--mp-text-strong);
+  font-size: 1.05rem;
+  color: var(--mp-text-title); /* 명시적 어두운 색상 */
   display: flex;
   gap: 8px;
   align-items: center;
-  font-weight: 700;
+  font-weight: 800;
 }
-.mypage-card-title .icon-droplet {
+.mypage-card-title i {
   color: var(--mp-primary);
 }
 
 .mypage-card-link {
-  color: var(--mp-text-muted);
-  cursor: pointer;
+  color: #94a3b8; /* 처음에 의도하셨던 차분한 그레이 */
+  font-size: 0.85rem;
   font-weight: 600;
-  font-size: 0.8rem;
-  transition: color 0.2s;
-}
-.mypage-card-link:hover {
-  color: var(--mp-primary);
+  text-decoration: none;
+  display: flex;
+  margin: 1px 5px 0px 0px;
+  align-items: center;
+  transition: color 0.2s ease;
+  cursor: pointer;
 }
 
-/* ===== 내 피부 정보 그리드 ===== */
+.mypage-card-link:hover {
+  color: var(--mp-primary); 
+}
+
+/* ===== 내 피부 정보 4칸 그리드 ===== */
 .skin-info-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(2, 1fr);
   gap: 12px;
 }
 
 .skin-info-item {
-  background-color: var(--mp-bg-soft);
-  border: 1px solid var(--mp-border-card);
-  border-radius: 10px;
-  padding: 12px;
+  /* 촌스러운 주황색 테두리 아웃! 세련된 쿨그레이 배경으로 영역만 깔끔하게 구분 */
+  background-color: #f8fafc; 
+  border: none; 
+  border-radius: 12px; 
+  padding: 16px; 
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 6px; 
 }
 
 .info-label {
-  font-size: 0.78rem;
-  color: var(--mp-text-muted);
+  font-size: 0.75rem;
+  color: #64748b; 
   font-weight: 600;
+  letter-spacing: -0.2px; /* 자간을 살짝만 조정해 정갈함을 유지 */
 }
 
 .info-value {
-  font-size: 0.85rem;
+  font-size: 0.95rem;
   font-weight: 700;
-  padding: 4px 8px;
-  border-radius: 6px;
-  text-align: center;
-  display: inline-block;
-}
-
-/* tag 단일 통일 (4개 모두 동일 톤) */
-.info-value.tag {
-  background-color: var(--mp-tag-bg);
-  color: var(--mp-tag-text);
+  color: #1e293b; /* 가독성을 위한 단단한 먹색 (Black/Slate) */
+  line-height: 1.4; 
+  word-break: keep-all; 
 }
 
 /* ===== 히스토리 섹션 ===== */
@@ -240,15 +196,15 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 24px;
+  margin-bottom: 20px;
   padding: 0 24px;
 }
 
 .history-title {
   margin: 0;
-  font-size: 1rem;
-  font-weight: 700;
-  color: var(--mp-text-strong);
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--mp-text-title); /* 헤더 명시적 어두운 색상 */
 }
 
 .slider-controls {
@@ -261,68 +217,35 @@
   height: 36px;
   border-radius: 50%;
   border: 1px solid var(--mp-border-soft);
-  background: #ffffff;
+  background: var(--mp-bg-card);
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  color: var(--mp-text-muted);
-  transition: var(--mp-transition);
-  box-shadow: var(--mp-shadow-arrow);
-}
-.slider-arrow:disabled {
-  opacity: 0.3;
-  cursor: default;
-  background-color: var(--mp-bg-soft);
+  color: var(--mp-text-muted); /* 화살표 아이콘 회색 */
 }
 
-/* 빈 히스토리 안내 */
-.history-empty {
-  text-align: center;
-  padding: 30px 24px;
-  color: var(--mp-text-muted);
-  font-size: 0.95rem;
-  line-height: 1.7;
-}
-.history-empty-btn {
-  margin-top: 14px;
-  padding: 10px 18px;
-  border: 1px solid var(--mp-primary);
-  background: #ffffff;
-  color: var(--mp-primary);
-  border-radius: 20px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: var(--mp-transition);
-}
-
-/* 슬라이더 */
+/* 히스토리 슬라이더 & 카드 */
 .history-slider {
   display: flex;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   gap: 18px;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
   padding: 0 24px 24px 24px;
+  scrollbar-width: none;
 }
-.history-slider::-webkit-scrollbar {
-  display: none;
-}
+.history-slider::-webkit-scrollbar { display: none; }
 
 .history-slide-card {
   flex: 0 0 100%;
-  min-height: 320px;
   scroll-snap-align: center;
   background: var(--mp-bg-card);
   border: 1px solid var(--mp-border-card);
-  border-radius: 16px;
+  border-radius: 20px;
   padding: 24px;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  transition: var(--mp-transition);
 }
 
 .slide-card-header {
@@ -332,27 +255,20 @@
   border-bottom: 1px solid var(--mp-border-card);
   padding-bottom: 16px;
   margin-bottom: 16px;
-  gap: 12px;
-}
-
-.slide-card-head-text {
-  flex: 1;
-  min-width: 0;
 }
 
 .slide-card-title {
-  margin: 0 0 4px 0;
-  font-size: 1.2rem;
+  margin: 0 0 6px 0;
+  font-size: 1.25rem;
   font-weight: 800;
-  color: var(--mp-text-title);
-  letter-spacing: -0.5px;
+  color: var(--mp-text-main); /* 제품명 어둡게 */
   word-break: keep-all;
   line-height: 1.3;
 }
 
 .slide-card-date {
   font-size: 0.85rem;
-  color: var(--mp-text-soft);
+  color: var(--mp-text-muted); /* 날짜 연하게 */
   font-weight: 500;
 }
 
@@ -360,126 +276,113 @@
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  flex-shrink: 0;
+  gap: 4px;
 }
 
 .score-num {
-  font-size: 2.4rem;
+  font-size: 2.3rem;
   font-weight: 900;
-  color: var(--mp-primary);
-  line-height: 1;
-  margin-bottom: 6px;
-  letter-spacing: -1.5px;
+  color: var(--mp-status-safe); /* 점수는 초록색 고정 (이미지 기준) */
+  letter-spacing: -1px;
 }
 
 .score-total {
-  font-size: 0.9rem;
-  color: #d1d5db;
+  font-size: 1rem;
+  color: var(--mp-text-muted); /* /100 텍스트 회색 */
   font-weight: 600;
-  letter-spacing: 0;
+  margin-left: 2px;
 }
 
 .status-badge {
-  padding: 4px 12px;
+  padding: 4px 14px;
   border-radius: 20px;
   font-size: 0.8rem;
   font-weight: 700;
-  color: white;
+  color: #ffffff;
+  background-color: var(--mp-status-safe); /* 적합 뱃지 */
 }
-.status-badge.safe { background-color: var(--mp-status-safe); }
-.status-badge.warn { background-color: var(--mp-status-warn); }
 
+/* ===== 핵심/안전 성분 섹션 (이미지 기준 디자인 복원) ===== */
 .slide-card-body {
-  flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 15px;
-  margin: 15px 0 20px 0;
+  gap: 14px;
+  margin-bottom: 24px;
 }
 
-/* 핵심/주의/안전 성분 섹션 (사용자 승인 팔레트) */
 .mini-ing-section {
-  padding: 14px;
-  border-radius: 10px;
-  border: 1px solid transparent;
+  padding: 16px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
-/* ✨ 핵심 성분 — 따뜻한 꿀빛 앰버 */
+/* 1. 매칭된 핵심 성분 */
 .mini-ing-section.key {
   background-color: var(--mp-key-bg);
-  border-color: var(--mp-key-border);
+  border: 1px solid var(--mp-key-border);
+  border-left: 4px solid var(--mp-primary); /* 이미지처럼 좌측 포인트 라인 */
 }
+
+/* 🌟 글자는 어둡게, 아이콘만 오렌지색 적용 */
 .mini-ing-section.key .mini-ing-title {
-  color: var(--mp-key-title);
+  color: var(--mp-text-main); 
+}
+.mini-ing-section.key .mini-ing-title i {
+  color: var(--mp-primary); 
 }
 
-/* 🔴 주의 성분 발견 — 부드러운 레드 */
-.mini-ing-section.warn {
-  background-color: var(--mp-warn-bg);
-  border-color: var(--mp-warn-border);
-}
-.mini-ing-section.warn .mini-ing-title {
-  color: var(--mp-warn-title);
-}
-
-/* 🌿 주의 필요 성분 없음 — 세이지 그린 (버그 수정: 빨강 → 초록) */
+/* 2. 주의 필요 성분 없음 */
 .mini-ing-section.safe-clean {
   background-color: var(--mp-safe-bg);
-  border-color: var(--mp-safe-border);
+  border: 1px solid var(--mp-safe-border); /* 연한 초록 테두리 */
 }
+
+/* 🌟 글자는 어둡게, 아이콘만 초록색 적용 */
 .mini-ing-section.safe-clean .mini-ing-title {
-  color: var(--mp-safe-title);
-  margin-bottom: 0;
+  color: var(--mp-text-main); 
+}
+.mini-ing-section.safe-clean .mini-ing-title i {
+  color: var(--mp-status-safe); 
 }
 
 .mini-ing-title {
-  font-size: 0.875rem;
-  font-weight: 700;
-  margin-bottom: 10px;
+  font-size: 0.95rem;
+  font-weight: 800;
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
+  margin: 0;
 }
 
-/* 미니 태그 — 부드러운 흰색 배경 + 컬러 보더 */
+/* 태그 영역 (핵심 성분 내 텍스트들) */
 .mini-ing-tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
+  gap: 8px;
 }
+
 .mini-tag {
   padding: 6px 10px;
   border-radius: 6px;
   font-size: 0.85rem;
   font-weight: 600;
-  background: #ffffff;
-  border: 1px solid var(--mp-border-card);
-  color: var(--mp-text-body);
-}
-.mini-tag--key {
-  border-color: var(--mp-key-border);
-  color: var(--mp-key-tag-text);
-}
-.mini-tag--warn {
-  border-color: var(--mp-warn-border);
-  color: var(--mp-warn-tag-text);
-}
-.mini-tag--empty {
-  color: var(--mp-text-soft);
-  font-style: italic;
-  border-style: dashed;
+  background: var(--mp-bg-card);
+  border: 1px solid var(--mp-border-soft);
+  color: var(--mp-text-main); /* 이미지에 맞춰 태그 텍스트는 어둡게 */
 }
 
+/* ===== 카드 하단 버튼 ===== */
 .slide-card-footer {
   text-align: center;
-  color: var(--mp-primary);
+  color: var(--mp-primary); /* 오렌지 텍스트 */
   font-weight: 800;
   font-size: 1rem;
   margin-top: auto;
   padding-top: 18px;
   border-top: 1px dashed var(--mp-border-soft);
   cursor: pointer;
-  transition: var(--mp-transition);
 }
 
 /* ===== 하단 액션 버튼 ===== */
@@ -505,22 +408,16 @@
   justify-content: center;
   align-items: center;
   gap: 8px;
-  transition: var(--mp-transition);
+  transition: all 0.2s ease;
 }
 
 .re-analyze-btn {
   background: var(--mp-primary);
   color: white;
 }
-.re-analyze-btn:hover {
-  background-color: var(--mp-primary-dark);
-}
 
 .logout-btn-half {
   background: #ffffff;
   color: var(--mp-text-muted);
-  border: 1px solid var(--mp-border-strong);
-}
-.logout-btn-half:hover {
-  background-color: var(--mp-bg-soft);
+  border: 1px solid var(--mp-border-soft);
 }

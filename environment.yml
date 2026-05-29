@@ -1,0 +1,25 @@
+name: sunsucare_env
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.10
+  - pip
+  - numpy>=1.26.0,<2.0
+  - pandas>=2.1.0
+  - pillow>=10.2.0
+  - pip:
+    - fastapi>=0.110.0
+    - uvicorn[standard]>=0.27.0
+    - python-multipart>=0.0.9
+    - sqlalchemy>=2.0.25
+    - asyncmy>=0.2.9
+    - pydantic>=2.5.0
+    - pydantic-settings>=2.1.0
+    - python-dotenv>=1.0.0
+    - anyio>=4.2.0
+    - httpx>=0.26.0
+    - ultralytics>=8.1.0
+    - rapidfuzz>=3.6.0
+    - requests>=2.31.0
+    - opencv-python-headless>=4.9.0

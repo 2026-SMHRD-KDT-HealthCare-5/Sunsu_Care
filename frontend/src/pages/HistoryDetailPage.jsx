@@ -11,23 +11,38 @@ import {
 import { getProductImageUrl } from '../utils/imageUrl';
 import './HistoryDetailPage.css';
 
-// 🌟 하드코딩 매핑 제거 — DB tb_ingredient.skin_warning 컬럼을 그대로 사용
-//    각 성분 객체는 { name, warning } 형태로 백엔드에서 전달됨
-
-// fallback (DB warning 이 비어있을 때만 사용)
 const KEY_DEFAULT_DESC = '유효 성분';
 const WARN_DEFAULT_DESC = '주의가 필요한 성분입니다.';
 
-// 성분 항목이 문자열 or 객체 두 형태 모두 지원 (구 데이터 호환)
 const getIngName = (it) => typeof it === 'string' ? it : (it?.name || '');
 const getIngWarning = (it, fallback) =>
     (typeof it === 'object' && it?.warning) ? it.warning : fallback;
 
-// 점수에 따른 색상 (75+ 초록 / 50~74 노랑 / <50 빨강)
 const getScoreColorClass = (score) => {
     if (score >= 75) return 'score-good';
     if (score >= 50) return 'score-warn';
     return 'score-danger';
+};
+
+// 🌟 핵심 해결 1: 정규화 로직을 밖으로 빼서 초기화 시점에도 적극적으로 사용합니다.
+const normalizeIng = (data, csv) => {
+    if (Array.isArray(data) && data.length > 0) {
+        const seen = new Set();
+        return data.filter(Boolean).map(it =>
+            typeof it === 'string'
+                ? { name: it.trim(), warning: '' }
+                : { name: String(it.name || '').trim(), warning: it.warning || '' }
+        ).filter(it => {
+            if (!it.name || seen.has(it.name)) return false;
+            seen.add(it.name);
+            return true;
+        });
+    }
+    if (typeof csv === 'string' && csv.trim()) {
+        return [...new Set(csv.split(',').map(s => s.trim()).filter(Boolean))]
+            .map(name => ({ name, warning: '' }));
+    }
+    return [];
 };
 
 const HistoryDetailPage = () => {
@@ -35,7 +50,6 @@ const HistoryDetailPage = () => {
     const navigate = useNavigate();
     const location = useLocation();
 
-    // 🌟 MIK 커스텀 모달
     const [modal, setModal] = useState({
         isOpen: false,
         type: 'alert',
@@ -43,50 +57,43 @@ const HistoryDetailPage = () => {
         onConfirm: null
     });
 
-    // 분석 히스토리 목록 (DB 실시간)
     const [savedList, setSavedList] = useState([]);
     const [listLoaded, setListLoaded] = useState(false);
 
-    // 현재 항목 데이터
     const raw = location.state?.analysisData;
+
+    // 🌟 핵심 해결 2: 다른 페이지에서 백엔드 변수명(key_ingredients_data) 그대로 넘겨도 다 잡아냅니다.
     const [report, setReport] = useState(() => ({
-        id: raw?.id || id,
-        name: raw?.name || "분석된 제품",
-        date: raw?.date || "",
-        score: raw?.score ?? 0,
-        status: raw?.status || "알 수 없음",
-        keyIng: Array.isArray(raw?.keyIng) ? raw.keyIng : [],
-        warnIng: Array.isArray(raw?.warnIng) ? raw.warnIng : []
+        id: raw?.id || raw?.analysis_idx || id,
+        name: raw?.name || raw?.prod_name || "분석된 제품",
+        date: raw?.date || raw?.joined_at || "",
+        score: raw?.score ?? raw?.match_score ?? 0,
+        status: raw?.status || raw?.match_status || "알 수 없음",
+        keyIng: normalizeIng(raw?.keyIng || raw?.key_ingredients_data, raw?.key_ingredients),
+        warnIng: normalizeIng(raw?.warnIng || raw?.warn_ingredients_data, raw?.warn_ingredients)
     }));
 
-    // location.state가 바뀌면 report 갱신 (prev/next 이동 시)
     useEffect(() => {
         if (raw) {
             setReport({
-                id: raw.id || id,
-                name: raw.name || "분석된 제품",
-                date: raw.date || "",
-                score: raw.score ?? 0,
-                status: raw.status || "알 수 없음",
-                keyIng: Array.isArray(raw.keyIng) ? raw.keyIng : [],
-                warnIng: Array.isArray(raw.warnIng) ? raw.warnIng : []
+                id: raw.id || raw.analysis_idx || id,
+                name: raw.name || raw.prod_name || "분석된 제품",
+                date: raw.date || raw.joined_at || "",
+                score: raw.score ?? raw.match_score ?? 0,
+                status: raw.status || raw.match_status || "알 수 없음",
+                keyIng: normalizeIng(raw.keyIng || raw.key_ingredients_data, raw.key_ingredients),
+                warnIng: normalizeIng(raw.warnIng || raw.warn_ingredients_data, raw.warn_ingredients)
             });
         }
     }, [raw, id]);
 
-    // 사용자 프로필 (AI 호출용)
     const [userProfile, setUserProfile] = useState({ basicType: '미설정' });
-
-    // 🤖 Gemini AI 추천 이유
     const [aiReason, setAiReason] = useState('');
     const [reasonLoading, setReasonLoading] = useState(true);
     const [reasonError, setReasonError] = useState('');
 
-    // 🎁 추천 제품 TOP 3 (이미지 포함)
     const [recommendations, setRecommendations] = useState([]);
     const [recoLoading, setRecoLoading] = useState(true);
-
-    // 작업 진행 중 플래그 (저장/삭제 동안 화살표 비활성화)
     const [busy, setBusy] = useState(false);
 
     // ============================================================
@@ -94,27 +101,6 @@ const HistoryDetailPage = () => {
     // ============================================================
     useEffect(() => {
         let mounted = true;
-
-        // 🌟 백엔드 신규 필드 key_ingredients_data/warn_ingredients_data 우선 사용
-        const normalizeIng = (data, csv) => {
-            if (Array.isArray(data) && data.length > 0) {
-                const seen = new Set();
-                return data.filter(Boolean).map(it =>
-                    typeof it === 'string'
-                        ? { name: it.trim(), warning: '' }
-                        : { name: String(it.name || '').trim(), warning: it.warning || '' }
-                ).filter(it => {
-                    if (!it.name || seen.has(it.name)) return false;
-                    seen.add(it.name);
-                    return true;
-                });
-            }
-            if (typeof csv === 'string' && csv.trim()) {
-                return [...new Set(csv.split(',').map(s => s.trim()).filter(Boolean))]
-                    .map(name => ({ name, warning: '' }));
-            }
-            return [];
-        };
 
         fetchHistory()
             .then(data => {
@@ -136,7 +122,6 @@ const HistoryDetailPage = () => {
                 if (mounted) setListLoaded(true);
             });
 
-        // 프로필
         fetchProfile()
             .then(profile => {
                 if (mounted && profile) {
@@ -154,26 +139,25 @@ const HistoryDetailPage = () => {
     }, []);
 
     // ============================================================
-    // 안정성 #6: URL 직접 접근 시 state 없으면 savedList에서 찾기
+    // 안정성 #6: 다른 페이지에서 불완전하게 넘어온 경우 DB 데이터로 덮어쓰기
     // ============================================================
     useEffect(() => {
         if (!listLoaded) return;
-        if (raw) return; // state 있으면 그대로 사용
 
         const found = savedList.find(item => Number(item.id) === Number(id));
+        
         if (found) {
+            // 🌟 핵심 해결 3: raw 데이터가 불완전해도(문자열), DB에서 완벽한 객체를 찾아 덮어씌웁니다.
             setReport(found);
-        } else if (savedList.length > 0) {
-            // id가 본인 분석이 아니면 첫 번째 분석으로
+        } else if (!raw && savedList.length > 0) {
             navigate(`/history/${savedList[0].id}`, {
                 replace: true,
                 state: { analysisData: savedList[0] }
             });
-        } else {
-            // 분석 자체가 없으면 마이페이지로
+        } else if (!raw) {
             navigate('/mypage', { replace: true });
         }
-    }, [listLoaded, savedList, id, raw, navigate]);
+    }, [listLoaded, id, savedList, raw, navigate]);
 
     // ============================================================
     // 2) 추천 제품 TOP 3
@@ -203,7 +187,6 @@ const HistoryDetailPage = () => {
         let retryAttempted = false;
 
         const loadAIReason = async () => {
-            // 🌟 성분 데이터가 있으면 제품명 fallback("분석된 제품") 이어도 AI 호출
             const hasIngredients = (report?.keyIng?.length || 0) > 0 || (report?.warnIng?.length || 0) > 0;
             if (!hasIngredients) {
                 if (mounted) {
@@ -219,7 +202,6 @@ const HistoryDetailPage = () => {
                     analysisIdx: id,
                     prodName: report.name,
                     score: report.score,
-                    // 🌟 객체 배열 → 이름 배열로 변환해서 AI 호출 (Gemini 프롬프트용)
                     keyIng: (report.keyIng || []).map(getIngName).filter(Boolean),
                     warnIng: (report.warnIng || []).map(getIngName).filter(Boolean),
                     skinType: userProfile.basicType || '미설정'
@@ -238,7 +220,6 @@ const HistoryDetailPage = () => {
                         if (!retryAttempted) {
                             retryAttempted = true;
                             setReasonError('AI 요청 한도 초과 — 60초 후 자동 재시도합니다');
-                            // 🌟 60초 후 1회 자동 재시도 (Gemini 분당 RPM 회복 대기)
                             retryTimerId = setTimeout(() => {
                                 if (mounted) {
                                     setReasonLoading(true);
@@ -265,19 +246,16 @@ const HistoryDetailPage = () => {
     }, [id, report.name, report.score, userProfile.basicType]);
 
     // ============================================================
-    // prev/next 네비게이션 (안정성 #2, #3, #5)
+    // prev/next 네비게이션
     // ============================================================
     const currentIndex = savedList.findIndex(item => Number(item.id) === Number(id));
     const hasPrev = currentIndex > 0;
     const hasNext = currentIndex >= 0 && currentIndex < savedList.length - 1;
-
-    // busy 또는 모달 열려있으면 화살표 비활성화 (#2, #3)
     const navDisabled = busy || modal.isOpen;
 
     const goPrev = () => {
         if (!hasPrev || navDisabled) return;
         const target = savedList[currentIndex - 1];
-        // #5: state 함께 전달 → 다음 페이지가 즉시 데이터 표시
         navigate(`/history/${target.id}`, { state: { analysisData: target } });
     };
     const goNext = () => {
@@ -287,7 +265,7 @@ const HistoryDetailPage = () => {
     };
 
     // ============================================================
-    // 저장 (#1: API 에러 처리, #4: 자동삭제 알림)
+    // 저장 및 삭제 로직
     // ============================================================
     const handleSaveClick = async () => {
         if (!id || busy) return;
@@ -301,13 +279,11 @@ const HistoryDetailPage = () => {
                     onConfirm: null
                 });
             } else if (result?.removedOldest) {
-                // #4: 자동 삭제 알림
                 setModal({
                     isOpen: true, type: 'alert',
                     message: '✅ 분석 결과가 저장되었습니다.\n저장 한도(5개) 초과로\n가장 오래된 분석이 자동 삭제되었습니다.',
                     onConfirm: () => {
                         setModal(prev => ({ ...prev, isOpen: false }));
-                        // 목록 다시 가져오기
                         fetchHistory().then(data => {
                             if (Array.isArray(data)) {
                                 setSavedList(data.map(item => ({
@@ -316,8 +292,8 @@ const HistoryDetailPage = () => {
                                     date: new Date(item.joined_at).toLocaleDateString(),
                                     score: item.match_score ?? 0,
                                     status: item.match_status || (item.match_score >= 75 ? '적합' : '주의'),
-                                    keyIng: item.key_ingredients ? item.key_ingredients.split(',') : [],
-                                    warnIng: item.warn_ingredients ? item.warn_ingredients.split(',') : []
+                                    keyIng: normalizeIng(item.key_ingredients_data, item.key_ingredients),
+                                    warnIng: normalizeIng(item.warn_ingredients_data, item.warn_ingredients)
                                 })));
                             }
                         });
@@ -331,7 +307,6 @@ const HistoryDetailPage = () => {
                 });
             }
         } catch (err) {
-            // #1: API 에러 시 모달로 명시
             setModal({
                 isOpen: true, type: 'alert',
                 message: `❌ 저장 실패\n${err.response?.data?.message || err.message}`,
@@ -342,9 +317,6 @@ const HistoryDetailPage = () => {
         }
     };
 
-    // ============================================================
-    // 삭제 (#1: API 에러 처리, MIK 2단계 모달 + 다음 항목 이동)
-    // ============================================================
     const handleDeleteClick = () => {
         if (busy) return;
         setModal({
@@ -354,10 +326,8 @@ const HistoryDetailPage = () => {
             onConfirm: async () => {
                 try {
                     setBusy(true);
-                    // #1: 실제 API 호출
                     await deleteAnalysis(id);
 
-                    // 갱신된 목록 가져오기
                     const refreshed = await fetchHistory().catch(() => []);
                     const updatedList = Array.isArray(refreshed)
                         ? refreshed.map(item => ({
@@ -366,8 +336,8 @@ const HistoryDetailPage = () => {
                             date: new Date(item.joined_at).toLocaleDateString(),
                             score: item.match_score ?? 0,
                             status: item.match_status || (item.match_score >= 75 ? '적합' : '주의'),
-                            keyIng: item.key_ingredients ? item.key_ingredients.split(',') : [],
-                            warnIng: item.warn_ingredients ? item.warn_ingredients.split(',') : []
+                            keyIng: normalizeIng(item.key_ingredients_data, item.key_ingredients),
+                            warnIng: normalizeIng(item.warn_ingredients_data, item.warn_ingredients)
                         }))
                         : [];
                     setSavedList(updatedList);
@@ -378,7 +348,6 @@ const HistoryDetailPage = () => {
                         message: '🗑️ 삭제되었습니다!',
                         onConfirm: () => {
                             setModal(prev => ({ ...prev, isOpen: false }));
-                            // 갱신된 list 기준 navigate
                             if (updatedList.length > 0) {
                                 const next = updatedList[0];
                                 navigate(`/history/${next.id}`, {
@@ -391,7 +360,6 @@ const HistoryDetailPage = () => {
                         }
                     });
                 } catch (err) {
-                    // #1: 실패 시 페이지 그대로 유지 + 에러 알림
                     setModal({
                         isOpen: true,
                         type: 'alert',
@@ -417,7 +385,6 @@ const HistoryDetailPage = () => {
         setModal(prev => ({ ...prev, isOpen: false }));
     };
 
-    // 점수 색상 클래스
     const scoreColorClass = getScoreColorClass(report.score);
 
     return (
@@ -428,7 +395,6 @@ const HistoryDetailPage = () => {
                 분석 히스토리 ({currentIndex >= 0 ? currentIndex + 1 : 1}/{savedList.length || 1})
             </h1>
 
-            {/* prev/next 화살표 (busy/modal 시 비활성화) */}
             <div className="history-nav-arrows">
                 <button
                     className="history-nav-btn"
@@ -446,7 +412,6 @@ const HistoryDetailPage = () => {
                 </button>
             </div>
 
-            {/* 점수카드 — 점수별 동적 컬러 */}
             <div className={`legacy-detail-score-card ${scoreColorClass}`}>
                 <h2 className="legacy-detail-title">{report.name}</h2>
                 <div className="legacy-detail-score">
@@ -457,9 +422,7 @@ const HistoryDetailPage = () => {
                 </span>
             </div>
 
-            {/* 핵심 성분 + 추천 이유(AI) + 주의 성분 — 한 카드 통합 */}
             <div className="legacy-detail-card">
-                {/* 핵심 성분 */}
                 <h4 className="legacy-sec-title">
                     <i className="fa-solid fa-gem icon-key"></i> 매칭된 핵심 성분
                 </h4>
@@ -480,9 +443,8 @@ const HistoryDetailPage = () => {
 
                 <div className="legacy-divider"></div>
 
-                {/* 주의 성분 */}
                 <h4 className="legacy-sec-title">
-                    <i className="fa-solid fa-triangle-exclamation icon-warn"></i> 주의 성분 발견
+                    <i className="fa-solid fa-triangle-exclamation icon-warn"></i> 주의 필요 성분
                 </h4>
                 <div className="legacy-ing-list">
                     {report.warnIng.length > 0 ? (
@@ -499,7 +461,6 @@ const HistoryDetailPage = () => {
 
                 <div className="legacy-divider"></div>
 
-                {/* 분석 결과 (AI 종합 평가) — 핵심/주의 다 본 뒤 마지막에 종합 */}
                 <h4 className="legacy-sec-title">
                     <i className="fa-solid fa-book-open icon-reason"></i> 분석 결과
                     <span className="legacy-ai-badge">Google Gemini</span>
@@ -519,7 +480,6 @@ const HistoryDetailPage = () => {
                 )}
             </div>
 
-            {/* 추천 제품 TOP 3 (DB + 이미지) */}
             <div className="legacy-detail-card">
                 <h4 className="legacy-sec-title">
                     <i className="fa-solid fa-wand-magic-sparkles icon-wand"></i> 추천 제품 TOP 3
@@ -570,7 +530,6 @@ const HistoryDetailPage = () => {
                 )}
             </div>
 
-            {/* 하단 버튼 (삭제 / 저장) */}
             <div className="legacy-btn-group">
                 <button className="legacy-btn-outline" onClick={handleDeleteClick} disabled={busy}>
                     <i className="fa-solid fa-trash"></i> 삭제하기
@@ -584,7 +543,6 @@ const HistoryDetailPage = () => {
                 💡 분석 결과 히스토리는 최대 5개까지 저장 가능합니다.
             </p>
 
-            {/* 🌟 MIK 커스텀 모달 */}
             {modal.isOpen && (
                 <div className="legacy-modal-backdrop">
                     <div className="legacy-modal fade-in-up">
