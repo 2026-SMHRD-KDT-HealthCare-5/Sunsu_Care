@@ -14,9 +14,9 @@ const HistoryDetailPage = () => {
     // 🌟 1. 예쁜 커스텀 알림창(모달) 상태 관리
     const [modal, setModal] = useState({
         isOpen: false,
-        type: 'alert', // 'alert'(확인 버튼만) 또는 'confirm'(확인/취소 버튼)
+        type: 'alert',
         message: '',
-        onConfirm: null // 확인 버튼을 눌렀을 때 실행할 함수
+        onConfirm: null 
     });
 
     const [mockSavedList, setMockSavedList] = useState([
@@ -98,42 +98,41 @@ const HistoryDetailPage = () => {
         if (hasNext) navigate(`/history/${mockSavedList[currentIndex + 1].id}`);
     };
 
-    // 🌟 2. 커스텀 팝업창을 띄우는 저장 로직 (현재 창에 머무름)
     const handleSaveClick = () => {
         if (mockSavedList.length >= 5) {
             setModal({
                 isOpen: true,
                 type: 'alert',
-                message: '저장은 5개까지 가능합니다.\n새로 저장하려면 기존 기록을 삭제해 주세요.'
+                message: '저장은 5개까지 가능합니다.\n새로 저장하려면 기존 기록을 삭제해 주세요.',
+                onConfirm: null 
             });
         } else {
             setModal({
                 isOpen: true,
                 type: 'alert',
                 message: '✨ 성공적으로 저장되었습니다!',
-                onConfirm: null // 💡 이동 없이 팝업만 닫고 현재 창에 머무름
+                onConfirm: null 
             });
         }
     };
 
-    // 🌟 3. 커스텀 팝업창을 띄우는 삭제 로직 (삭제 후 다음 항목으로 이동)
+    // 🌟 3. 화살표 고장을 방지하도록 순서를 수정한 삭제 로직
     const handleDeleteClick = () => {
         setModal({
             isOpen: true,
             type: 'confirm',
             message: '정말로 이 분석 결과를 삭제하시겠습니까?',
             onConfirm: () => {
-                // 💡 확인 클릭 시: 리스트 업데이트
-                const updatedList = mockSavedList.filter(item => Number(item.id) !== Number(id));
-                setMockSavedList(updatedList);
-                
-                // 💡 삭제 완료 팝업 띄우기 및 이동 경로 설정
                 setModal({
                     isOpen: true,
                     type: 'alert',
                     message: '🗑️ 삭제되었습니다!',
                     onConfirm: () => {
-                        // 확인을 누르면 다음 항목으로 스르륵 이동!
+                        // 💡 "삭제되었습니다" 창에서 '확인'을 누를 때 데이터를 지우고 바로 이동!
+                        const updatedList = mockSavedList.filter(item => Number(item.id) !== Number(id));
+                        setMockSavedList(updatedList);
+                        setModal(prev => ({ ...prev, isOpen: false })); 
+                        
                         if (updatedList.length > 0) {
                             navigate(`/history/${updatedList[0].id}`);
                         } else {
@@ -145,12 +144,12 @@ const HistoryDetailPage = () => {
         });
     };
 
-    // 🌟 4. 팝업창 닫기 (또는 확인 시 함수 실행) 핸들러
     const handleModalConfirm = () => {
         if (modal.onConfirm) {
             modal.onConfirm();
+        } else {
+            setModal(prev => ({ ...prev, isOpen: false })); 
         }
-        setModal({ ...modal, isOpen: false });
     };
 
     if (isLoading || !analysisResult) {
@@ -166,10 +165,18 @@ const HistoryDetailPage = () => {
             </h1>
 
             <div className="history-nav-arrows">
-                <button className="history-nav-btn" onClick={goPrev} disabled={!hasPrev}>
+                <button 
+                    className="history-nav-btn" 
+                    onClick={goPrev} 
+                    disabled={!hasPrev}
+                >
                     <i className="fa-solid fa-chevron-left"></i>
                 </button>
-                <button className="history-nav-btn" onClick={goNext} disabled={!hasNext}>
+                <button 
+                    className="history-nav-btn" 
+                    onClick={goNext} 
+                    disabled={!hasNext}
+                >
                     <i className="fa-solid fa-chevron-right"></i>
                 </button>
             </div>
@@ -276,23 +283,22 @@ const HistoryDetailPage = () => {
                 💡 분석 결과 히스토리는 최대 5개까지 저장 가능합니다.
             </div>
 
-            {/* 🌟 5. 예쁘고 심플하게 만든 커스텀 알림창 (모달) */}
+            {/* 🌟 5. 커스텀 팝업 (모달) */}
             {modal.isOpen && (
                 <div style={{
                     position: 'fixed', top: 0, left: 0, right: 0, bottom: 0,
-                    backgroundColor: 'rgba(0,0,0,0.4)', display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: 9999
+                    backgroundColor: 'rgba(0,0,0,0.55)', display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: 9999, padding: '20px'
                 }}>
                     <div className="fade-in-up" style={{
-                        background: '#ffffff', borderRadius: '16px', padding: '28px 24px', width: '320px', textAlign: 'center', boxShadow: '0 10px 25px rgba(0,0,0,0.1)'
+                        background: '#ffffff', borderRadius: '16px', padding: '28px 24px', width: '100%', maxWidth: '320px', textAlign: 'center', boxShadow: '0 10px 25px rgba(0,0,0,0.1)'
                     }}>
                         <p style={{ fontSize: '1.05rem', color: '#1e293b', margin: '0 0 24px 0', lineHeight: '1.5', whiteSpace: 'pre-wrap', fontWeight: '600' }}>
                             {modal.message}
                         </p>
                         <div style={{ display: 'flex', gap: '10px', justifyContent: 'center' }}>
-                            {/* type이 'confirm'일 때만 취소 버튼 렌더링 */}
                             {modal.type === 'confirm' && (
                                 <button 
-                                    onClick={() => setModal({ ...modal, isOpen: false })} 
+                                    onClick={() => setModal(prev => ({ ...prev, isOpen: false }))} 
                                     style={{ flex: 1, padding: '12px', borderRadius: '10px', border: '1px solid #cbd5e1', background: '#ffffff', color: '#64748b', fontWeight: '700', fontSize: '0.95rem', cursor: 'pointer' }}
                                 >
                                     취소
@@ -308,7 +314,7 @@ const HistoryDetailPage = () => {
                     </div>
                 </div>
             )}
-
+            
         </div>
     );
 };

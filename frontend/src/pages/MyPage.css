@@ -70,7 +70,7 @@
     color: #ff8c00 !important;
 }
 
-/* 기피 성분 배지색 수정 (신뢰감 주는 오가닉 그린) */
+
 .info-value.tag-green {
     background-color: #ffedd5 !important;
     color: #ff8c00 !important;
@@ -81,7 +81,7 @@
     color: #ff8c00;
 }
 
-/* --- 3. 5월 15일 원본 디자인 복원: 분석 히스토리 슬라이더 영역 --- */
+
 .history-section { 
     padding: 24px 0; 
 }
@@ -135,7 +135,7 @@
     display: none;
 }
 
-/* 5월 15일 원본의 큼직하고 찌그러짐 없는 카드 UI 복원 */
+
 .history-slide-card {
     flex: 0 0 100%;
     min-height: 350px;
@@ -184,7 +184,7 @@
     align-items: flex-end;
 }
 
-/* 5월 15일 원본의 큼직하고 존재감 넘치는 900 굵기의 스코어 노출 */
+
 .score-num {
     font-size: 2.3rem;
     font-weight: 900;
@@ -204,7 +204,7 @@
 .status-badge.safe { background-color: #16a34a; }
 .status-badge.warn { background-color: #ef4444; }
 
-/* 요약 코드를 걷어내고 5월 15일 원본의 시원시원한 내부 성분 카드 복원 */
+
 .slide-card-body {
     flex: 1;
     display: flex;

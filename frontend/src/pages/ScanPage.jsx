@@ -53,7 +53,7 @@ function ScanPage() {
         // 2초 뒤에 무조건 1번 데이터 결과창으로 강제 이동시킵니다.
         setTimeout(() => {
             setIsAnalyzing(false);
-            navigate('/history/1'); // 방금 예쁘게 만든 상세 페이지로 슝!
+            navigate('/history/1'); 
         }, 2000); 
     };
 

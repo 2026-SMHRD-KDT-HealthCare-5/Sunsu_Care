@@ -6,7 +6,7 @@ const ITEMS = [
   { to: '/', icon: 'fa-solid fa-house', label: '홈' },
   { to: '/#recommend', icon: 'fa-solid fa-wand-magic-sparkles', label: 'AI추천' },
   { to: '/#analysis', icon: 'fa-solid fa-magnifying-glass-chart', label: 'AI분석' },
-  { to: '/guide', icon: 'fa-solid fa-pump-soap', label: '가이드' }, 
+  { to: '/guide', icon: 'fa-solid fa-book-open', label: '정보' }, 
 ];
 
 function BottomNav() {

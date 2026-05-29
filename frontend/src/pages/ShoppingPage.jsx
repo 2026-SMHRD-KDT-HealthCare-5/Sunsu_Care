@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './ShoppingPage.css'; // 올려주신 예쁜 CSS 연결!
-
-// ❌ 에러를 발생시키던 이미지 import 세 줄은 삭제했습니다.
+import './ShoppingPage.css';
 
 const ShoppingPage = () => {
     const navigate = useNavigate();
+
+    
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
 
     const openMobileShop = (url) => {
         window.open(url, '_blank', 'noopener,noreferrer');
@@ -17,8 +20,7 @@ const ShoppingPage = () => {
             name: '화해 (Hwahae)',
             desc: '꼼꼼한 성분 분석과 솔직한 리뷰 확인',
             benefit: '🎁 성분 점수 확인 및 가성비 템 득템',
-            // 직접 사용하셨던 이미지 주소로 복구했습니다
-            logoUrl: 'https://play-lh.googleusercontent.com/TV-LVbnwpHOrdtIir2-SisR8171Us1NE_YfYW1yLFB3jhfbG_lnBvd3o1Vm_jf6q1w', 
+            logoUrl: 'https://play-lh.googleusercontent.com/TV-LVbnwpHOrdtIir2-SisR8171Us1NE_YfYW1yLFB3jhfbG_lnBvd3o1Vm_jf6q1w',
             mobileUrl: 'https://www.hwahae.co.kr/'
         },
         {
@@ -26,8 +28,7 @@ const ShoppingPage = () => {
             name: '올리브영 (Olive Young)',
             desc: '트렌디한 선케어 제품을 가장 빠르게',
             benefit: '🚀 오늘드림 배송 & 실시간 랭킹 특가',
-            // 직접 사용하셨던 이미지 주소로 복구했습니다
-            logoUrl: 'https://cdn.smarttimes.co.kr/news/photo/202511/39905_38252_2218.jpeg', 
+            logoUrl: 'https://cdn.smarttimes.co.kr/news/photo/202511/39905_38252_2218.jpeg',
             mobileUrl: 'https://m.oliveyoung.co.kr'
         },
         {
@@ -35,17 +36,16 @@ const ShoppingPage = () => {
             name: '쿠팡 (Coupang)',
             desc: '매일 쓰는 선크림, 압도적인 가격경쟁력',
             benefit: '🛸 로켓배송으로 내일 당장 사용 가능',
-            // 직접 사용하셨던 이미지 주소로 복구했습니다
-            logoUrl: 'https://play-lh.googleusercontent.com/X5-X2S0t7G9dTGrPftk-5hXijqRDhwWKxGDs2gBm_kNPcAlO3re4exC_8nekvDhz-H0=w480-h960-rw', 
+            logoUrl: 'https://play-lh.googleusercontent.com/X5-X2S0t7G9dTGrPftk-5hXijqRDhwWKxGDs2gBm_kNPcAlO3re4exC_8nekvDhz-H0=w480-h960-rw',
             mobileUrl: 'https://m.coupang.com'
         }
     ];
 
     return (
-        <div className="shopping-container">
+        <div className="shopping-container fade-in-up">
             <header className="shopping-header">
                 <div style={{ width: '24px' }}></div>
-                <div className="logo">SunCare<span>.</span> SHOP</div>
+                <div className="logo">Sun手Care<span>.</span> SHOP</div>
                 <div className="close-btn" onClick={() => navigate(-1)}>
                     <i className="fa-solid fa-xmark"></i>
                 </div>
@@ -61,7 +61,6 @@ const ShoppingPage = () => {
                         <div className="shop-logo-wrap">
                             <img src={shop.logoUrl} alt={shop.name} className="shop-logo-img" />
                         </div>
-                        
                         <div className="shop-info-wrap">
                             <div className="shop-name">{shop.name}</div>
                             <div className="shop-desc">{shop.desc}</div>

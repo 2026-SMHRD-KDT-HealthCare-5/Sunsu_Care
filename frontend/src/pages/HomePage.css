@@ -7,14 +7,17 @@ body, html, * {
 
 
 body, html {
-  background-color: #fdeac9 !important; /* 🌟 모바일 화면 바깥쪽 전체 배경*/
+  background-color: #fdeac9 !important; 
   margin: 0;
   padding: 0;
 }
 
+
 .home-container {
   width: 100%;
-  overflow-x: hidden;
+  max-width: 500px; /* 모바일처럼 보이게 폭 제한 */
+  margin: 0 auto;   /* 가운데 정렬 */
+  min-height: 100vh;
   background-color: #fff;
   padding-bottom: 100px; 
 }
@@ -38,7 +41,7 @@ body, html {
   width: 100%;
   height: 100%;
   background-size: cover;
-  background-position: center top; /* 🌟 얼굴 가리지 않게 top으로 고정 */
+  background-position: center top;
   transition: opacity 1.5s ease-in-out;
   z-index: 0;
   overflow: hidden;
@@ -97,7 +100,7 @@ body, html {
   text-align: center;
   padding: 15px;
   font-weight: 800;
-  font-size: 1.6rem; 
+  font-size: 1.35rem; 
   color: #111;
   cursor: pointer;
   box-shadow: 0 10px 30px rgba(0,0,0,0.15);
@@ -173,10 +176,6 @@ body, html {
   box-sizing: border-box; /* 삐져나감 방지 */
 }
 
-
-/* =========================================
-    쇼핑 리스트 디자인
-   ========================================= */
 .shop-list-embedded {
   display: flex;
   flex-direction: column;
@@ -298,4 +297,71 @@ body, html {
   .hero-title {
     font-size: 2.8rem; 
   }
+}
+/* 🌟 3. 반반 배너 컨테이너 & 카드 스타일 */
+.split-banner-container {
+  display: flex;
+  gap: 15px; /* 카드 사이 간격*/
+  margin: 30px 20px;
+}
+
+.split-banner-card {
+  flex: 1;
+  background-color: #fff9f2; /*  주황빛 배경 */
+  border-radius: 16px;
+  padding: 100px 10px; /* 위아래 패딩 */
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(206, 135, 48, 0.08); 
+  border: 1px solid #ff8c00; /* 테두리 */
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+  
+  /* 카드 안의 글자와 버튼을 항상 정중앙 */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px; /* 카드의 최소 높이를 보장 */
+}
+
+/* 카드를 클릭(터치)할 때 효과 */
+.split-banner-card:active {
+  transform: scale(0.96);
+  background-color: #fff0d9; 
+}
+
+.split-subtitle {
+  display: block;
+  color: #ff8c00;
+  font-weight: 800;
+  font-size: 0.7rem;
+  letter-spacing: 0.5px;
+  margin-bottom: 6px;
+}
+
+.split-title {
+  margin: 0 0 8px 0;
+  font-size: 1.8rem; 
+  font-weight: 700;
+  color: #222;
+}
+
+.split-desc {
+  font-size: 0.75rem;
+  color: #777;
+  margin-bottom: 20px; 
+  word-break: keep-all;
+  line-height: 1.4;
+}
+
+.split-btn {
+  background-color: #ff8c00;
+  border: 1px solid #ff8c00;
+  color: #fff0d9;
+  padding: 10px 0; 
+  border-radius: 25px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  width: 85%;
+  cursor: pointer;
 }

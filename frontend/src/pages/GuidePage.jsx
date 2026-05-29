@@ -1,134 +1,120 @@
-// src/pages/GuidePage.jsx
-import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import Button from '../components/common/Button'
-import { getProfile, getLastResult } from '../utils/storage'
-import { fetchProfile } from '../api/profileApi'
-import {
-  guideSteps,
-  tipsByType,
-  sensitiveTips,
-  riskIngredientTips,
-} from '../data/mockGuide'
-import './GuidePage.css'
+import React, { useEffect } from 'react';
+import './GuidePage.css';
+
+const RELATED_SITES = [
+  {
+    icon: '🏥',
+    title: '질병관리청 국가건강정보포털',
+    desc: '자외선 건강정보 상세 안내',
+    domain: 'health.kdca.go.kr',
+    href: 'https://health.kdca.go.kr/healthinfo/biz/health/gnrlzHealthInfo/gnrlzHealthInfo/gnrlzHealthInfoView.do?cntnts_sn=5500',
+  },
+  {
+    icon: '🧴',
+    title: 'American Academy of Dermatology',
+    desc: '선크림 사용법 · 자가진단 · 피부암 예방',
+    domain: 'aad.org',
+    href: 'https://www.aad.org/public/diseases/skin-cancer/prevent/how',
+  },
+];
+
+const VIDEOS = [
+  {
+    id: 'WEQz_U7uB58',
+    title: "선크림 '이렇게' 발랐더니 오히려 피부노화 빨라지는 이유?! ㅣ 자외선차단제의 역설",
+    channel: 'YouTube',
+    href: 'https://youtu.be/WEQz_U7uB58',
+  },
+  {
+    id: 'Sa8i9Q0fPJk',
+    title: '선크림 바르는 법, 선크림의 중요성! [현명한 식약처 탐험생활]',
+    channel: '식품의약품안전처',
+    href: 'https://youtu.be/Sa8i9Q0fPJk',
+  },
+  {
+    id: '9oAWz7XYQ_k',
+    title: '선크림 후 세안, 이건 추천하지 않습니다',
+    channel: '더마킹 김동하 피부 연구소',
+    href: 'https://www.youtube.com/watch?v=9oAWz7XYQ_k',
+  },
+];
 
 function GuidePage() {
-  const navigate = useNavigate()
-  const [profile, setProfile] = useState(null)
-  const [result, setResult] = useState(null)
-
+  // 🌟 화면이 켜지자마자 스크롤을 맨 위(0,0)로 강제 이동!
   useEffect(() => {
-    fetchProfile().then(setProfile)
-    setResult(getLastResult())
-  }, [])
-
-  // 피부 타입별 팁 (프로필 있을 때만)
-  const typeTips = profile?.skin_type ? tipsByType[profile.skin_type] : null
-
-  // 민감 피부 팁 (프로필이 sensitive=true일 때만)
-  const showSensitiveTips = profile?.senstive_yn >= 3
-
-  // 분석 결과의 주의 성분에 매칭되는 팁
-  const riskTips = (result?.analysis_result?.risk_ingredients || [])
-    .map((item) => riskIngredientTips[item.name])
-    .filter(Boolean)
-
-  // 헤더 문구
-  const headerText = profile?.skin_type
-    ? `${profile.skin_type}${profile.senstive_yn >= 3 ? '·민감' : ''} 피부를 위한`
-    : '맞춤'
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
-    <div className="page guide">
+    <div className="page guide fade-in-up">
       <div className="guide__header">
-        <span className="guide__emoji">🧴</span>
-        <h1 className="guide__title">{headerText} 세안 가이드</h1>
-        <p className="guide__subtitle">순서대로 따라하면 더 효과적이에요</p>
+        <span className="guide__overline">INFORMATION</span>
+        <h1 className="guide__title">정보 공유</h1>
+        <p className="guide__subtitle">
+          자외선과 피부 보호에 대해
+          <br />더 알아보고 싶다면 확인해보세요
+        </p>
       </div>
 
-      {/* 기본 5단계 */}
+      {/* 관련 사이트 */}
       <section className="guide__section">
-        <h2 className="guide__section-title">기본 세안 5단계</h2>
-        <ol className="guide__steps">
-          {guideSteps.map((step) => (
-            <li key={step.number} className="guide__step">
-              <div className="guide__step-left">
-                <span className="guide__step-icon">{step.icon}</span>
-                <span className="guide__step-num">STEP {step.number}</span>
+        <h2 className="guide__section-title">🔗 관련 사이트</h2>
+        <div className="guide__links">
+          {RELATED_SITES.map((site) => (
+            <a
+              key={site.href}
+              className="guide__link"
+              href={site.href}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <div className="guide__link-icon">{site.icon}</div>
+              <div className="guide__link-body">
+                <div className="guide__link-title">{site.title}</div>
+                <div className="guide__link-desc">{site.desc}</div>
+                <div className="guide__link-domain">{site.domain}</div>
               </div>
-              <div className="guide__step-body">
-                <h3 className="guide__step-title">{step.title}</h3>
-                <p className="guide__step-desc">{step.desc}</p>
-              </div>
-            </li>
+              <div className="guide__link-arrow">↗</div>
+            </a>
           ))}
-        </ol>
+        </div>
       </section>
 
-      {/* 피부 타입별 추가 팁 */}
-      {typeTips && (
-        <section className="guide__section guide__section--tip">
-          <h2 className="guide__section-title">
-            💡 {profile.skin_type} 피부 추가 팁
-          </h2>
-          <ul className="guide__tips">
-            {typeTips.map((tip, idx) => (
-              <li key={idx} className="guide__tip">{tip}</li>
-            ))}
-          </ul>
-        </section>
-      )}
-
-      {/* 민감 피부 추가 팁 */}
-      {showSensitiveTips && (
-        <section className="guide__section guide__section--tip">
-          <h2 className="guide__section-title">🌸 민감 피부 주의사항</h2>
-          <ul className="guide__tips">
-            {sensitiveTips.map((tip, idx) => (
-              <li key={idx} className="guide__tip">{tip}</li>
-            ))}
-          </ul>
-        </section>
-      )}
-
-      {/* 분석한 제품의 주의 성분별 팁 */}
-      {riskTips.length > 0 && (
-        <section className="guide__section guide__section--warn">
-          <h2 className="guide__section-title">
-            ⚠️ 분석한 제품의 주의 성분 케어
-          </h2>
-          <ul className="guide__tips">
-            {riskTips.map((tip, idx) => (
-              <li key={idx} className="guide__tip">{tip}</li>
-            ))}
-          </ul>
-        </section>
-      )}
-
-      {/* 프로필 없으면 안내 */}
-      {!profile && (
-        <div className="guide__notice">
-          더 정확한 맞춤 가이드를 원하시면 피부 정보를 입력해주세요.{' '}
-          <button
-            type="button"
-            className="guide__notice-link"
-            onClick={() => navigate('/profile')}
-          >
-            입력하러 가기 →
-          </button>
+      {/* 추천 영상 */}
+      <section className="guide__section">
+        <h2 className="guide__section-title">🎥 추천 영상</h2>
+        <div className="guide__videos">
+          {VIDEOS.map((video) => (
+            <a
+              key={video.id}
+              className="guide__video"
+              href={video.href}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <div className="guide__video-thumb-wrap">
+                <img
+                  className="guide__video-thumb"
+                  src={`https://img.youtube.com/vi/${video.id}/hqdefault.jpg`}
+                  alt={`${video.title} 썸네일`}
+                  loading="lazy"
+                />
+              </div>
+              <div className="guide__video-meta">
+                <div className="guide__video-title">{video.title}</div>
+                <div className="guide__video-channel">{video.channel}</div>
+              </div>
+            </a>
+          ))}
         </div>
-      )}
+      </section>
 
-      <div className="guide__actions">
-        <Button variant="outline" onClick={() => navigate('/')}>
-          🏠 홈으로
-        </Button>
-        <Button onClick={() => navigate('/scan')}>
-          🔍 다른 제품 분석
-        </Button>
-      </div>
+      <p className="guide__footer-note">
+        제공되는 정보는 참고용이며,
+        <br />증상이 있을 경우 전문의와 상담하세요.
+      </p>
     </div>
-  )
+  );
 }
 
-export default GuidePage
+export default GuidePage;

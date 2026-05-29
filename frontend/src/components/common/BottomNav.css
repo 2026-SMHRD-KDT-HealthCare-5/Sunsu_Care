@@ -49,7 +49,7 @@
     bottom: 0;         /* 화면 맨 밑바닥에 붙임 */
     left: 0;
     width: 100%;       /* 가로를 꽉 채움 */
-    max-width: 500px;  /* (선택) 앱 최대 가로 너비가 500px이라면 이것도 추가! 없으면 빼세요 */
+    max-width: 500px;  
     z-index: 9999;     /* 다른 요소들보다 항상 맨 위에 떠 있도록 설정 */
     background-color: #ffffff; /* 배경색이 투명해지지 않도록 확실히 흰색 지정 */
     border-top: 1px solid #f1f5f9; /* 구분선 유지 */

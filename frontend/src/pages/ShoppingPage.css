@@ -27,17 +27,17 @@
     font-family: 'Urbanist', sans-serif;
     font-weight: 800;
     font-size: 1.2rem;
-    color: #222; /* 🌟 진님 통일 컬러: 블랙 */
+    color: #222; 
 }
 
 .shopping-header .logo span {
-    color: #ff8c00; /* 🌟 진님 통일 컬러: 주황 */
+    color: #ff8c00; 
 }
 
 .close-btn {
     font-size: 24px;
     cursor: pointer;
-    color: #222; /* 🌟 진님 통일 컬러: 블랙 */
+    color: #222; 
 }
 
 /* 쇼핑몰 리스트 영역 */
@@ -82,7 +82,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-shrink: 0; /* 🌟 화면이 좁아져도 로고가 찌그러지지 않게 방어 */
+    flex-shrink: 0; 
 }
 
 .shop-logo-img {
@@ -102,7 +102,7 @@
 .shop-name {
     font-size: 1.1rem;
     font-weight: 700;
-    color: #222; /* 🌟 진님 통일 컬러: 블랙 */
+    color: #222;
 }
 
 .shop-desc {
@@ -112,7 +112,7 @@
 }
 
 .shop-benefit {
-    color: #ff8c00; /* 🌟 진님 통일 컬러: 주황 */
+    color: #ff8c00; 
     font-weight: 600;
     font-size: 0.85rem;
     margin-top: 2px;

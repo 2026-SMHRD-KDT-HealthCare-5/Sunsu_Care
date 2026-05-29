@@ -1,6 +1,4 @@
-/* ==========================================================================
-   5월 15일 기획서 완벽 복원 전용 스타일 (HistoryDetailPage.css)
-   ========================================================================== */
+
 
 .legacy-detail-container {
     max-width: 500px;
@@ -73,9 +71,12 @@
     background-color: #f8fafc;
     border-color: #cbd5e1;
 }
+
+/* 💡 이 부분이 빨간 엑스표를 막고 일반 마우스 커서로 만들어 줍니다! */
 .history-nav-btn:disabled {
     opacity: 0.3;
-    cursor: not-allowed;
+    cursor: default; 
+    background-color: #f8fafc;
 }
 
 /* 2. 공통 라운드 박스 */

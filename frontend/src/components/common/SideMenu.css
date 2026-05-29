@@ -114,3 +114,17 @@
   padding: 24px 24px 10px;
   letter-spacing: 0.5px;
 }
+/* 🌟 사이드 메뉴 글씨 뚜렷하고 진하게 강제 적용! */
+/* 사이드 메뉴 글씨 굵고 진하게 */
+.side-menu .menu-item span {
+    color: #222222 !important;
+    font-weight: 700 !important;
+}
+.side-menu .group-title {
+    color: #ff8c00 !important;
+    font-weight: 900 !important;
+}
+
+.side-menu .menu-item i {
+    color: #475569 !important; 
+}

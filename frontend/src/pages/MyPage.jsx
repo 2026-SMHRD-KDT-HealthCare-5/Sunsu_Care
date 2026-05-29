@@ -1,18 +1,11 @@
-<<<<<<< Updated upstream
-import React, { useRef, useState } from 'react';
-=======
 import { useAuth } from '../hooks/useAuth';
 import React, { useRef, useState, useEffect, useMemo } from 'react';
->>>>>>> Stashed changes
 import { useNavigate } from 'react-router-dom';
 import './MyPage.css';
 
 const MyPage = () => {
     const navigate = useNavigate();
     const sliderRef = useRef(null);
-<<<<<<< Updated upstream
-    
-=======
 
     const { isLoggedIn, userNickname, userEmail } = useAuth();
     const displayName = isLoggedIn ? (userNickname || userEmail || '사용자') : '게스트';
@@ -20,25 +13,7 @@ const MyPage = () => {
     // 🌟 이니셜 추출 로직 (로그인 시 닉네임 첫 글자, 없으면 'S')
     const userInitial = isLoggedIn && userNickname ? userNickname.charAt(0) : 'S';
 
->>>>>>> Stashed changes
     const [currentIndex, setCurrentIndex] = useState(1);
-<<<<<<< Updated upstream
-
-    const mySkinInfo = {
-        type: "건성",
-        sensitivity: "민감성",
-        texture: "무기자차 크림",
-        avoid: "옥시벤존, 향료"
-    };
-
-    const historyData = [
-        { id: 1, name: '솔', date: '2026.05.14', score: 82, status: '적합', keyIng: ['나이아신', '산화아연'], warnIng: ['옥시벤존'] },
-        { id: 2, name: '마일드 선크림', date: '2026.05.14', score: 95, status: '최적', keyIng: ['판테놀'], warnIng: [] },
-        { id: 3, name: '톤업 선밀크', date: '2026.05.13', score: 60, status: '주의', keyIng: ['징크옥사이드'], warnIng: ['에탄올'] },
-        { id: 4, name: '새로운 샘플 1', date: '2026.05.13', score: 88, status: '적합', keyIng: ['히알루론산'], warnIng: [] },
-        { id: 5, name: '새로운 샘플 2', date: '2026.05.12', score: 77, status: '주의', keyIng: ['세라마이드'], warnIng: ['향료'] },
-    ];
-=======
     const [mySkinInfo, setMySkinInfo] = useState({
         type: "-",
         activity_env: "-",
@@ -78,7 +53,6 @@ const MyPage = () => {
             { id: 5, name: '이니스프리 수분 선크림', date: '2026.05.11', score: 75, status: '주의', keyIng: ['세라마이드'], warnIng: ['향료'] }
         ];
     }, []);
->>>>>>> Stashed changes
 
     const scrollSlider = (direction) => {
         if (sliderRef.current) {
@@ -110,7 +84,7 @@ const MyPage = () => {
             <div className="mypage-card">
                 <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
                     
-                    {/* 🌟 수정됨: 오류 나던 이미지 대신 깔끔한 이니셜 프로필 적용 */}
+                    
                     <div style={{ 
                         width: '55px', height: '55px', borderRadius: '50%', 
                         backgroundColor: '#ff8c00', color: '#ffffff', 
@@ -122,12 +96,8 @@ const MyPage = () => {
                     </div>
 
                     <div>
-<<<<<<< Updated upstream
-                        <h2 style={{ margin: 0, fontSize: '1.2rem' }}>게스트</h2>
-                        <p style={{ margin: 0, color: '#666' }}>SunCare에 오신 걸 환영해요</p>
-=======
                         <h2 style={{ margin: 0, fontSize: '1.2rem' }}>{displayName}</h2>
-                        {/* 🌟 수정됨: 인사말 옆의 이모지도 깨지지 않는 FontAwesome 태양으로 통일 */}
+                       
                         <div style={{ margin: '4px 0 0 0', color: '#64748b', fontSize: '0.9rem' }}>
                             {isLoggedIn ? (
                                 <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
@@ -137,15 +107,11 @@ const MyPage = () => {
                                 'SunCare에 오신 걸 환영해요'
                             )}
                         </div>
->>>>>>> Stashed changes
                     </div>
                 </div>
             </div>
 
-<<<<<<< Updated upstream
-=======
             {/* ── 내 피부 정보 ── */}
->>>>>>> Stashed changes
             <div className="mypage-card">
                 <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20px', alignItems: 'center' }}>
                     <h3 style={{ margin: 0, display: 'flex', gap: '8px', alignItems: 'center' }}>
@@ -162,13 +128,8 @@ const MyPage = () => {
                         <span className="info-value tag-blue">{mySkinInfo.type}</span>
                     </div>
                     <div className="skin-info-item">
-<<<<<<< Updated upstream
-                        <span className="info-label">민감도</span>
-                        <span className="info-value tag-red">{mySkinInfo.sensitivity}</span>
-=======
                         <span className="info-label">활동 환경</span>
                         <span className="info-value tag-blue">{mySkinInfo.activity_env}</span>
->>>>>>> Stashed changes
                     </div>
                     <div className="skin-info-item">
                         <span className="info-label">선호 제형</span>
@@ -181,10 +142,7 @@ const MyPage = () => {
                 </div>
             </div>
 
-<<<<<<< Updated upstream
-=======
             {/* ── 분석 히스토리 ── */}
->>>>>>> Stashed changes
             <div className="mypage-card history-section">
                 <div className="history-header">
                     <h3 style={{ margin: 0 }}>📊 분석 히스토리 ({historyData.length > 0 ? currentIndex : 0}/{historyData.length})</h3>
@@ -271,20 +229,13 @@ const MyPage = () => {
                 </div>
             </div>
 
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-=======
+
             {/* ── 하단 단축 제어 버튼 ── */}
->>>>>>> Stashed changes
+
             <div className="action-btn-container">
                 <button className="re-analyze-btn" onClick={() => navigate('/scan')}>
                     <i className="fa-solid fa-rotate-right"></i> 다시 분석
                 </button>
-<<<<<<< Updated upstream
-                <button className="logout-btn-half">
-                    <i className="fa-solid fa-arrow-right-from-bracket"></i> 로그아웃
-                </button>
-=======
                 {isLoggedIn ? (
                     <button className="logout-btn-half" onClick={() => navigate('/logout')}>
                         <i className="fa-solid fa-arrow-right-from-bracket"></i> 로그아웃
@@ -294,10 +245,8 @@ const MyPage = () => {
                         <i className="fa-solid fa-arrow-right-to-bracket"></i> 로그인
                     </button>
                 )}
->>>>>>> Stashed changes
             </div>
-=======
->>>>>>> Stashed changes
+
         </div>
     );
 };
