@@ -1,24 +1,48 @@
-# Web Framework
-fastapi
-uvicorn[standard]
+# ============================================================================
+# Sun手Care — Python AI Service (FastAPI + YOLOv8 + CLOVA OCR)
+# ============================================================================
+# 설치:  pip install -r requirements.txt
+# Python: 3.10 이상 권장
+# ============================================================================
 
-# Database (SQLAlchemy + Async Driver)
-sqlalchemy
-asyncmy
+# ── Web Framework ───────────────────────────────────────────────────────────
+fastapi>=0.110.0
+uvicorn[standard]>=0.27.0
+python-multipart>=0.0.9   # multipart/form-data 파일 업로드 파싱
 
-# Config & Validation
-pydantic-settings
-python-dotenv
+# ── Database (SQLAlchemy 비동기) ────────────────────────────────────────────
+sqlalchemy>=2.0.25
+asyncmy>=0.2.9            # MySQL async driver
 
-# AI & Image Processing
-ultralytics
-opencv-python-headless
-numpy
-Pillow
+# ── Config & Validation ─────────────────────────────────────────────────────
+pydantic>=2.5.0
+pydantic-settings>=2.1.0
+python-dotenv>=1.0.0      # .env 파일 로드
 
-# Data Processing & Utils
-pandas
-rapidfuzz
-requests
-httpx
-python-multipart
+# ── 비동기 유틸 ─────────────────────────────────────────────────────────────
+anyio>=4.2.0              # to_thread.run_sync (동기 함수 → 비동기 실행)
+httpx>=0.26.0             # FastAPI → Express callback (async HTTP)
+
+# ── AI / Image Processing ───────────────────────────────────────────────────
+ultralytics>=8.1.0        # YOLOv8 객체 탐지
+opencv-python-headless>=4.9.0
+numpy>=1.26.0,<2.0        # YOLO 호환성 위해 2.0 미만
+Pillow>=10.2.0            # PIL Image 처리 + JPEG 인코딩
+
+# ── 문자열 매칭 / OCR 후처리 ────────────────────────────────────────────────
+rapidfuzz>=3.6.0          # ⚡ partial_ratio + score_cutoff (성능 핵심)
+
+# ── HTTP / 외부 API ─────────────────────────────────────────────────────────
+requests>=2.31.0          # CLOVA OCR API 호출 (sync)
+
+# ── 데이터 처리 (선택) ───────────────────────────────────────────────────────
+pandas>=2.1.0             # 분석 결과 후처리 / 시각화 보조
+
+# ============================================================================
+# 참고:
+#  - YOLOv8 의존성으로 torch / torchvision 이 자동 설치됨 (CPU 버전 기본)
+#  - GPU 환경에서는 별도로 CUDA 버전의 torch 를 먼저 설치할 것:
+#      pip install torch torchvision --index-url https://download.pytorch.org/whl/cu121
+#  - opencv-python-headless 는 GUI 없는 서버 환경용 (Docker/Linux 권장)
+#  - opencv-python (GUI 포함) 으로 교체 가능 — Windows 데스크탑에서 디버깅 시
+# ============================================================================
