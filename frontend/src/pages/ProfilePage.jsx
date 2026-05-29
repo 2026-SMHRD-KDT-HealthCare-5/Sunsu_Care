@@ -39,13 +39,12 @@ function ProfilePage() {
   const [isAutoNavigating, setIsAutoNavigating] = useState(false);
   const timerRef = useRef(null);
 
-  // 스크롤 맨 위로!
+  // 스텝 변경 시 맨 위로 스크롤
   useEffect(() => {
     if (mainRef.current) mainRef.current.scrollTop = 0;
   }, [step]);
 
   const currentField = STEP_FIELDS[step];
-
   const isCurrentStepAnswered = useMemo(() => {
     if (step === STEPS.AI_BRIDGE) return true;
     return !!answers[currentField];
@@ -117,28 +116,27 @@ function ProfilePage() {
     return answers.basicType === '모름' || !answers.basicType ? calculateSkinType(answers) : answers.basicType;
   }, [answers]);
 
-  // 🌟 질문 타이틀용 공통 스타일 (모두 1번 성별 선택처럼 진하고 크게 통일)
-  const titleStyle = { textAlign: 'center', marginBottom: '35px', fontSize: '1.4rem', fontWeight: '900', color: '#222222', lineHeight: '1.4' };
+  const titleStyle = { textAlign: 'center', marginBottom: '30px', fontSize: '1.4rem', fontWeight: '900', color: '#222222', lineHeight: '1.4' };
 
   return (
-    <div className="fade-in-up" style={{ backgroundColor: '#ffffff', minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+    // 🌟 flex 구조를 통해 전체 화면에 꽉 차면서 삐져나가지 않게 복구했습니다.
+    <div className="fade-in-up" style={{ backgroundColor: '#ffffff', height: '100dvh', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
       
-      {/* 🌟 헤더 수정 (AI 추천 + 아이콘) */}
-      <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '16px 20px', borderBottom: '1px solid #f1f5f9' }}>
+      <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '16px 20px', borderBottom: '1px solid #f1f5f9', flexShrink: 0 }}>
         <div style={{ width: '24px' }}></div>
         <div style={{ margin: 0, fontSize: '1.25rem', fontWeight: '900', color: '#1e293b', display: 'flex', alignItems: 'center', gap: '8px' }}>
           <i className="fa-solid fa-wand-magic-sparkles" style={{color: '#ff8c00'}}></i> AI 추천
         </div>
-        <button onClick={() => navigate('/')} style={{ background: 'none', border: 'none', fontSize: '1.4rem', cursor: 'pointer', color: '#1e293b', padding: 0 }} aria-label="닫기">
+        <button onClick={() => navigate('/')} style={{ background: 'none', border: 'none', fontSize: '1.4rem', cursor: 'pointer', color: '#1e293b', padding: 0 }}>
           <i className="fa-solid fa-xmark"></i>
         </button>
       </header>
 
-      <div style={{ width: '100%', height: '4px', backgroundColor: '#f1f5f9' }}>
+      <div style={{ width: '100%', height: '4px', backgroundColor: '#f1f5f9', flexShrink: 0 }}>
         <div style={{ width: `${progressPercentage}%`, height: '100%', backgroundColor: '#ff8c00', transition: 'width 0.3s ease' }}></div>
       </div>
 
-      <main ref={mainRef} style={{ flex: 1, padding: '40px 20px', overflowY: 'auto' }} key={step}>
+      <main ref={mainRef} style={{ flex: 1, padding: '30px 20px', overflowY: 'auto' }} key={step}>
         
         {step === STEPS.GENDER && (
           <div>
@@ -224,9 +222,9 @@ function ProfilePage() {
 
         {step === STEPS.FINAL && (
           <div>
-            <h2 style={{...titleStyle, marginBottom:'10px'}}>마지막! 선호하는<br/>선크림 제형이 있나요?</h2>
-            <p style={{textAlign:'center', color:'#64748b', fontWeight:'700', marginBottom:'30px'}}>가장 마음에 드는 스타일 하나를 선택해 주세요.</p>
-            <div className="texture-grid-wrap">
+            <h2 style={{...titleStyle, marginBottom:'15px'}}>마지막! 선호하는<br/>선크림 제형이 있나요?</h2>
+            <p style={{textAlign:'center', color:'#64748b', fontWeight:'700', marginBottom:'25px'}}>가장 마음에 드는 스타일 하나를 선택해 주세요.</p>
+            <div className="texture-grid-wrap" style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
               {CONSTANTS.TEXTURE_OPTIONS.map((item) => (
                 <div key={item.id} onClick={() => handleSelect('texture', item.id)} className={`texture-card ${answers.texture === item.id ? 'active' : ''}`}>
                   <div className="texture-icon"><i className={`fa-solid ${item.icon}`}></i></div>
@@ -244,7 +242,8 @@ function ProfilePage() {
         )}
       </main>
 
-      <footer style={{ padding: '20px', display: 'flex', gap: '12px', backgroundColor: '#ffffff', borderTop: '1px solid #f1f5f9' }}>
+      {/* 🌟 삐져나가지 않게 원래대로 복구 (flexShrink: 0) */}
+      <footer style={{ padding: '20px', display: 'flex', gap: '12px', backgroundColor: '#ffffff', borderTop: '1px solid #f1f5f9', flexShrink: 0 }}>
         {step > 1 && ( <button onClick={handlePrev} disabled={isAutoNavigating} style={{ flex: 1, padding: '16px', borderRadius: '12px', backgroundColor: '#ffffff', border: '1px solid #cbd5e1', color: '#64748b', fontWeight: '900', fontSize: '1.05rem', cursor: 'pointer' }}>이전</button> )}
         <button onClick={() => handleNextStep(answers, step)} disabled={!isCurrentStepAnswered || isAutoNavigating} style={{ flex: step > 1 ? 2 : 1, padding: '16px', borderRadius: '12px', backgroundColor: (!isCurrentStepAnswered || isAutoNavigating) ? '#cbd5e1' : '#ff8c00', color: '#ffffff', border: 'none', fontWeight: '900', fontSize: '1.05rem', cursor: (!isCurrentStepAnswered || isAutoNavigating) ? 'not-allowed' : 'pointer' }}>{getNextButtonText()}</button>
       </footer>

@@ -191,7 +191,7 @@
   background-color: #ffffff;
   border: 1px solid var(--gray-200);
   border-radius: 16px;
-  padding: 16px 20px;
+  padding: 15px 20px;
   cursor: pointer;
   transition: all 0.2s ease;
 }
