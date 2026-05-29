@@ -7,9 +7,54 @@ const fs = require('fs');
 const path = require('path');
 
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
-// gemini-2.0-flash-lite : 무료 티어 한도가 가장 넉넉 (분당 30회), 빠르고 한국어 OK
-const GEMINI_MODEL = process.env.GEMINI_MODEL || 'gemini-2.0-flash-lite';
-const GEMINI_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent`;
+const GEMINI_API_BASE = 'https://generativelanguage.googleapis.com/v1beta/models';
+
+// ============================================================
+// 🌟 자동 모델 우회 체인
+//   - 1순위: .env 의 GEMINI_MODEL
+//   - 2~N순위: 자동 폴백 후보 (429 시 즉시 다음 모델로 시도)
+//   - .env 에 GEMINI_MODELS=a,b,c 쓰면 우선순위 직접 지정 가능
+// ============================================================
+const DEFAULT_MODEL_CANDIDATES = [
+  'gemini-2.5-flash',
+  'gemini-2.0-flash',
+  'gemini-2.5-flash-lite',
+  'gemini-2.0-flash-lite',
+];
+
+function buildModelChain() {
+  // 1) GEMINI_MODELS 환경변수로 명시한 경우 → 그대로 사용
+  if (process.env.GEMINI_MODELS) {
+    const list = process.env.GEMINI_MODELS.split(',').map(s => s.trim()).filter(Boolean);
+    if (list.length > 0) return list;
+  }
+  // 2) GEMINI_MODEL(primary) + 기본 후보 합치기 (중복 제거)
+  const primary = process.env.GEMINI_MODEL || DEFAULT_MODEL_CANDIDATES[0];
+  const chain = [primary];
+  for (const m of DEFAULT_MODEL_CANDIDATES) {
+    if (!chain.includes(m)) chain.push(m);
+  }
+  return chain;
+}
+
+const MODEL_CHAIN = buildModelChain();
+console.log(`[Gemini] 모델 우회 체인: ${MODEL_CHAIN.join(' → ')}`);
+
+// 모델별 cooldown (429 받은 모델은 retryDelay 동안 skip)
+const modelCooldownUntil = new Map();
+
+// 429 응답의 RetryInfo 에서 retryDelay 추출 (예: "24s" → 24)
+function extractRetryDelaySeconds(errorBody) {
+  const details = errorBody?.error?.details;
+  if (!Array.isArray(details)) return null;
+  for (const d of details) {
+    if (typeof d['@type'] === 'string' && d['@type'].includes('RetryInfo') && d.retryDelay) {
+      const sec = parseFloat(String(d.retryDelay).replace('s', ''));
+      if (!Number.isNaN(sec)) return Math.ceil(sec);
+    }
+  }
+  return null;
+}
 
 // ============================================================
 // 🌟 영구 캐시 (파일 기반)
@@ -153,48 +198,116 @@ async function generateRecommendationReason(payload) {
 
 추천 의견 (위 규칙 엄수, 바로 본론부터):`;
 
-  try {
-    const response = await axios.post(
-      `${GEMINI_API_URL}?key=${GEMINI_API_KEY}`,
-      {
-        contents: [{ parts: [{ text: prompt }] }],
-        generationConfig: {
-          temperature: 0.85,
-          maxOutputTokens: 1500,  // 한국어 토큰 소비 큼 + 안전 마진
-          topP: 0.95,
-          topK: 40,
-          candidateCount: 1,
-          // 🌟 gemini-2.5-flash의 thinking 모드 OFF
-          // (thinking이 켜져있으면 보이지 않는 내부 사고에 토큰을 다 쓰고 실제 출력이 잘림)
-          thinkingConfig: {
-            thinkingBudget: 0
-          }
-        }
-      },
-      {
-        headers: { 'Content-Type': 'application/json' },
-        timeout: 15000
+  // 특정 모델 1회 호출
+  const callGeminiWithModel = (model) => axios.post(
+    `${GEMINI_API_BASE}/${model}:generateContent?key=${GEMINI_API_KEY}`,
+    {
+      contents: [{ parts: [{ text: prompt }] }],
+      generationConfig: {
+        temperature: 0.85,
+        maxOutputTokens: 1500,
+        topP: 0.95,
+        topK: 40,
+        candidateCount: 1,
+        thinkingConfig: { thinkingBudget: 0 }
       }
-    );
+    },
+    {
+      headers: { 'Content-Type': 'application/json' },
+      timeout: 15000
+    }
+  );
 
+  // 🌟 모델 체인 순회: 429 면 cooldown 등록 + 다음 모델 시도
+  let response = null;
+  let usedModel = null;
+  let lastError = null;
+  const triedSummary = [];
+
+  for (const model of MODEL_CHAIN) {
+    const cooldownEnd = modelCooldownUntil.get(model) || 0;
+    if (Date.now() < cooldownEnd) {
+      const remainSec = Math.ceil((cooldownEnd - Date.now()) / 1000);
+      console.log(`[Gemini] ⏸ ${model} cooldown 중 (${remainSec}s 남음) → skip`);
+      triedSummary.push(`${model}=cooldown(${remainSec}s)`);
+      continue;
+    }
+
+    try {
+      response = await callGeminiWithModel(model);
+      usedModel = model;
+      triedSummary.push(`${model}=OK`);
+      console.log(`[Gemini] ✅ ${model} 호출 성공`);
+      break;
+    } catch (err) {
+      lastError = err;
+      const sc = err.response?.status;
+      const body = err.response?.data;
+
+      if (sc === 429) {
+        // retryDelay 만큼 이 모델을 cooldown 등록 → 다음 모델 즉시 시도
+        const retrySec = extractRetryDelaySeconds(body) || 60;
+        modelCooldownUntil.set(model, Date.now() + retrySec * 1000);
+        console.warn(`[Gemini] ⚠️ ${model} 429 한도 초과 → ${retrySec}s cooldown 등록, 다음 모델로 우회 시도`);
+        triedSummary.push(`${model}=429(${retrySec}s)`);
+        continue;
+      }
+
+      if (sc === 404) {
+        // 폐기/오타 모델 → 그냥 다음 후보로
+        console.warn(`[Gemini] ⚠️ ${model} 404 모델 없음 → 다음 모델로 우회 시도`);
+        triedSummary.push(`${model}=404`);
+        continue;
+      }
+
+      // 5xx / 네트워크 → 같은 모델 1초 후 1회만 재시도, 그래도 실패면 다음 모델
+      const isTransient = !sc || (sc >= 500 && sc < 600);
+      if (isTransient) {
+        try {
+          await new Promise(r => setTimeout(r, 1000));
+          response = await callGeminiWithModel(model);
+          usedModel = model;
+          triedSummary.push(`${model}=OK(retry)`);
+          console.log(`[Gemini] ✅ ${model} 재시도 성공`);
+          break;
+        } catch (err2) {
+          lastError = err2;
+          triedSummary.push(`${model}=transient`);
+          continue;
+        }
+      }
+
+      // 그 외(400/403 등 키/요청 오류) → 다른 모델도 마찬가지로 실패할 가능성 높음 → 즉시 throw
+      triedSummary.push(`${model}=${sc}`);
+      throw err;
+    }
+  }
+
+  if (!response) {
+    // 모든 모델 실패
+    console.error(`[Gemini] ❌ 모든 모델 호출 실패. 시도: ${triedSummary.join(' / ')}`);
+    const errorBody = lastError?.response?.data;
+    const errorMessage = errorBody?.error?.message || lastError?.message || '알 수 없는 오류';
+    throw new Error(`Gemini 호출 실패 [429-all-models]: 모든 후보 모델 한도 초과 (${triedSummary.join(', ')}). 마지막 메시지: ${errorMessage}`);
+  }
+
+  try {
     // 응답 파싱
     const candidate = response.data?.candidates?.[0];
     const text = candidate?.content?.parts?.[0]?.text;
     const finishReason = candidate?.finishReason;
 
-    // 🌟 응답 잘림 감지
     if (finishReason === 'MAX_TOKENS') {
-      console.warn('⚠️ [Gemini] MAX_TOKENS - 출력 토큰 한도 도달로 잘림. maxOutputTokens 증가 필요');
+      console.warn('⚠️ [Gemini] MAX_TOKENS - 출력 토큰 한도 도달로 잘림');
     } else if (finishReason === 'SAFETY') {
-      console.warn('⚠️ [Gemini] SAFETY - 안전 필터에 걸림. prompt 수정 필요');
+      console.warn('⚠️ [Gemini] SAFETY - 안전 필터에 걸림');
     } else if (finishReason && finishReason !== 'STOP') {
       console.warn(`⚠️ [Gemini] 비정상 종료: finishReason=${finishReason}`);
     }
 
-    // 토큰 사용량 로깅 (디버깅용)
     const usage = response.data?.usageMetadata;
     if (usage) {
-      console.log(`[Gemini] 토큰 사용: prompt=${usage.promptTokenCount}, response=${usage.candidatesTokenCount}, thinking=${usage.thoughtsTokenCount || 0}, total=${usage.totalTokenCount}`);
+      console.log(`[Gemini] 토큰 사용 (${usedModel}): prompt=${usage.promptTokenCount}, response=${usage.candidatesTokenCount}, total=${usage.totalTokenCount}`);
     }
 
     if (!text) {
@@ -204,30 +317,15 @@ async function generateRecommendationReason(payload) {
 
     return text.trim();
   } catch (err) {
-    // 더 자세한 에러 정보 출력
     const statusCode = err.response?.status;
     const errorBody = err.response?.data;
     const errorMessage = errorBody?.error?.message || err.message;
-
-    console.error('═══ [Gemini API 호출 실패] ═══');
+    console.error('═══ [Gemini 응답 파싱 실패] ═══');
     console.error('  Status Code:', statusCode);
     console.error('  Error Message:', errorMessage);
-    console.error('  Full Response:', JSON.stringify(errorBody, null, 2));
-    console.error('  Used Model:', GEMINI_MODEL);
-    console.error('  API Key Length:', GEMINI_API_KEY ? GEMINI_API_KEY.length : 'NOT SET');
+    console.error('  Used Model:', usedModel);
     console.error('═══════════════════════════════');
-
-    // 자주 발생하는 에러에 대한 힌트 제공
-    let hint = '';
-    if (statusCode === 400) hint = ' (요청 형식 문제. prompt 너무 길거나 형식 오류)';
-    else if (statusCode === 403) hint = ' (API 키 권한 없음. 키 재확인 필요)';
-    else if (statusCode === 404) {
-      hint = ` (모델 "${GEMINI_MODEL}"을(를) 찾을 수 없음. .env의 GEMINI_MODEL을 'gemini-2.5-flash' 또는 'gemini-2.0-flash'로 설정. gemini-1.5는 폐기됨)`;
-    }
-    else if (statusCode === 429) hint = ' (분당 요청 한도 초과. 잠시 후 재시도)';
-    else if (!statusCode) hint = ' (네트워크 또는 타임아웃 문제)';
-
-    throw new Error(`Gemini 호출 실패 [${statusCode || 'NETWORK'}]: ${errorMessage}${hint}`);
+    throw new Error(`Gemini 응답 처리 실패 [${statusCode || 'PARSE'}]: ${errorMessage}`);
   }
 }
 

@@ -30,18 +30,21 @@
   --pp-transition: all 0.2s ease;
 }
 
-/* ===== 컨테이너 — ShoppingPage 와 동일 패턴 (메인 Header/BottomNav 와 공존) ===== */
+/* ===== 컨테이너 — 한 화면 안에 헤더/메인/푸터 모두 배치 =====
+   메인 Header(약 65px) + BottomNav(약 72px) 안전 마진 포함 빼기
+   → 내부 메인 영역은 스크롤 가능하지만 스크롤바는 시각적으로 숨김 */
 .page.survey {
   display: flex;
   flex-direction: column;
   width: 100%;
-  min-height: 100vh;
+  height: calc(100dvh - 65px - 72px);
   background-color: #ffffff;
   margin: 0;
   padding: 0;
   box-shadow: none;
   border: none;
   border-radius: 0;
+  overflow: hidden;
   box-sizing: border-box;
 }
 
@@ -100,17 +103,22 @@
   transition: width 0.3s ease;
 }
 
-/* ===== 메인 (스크롤 영역) ===== */
+/* ===== 메인 (내부 스크롤은 가능하나 스크롤바는 시각적으로 완전히 숨김) ===== */
 .survey-main {
   flex: 1;
+  min-height: 0;
   padding: 30px 20px;
   width: 100%;
   box-sizing: border-box;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;        /* Firefox */
+  -ms-overflow-style: none;     /* IE/Edge */
 }
 .survey-main::-webkit-scrollbar {
-  display: none;
+  display: none;                /* Chrome/Safari */
+  width: 0;
+  height: 0;
 }
 
 /* ===== 질문 타이틀 ===== */
@@ -302,7 +310,8 @@
 
 /* ===== 푸터 ===== */
 .survey-footer {
-  padding: 20px;
+  /* 🌟 컨테이너 끝(BottomNav 바로 위)에 자연 flex 위치 — 스크롤 필요 없음 */
+  padding: 16px 20px;
   display: flex;
   gap: 12px;
   background-color: #ffffff;

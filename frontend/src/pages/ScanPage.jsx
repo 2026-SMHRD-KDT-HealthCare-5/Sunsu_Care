@@ -7,25 +7,40 @@ import ImageUploader from '../components/product/ImageUploader';
 import { analyze, getTaskStatus } from '../api/analysisApi';
 import { fetchProfile } from '../api/profileApi';
 import { useImagePreview } from '../hooks/useImagePreview';
+import { resizeImage } from '../utils/imageResize';
 import './ScanPage.css';
 
 /* ==========================================================================
    상수 (매직 넘버/문자열 제거)
    ========================================================================== */
-const POLLING_INTERVAL_MS = 2000;
-const ANALYZING_MESSAGE = 'AI가 성분을 정밀 분석 중이에요... 잠시만 기다려주세요';
+const POLLING_INTERVAL_MS = 1000;        // 🌟 2000ms → 1000ms (응답 체감 ↑)
+const POLLING_MAX_CONSECUTIVE_ERRORS = 5;  // 5회 연속 실패 시 폴링 중단
+const POLLING_MAX_DURATION_MS = 60_000;    // 최대 60초 후 강제 종료
 const ERROR_NO_IMAGE = '분석할 사진을 먼저 업로드해주세요.';
 const ERROR_API = '서버 연결 중 문제가 발생했습니다.';
+const ERROR_AI_SERVER_DOWN = 'AI 분석 서버에 연결할 수 없습니다. 잠시 후 다시 시도해주세요.';
+const ERROR_TIMEOUT = '분석 시간이 너무 오래 걸려 중단됐어요. 다시 시도해주세요.';
 const STATUS_COMPLETED = 'COMPLETED';
 const STATUS_FAILED = 'FAILED';
+
+// 🌟 분석 단계별 메시지 (체감 대기 시간 감소)
+const ANALYZING_STAGES = [
+    '사진을 업로드하고 있어요...',
+    'AI가 라벨을 인식 중이에요...',
+    '성분을 분석하고 있어요...',
+    '잠시만 기다려주세요...',
+];
+const STAGE_INTERVAL_MS = 1800;
 
 function ScanPage() {
     const navigate = useNavigate();
     const ingredientImg = useImagePreview();
     const intervalRef = useRef(null);
+    const stageIntervalRef = useRef(null);
 
     const [error, setError] = useState('');
     const [isAnalyzing, setIsAnalyzing] = useState(false);
+    const [analyzingStage, setAnalyzingStage] = useState(0);
     const [userSkinType, setUserSkinType] = useState(null);
     const [isLoadingProfile, setIsLoadingProfile] = useState(true);
 
@@ -53,36 +68,95 @@ function ScanPage() {
         }
 
         setIsAnalyzing(true);
+        setAnalyzingStage(0);
         setError('');
 
+        // 🌟 분석 단계 메시지 자동 회전
+        stageIntervalRef.current = setInterval(() => {
+            setAnalyzingStage(prev => (prev + 1) % ANALYZING_STAGES.length);
+        }, STAGE_INTERVAL_MS);
+
         try {
-            const response = await analyze(ingredientImg.file);
+            // 🌟 클라이언트 측 이미지 축소 — 업로드 시간 대폭 단축
+            const optimized = await resizeImage(ingredientImg.file);
+            const response = await analyze(optimized);
             const { task_id } = response;
 
             if (intervalRef.current) clearInterval(intervalRef.current);
 
-            intervalRef.current = setInterval(async () => {
+            // 🌟 폴링 안정성:
+            //  - isCancelled: stop 이후 진행 중이던 비동기 콜백 즉시 무시
+            //  - isFetching: mutex — 이전 호출이 진행 중이면 새 호출 skip (동시 다발 방지)
+            //  - consecutiveErrors: 연속 에러 카운터
+            //  - startedAt: 최대 시간 가드
+            let isCancelled = false;
+            let isFetching = false;
+            let consecutiveErrors = 0;
+            const startedAt = Date.now();
+
+            const stopAllTimers = () => {
+                isCancelled = true;
+                if (intervalRef.current) clearInterval(intervalRef.current);
+                if (stageIntervalRef.current) clearInterval(stageIntervalRef.current);
+            };
+
+            const pollOnce = async () => {
+                if (isCancelled) return;
+
+                // ① 최대 시간 초과 가드
+                if (Date.now() - startedAt > POLLING_MAX_DURATION_MS) {
+                    stopAllTimers();
+                    setIsAnalyzing(false);
+                    setError(ERROR_TIMEOUT);
+                    return;
+                }
+
+                // ② 이미 진행 중인 fetch 있으면 skip (동시 다발 방지)
+                if (isFetching) return;
+                isFetching = true;
+
                 try {
                     const res = await getTaskStatus(task_id);
+                    if (isCancelled) return;
+
+                    consecutiveErrors = 0;
 
                     if (res.status === STATUS_COMPLETED) {
-                        clearInterval(intervalRef.current);
+                        stopAllTimers();
                         setIsAnalyzing(false);
-                        // 분석 결과를 state 로 넘기며 마이페이지 이동 (newAnalysis dedup 흐름)
                         navigate('/mypage', { state: { newAnalysis: res.result || res } });
                     } else if (res.status === STATUS_FAILED) {
-                        clearInterval(intervalRef.current);
+                        stopAllTimers();
                         setIsAnalyzing(false);
                         setError(`분석 실패: ${res.error || '알 수 없는 오류'}`);
                     }
                 } catch (err) {
-                    console.error("폴링 호출 에러:", err);
+                    if (isCancelled) return;
+
+                    consecutiveErrors += 1;
+                    console.warn(`[Scan] 폴링 실패 ${consecutiveErrors}/${POLLING_MAX_CONSECUTIVE_ERRORS}:`, err?.message || err);
+
+                    if (consecutiveErrors >= POLLING_MAX_CONSECUTIVE_ERRORS) {
+                        stopAllTimers();
+                        setIsAnalyzing(false);
+                        const isNetworkError = err?.message?.includes('Network') || err?.code === 'ERR_NETWORK';
+                        setError(isNetworkError ? ERROR_AI_SERVER_DOWN : ERROR_API);
+                    }
+                } finally {
+                    isFetching = false;
                 }
-            }, POLLING_INTERVAL_MS);
+            };
+
+            // 🌟 1차 호출은 즉시 (setInterval 의 1초 지연 절약 — 빠른 task 는 즉시 완료 감지)
+            pollOnce();
+            intervalRef.current = setInterval(pollOnce, POLLING_INTERVAL_MS);
         } catch (err) {
             console.error("API 요청 에러:", err);
-            setError(ERROR_API);
+            // 🌟 분석 시작 자체가 실패 — Network Error 면 서버 미기동 가능성 큼
+            const isNetworkError = err?.message?.includes('Network') || err?.code === 'ERR_NETWORK';
+            setError(isNetworkError ? ERROR_AI_SERVER_DOWN : ERROR_API);
             setIsAnalyzing(false);
+            if (stageIntervalRef.current) clearInterval(stageIntervalRef.current);
         }
     };
 
@@ -90,6 +164,7 @@ function ScanPage() {
     useEffect(() => {
         return () => {
             if (intervalRef.current) clearInterval(intervalRef.current);
+            if (stageIntervalRef.current) clearInterval(stageIntervalRef.current);
         };
     }, []);
 
@@ -98,7 +173,7 @@ function ScanPage() {
     if (isAnalyzing) {
         return (
             <div className="page">
-                <Loading message={ANALYZING_MESSAGE} />
+                <Loading message={ANALYZING_STAGES[analyzingStage]} />
             </div>
         );
     }

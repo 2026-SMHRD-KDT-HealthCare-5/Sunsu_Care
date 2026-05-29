@@ -39,6 +39,8 @@ const getStatusClass = (score) =>
     score >= SCORE_PASS_THRESHOLD ? 'safe' : 'warn';
 
 // DB 응답 → UI 모델 매핑
+// 🌟 백엔드의 key_ingredients_data ({name, warning} 배열) 우선 사용,
+//    없으면 기존 콤마 문자열 fallback (구 데이터 호환)
 const mapDbHistoryItem = (item) => ({
     id: item.analysis_idx,
     name: item.prod_name || FALLBACK_PRODUCT_NAME,
@@ -46,8 +48,8 @@ const mapDbHistoryItem = (item) => ({
     score: item.match_score || 0,
     status: item.match_status
         || (item.match_score >= SCORE_PASS_THRESHOLD ? '적합' : '주의'),
-    keyIng: item.key_ingredients ? item.key_ingredients.split(',') : [],
-    warnIng: item.warn_ingredients ? item.warn_ingredients.split(',') : []
+    keyIng: normalizeIngredientList(item.key_ingredients_data, item.key_ingredients),
+    warnIng: normalizeIngredientList(item.warn_ingredients_data, item.warn_ingredients)
 });
 
 // 프로필 응답 → mySkinInfo 매핑
@@ -60,19 +62,68 @@ const mapProfileToSkinInfo = (profile) => ({
         : (profile.avoid_ingredient || "없음")
 });
 
-// 새 분석 결과 → UI 모델 빌드
+// 중복 제거 헬퍼 (OCR 영/한 동시 추출로 같은 성분이 두 번 들어오는 케이스 방지)
+const uniqueNames = (arr) => [...new Set(arr.filter(Boolean))];
+
+// 객체 배열 ({name, warning}) dedup (name 기준)
+const uniqueByName = (arr) => {
+    const seen = new Set();
+    const out = [];
+    for (const item of arr) {
+        if (!item?.name || seen.has(item.name)) continue;
+        seen.add(item.name);
+        out.push(item);
+    }
+    return out;
+};
+
+// 콤마 문자열 fallback → 객체 배열 형태 정규화
+const normalizeIngredientList = (data, fallbackCsv) => {
+    if (Array.isArray(data) && data.length > 0) {
+        return uniqueByName(
+            data
+                .filter(Boolean)
+                .map(it => typeof it === 'string'
+                    ? { name: it.trim(), warning: '' }
+                    : { name: String(it.name || '').trim(), warning: it.warning || '' }
+                )
+                .filter(it => it.name)
+        );
+    }
+    if (typeof fallbackCsv === 'string' && fallbackCsv.trim()) {
+        return uniqueByName(
+            fallbackCsv.split(',').map(s => ({ name: s.trim(), warning: '' })).filter(it => it.name)
+        );
+    }
+    return [];
+};
+
+// 새 분석 결과 → UI 모델 빌드 — 객체 배열 {name, warning} 형태로 통일
 const buildNewAnalysisItem = (data, userProfile) => {
     const detected = data.ingredients?.detected_ingredients || [];
 
-    const keyIng = detected
-        .filter(i => i.skin_warning && KEY_INGREDIENT_KEYWORDS.some(k => i.skin_warning.includes(k)))
-        .slice(0, TOP_INGREDIENTS_COUNT)
-        .map(i => i.ingre_name);
+    const toBrief = (i) => ({
+        name: i.ingre_name,
+        warning: i.skin_warning || ''
+    });
 
-    const warnIng = detected
-        .filter(i => i.ewg_grade >= WARN_EWG_GRADE)
-        .slice(0, TOP_INGREDIENTS_COUNT)
-        .map(i => i.ingre_name);
+    // 핵심: ewg_grade 낮은 순(=안전순) + 이름 사전순
+    const keyCandidates = detected.filter(i =>
+        i.skin_warning && KEY_INGREDIENT_KEYWORDS.some(k => i.skin_warning.includes(k))
+    );
+    keyCandidates.sort((a, b) =>
+        (a.ewg_grade ?? 99) - (b.ewg_grade ?? 99)
+        || String(a.ingre_name).localeCompare(String(b.ingre_name))
+    );
+    const keyIng = uniqueByName(keyCandidates.map(toBrief)).slice(0, TOP_INGREDIENTS_COUNT);
+
+    // 주의: ewg_grade 높은 순(=위험순) + 이름 사전순
+    const warnCandidates = detected.filter(i => i.ewg_grade >= WARN_EWG_GRADE);
+    warnCandidates.sort((a, b) =>
+        (b.ewg_grade ?? 0) - (a.ewg_grade ?? 0)
+        || String(a.ingre_name).localeCompare(String(b.ingre_name))
+    );
+    const warnIng = uniqueByName(warnCandidates.map(toBrief)).slice(0, TOP_INGREDIENTS_COUNT);
 
     const { score, status } = calculateCompatibility(detected, userProfile || {});
 
@@ -87,9 +138,13 @@ const buildNewAnalysisItem = (data, userProfile) => {
     };
 };
 
-// 성분 핑거프린트 (중복 검사용)
-const computeFingerprint = (item) =>
-    [...(item.keyIng || []), ...(item.warnIng || [])].sort().join('|');
+// 성분 핑거프린트 (중복 검사용) — 객체 배열에서 name 만 추출 후 정렬
+const computeFingerprint = (item) => {
+    const names = [...(item.keyIng || []), ...(item.warnIng || [])]
+        .map(it => typeof it === 'string' ? it : (it?.name || ''))
+        .filter(Boolean);
+    return names.sort().join('|');
+};
 
 // id 또는 핑거프린트로 중복 판정
 const isDuplicateItem = (newItem, existingItems) => {
@@ -326,7 +381,7 @@ const MyPage = () => {
                                         <div className="mini-ing-tags">
                                             {item.keyIng.length > 0 ? (
                                                 item.keyIng.map((ing, idx) => (
-                                                    <span key={idx} className="mini-tag mini-tag--key">{ing}</span>
+                                                    <span key={idx} className="mini-tag mini-tag--key">{typeof ing === 'string' ? ing : ing.name}</span>
                                                 ))
                                             ) : (
                                                 <span className="mini-tag mini-tag--empty">매칭된 핵심 성분 없음</span>
@@ -341,7 +396,7 @@ const MyPage = () => {
                                             </div>
                                             <div className="mini-ing-tags">
                                                 {item.warnIng.map((ing, idx) => (
-                                                    <span key={idx} className="mini-tag mini-tag--warn">{ing}</span>
+                                                    <span key={idx} className="mini-tag mini-tag--warn">{typeof ing === 'string' ? ing : ing.name}</span>
                                                 ))}
                                             </div>
                                         </div>

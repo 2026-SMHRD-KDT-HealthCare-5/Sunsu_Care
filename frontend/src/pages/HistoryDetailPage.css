@@ -169,9 +169,10 @@
 }
 
 /* 섹션 아이콘 색상 (인라인 → 클래스) */
-.legacy-sec-title .icon-key { color: #3b82f6; }
+/* 🌟 MyPage(mini-ing-section) 와 동일 톤으로 통일 */
+.legacy-sec-title .icon-key    { color: #b45309; }   /* 앰버 (MyPage --mp-key-title) */
+.legacy-sec-title .icon-warn   { color: #dc2626; }   /* 레드 (MyPage --mp-warn-title) */
 .legacy-sec-title .icon-reason { color: #ef4444; }
-.legacy-sec-title .icon-warn { color: #ea580c; }
 .legacy-sec-title .icon-wand { color: var(--hd-primary); }
 
 /* AI 생성 배지 */
@@ -193,25 +194,32 @@
   gap: 8px;
 }
 
-/* 핵심 성분 행 (MIK 초록 유지) */
+/* 핵심 성분 행 (양쪽 정렬: 이름 좌측, 설명 우측) */
 .legacy-key-row {
   background-color: var(--hd-key-bg);
   padding: 12px 16px;
   border-radius: var(--hd-border-radius-sm);
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 12px;
 }
 .legacy-key-name {
-  color: var(--hd-key);
+  color: #92400e;           /* 🌟 MyPage --mp-key-tag-text 와 통일 (앰버 다크) */
   font-weight: 800;
   font-size: 0.9rem;
-  min-width: 110px;
+  text-align: left;
+  flex: 1;
+  min-width: 0;
+  word-break: keep-all;
 }
 .legacy-key-desc {
   color: #0b0b0b;
   font-size: 0.85rem;
   font-weight: 500;
+  text-align: right;
+  flex-shrink: 0;
+  white-space: nowrap;
 }
 
 /* 추천 이유 영역 */
@@ -236,24 +244,32 @@
   margin-top: 6px;
 }
 
-/* 주의 성분 행 */
+/* 주의 성분 행 (양쪽 정렬: 이름 좌측, 설명 우측) */
 .legacy-warn-row {
   background-color: var(--hd-warn-bg);
   border-left: 4px solid var(--hd-warn);
   padding: 12px 16px;
   border-radius: var(--hd-border-radius-sm);
   display: flex;
-  flex-direction: column;
-  gap: 4px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
 }
 .legacy-warn-name {
-  color: var(--hd-warn);
+  color: #991b1b;           /* 🌟 MyPage --mp-warn-tag-text 와 통일 (레드 다크) */
   font-weight: 800;
   font-size: 0.95rem;
+  text-align: left;
+  flex: 1;
+  min-width: 0;
+  word-break: keep-all;
 }
 .legacy-warn-desc {
   color: var(--hd-warn-text);
   font-size: 0.85rem;
+  text-align: right;
+  flex-shrink: 0;
+  white-space: nowrap;
 }
 
 /* ===== 추천 제품 카드 ===== */

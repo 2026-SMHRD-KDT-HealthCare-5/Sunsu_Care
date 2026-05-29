@@ -288,6 +288,42 @@ const getAnalysesHandler = async (req, res, next) => {
       console.warn('[/analyses] 프로필 조회 실패, 기본값으로 진행');
     }
 
+    // 🌟 모든 분석 결과의 detected 성분명 수집 → tb_ingredient 일괄 조회 → 최신 skin_warning/ewg_grade 덮어쓰기
+    //    "글리세린 → 깊은 보습에 도움" 같은 DB 업데이트 즉시 반영
+    const allDetectedNames = new Set();
+    for (const row of rows) {
+      try {
+        const p = typeof row.analysis_result === 'string'
+          ? JSON.parse(row.analysis_result)
+          : row.analysis_result;
+        const detected = p?.ingredients?.detected_ingredients || [];
+        detected.forEach(i => i.ingre_name && allDetectedNames.add(i.ingre_name));
+      } catch {}
+    }
+
+    const freshIngredientMap = new Map();   // name → { ewg_grade, skin_warning }
+    if (allDetectedNames.size > 0) {
+      try {
+        const namesArr = [...allDetectedNames];
+        const placeholders = namesArr.map(() => '?').join(',');
+        const [freshRows] = await db.execute(
+          `SELECT ingre_name, ewg_grade, skin_warning
+             FROM tb_ingredient
+            WHERE ingre_name IN (${placeholders})`,
+          namesArr
+        );
+        for (const r of freshRows) {
+          freshIngredientMap.set(r.ingre_name, {
+            ewg_grade: r.ewg_grade,
+            skin_warning: r.skin_warning || ''
+          });
+        }
+        console.log(`[/analyses] tb_ingredient 일괄 조회: ${allDetectedNames.size}개 요청 → ${freshIngredientMap.size}개 매칭`);
+      } catch (e) {
+        console.warn('[/analyses] tb_ingredient 일괄 조회 실패, 캐시 값 사용:', e.message);
+      }
+    }
+
     const history = await Promise.all(rows.map(async (row) => {
       let keyIngredients = '';
       let warnIngredients = '';
@@ -301,17 +337,61 @@ const getAnalysesHandler = async (req, res, next) => {
           : row.analysis_result;
         detectedIngredients = parsed?.ingredients?.detected_ingredients || [];
 
-        keyIngredients = detectedIngredients
-          .filter(i => i.skin_warning && (i.skin_warning.includes('도움') || i.skin_warning.includes('기능성')))
-          .slice(0, 3)
-          .map(i => i.ingre_name)
-          .join(',');
+        // 🌟 최신 tb_ingredient 값으로 skin_warning / ewg_grade 덮어쓰기
+        //    → DB 단일 진실 공급원, SQL UPDATE 시 즉시 반영
+        detectedIngredients = detectedIngredients.map(i => {
+          const fresh = freshIngredientMap.get(i.ingre_name);
+          if (!fresh) return i;
+          return {
+            ...i,
+            ewg_grade: fresh.ewg_grade != null ? fresh.ewg_grade : i.ewg_grade,
+            skin_warning: fresh.skin_warning || i.skin_warning || ''
+          };
+        });
 
-        warnIngredients = detectedIngredients
+        // 🌟 중복 성분명 제거 + 결정론적 순서 보장 (매번 같은 input → 같은 TOP3)
+        //    하드코딩 매핑 대신 DB tb_ingredient.skin_warning 컬럼을 그대로 전달
+        const seenKey = new Set();
+        const seenWarn = new Set();
+
+        const keyData = detectedIngredients
+          .filter(i => i.skin_warning && (i.skin_warning.includes('도움') || i.skin_warning.includes('기능성')))
+          .slice()
+          .sort((a, b) =>
+            (Number(a.ewg_grade) || 99) - (Number(b.ewg_grade) || 99)
+            || String(a.ingre_name || '').localeCompare(String(b.ingre_name || ''))
+          )
+          .reduce((acc, i) => {
+            if (i.ingre_name && !seenKey.has(i.ingre_name)) {
+              seenKey.add(i.ingre_name);
+              acc.push({ name: i.ingre_name, warning: i.skin_warning || '' });
+            }
+            return acc;
+          }, [])
+          .slice(0, 3);
+
+        const warnData = detectedIngredients
           .filter(i => Number(i.ewg_grade) >= 3)
-          .slice(0, 3)
-          .map(i => i.ingre_name)
-          .join(',');
+          .slice()
+          .sort((a, b) =>
+            (Number(b.ewg_grade) || 0) - (Number(a.ewg_grade) || 0)
+            || String(a.ingre_name || '').localeCompare(String(b.ingre_name || ''))
+          )
+          .reduce((acc, i) => {
+            if (i.ingre_name && !seenWarn.has(i.ingre_name)) {
+              seenWarn.add(i.ingre_name);
+              acc.push({ name: i.ingre_name, warning: i.skin_warning || '' });
+            }
+            return acc;
+          }, [])
+          .slice(0, 3);
+
+        // 호환성: 기존 문자열 필드도 유지 (구 클라이언트 대비)
+        keyIngredients = keyData.map(i => i.name).join(',');
+        warnIngredients = warnData.map(i => i.name).join(',');
+        // 새 필드: 객체 배열 (name + skin_warning)
+        var keyIngredientsData = keyData;
+        var warnIngredientsData = warnData;
 
         // 🌟 항상 재계산 (채점 공식이 바뀔 수 있으므로 일관성 유지)
         if (detectedIngredients.length > 0) {
@@ -352,8 +432,12 @@ const getAnalysesHandler = async (req, res, next) => {
         match_score: finalScore,
         match_status: finalStatus,
         joined_at: row.analyzed_at,
+        // 호환성: 기존 콤마 문자열 필드 유지
         key_ingredients: keyIngredients,
-        warn_ingredients: warnIngredients
+        warn_ingredients: warnIngredients,
+        // 🌟 신규: DB skin_warning 포함 객체 배열 [{name, warning}]
+        key_ingredients_data: typeof keyIngredientsData !== 'undefined' ? keyIngredientsData : [],
+        warn_ingredients_data: typeof warnIngredientsData !== 'undefined' ? warnIngredientsData : []
       };
     }));
 

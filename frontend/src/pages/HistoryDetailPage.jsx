@@ -11,21 +11,17 @@ import {
 import { getProductImageUrl } from '../utils/imageUrl';
 import './HistoryDetailPage.css';
 
-// 성분 설명 (정적, MIK 유지)
-const KEY_DESC_MAP = {
-    '나이아신아마이드': '미백, 피부 장벽 강화',
-    '히알루론산': '깊은 보습',
-    '산화아연': '자외선 차단(무기자차)',
-    '징크옥사이드': '자외선 차단(무기자차)',
-    '판테놀': '피부 진정 및 보습',
-    '글리세린': '깊은 보습',
-    '알란토인': '피부 진정'
-};
-const WARN_DESC_MAP = {
-    '옥시벤존': '민감성 피부에 자극이 될 수 있음',
-    '향료': '알레르기 반응 가능성',
-    '에탄올': '수분 증발로 인한 건조함 유발'
-};
+// 🌟 하드코딩 매핑 제거 — DB tb_ingredient.skin_warning 컬럼을 그대로 사용
+//    각 성분 객체는 { name, warning } 형태로 백엔드에서 전달됨
+
+// fallback (DB warning 이 비어있을 때만 사용)
+const KEY_DEFAULT_DESC = '유효 성분';
+const WARN_DEFAULT_DESC = '주의가 필요한 성분입니다.';
+
+// 성분 항목이 문자열 or 객체 두 형태 모두 지원 (구 데이터 호환)
+const getIngName = (it) => typeof it === 'string' ? it : (it?.name || '');
+const getIngWarning = (it, fallback) =>
+    (typeof it === 'object' && it?.warning) ? it.warning : fallback;
 
 // 점수에 따른 색상 (75+ 초록 / 50~74 노랑 / <50 빨강)
 const getScoreColorClass = (score) => {
@@ -99,7 +95,27 @@ const HistoryDetailPage = () => {
     useEffect(() => {
         let mounted = true;
 
-        // 히스토리 목록
+        // 🌟 백엔드 신규 필드 key_ingredients_data/warn_ingredients_data 우선 사용
+        const normalizeIng = (data, csv) => {
+            if (Array.isArray(data) && data.length > 0) {
+                const seen = new Set();
+                return data.filter(Boolean).map(it =>
+                    typeof it === 'string'
+                        ? { name: it.trim(), warning: '' }
+                        : { name: String(it.name || '').trim(), warning: it.warning || '' }
+                ).filter(it => {
+                    if (!it.name || seen.has(it.name)) return false;
+                    seen.add(it.name);
+                    return true;
+                });
+            }
+            if (typeof csv === 'string' && csv.trim()) {
+                return [...new Set(csv.split(',').map(s => s.trim()).filter(Boolean))]
+                    .map(name => ({ name, warning: '' }));
+            }
+            return [];
+        };
+
         fetchHistory()
             .then(data => {
                 if (mounted && Array.isArray(data)) {
@@ -109,8 +125,8 @@ const HistoryDetailPage = () => {
                         date: new Date(item.joined_at).toLocaleDateString(),
                         score: item.match_score ?? 0,
                         status: item.match_status || (item.match_score >= 75 ? '적합' : '주의'),
-                        keyIng: item.key_ingredients ? item.key_ingredients.split(',') : [],
-                        warnIng: item.warn_ingredients ? item.warn_ingredients.split(',') : []
+                        keyIng: normalizeIng(item.key_ingredients_data, item.key_ingredients),
+                        warnIng: normalizeIng(item.warn_ingredients_data, item.warn_ingredients)
                     })));
                     setListLoaded(true);
                 }
@@ -183,8 +199,13 @@ const HistoryDetailPage = () => {
     // ============================================================
     useEffect(() => {
         let mounted = true;
+        let retryTimerId = null;
+        let retryAttempted = false;
+
         const loadAIReason = async () => {
-            if (!report?.name || report.name === "분석된 제품") {
+            // 🌟 성분 데이터가 있으면 제품명 fallback("분석된 제품") 이어도 AI 호출
+            const hasIngredients = (report?.keyIng?.length || 0) > 0 || (report?.warnIng?.length || 0) > 0;
+            if (!hasIngredients) {
                 if (mounted) {
                     setAiReason('분석 데이터가 없어 추천 이유를 생성할 수 없습니다.');
                     setReasonLoading(false);
@@ -198,8 +219,9 @@ const HistoryDetailPage = () => {
                     analysisIdx: id,
                     prodName: report.name,
                     score: report.score,
-                    keyIng: report.keyIng,
-                    warnIng: report.warnIng,
+                    // 🌟 객체 배열 → 이름 배열로 변환해서 AI 호출 (Gemini 프롬프트용)
+                    keyIng: (report.keyIng || []).map(getIngName).filter(Boolean),
+                    warnIng: (report.warnIng || []).map(getIngName).filter(Boolean),
                     skinType: userProfile.basicType || '미설정'
                 });
                 if (mounted) {
@@ -213,7 +235,20 @@ const HistoryDetailPage = () => {
                     || `사용자의 ${userProfile.basicType} 피부에 자극을 줄 수 있는 ${report.warnIng[0] || '유해 성분'}이(가) 포함되어 있어, 적합한 다른 제품을 추천합니다.`;
                 if (mounted) {
                     if (status === 429) {
-                        setReasonError('AI 요청 한도 초과 — 1분 후 새로고침해보세요');
+                        if (!retryAttempted) {
+                            retryAttempted = true;
+                            setReasonError('AI 요청 한도 초과 — 60초 후 자동 재시도합니다');
+                            // 🌟 60초 후 1회 자동 재시도 (Gemini 분당 RPM 회복 대기)
+                            retryTimerId = setTimeout(() => {
+                                if (mounted) {
+                                    setReasonLoading(true);
+                                    setReasonError('');
+                                    loadAIReason();
+                                }
+                            }, 60_000);
+                        } else {
+                            setReasonError('AI 요청 한도 초과 — 잠시 후 페이지를 새로고침해주세요');
+                        }
                     } else {
                         setReasonError(`AI 호출 실패: ${backendData?.message || err.message}`);
                     }
@@ -223,7 +258,10 @@ const HistoryDetailPage = () => {
             }
         };
         loadAIReason();
-        return () => { mounted = false; };
+        return () => {
+            mounted = false;
+            if (retryTimerId) clearTimeout(retryTimerId);
+        };
     }, [id, report.name, report.score, userProfile.basicType]);
 
     // ============================================================
@@ -419,17 +457,18 @@ const HistoryDetailPage = () => {
                 </span>
             </div>
 
-            {/* 핵심 성분 + 추천 이유 (AI 생성) */}
+            {/* 핵심 성분 + 추천 이유(AI) + 주의 성분 — 한 카드 통합 */}
             <div className="legacy-detail-card">
+                {/* 핵심 성분 */}
                 <h4 className="legacy-sec-title">
-                    <i className="fa-solid fa-heart icon-key"></i> 핵심 성분
+                    <i className="fa-solid fa-gem icon-key"></i> 매칭된 핵심 성분
                 </h4>
                 <div className="legacy-ing-list">
                     {report.keyIng.length > 0 ? (
                         report.keyIng.map((ing, idx) => (
                             <div className="legacy-key-row" key={idx}>
-                                <span className="legacy-key-name">{ing}</span>
-                                <span className="legacy-key-desc">{KEY_DESC_MAP[ing] || '유효 성분'}</span>
+                                <span className="legacy-key-name">{getIngName(ing)}</span>
+                                <span className="legacy-key-desc">{getIngWarning(ing, KEY_DEFAULT_DESC)}</span>
                             </div>
                         ))
                     ) : (
@@ -441,9 +480,29 @@ const HistoryDetailPage = () => {
 
                 <div className="legacy-divider"></div>
 
+                {/* 주의 성분 */}
                 <h4 className="legacy-sec-title">
-                    <i className="fa-solid fa-book-open icon-reason"></i> 추천 이유
-                    <span className="legacy-ai-badge">AI 생성</span>
+                    <i className="fa-solid fa-triangle-exclamation icon-warn"></i> 주의 성분 발견
+                </h4>
+                <div className="legacy-ing-list">
+                    {report.warnIng.length > 0 ? (
+                        report.warnIng.map((ing, idx) => (
+                            <div className="legacy-warn-row" key={idx}>
+                                <span className="legacy-warn-name">{getIngName(ing)}</span>
+                                <span className="legacy-warn-desc">{getIngWarning(ing, WARN_DEFAULT_DESC)}</span>
+                            </div>
+                        ))
+                    ) : (
+                        <p className="legacy-reason-text">발견된 주의 성분이 없습니다.</p>
+                    )}
+                </div>
+
+                <div className="legacy-divider"></div>
+
+                {/* 분석 결과 (AI 종합 평가) — 핵심/주의 다 본 뒤 마지막에 종합 */}
+                <h4 className="legacy-sec-title">
+                    <i className="fa-solid fa-book-open icon-reason"></i> 분석 결과
+                    <span className="legacy-ai-badge">Google Gemini</span>
                 </h4>
                 {reasonLoading ? (
                     <p className="legacy-reason-text legacy-reason-loading">
@@ -458,25 +517,6 @@ const HistoryDetailPage = () => {
                         )}
                     </>
                 )}
-            </div>
-
-            {/* 주의 성분 */}
-            <div className="legacy-detail-card">
-                <h4 className="legacy-sec-title">
-                    <i className="fa-solid fa-triangle-exclamation icon-warn"></i> 주의 성분
-                </h4>
-                <div className="legacy-ing-list">
-                    {report.warnIng.length > 0 ? (
-                        report.warnIng.map((ing, idx) => (
-                            <div className="legacy-warn-row" key={idx}>
-                                <span className="legacy-warn-name">{ing}</span>
-                                <span className="legacy-warn-desc">{WARN_DESC_MAP[ing] || '주의가 필요한 성분입니다.'}</span>
-                            </div>
-                        ))
-                    ) : (
-                        <p className="legacy-reason-text">발견된 주의 성분이 없습니다.</p>
-                    )}
-                </div>
             </div>
 
             {/* 추천 제품 TOP 3 (DB + 이미지) */}

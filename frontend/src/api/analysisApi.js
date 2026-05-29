@@ -20,9 +20,9 @@ export const analyze = async (file) => {
 };
 
 // 2. 분석 상태 폴링
+//    🌟 응답 payload 가 크므로 (685 segments + 70 ingredients) 전역 10s 보다 길게 설정
 export const getTaskStatus = async (taskId) => {
-    // baseURL이 적용되어 최종적으로 /api/v1/tasks/${taskId}가 호출됩니다.
-    const response = await api.get(`/tasks/${taskId}`);
+    const response = await api.get(`/tasks/${taskId}`, { timeout: 30_000 });
     return response.data;
 };
 

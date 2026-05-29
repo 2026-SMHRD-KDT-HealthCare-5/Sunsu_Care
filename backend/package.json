@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "dev": "nodemon server.js",
-    "start": "node server.js"
+    "start": "node server.js",
+    "db:seed-warnings": "node src/scripts/updateIngredientWarnings.js"
   },
   "dependencies": {
     "axios": "^1.7.0",

@@ -94,6 +94,18 @@ function ProfilePage() {
   const [answers, setAnswers] = useState({});
   const [isAutoNavigating, setIsAutoNavigating] = useState(false);
 
+  // 🌟 설문 페이지 진입 동안만 외부 페이지 스크롤 차단 (페이지 스크롤바 완전 숨김)
+  useEffect(() => {
+    const prevHtmlOverflow = document.documentElement.style.overflow;
+    const prevBodyOverflow = document.body.style.overflow;
+    document.documentElement.style.overflow = 'hidden';
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.documentElement.style.overflow = prevHtmlOverflow;
+      document.body.style.overflow = prevBodyOverflow;
+    };
+  }, []);
+
   // 🌟 MyPage 진입 시 기존 프로필 로드 → 마지막 단계로 점프 (재설문 부담 ↓)
   useEffect(() => {
     if (fromPath !== PRELOAD_TRIGGER_PATH) return;
