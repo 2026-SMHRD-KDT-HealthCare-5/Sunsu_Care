@@ -28,26 +28,6 @@
   gap: var(--space-3);
 }
 
-.auth__divider {
-  text-align: center;
-  font-size: var(--font-xs);
-  color: var(--color-text-light);
-  position: relative;
-  margin: var(--space-3) 0;
-}
-
-.auth__divider::before,
-.auth__divider::after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  width: 35%;
-  height: 1px;
-  background-color: var(--color-border);
-}
-.auth__divider::before { left: 0; }
-.auth__divider::after  { right: 0; }
-
 .auth__link {
   text-align: center;
   font-size: var(--font-sm);

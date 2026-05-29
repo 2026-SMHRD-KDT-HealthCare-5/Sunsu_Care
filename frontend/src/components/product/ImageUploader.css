@@ -2,6 +2,11 @@
   margin-bottom: var(--space-2);
 }
 
+/* 실제 file input 은 숨김 (uploader__drop 버튼이 대신 클릭) */
+.uploader__file-input {
+  display: none;
+}
+
 .uploader__label {
   display: block;
   font-size: var(--font-sm);

@@ -1,178 +1,212 @@
 /* ==========================================================================
-   SUNSUCARE 계정 설정 페이지 스타일
-   (MyPage.css의 디자인 시스템과 완벽 호환)
+   AccountSettings CSS
+   - 로컬 변수화(--as-*), 인라인 제거, MyPage 디자인 시스템 호환
    ========================================================================== */
+
+/* 🌟 로컬 변수: AccountSettings 전용 디자인 토큰 */
+.mypage-container {
+  --as-primary: #ff8c00;
+  --as-primary-dark: #e67e22;
+  --as-primary-pale: #fff9f5;
+  --as-primary-soft-bg: #fff3e0;
+  --as-primary-soft-text: #ea580c;
+  --as-primary-soft-border: #fed7aa;
+
+  --as-text-strong: #1e293b;
+  --as-text-body: #334155;
+  --as-text-muted: #64748b;
+  --as-text-soft: #94a3b8;
+
+  --as-bg-input: #f8fafc;
+  --as-bg-readonly: #f1f5f9;
+
+  --as-border: #e2e8f0;
+
+  --as-danger: #ef4444;
+  --as-danger-bg: #fef2f2;
+  --as-danger-border: #fecaca;
+  --as-danger-text: #b91c1c;
+  --as-danger-btn-border: #fca5a5;
+
+  --as-btn-size: 38px;
+  --as-radius-input: 12px;
+
+  --as-shadow-focus: 0 0 0 3px rgba(255, 140, 0, 0.1);
+  --as-transition: all 0.2s ease;
+}
 
 /* 🌟 상단 뒤로가기 헤더 */
 .settings-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 20px 20px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px 20px 20px;
 }
 
 .settings-title {
-    margin: 0;
-    font-size: 1.15rem;
-    font-weight: 800;
-    color: #1e293b;
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--as-text-strong);
 }
 
 .back-btn {
-    width: 38px;
-    height: 38px;
-    border-radius: 50%;
-    border: 1px solid #e2e8f0;
-    background: #fff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    color: #334155;
-    transition: all 0.2s;
+  width: var(--as-btn-size);
+  height: var(--as-btn-size);
+  border-radius: 50%;
+  border: 1px solid var(--as-border);
+  background: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  color: var(--as-text-body);
+  transition: var(--as-transition);
 }
 
 .back-btn:hover {
-    border-color: #ff8c00;
-    color: #ff8c00;
-    background-color: #fff9f5;
+  border-color: var(--as-primary);
+  color: var(--as-primary);
+  background-color: var(--as-primary-pale);
+}
+
+/* 헤더 우측 균형 맞춤 (back-btn 과 동일 크기) */
+.settings-header__spacer {
+  width: var(--as-btn-size);
+  flex-shrink: 0;
 }
 
 /* 🌟 카드 내부 섹션 제목 */
 .settings-card-title {
-    margin: 0 0 20px 0;
-    font-size: 1.05rem;
-    color: #1e293b;
-    display: flex;
-    align-items: center;
-    gap: 8px;
+  margin: 0 0 20px 0;
+  font-size: 1.05rem;
+  color: var(--as-text-strong);
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 .settings-card-title i {
-    color: #ff8c00;
+  color: var(--as-primary);
 }
 
 /* 🌟 폼 및 입력 필드 */
 .settings-form-group {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 16px;
 }
 
 .settings-label {
-    font-size: 0.85rem;
-    color: #64748b;
-    font-weight: 700;
+  font-size: 0.85rem;
+  color: var(--as-text-muted);
+  font-weight: 700;
 }
 
 .settings-input {
-    padding: 14px 16px;
-    border: 1px solid #e2e8f0;
-    border-radius: 12px;
-    font-size: 0.95rem;
-    background-color: #f8fafc;
-    color: #334155;
-    transition: all 0.2s;
-    outline: none;
+  padding: 14px 16px;
+  border: 1px solid var(--as-border);
+  border-radius: var(--as-radius-input);
+  font-size: 0.95rem;
+  background-color: var(--as-bg-input);
+  color: var(--as-text-body);
+  transition: var(--as-transition);
+  outline: none;
 }
 
 .settings-input:focus {
-    border-color: #ff8c00;
-    background-color: #ffffff;
-    box-shadow: 0 0 0 3px rgba(255, 140, 0, 0.1);
+  border-color: var(--as-primary);
+  background-color: #ffffff;
+  box-shadow: var(--as-shadow-focus);
 }
 
 .settings-input.readonly {
-    background-color: #f1f5f9;
-    color: #94a3b8;
-    cursor: not-allowed;
+  background-color: var(--as-bg-readonly);
+  color: var(--as-text-soft);
+  cursor: not-allowed;
 }
 
 /* 닉네임 입력 + 버튼 나란히 배치 */
 .input-with-button {
-    display: flex;
-    gap: 10px;
+  display: flex;
+  gap: 10px;
 }
-
 .input-with-button .settings-input {
-    flex: 1;
+  flex: 1;
 }
 
 /* 🌟 버튼 디자인 */
 .save-btn-small {
-    padding: 0 20px;
-    background-color: #fff3e0;
-    color: #ea580c;
-    border: 1px solid #fed7aa;
-    border-radius: 12px;
-    font-weight: 700;
-    font-size: 0.9rem;
-    cursor: pointer;
-    transition: all 0.2s;
+  padding: 0 20px;
+  background-color: var(--as-primary-soft-bg);
+  color: var(--as-primary-soft-text);
+  border: 1px solid var(--as-primary-soft-border);
+  border-radius: var(--as-radius-input);
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: var(--as-transition);
 }
-
 .save-btn-small:hover {
-    background-color: #ff8c00;
-    border-color: #ff8c00;
-    color: #ffffff;
+  background-color: var(--as-primary);
+  border-color: var(--as-primary);
+  color: #ffffff;
 }
 
 .save-btn-full {
-    width: 100%;
-    padding: 16px 0;
-    background-color: #ff8c00;
-    color: white;
-    border: none;
-    border-radius: 12px;
-    font-weight: 700;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background-color 0.2s;
-    margin-top: 10px;
+  width: 100%;
+  padding: 16px 0;
+  background-color: var(--as-primary);
+  color: #ffffff;
+  border: none;
+  border-radius: var(--as-radius-input);
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  margin-top: 10px;
 }
-
 .save-btn-full:hover {
-    background-color: #e67e22;
+  background-color: var(--as-primary-dark);
 }
 
-/* 🌟 위험 구역 (탈퇴) 카드 특화 디자인 */
+/* 🌟 위험 구역 (탈퇴) 카드 */
 .danger-zone-card {
-    border-color: #fecaca;
-    background-color: #fef2f2;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
+  border-color: var(--as-danger-border);
+  background-color: var(--as-danger-bg);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
 .danger-text-info .danger-title {
-    margin: 0 0 6px 0;
-    font-size: 1rem;
-    font-weight: 800;
-    color: #ef4444;
+  margin: 0 0 6px 0;
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--as-danger);
 }
 
 .danger-text-info p {
-    margin: 0;
-    font-size: 0.85rem;
-    color: #b91c1c;
-    line-height: 1.4;
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--as-danger-text);
+  line-height: 1.4;
 }
 
 .withdraw-btn {
-    width: 100%;
-    padding: 14px 0;
-    background-color: #ffffff;
-    color: #ef4444;
-    border: 1px solid #fca5a5;
-    border-radius: 12px;
-    font-weight: 700;
-    font-size: 0.95rem;
-    cursor: pointer;
-    transition: all 0.2s;
+  width: 100%;
+  padding: 14px 0;
+  background-color: #ffffff;
+  color: var(--as-danger);
+  border: 1px solid var(--as-danger-btn-border);
+  border-radius: var(--as-radius-input);
+  font-weight: 700;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: var(--as-transition);
 }
-
 .withdraw-btn:hover {
-    background-color: #ef4444;
-    color: white;
-    border-color: #ef4444;
+  background-color: var(--as-danger);
+  color: #ffffff;
+  border-color: var(--as-danger);
 }

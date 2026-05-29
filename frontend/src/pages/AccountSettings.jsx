@@ -3,7 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import { updateNickname, updatePassword, deleteAccount } from '../api/authApi';
 import { clearAllStorage } from '../utils/storage';
+import { AUTH_EVENTS } from '../constants/storageKeys';
 import './AccountSettings.css';
+
+const MIN_NICKNAME_LENGTH = 2;
+const MIN_PASSWORD_LENGTH = 6;
 
 const AccountSettings = () => {
     const navigate = useNavigate();
@@ -18,8 +22,8 @@ const AccountSettings = () => {
 
     const handleUpdateNickname = async (e) => {
         e.preventDefault();
-        if (!nickname || nickname.trim().length < 2) {
-            alert('닉네임은 2자 이상 입력해주세요.');
+        if (!nickname || nickname.trim().length < MIN_NICKNAME_LENGTH) {
+            alert(`닉네임은 ${MIN_NICKNAME_LENGTH}자 이상 입력해주세요.`);
             return;
         }
         if (nickname.trim() === userNickname) {
@@ -53,8 +57,8 @@ const AccountSettings = () => {
             alert('새 비밀번호와 확인이 일치하지 않습니다.');
             return;
         }
-        if (newPassword.length < 6) {
-            alert('새 비밀번호는 6자 이상이어야 합니다.');
+        if (newPassword.length < MIN_PASSWORD_LENGTH) {
+            alert(`새 비밀번호는 ${MIN_PASSWORD_LENGTH}자 이상이어야 합니다.`);
             return;
         }
         try {
@@ -88,7 +92,7 @@ const AccountSettings = () => {
             if (result.success) {
                 alert('회원 탈퇴가 완료되었습니다. 그동안 이용해주셔서 감사합니다.');
                 clearAllStorage();
-                window.dispatchEvent(new Event('sun-care-auth-change'));
+                window.dispatchEvent(new Event(AUTH_EVENTS.CHANGE));
                 navigate('/');
             } else {
                 alert(result.message || '회원 탈퇴 실패');
@@ -109,7 +113,7 @@ const AccountSettings = () => {
                     <i className="fa-solid fa-chevron-left"></i>
                 </button>
                 <h1 className="settings-title">회원 정보 관리</h1>
-                <div style={{ width: '38px' }}></div> {/* 타이틀 중앙 정렬용 여백 */}
+                <div className="settings-header__spacer" aria-hidden="true"></div>
             </div>
 
             {/* ── 1. 기본 정보 & 닉네임 변경 ── */}
@@ -123,7 +127,7 @@ const AccountSettings = () => {
                     <input 
                         type="email" 
                         className="settings-input readonly" 
-                        value={userEmail || 'user@example.com'} 
+                        value={userEmail || ''}
                         readOnly 
                     />
                 </div>

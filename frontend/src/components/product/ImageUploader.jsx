@@ -39,7 +39,7 @@ function ImageUploader({ label, previewUrl, onFileChange }) {
           className="uploader__drop"
           onClick={handlePickClick}
         >
-          <span className="uploader__icon">📷</span>
+          <span className="uploader__icon" role="img" aria-label="카메라">📷</span>
           <span className="uploader__text">사진 업로드</span>
           <span className="uploader__hint">눌러서 파일 선택</span>
         </button>
@@ -71,7 +71,7 @@ function ImageUploader({ label, previewUrl, onFileChange }) {
         ref={inputRef}
         type="file"
         accept="image/*"
-        style={{ display: 'none' }}
+        className="uploader__file-input"
         onChange={handleFileSelect}
       />
     </div>

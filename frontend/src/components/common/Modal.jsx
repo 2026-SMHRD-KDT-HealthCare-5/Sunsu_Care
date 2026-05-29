@@ -2,7 +2,7 @@
 import { useEffect } from 'react'
 import './Modal.css'
 
-function Modal({ isOpen, onClose, title, children, hideDefaultButton = false }) {
+function Modal({ isOpen, onClose, title, children }) {
   useEffect(() => {
     if (!isOpen) return
     const onKey = (e) => {
@@ -19,9 +19,7 @@ function Modal({ isOpen, onClose, title, children, hideDefaultButton = false }) 
       <div className="modal__content" onClick={(e) => e.stopPropagation()}>
         {title && <h3 className="modal__title">{title}</h3>}
         <div className="modal__body">{children}</div>
-        {!hideDefaultButton && (
-          <button className="modal__close" onClick={onClose}>확인</button>
-        )}
+        <button className="modal__close" onClick={onClose}>확인</button>
       </div>
     </div>
   )

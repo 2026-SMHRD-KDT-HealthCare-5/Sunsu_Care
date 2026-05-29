@@ -2,7 +2,10 @@
 
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { HOME_HASH_SCROLL_DELAY_MS } from '../../constants/timings';
 import './BottomNav.css';
+
+const HEADER_SCROLL_OFFSET_PX = 60;
 
 const ITEMS = [
   { to: '/', icon: 'fa-solid fa-house', label: '홈' },
@@ -24,7 +27,7 @@ function BottomNav() {
         // 🌟 핵심 해결: 이미 홈 화면에 있다면 navigate를 막고 스크롤만 부드럽게 이동시킵니다.
         const element = document.getElementById(targetId);
         if (element) {
-          const y = element.getBoundingClientRect().top + window.scrollY - 60;
+          const y = element.getBoundingClientRect().top + window.scrollY - HEADER_SCROLL_OFFSET_PX;
           window.scrollTo({ top: y, behavior: 'smooth' });
           // 주소창의 해시만 조용히 업데이트 (튕김 방지)
           window.history.pushState(null, '', to);
@@ -35,10 +38,10 @@ function BottomNav() {
         setTimeout(() => {
           const element = document.getElementById(targetId);
           if (element) {
-            const y = element.getBoundingClientRect().top + window.scrollY - 60;
+            const y = element.getBoundingClientRect().top + window.scrollY - HEADER_SCROLL_OFFSET_PX;
             window.scrollTo({ top: y, behavior: 'smooth' });
           }
-        }, 100);
+        }, HOME_HASH_SCROLL_DELAY_MS);
       }
     } else {
       // 2. 해시가 없는 일반 페이지 이동 (예: 홈, 정보 탭)
