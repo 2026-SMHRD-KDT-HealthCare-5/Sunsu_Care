@@ -1,23 +1,58 @@
+/* ==========================================================================
+   HomePage CSS
+   - 옵션 B: 전역 오염 제거 + dead code 정리 + 로컬 변수화 + hover 추가
+   - 폰트/배경은 global.css + variables.css 에서 관리 (사이트 전체 일관성)
+   ========================================================================== */
 
-.home-container {
-  width: 100%;
-  overflow-x: hidden;
-  background-color: #fff;
-  padding-bottom: 100px; 
+/* 🌟 로컬 변수: 컴포넌트 전용 디자인 토큰 */
+.home-container,
+.home-container * {
+  --hp-primary: #ff8c00;             /* 메인 강조 */
+  --hp-dark: #333333;                /* "분석하기" 어두운 버튼 */
+  --hp-bg-card: #ffffff;             /* 컨테이너 배경 */
+  --hp-bg-banner: #fff9f2;           /* 반반 배너 살구 배경 */
+  --hp-bg-banner-active: #fff0d9;    /* 반반 배너 active */
+  --hp-bg-divider: #f8fafc;          /* 섹션 구분선 */
+
+  --hp-text-strong: #111111;
+  --hp-text-title: #222222;
+  --hp-text-body: #555555;
+  --hp-text-soft: #777777;
+  --hp-text-light: #666666;
+  --hp-text-on-dark: #ffffff;
+  --hp-text-banner-btn: #fff0d9;
+
+  --hp-border-banner: 1px solid #ff8c00;
+  --hp-shadow-blob: 0 10px 30px rgba(0, 0, 0, 0.15);
+  --hp-shadow-banner: 0 4px 15px rgba(206, 135, 48, 0.08);
+  --hp-shadow-banner-hover: 0 8px 24px rgba(255, 140, 0, 0.18);
+
+  --hp-transition: all 0.2s ease;
 }
 
+/* ===== 페이지 컨테이너 ===== */
+.home-container {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  min-height: 100vh;
+  background-color: var(--hp-bg-card);
+  padding-bottom: 100px;
+  overflow-x: hidden;
+}
+
+/* ===== Hero 섹션 ===== */
 .hero-section {
   position: relative;
   width: 100%;
-  height: 90vh; 
+  height: 90vh;
   overflow: hidden;
   display: flex;
-  align-items: flex-end; 
+  align-items: flex-end;
   justify-content: center;
-  padding-bottom: 80px; 
+  padding-bottom: 80px;
 }
 
-/* 메인 배경 이미지 설정 */
 .hero-bg {
   position: absolute;
   top: 0;
@@ -25,12 +60,41 @@
   width: 100%;
   height: 100%;
   background-size: cover;
-  background-position: center top; /* 🌟 얼굴 가리지 않게 top으로 고정 */
+  background-position: center top;
   transition: opacity 1.5s ease-in-out;
   z-index: 0;
   overflow: hidden;
 }
 
+/* 배경 이미지 2장 크로스페이드 (완전 동기화 — 빈 순간 없음) */
+.hero-bg .bg-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center top;
+  opacity: 0;
+  animation: smoothFade 10s infinite ease-in-out;
+  will-change: opacity;
+}
+/* 🌟 negative animation-delay 로 woman 이 사이클 절반 시점부터 시작 →
+   man fade-in 과 woman fade-out 이 정확히 동시에 일어남 */
+.hero-bg .bg-image.woman {
+  background-image: url('/main_woman.png');
+  animation-delay: -5s;
+}
+.hero-bg .bg-image.man {
+  background-image: url('/main_man.png');
+  animation-delay: 0s;
+}
+
+@keyframes smoothFade {
+  0%,  45%  { opacity: 0; }
+  50%, 95%  { opacity: 1; }
+  100%      { opacity: 0; }
+}
 
 .hero-overlay {
   position: absolute;
@@ -38,7 +102,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.7));
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7));
   z-index: 1;
 }
 
@@ -48,34 +112,34 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 20px; 
+  gap: 20px;
   width: 100%;
   padding: 0 20px;
 }
 
 .hero-title {
-  color: white;
+  color: #ffffff;
   text-align: center;
   font-size: 2.2rem;
   font-weight: 800;
   line-height: 1.3;
-  margin-bottom: 20px; 
-  text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+  margin-bottom: 20px;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }
+.hero-title span { color: var(--hp-primary); }
 
-.hero-title span { color: #ff8c00; }
-
+/* ===== Blob 버튼 (모양 변형 애니메이션) ===== */
 .blob-button-container {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  gap: 35px; 
+  gap: 35px;
   width: 100%;
 }
 
 .blob-button {
-  width: 155px; 
+  width: 155px;
   height: 155px;
   background: rgba(255, 255, 255, 0.95);
   display: flex;
@@ -84,14 +148,19 @@
   text-align: center;
   padding: 15px;
   font-weight: 800;
-  font-size: 1.35rem; 
-  color: #111;
+  font-size: 1.35rem;
+  color: var(--hp-text-strong);
   cursor: pointer;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-  transition: transform 0.3s ease;
+  box-shadow: var(--hp-shadow-blob);
+  transition: transform 0.4s ease, box-shadow 0.4s ease, background 0.3s ease;
   border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
   animation: blob-animate 8s infinite alternate;
-  box-sizing: border-box; 
+  box-sizing: border-box;
+
+  /* button 태그 기본 스타일 초기화 */
+  border: none;
+  font-family: inherit;
+  line-height: 1.3;
 }
 
 .blob-button:nth-child(2) {
@@ -99,34 +168,43 @@
   background: rgba(255, 255, 255, 0.9);
 }
 
+/* 🌟 hover — blob 모양 변형 일시정지 + 부드럽게 떠오르듯 */
 .blob-button:hover {
-  transform: scale(1.05);
+  transform: translateY(-4px);
+  background: #ffffff;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.22);
+  animation-play-state: paused;
+}
+
+.blob-button:active {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
 }
 
 @keyframes blob-animate {
-  0% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
-  50% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
+  0%   { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+  50%  { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
   100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
 }
 
+/* ===== 콘텐츠 섹션 ===== */
 .home-content {
-  background-color: #fff;
+  background-color: var(--hp-bg-card);
 }
 
 .content-section {
   padding: 100px 24px;
   margin-bottom: 0;
   text-align: center;
-  border-bottom: 8px solid #f8fafc;
+  border-bottom: 8px solid var(--hp-bg-divider);
   box-sizing: border-box;
 }
-
 .content-section:last-child {
   border-bottom: none;
 }
 
 .section-tag {
-  color: #ff8c00;
+  color: var(--hp-primary);
   font-weight: 800;
   font-size: 1rem;
   display: block;
@@ -137,14 +215,14 @@
   font-size: 2rem;
   font-weight: 800;
   margin-bottom: 20px;
-  color: #111;
+  color: var(--hp-text-strong);
 }
 
 .section-desc {
   font-size: 1.1rem;
-  color: #555;
+  color: var(--hp-text-body);
   line-height: 1.6;
-  margin-bottom: 40px; 
+  margin-bottom: 40px;
 }
 
 .section-btn {
@@ -152,175 +230,62 @@
   padding: 20px;
   border-radius: 12px;
   border: none;
-  background-color: #ff8c00;
-  color: white;
+  background-color: var(--hp-primary);
+  color: var(--hp-text-on-dark);
   font-weight: 700;
   font-size: 1.2rem;
   cursor: pointer;
-  box-sizing: border-box; /* 삐져나감 방지 */
-}
-
-
-/* =========================================
-    쇼핑 리스트 디자인
-   ========================================= */
-.shop-list-embedded {
-  display: flex;
-  flex-direction: column;
-  gap: 15px; 
-  align-items: center;
-  width: 100%;
   box-sizing: border-box;
+  transition: var(--hp-transition);
+}
+.section-btn:hover {
+  filter: brightness(0.95);
 }
 
-.embedded-shop-card {
-  background: #fff;
-  border-radius: 16px;
-  padding: 20px;
-  display: flex;
-  align-items: center;
-  border: 1px solid #e2e8f0;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  width: 100%;
-  max-width: 380px; 
-  box-shadow: 0 2px 5px rgba(0,0,0,0.03);
-  box-sizing: border-box;
+/* "분석하기" 어두운 버튼 변형 (인라인 → 클래스) */
+.section-btn--dark {
+  background-color: var(--hp-dark);
 }
 
-.embedded-shop-card:active {
-  background-color: #fff9f5;
-  border-color: #ff8c00;
-  transform: scale(0.98); 
-}
-
-.embedded-logo-wrap {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%; 
-  overflow: hidden;
-  margin-right: 18px;
-  border: 1px solid #eee;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0; 
-}
-
-.embedded-logo-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover; 
-}
-
-.embedded-info-wrap {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  text-align: left; 
-}
-
-.embedded-shop-name {
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: #1a1a1a;
-}
-
-.embedded-shop-desc {
-  font-size: 0.9rem;
-  color: #666;
-  line-height: 1.4;
-}
-
-.embedded-shop-benefit {
-  color: #ff8c00; 
-  font-weight: 600;
-  font-size: 0.85rem;
-  margin-top: 2px;
-}
-
-
-
-.hero-bg .bg-image {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-size: cover;
-  background-position: center top;
-  opacity: 0; 
-  animation: smoothFade 10s infinite; 
-}
-
-
-.hero-bg .bg-image.woman {
-  background-image: url('/main_woman.png');
-  animation-delay: 0s;
-}
-
-
-.hero-bg .bg-image.man {
-  background-image: url('/main_man.png');
-  animation-delay: 5s;
-} 
-
-/* 크로스페이드 키프레임 */
-@keyframes smoothFade {
-  0%   { opacity: 1; }
-  40%  { opacity: 1; }
-  50%  { opacity: 0; }
-  90%  { opacity: 0; }
-  100% { opacity: 1; }
-}
-
-
-
-@media (min-width: 769px) {
-  .hero-section {
-    height: 75vh;
-    padding-bottom: 50px; 
-  }
-  .hero-title {
-    font-size: 2.8rem; 
-  }
-}
-/* 🌟 3. 반반 배너 컨테이너 & 카드 스타일 */
+/* ===== 반반 배너 (정보 공유 + 쇼핑) ===== */
 .split-banner-container {
   display: flex;
-  gap: 15px; /* 카드 사이 간격*/
+  gap: 15px;
   margin: 30px 20px;
 }
 
 .split-banner-card {
   flex: 1;
-  background-color: #fff9f2; /*  주황빛 배경 */
+  background-color: var(--hp-bg-banner);
   border-radius: 16px;
-  padding: 100px 10px; /* 위아래 패딩 */
+  padding: 100px 10px;
   text-align: center;
-  box-shadow: 0 4px 15px rgba(206, 135, 48, 0.08); /* 🌟 그림자도 약간 주황빛으로 변경 */
-  border: 1px solid #ff8c00; /* 테두리 */
+  box-shadow: var(--hp-shadow-banner);
+  border: var(--hp-border-banner);
   cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
-  
-  /* 🌟 카드 안의 글자와 버튼을 항상 정중앙에 예쁘게 배치 */
+  transition: var(--hp-transition);
+
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  min-height: 200px; /* 카드의 최소 높이를 보장 */
+  min-height: 200px;
 }
 
-/* 카드를 클릭(터치)할 때 효과 */
+/* 🌟 hover 효과 (데스크탑) */
+.split-banner-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--hp-shadow-banner-hover);
+}
+
 .split-banner-card:active {
   transform: scale(0.96);
-  background-color: #fff0d9; /* 눌렀을 때 조금 더 진해지는 귀여운 주황색 */
+  background-color: var(--hp-bg-banner-active);
 }
 
 .split-subtitle {
   display: block;
-  color: #ff8c00;
+  color: var(--hp-primary);
   font-weight: 800;
   font-size: 0.7rem;
   letter-spacing: 0.5px;
@@ -329,27 +294,38 @@
 
 .split-title {
   margin: 0 0 8px 0;
-  font-size: 1.8rem; /* 제목도 살짝 키움 */
+  font-size: 1.8rem;
   font-weight: 700;
-  color: #222;
+  color: var(--hp-text-title);
 }
 
 .split-desc {
   font-size: 0.75rem;
-  color: #777;
-  margin-bottom: 20px; /* 버튼과 설명 사이 간격 넓힘 */
+  color: var(--hp-text-soft);
+  margin-bottom: 20px;
   word-break: keep-all;
   line-height: 1.4;
 }
 
 .split-btn {
-  background-color: #ff8c00; /* 버튼 속은 하얗게 빼서 입체감 줌 */
-  border: 1px solid #ff8c00;
-  color: #fff0d9;
-  padding: 10px 0; /* 버튼도 살짝 도톰하게 */
+  background-color: var(--hp-primary);
+  border: 1px solid var(--hp-primary);
+  color: var(--hp-text-banner-btn);
+  padding: 10px 0;
   border-radius: 25px;
   font-size: 0.8rem;
   font-weight: 600;
   width: 85%;
   cursor: pointer;
+}
+
+/* ===== 데스크탑 미디어 쿼리 ===== */
+@media (min-width: 769px) {
+  .hero-section {
+    height: 75vh;
+    padding-bottom: 50px;
+  }
+  .hero-title {
+    font-size: 2.8rem;
+  }
 }

@@ -40,11 +40,29 @@ const authMiddleware = (req, res, next) => {
     // 다음 미들웨어 또는 controller로 이동
     next();
   } catch (err) {
-    console.log("JWT 인증 에러:", err);
+    // 🌟 에러 종류별 분기: 만료는 흔한 케이스 → 한 줄 warn / 그 외만 풀 스택
+    if (err.name === "TokenExpiredError") {
+      console.warn(`[Auth] 토큰 만료 (expiredAt=${err.expiredAt?.toISOString?.()})`);
+      return res.status(401).json({
+        success: false,
+        code: "TOKEN_EXPIRED",
+        message: "로그인이 만료되었습니다. 다시 로그인해주세요.",
+      });
+    }
+    if (err.name === "JsonWebTokenError") {
+      console.warn(`[Auth] 토큰 위변조/형식 오류: ${err.message}`);
+      return res.status(401).json({
+        success: false,
+        code: "TOKEN_INVALID",
+        message: "유효하지 않은 토큰입니다.",
+      });
+    }
 
+    // 그 외 예상치 못한 에러만 풀 스택 출력
+    console.error("JWT 인증 에러:", err);
     return res.status(401).json({
       success: false,
-      message: "유효하지 않은 토큰입니다.",
+      message: "인증 처리 중 오류가 발생했습니다.",
     });
   }
 };

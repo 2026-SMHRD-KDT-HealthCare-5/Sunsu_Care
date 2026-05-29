@@ -1,240 +1,182 @@
-.guide {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-4);
+/* ==========================================================================
+   GuidePage CSS
+   - 옵션 C: 로컬 변수화 + hover 효과 + dead code 제거
+   - 메인 컬러: #ff8c00 (다른 페이지들과 통일)
+   ========================================================================== */
+
+/* 🌟 로컬 변수: 컴포넌트 전용 디자인 토큰 */
+.page.guide,
+.page.guide * {
+  --gp-primary: #ff8c00;             /* 메인 강조색 */
+  --gp-text-strong: #222222;         /* 본문/제목 진한 글자 */
+  --gp-text-body: #666666;           /* 보조 본문 */
+  --gp-text-muted: #999999;          /* 안내 글자 */
+  --gp-text-soft: #888888;           /* 채널명 등 약한 글자 */
+
+  --gp-bg: #ffffff;                  /* 카드/페이지 배경 */
+  --gp-bg-link: #fffaf5;             /* 링크 카드 배경 (옅은 살구) */
+  --gp-bg-thumb: #f1f5f9;            /* 영상 썸네일 로딩 전 배경 */
+
+  --gp-border: #e2e8f0;              /* 섹션 테두리 */
+  --gp-border-soft: #f1f5f9;         /* 영상 카드 테두리 */
+
+  --gp-radius-section: 20px;
+  --gp-radius-card: 16px;
+  --gp-radius-video: 12px;
+
+  --gp-shadow-section: 0 4px 12px rgba(0, 0, 0, 0.02);
+  --gp-shadow-hover: 0 6px 16px rgba(255, 140, 0, 0.08);
+  --gp-shadow-hover-neutral: 0 6px 16px rgba(0, 0, 0, 0.05);
+
+  --gp-transition: transform 0.2s, box-shadow 0.2s;
 }
 
+/* ===== 페이지 컨테이너 ===== */
+.page.guide {
+  background-color: var(--gp-bg);
+  min-height: 100vh;
+  padding: 30px 20px 100px 20px;
+  font-family: 'Pretendard', -apple-system, sans-serif;
+  box-sizing: border-box;
+}
+
+/* ===== 상단 헤더 ===== */
 .guide__header {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   text-align: center;
-  gap: var(--space-2);
-  padding-bottom: var(--space-2);
+  margin-bottom: 30px;
 }
 
 .guide__overline {
-  font-size: var(--font-sm);
-  font-weight: 800;
-  color: var(--color-primary);
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
+  display: block;
+  color: var(--gp-primary);
+  font-weight: 900;
+  font-size: 0.95rem;
+  letter-spacing: 1.5px;
+  margin-bottom: 8px;
 }
 
 .guide__title {
-  font-size: var(--font-2xl);
-  font-weight: 800;
-  color: var(--color-text);
-  line-height: 1.2;
+  font-size: 2rem;
+  font-weight: 900;
+  color: var(--gp-text-strong);
+  margin: 0 0 12px 0;
 }
 
 .guide__subtitle {
-  color: var(--color-text-light);
-  font-size: var(--font-sm);
+  color: var(--gp-text-body);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  font-weight: 500;
 }
 
+/* ===== 라운드 박스 (섹션) ===== */
 .guide__section {
-  background-color: var(--color-surface);
-  border-radius: var(--radius-lg);
-  border: 1px solid var(--color-border);
-  padding: var(--space-4);
-}
-
-.guide__section--tip {
-  background-color: var(--color-secondary);
-  border-color: var(--color-primary-light);
-}
-
-.guide__section--warn {
-  background-color: var(--color-surface);
-  border-left: 4px solid var(--color-warning);
+  background-color: var(--gp-bg);
+  border: 1px solid var(--gp-border);
+  border-radius: var(--gp-radius-section);
+  padding: 24px 20px;
+  margin-bottom: 24px;
+  box-shadow: var(--gp-shadow-section);
 }
 
 .guide__section-title {
-  font-size: var(--font-md);
-  font-weight: 700;
-  margin-bottom: var(--space-3);
-  color: var(--color-primary);
-}
-
-.guide__steps {
+  color: var(--gp-primary);
+  font-size: 1.15rem;
+  font-weight: 800;
+  margin: 0 0 16px 0;
   display: flex;
-  flex-direction: column;
-  gap: var(--space-3);
-}
-
-.guide__step {
-  display: flex;
-  gap: var(--space-3);
-  padding: var(--space-3);
-  background-color: var(--color-bg);
-  border-radius: var(--radius-md);
-}
-
-.guide__step-left {
-  display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: var(--space-1);
-  min-width: 56px;
-  flex-shrink: 0;
+  gap: 8px;
 }
 
-.guide__step-icon {
-  font-size: var(--font-xl);
-}
-
-.guide__step-num {
-  font-size: var(--font-xs);
-  font-weight: 700;
-  color: var(--color-primary);
-}
-
-.guide__step-body {
-  flex: 1;
-}
-
-.guide__step-title {
-  font-size: var(--font-md);
-  font-weight: 700;
-  color: var(--color-text);
-  margin-bottom: var(--space-1);
-}
-
-.guide__step-desc {
-  font-size: var(--font-sm);
-  color: var(--color-text-light);
-  line-height: 1.6;
-}
-
-.guide__tips {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-2);
-}
-
-.guide__tip {
-  position: relative;
-  padding-left: var(--space-4);
-  font-size: var(--font-sm);
-  color: var(--color-text);
-  line-height: 1.6;
-}
-
-.guide__tip::before {
-  content: '✓';
-  position: absolute;
-  left: 0;
-  color: var(--color-primary);
-  font-weight: 700;
-}
-
-.guide__notice {
-  background-color: var(--color-secondary);
-  border-left: 4px solid var(--color-primary);
-  padding: var(--space-3);
-  border-radius: var(--radius-md);
-  font-size: var(--font-sm);
-  color: var(--color-text);
-}
-
-.guide__notice-link {
-  color: var(--color-primary-dark);
-  font-weight: 600;
-  text-decoration: underline;
-}
-
-.guide__actions {
-  display: flex;
-  gap: var(--space-2);
-  margin-top: var(--space-2);
-}
-
-.guide__actions > * {
-  flex: 1;
-}
-
+/* ===== 관련 사이트 링크 리스트 ===== */
 .guide__links {
   display: flex;
   flex-direction: column;
-  gap: var(--space-2);
+  gap: 12px;
 }
 
 .guide__link {
   display: flex;
   align-items: center;
-  gap: var(--space-3);
-  padding: var(--space-3);
-  background-color: var(--color-bg);
-  border-radius: var(--radius-md);
+  padding: 16px;
+  background-color: var(--gp-bg-link);
+  border-radius: var(--gp-radius-card);
   text-decoration: none;
-  color: inherit;
+  transition: var(--gp-transition);
+}
+
+/* 🌟 hover 효과 (데스크탑 마우스 사용자) */
+.guide__link:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--gp-shadow-hover);
+}
+
+.guide__link:active {
+  transform: scale(0.98);
 }
 
 .guide__link-icon {
-  flex-shrink: 0;
-  width: 42px;
-  height: 42px;
-  border-radius: var(--radius-md);
-  background-color: var(--color-surface);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: var(--font-lg);
+  font-size: 1.8rem;
+  margin-right: 16px;
 }
 
 .guide__link-body {
   flex: 1;
-  min-width: 0;
 }
 
 .guide__link-title {
-  font-size: var(--font-sm);
-  font-weight: 700;
-  color: var(--color-text);
-  margin-bottom: 2px;
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--gp-text-strong);
+  margin-bottom: 4px;
 }
 
 .guide__link-desc {
-  font-size: var(--font-xs);
-  color: var(--color-text-light);
-  line-height: 1.45;
+  font-size: 0.85rem;
+  color: var(--gp-text-body);
 }
 
 .guide__link-domain {
-  display: inline-block;
-  margin-top: var(--space-1);
-  font-size: var(--font-xs);
-  color: var(--color-text-light);
+  font-size: 0.75rem;
+  color: var(--gp-text-muted);
+  margin-top: 4px;
 }
 
 .guide__link-arrow {
-  flex-shrink: 0;
-  color: var(--color-primary);
-  font-weight: 700;
-  font-size: var(--font-md);
+  color: var(--gp-primary);
+  font-weight: 900;
+  font-size: 1.2rem;
 }
 
-/* ───── 추천 영상 (비디오 카드) ───── */
+/* ===== 유튜브 영상 리스트 ===== */
 .guide__videos {
   display: flex;
   flex-direction: column;
-  gap: var(--space-3);
+  gap: 20px;
 }
 
 .guide__video {
   display: block;
-  background-color: var(--color-bg);
-  border-radius: var(--radius-md);
-  overflow: hidden;
   text-decoration: none;
-  color: inherit;
+  background: var(--gp-bg);
+  border-radius: var(--gp-radius-video);
+  overflow: hidden;
+  border: 1px solid var(--gp-border-soft);
+  transition: var(--gp-transition);
+}
+
+/* 🌟 hover 효과 (데스크탑) */
+.guide__video:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--gp-shadow-hover-neutral);
 }
 
 .guide__video-thumb-wrap {
+  width: 100%;
   aspect-ratio: 16 / 9;
-  background-color: var(--color-border);
   overflow: hidden;
+  background-color: var(--gp-bg-thumb);
 }
 
 .guide__video-thumb {
@@ -245,15 +187,15 @@
 }
 
 .guide__video-meta {
-  padding: var(--space-3);
+  padding: 16px;
 }
 
 .guide__video-title {
-  font-size: var(--font-sm);
-  font-weight: 700;
-  color: var(--color-text);
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--gp-text-strong);
   line-height: 1.4;
-  margin-bottom: var(--space-1);
+  margin-bottom: 8px;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
@@ -261,13 +203,16 @@
 }
 
 .guide__video-channel {
-  font-size: var(--font-xs);
-  color: var(--color-text-light);
+  font-size: 0.85rem;
+  color: var(--gp-text-soft);
+  font-weight: 600;
 }
+
+/* ===== 하단 안내 문구 ===== */
 .guide__footer-note {
   text-align: center;
-  font-size: var(--font-xs);
-  color: var(--color-text-light);
-  line-height: 1.5;
-  padding: var(--space-2);
+  color: var(--gp-text-muted);
+  font-size: 0.85rem;
+  line-height: 1.6;
+  margin-top: 10px;
 }

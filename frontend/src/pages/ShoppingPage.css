@@ -1,115 +1,181 @@
-/* ShoppingPage.css */
+/* ==========================================================================
+   ShoppingPage CSS
+   - 사이트 전체 폭 통일 (max-width: 500px)
+   - 인라인 → 클래스, 로컬 변수화, hover 효과 추가
+   ========================================================================== */
 
+/* 🌟 로컬 변수: ShoppingPage 전용 디자인 토큰 */
 .shopping-container {
-    width: 100%;
-    height: 100vh;
-    background-color: #f8fafc; /* 연한 회색 배경 */
-    display: flex;
-    flex-direction: column;
-    max-width: 420px; /* 모바일 뼈대 고정 */
-    margin: 0 auto;
-    position: relative;
+  --shp-primary: #ff8c00;
+  --shp-primary-pale: #fff9f5;
+
+  --shp-bg-page: #f8fafc;
+  --shp-bg-card: #ffffff;
+
+  --shp-border-card: #e2e8f0;
+  --shp-border-soft: #f0f0f0;
+  --shp-border-logo: #eeeeee;
+
+  --shp-text-strong: #222222;
+  --shp-text-body: #666666;
+  --shp-text-title: #1a1a1a;
+
+  --shp-shadow-card: 0 2px 5px rgba(0, 0, 0, 0.03);
+  --shp-shadow-hover: 0 6px 16px rgba(255, 140, 0, 0.12);
+
+  --shp-transition: all 0.2s ease;
 }
 
-/* 상단 헤더  */
+/* ===== 컨테이너 — 사이트 전체 폭 통일(500px) ===== */
+.shopping-container {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  min-height: 100vh;
+  background-color: var(--shp-bg-page);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  box-sizing: border-box;
+}
+
+/* ===== 헤더 ===== */
 .shopping-header {
-    height: 60px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 20px;
-    background: #fff;
-    border-bottom: 1px solid #f0f0f0;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  background: var(--shp-bg-card);
+  border-bottom: 1px solid var(--shp-border-soft);
+  flex-shrink: 0;
+}
+
+.shopping-header__side {
+  width: 24px;
+  flex-shrink: 0;
 }
 
 .shopping-header .logo {
-    font-family: 'Urbanist', sans-serif;
-    font-weight: 800;
-    font-size: 1.2rem;
-    color: #333;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Urbanist', sans-serif;
+  font-weight: 800;
+  font-size: 1.2rem;
+  color: var(--shp-text-strong);
 }
-
+.shopping-header .logo i {
+  color: var(--shp-primary);
+  font-size: 1.1em;
+}
 .shopping-header .logo span {
-    color: #ff8c00; 
+  color: var(--shp-primary);
 }
 
 .close-btn {
-    font-size: 24px;
-    cursor: pointer;
-    color: #333;
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: var(--shp-text-strong);
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+  transition: var(--shp-transition);
+}
+.close-btn:hover {
+  color: var(--shp-primary);
 }
 
-/* 쇼핑몰 리스트 영역 */
+/* ===== 쇼핑몰 리스트 영역 ===== */
 .shop-list-main {
-    flex: 1;
-    overflow-y: auto;
-    padding: 24px 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 16px; /* 카드 간격 */
+  flex: 1;
+  overflow-y: auto;
+  padding: 24px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
-/* 🌟 쇼핑몰 카드  */
+/* ===== 쇼핑몰 카드 ===== */
 .shop-card {
-    background: #fff;
-    border-radius: 16px;
-    padding: 20px;
-    display: flex;
-    align-items: center;
-    border: 1px solid #e2e8f0;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+  width: 100%;
+  box-sizing: border-box;
+  background: var(--shp-bg-card);
+  border-radius: 16px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--shp-border-card);
+  cursor: pointer;
+  transition: var(--shp-transition);
+  box-shadow: var(--shp-shadow-card);
 }
-
+.shop-card:hover {
+  border-color: var(--shp-primary);
+  box-shadow: var(--shp-shadow-hover);
+  transform: translateY(-2px);
+}
 .shop-card:active {
-    background-color: #fff9f5;
-    border-color: #ff8c00;
-    transform: scale(0.98); 
+  background-color: var(--shp-primary-pale);
+  border-color: var(--shp-primary);
+  transform: scale(0.98);
 }
 
 /* 왼쪽: 로고 박스 */
 .shop-logo-wrap {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%; /* 동그란 로고 */
-    overflow: hidden;
-    margin-right: 18px;
-    border: 1px solid #eee;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-right: 18px;
+  border: 1px solid var(--shp-border-logo);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  background: var(--shp-bg-card);
 }
 
 .shop-logo-img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain; 
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 /* 오른쪽: 설명 박스 */
 .shop-info-wrap {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
 }
 
 .shop-name {
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: #1a1a1a;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--shp-text-title);
 }
 
 .shop-desc {
-    font-size: 0.9rem;
-    color: #666;
-    line-height: 1.4;
+  font-size: 0.9rem;
+  color: var(--shp-text-body);
+  line-height: 1.4;
 }
 
 .shop-benefit {
-    color: #ff8c00; 
-    font-weight: 600;
-    font-size: 0.85rem;
-    margin-top: 2px;
+  color: var(--shp-primary);
+  font-weight: 600;
+  font-size: 0.85rem;
+  margin-top: 2px;
+}
+
+/* ===== 페이지 진입 페이드인 ===== */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.fade-in-up {
+  animation: fadeInUp 0.4s ease-out forwards;
 }

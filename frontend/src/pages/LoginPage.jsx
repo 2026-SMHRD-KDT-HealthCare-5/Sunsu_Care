@@ -44,7 +44,7 @@ function LoginPage() {
     <div className="page auth">
       <div className="auth__header">
         <h1 className="auth__title">로그인</h1>
-        <p className="auth__subtitle">SunCare에 오신 걸 환영합니다 🌞</p>
+        <p className="auth__subtitle">Sun手Care에 오신 걸 환영합니다 🌞</p>
       </div>
 
       <form className="auth__form" onSubmit={handleSubmit}>

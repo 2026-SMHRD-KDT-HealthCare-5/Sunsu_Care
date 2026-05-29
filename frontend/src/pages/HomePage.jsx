@@ -49,12 +49,12 @@ const HomePage = () => {
                     <h1 className="hero-title">내 피부에 맞는<br/>선크림만 <span>안전하게</span></h1>
                     
                     <div className="blob-button-container">
-                        <div className="blob-button" onClick={() => goWithAuth('/profile')}>
+                        <button type="button" className="blob-button" onClick={() => goWithAuth('/profile')}>
                             맞춤 추천<br/>받기
-                        </div>
-                        <div className="blob-button" onClick={() => goWithAuth('/scan')}>
+                        </button>
+                        <button type="button" className="blob-button" onClick={() => goWithAuth('/scan')}>
                             기존 제품<br/>분석
-                        </div>
+                        </button>
                     </div>
                 </div>
             </section>
@@ -74,7 +74,7 @@ const HomePage = () => {
                     <span className="section-tag">AI ANALYSIS</span>
                     <h2 className="section-title">기존 제품 분석</h2>
                     <p className="section-desc">쓰고 계신 제품의 성분이 궁금한가요?<br/>카메라로 찍어서 바로 확인해보세요.</p>
-                    <button className="section-btn" style={{backgroundColor: '#333'}} onClick={() => goWithAuth('/scan')}>분석하기 →</button>
+                    <button className="section-btn section-btn--dark" onClick={() => goWithAuth('/scan')}>분석하기 →</button>
                 </section>
 
                 {/* 3. 정보 공유 & 쇼핑 구역 (반반 분할) */}

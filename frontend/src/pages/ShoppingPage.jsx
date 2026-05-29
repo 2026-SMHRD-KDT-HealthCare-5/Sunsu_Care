@@ -1,9 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './ShoppingPage.css';
 
 const ShoppingPage = () => {
     const navigate = useNavigate();
+
+    // 🌟 페이지 진입 시 맨 위로 스크롤
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
 
     const openMobileShop = (url) => {
         window.open(url, '_blank', 'noopener,noreferrer');
@@ -37,13 +42,18 @@ const ShoppingPage = () => {
     ];
 
     return (
-        <div className="shopping-container">
+        <div className="shopping-container fade-in-up">
             <header className="shopping-header">
-                <div style={{ width: '24px' }}></div>
-                <div className="logo">SunCare<span>.</span> SHOP</div>
-                <div className="close-btn" onClick={() => navigate('/')}>
+                <div className="shopping-header__side" aria-hidden="true"></div>
+                <div className="logo">SHOP</div>
+                <button
+                    type="button"
+                    className="close-btn"
+                    onClick={() => navigate(-1)}
+                    aria-label="닫기"
+                >
                     <i className="fa-solid fa-xmark"></i>
-                </div>
+                </button>
             </header>
 
             <main className="shop-list-main">

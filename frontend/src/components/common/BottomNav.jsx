@@ -8,7 +8,7 @@ const ITEMS = [
   { to: '/', icon: 'fa-solid fa-house', label: '홈' },
   { to: '/#recommend', icon: 'fa-solid fa-wand-magic-sparkles', label: 'AI추천' },
   { to: '/#analysis', icon: 'fa-solid fa-magnifying-glass-chart', label: 'AI분석' },
-  { to: '/guide', icon: 'fa-solid fa-book-open', label: '정보' }, 
+  { to: '/guide', icon: 'fa-solid fa-book-open', label: '정보' },
 ];
 
 function BottomNav() {
@@ -16,18 +16,35 @@ function BottomNav() {
   const location = useLocation();
 
   const handleNavClick = (to) => {
-    navigate(to);
-
+    // 1. 특정 구역으로 이동하는 해시(스크롤) 링크인 경우
     if (to.startsWith('/#')) {
       const targetId = to.replace('/#', '');
-      setTimeout(() => {
+
+      if (location.pathname === '/') {
+        // 🌟 핵심 해결: 이미 홈 화면에 있다면 navigate를 막고 스크롤만 부드럽게 이동시킵니다.
         const element = document.getElementById(targetId);
         if (element) {
           const y = element.getBoundingClientRect().top + window.scrollY - 60;
           window.scrollTo({ top: y, behavior: 'smooth' });
+          // 주소창의 해시만 조용히 업데이트 (튕김 방지)
+          window.history.pushState(null, '', to);
         }
-      }, 50);
+      } else {
+        // 다른 페이지(정보, 마이페이지 등)에서 홈 화면의 특정 구역으로 갈 경우
+        navigate(to);
+        setTimeout(() => {
+          const element = document.getElementById(targetId);
+          if (element) {
+            const y = element.getBoundingClientRect().top + window.scrollY - 60;
+            window.scrollTo({ top: y, behavior: 'smooth' });
+          }
+        }, 100);
+      }
     } else {
+      // 2. 해시가 없는 일반 페이지 이동 (예: 홈, 정보 탭)
+      if (location.pathname !== to) {
+        navigate(to);
+      }
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };
@@ -37,37 +54,15 @@ function BottomNav() {
       {ITEMS.map((item) => {
         const currentPath = location.pathname + location.hash;
         const isActive = currentPath === item.to || (currentPath === '/' && item.to === '/');
-        
+
         return (
-          <div 
+          <div
             key={item.label}
-            className={`bottom-nav_item ${isActive ? 'is-active' : ''}`}
+            className={`bottom-nav__item ${isActive ? 'is-active' : ''}`}
             onClick={() => handleNavClick(item.to)}
-            /* 🌟 padding을 12px -> 16px로 늘려서 하단 배너 높이를 키웠습니다 */
-            style={{ cursor: 'pointer', display: 'flex', flexDirection: 'column', alignItems: 'center', flex: 1, padding: '16px 0', textDecoration: 'none' }}
           >
-            <i 
-              className={item.icon} 
-              style={{ 
-                fontSize: '24px', /* 아이콘 크기 22px -> 24px 확대 */
-                marginBottom: '6px', 
-                /* 🌟 선택 안 된 기본 색상을 연회색에서 짙은 검정색(#333)으로 변경 */
-                color: isActive ? '#ff8c00' : '#333',
-                transition: 'color 0.2s'
-              }}
-            ></i>
-            <span 
-              className="bottom-nav_label" 
-              style={{ 
-                fontSize: '12px', /* 글씨 크기 11px -> 12px 확대 */
-                /* 🌟 글씨 역시 짙은 검정색으로 변경 */
-                color: isActive ? '#ff8c00' : '#333', 
-                fontWeight: isActive ? '800' : '600',
-                transition: 'all 0.2s'
-              }}
-            >
-              {item.label}
-            </span>
+            <i className={`${item.icon} bottom-nav__icon`}></i>
+            <span className="bottom-nav__label">{item.label}</span>
           </div>
         );
       })}

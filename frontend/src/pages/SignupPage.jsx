@@ -124,7 +124,7 @@ function SignupPage() {
         onClose={handleAfterSuccess}
         title="가입 완료 🎉"
       >
-        SunCare에 오신 걸 환영합니다.
+        Sun手Care에 오신 걸 환영합니다.
         <br />
         로그인 화면으로 이동합니다.
       </Modal>

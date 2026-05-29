@@ -1,44 +1,90 @@
+/* ==========================================================================
+   BottomNav (하단 고정 네비게이션)
+   - 화면 하단에 고정 (모바일 컨테이너 너비 기준 가운데 정렬)
+   - 4개 메뉴: 홈 / AI추천 / AI분석 / 정보
+   ========================================================================== */
+
+/* 🌟 로컬 변수: 컴포넌트 전용 디자인 토큰 */
+.bottom-nav,
+.bottom-nav * {
+  --bn-color-default: #333333;        /* 기본 텍스트/아이콘 색 */
+  --bn-color-active: #ff8c00;         /* 메인 강조색 (활성 상태) */
+  --bn-bg: #ffffff;                   /* 배경 */
+  --bn-border: #f1f5f9;               /* 상단 구분선 */
+  --bn-shadow: 0 -2px 8px rgba(0, 0, 0, 0.04);
+
+  --bn-item-padding-y: 16px;          /* 항목 세로 여백 */
+  --bn-icon-size: 24px;               /* 아이콘 크기 */
+  --bn-icon-margin-bottom: 6px;       /* 아이콘 ↔ 라벨 간격 */
+  --bn-label-size: 12px;              /* 라벨 폰트 크기 */
+  --bn-label-weight: 600;             /* 라벨 기본 굵기 */
+  --bn-label-weight-active: 800;      /* 라벨 활성 굵기 */
+
+  --bn-transition: color 0.2s, font-weight 0.2s;
+}
+
+/* ===== 컨테이너 (하단 고정) ===== */
 .bottom-nav {
   position: fixed;
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
-  /* 모바일 컨테이너 너비(480px)에 맞춰 화면 가운데 하단에 고정. */
+
   width: 100%;
-  max-width: var(--max-width);
+  max-width: var(--max-width, 480px);  /* 전역 모바일 폭 기준 (fallback 480px) */
+
   display: flex;
-  background-color: var(--color-surface);
-  border-top: 1px solid var(--color-border);
-  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.04);
+  background-color: var(--bn-bg);
+  border-top: 1px solid var(--bn-border);
+  box-shadow: var(--bn-shadow);
+
   z-index: 50;
+
+  /* 모바일 홈 인디케이터(아이폰 등) 영역 대응 */
+  padding-bottom: env(safe-area-inset-bottom);
 }
 
+/* ===== 각 항목 (네비 버튼) ===== */
 .bottom-nav__item {
   flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: var(--space-1);
-  padding: var(--space-2);
-  color: var(--color-text-light);
-  transition: color 0.2s;
+
+  padding: var(--bn-item-padding-y) 0;
+  cursor: pointer;
+  text-decoration: none;
+
+  color: var(--bn-color-default);
+  transition: var(--bn-transition);
+
+  /* 모바일 터치 하이라이트 제거 */
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
 }
 
-.bottom-nav__item:hover {
-  color: var(--color-primary);
-}
-
+.bottom-nav__item:hover,
 .bottom-nav__item.is-active {
-  color: var(--color-primary);
+  color: var(--bn-color-active);
 }
 
+/* ===== 아이콘 ===== */
 .bottom-nav__icon {
-  font-size: var(--font-lg);
+  font-size: var(--bn-icon-size);
+  margin-bottom: var(--bn-icon-margin-bottom);
   line-height: 1;
+  color: inherit;                     /* 부모 .bottom-nav__item의 color 상속 → active 시 자동 강조 */
 }
 
+/* ===== 라벨 ===== */
 .bottom-nav__label {
-  font-size: var(--font-xs);
-  font-weight: 600;
+  font-size: var(--bn-label-size);
+  font-weight: var(--bn-label-weight);
+  color: inherit;
+  transition: var(--bn-transition);
+}
+
+.bottom-nav__item.is-active .bottom-nav__label {
+  font-weight: var(--bn-label-weight-active);
 }

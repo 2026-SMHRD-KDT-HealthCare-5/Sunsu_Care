@@ -1,9 +1,11 @@
-// frontend/src/pages/ProfilePage.jsx
 import React, { useState, useMemo, useCallback, useRef, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { fetchProfile, updateProfile } from '../api/profileApi';
 import './ProfilePage.css';
-import { updateProfile } from '../api/profileApi';
 
+/* ==========================================================================
+   상수 (매직 넘버/문자열 제거)
+   ========================================================================== */
 const STEPS = {
   GENDER: 1,
   BASIC_TYPE: 2,
@@ -16,9 +18,15 @@ const STEPS = {
 };
 
 const STEP_FIELDS = {
-  1: 'gender', 2: 'basicType', 3: 'diag1', 4: 'diag2',
-  5: 'diag3', 6: 'diag4', 7: 'diag5', 9: 'env', 10: 'concern', 11: 'texture'
+  1: 'gender', 2: 'basicType',
+  3: 'diag1', 4: 'diag2', 5: 'diag3', 6: 'diag4', 7: 'diag5',
+  9: 'env', 10: 'concern', 11: 'texture'
 };
+
+const AUTO_NAV_DELAY = 250;
+const DEFAULT_FROM = '/';
+const NEXT_PATH_ON_COMPLETE = '/scan';
+const PRELOAD_TRIGGER_PATH = '/mypage';
 
 const CONSTANTS = {
   GENDER_OPTIONS: ['남성', '여성'],
@@ -30,9 +38,12 @@ const CONSTANTS = {
     '민감성 (화장품이 자주 안 맞아요)'
   ],
   ENV_OPTIONS: ['실내 (사무실/학교)', '야외 활동 (운동/현장)', '블루라이트 노출 많음'],
-  CONCERN_OPTIONS: ['얼굴이 허옇게 뜨는 백탁', '바를 때 눈이 시림', '모공 막힘 및 트러블', '끈적이고 답답함'],
-
-  // 트렌디한 UI를 위한 아이콘 및 설명 데이터
+  CONCERN_OPTIONS: [
+    '얼굴이 허옇게 뜨는 백탁',
+    '바를 때 눈이 시림',
+    '모공 막힘 및 트러블',
+    '끈적이고 답답함'
+  ],
   TEXTURE_OPTIONS: [
     { id: '촉촉한 로션/에센스', label: '촉촉한 로션/에센스', desc: '수분크림처럼 부드럽고 투명하게', icon: 'fa-droplet' },
     { id: '보송한 무기자차', label: '보송한 무기자차', desc: '유분기를 잡아주어 산뜻하게', icon: 'fa-soap' },
@@ -49,18 +60,62 @@ const AI_QUESTIONS = {
   7: { title: <>환절기나 겨울철에 피부가<br/>어떻게 변하나요?</>, options: ['각질이 일거나 크게 뒤집어진다', '조금 건조해지는 정도다', '계절 변화를 크게 느끼지 않는다'] },
 };
 
+/* ==========================================================================
+   유틸 함수
+   ========================================================================== */
 const calculateSkinType = (answers) => {
   if (!answers || !answers.diag1) return "미진단";
-  // 실제 서비스 시 답변 로직에 따라 분기 가능
   return "수분 부족형 지성 및 민감성";
 };
 
+// DB → answers 매핑 (MyPage→Profile 진입 시 기존 값 미리 표시)
+const mapDbToAnswers = (dbProfile) => ({
+  basicType: dbProfile.skin_type || undefined,
+  env: dbProfile.activity_env || undefined,
+  texture: dbProfile.prod_type || undefined,
+  concern: Array.isArray(dbProfile.avoid_ingredient)
+    ? dbProfile.avoid_ingredient[0]
+    : (dbProfile.avoid_ingredient || undefined)
+});
+
+/* ==========================================================================
+   컴포넌트
+   ========================================================================== */
 function ProfilePage() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const mainRef = useRef(null);
+  const timerRef = useRef(null);
+
+  // 진입 출처 (닫기/이전 시 복귀할 곳)
+  const fromPath = location.state?.from || DEFAULT_FROM;
+
   const [step, setStep] = useState(STEPS.GENDER);
   const [answers, setAnswers] = useState({});
   const [isAutoNavigating, setIsAutoNavigating] = useState(false);
-  const timerRef = useRef(null);
+
+  // 🌟 MyPage 진입 시 기존 프로필 로드 → 마지막 단계로 점프 (재설문 부담 ↓)
+  useEffect(() => {
+    if (fromPath !== PRELOAD_TRIGGER_PATH) return;
+
+    const preloadExistingProfile = async () => {
+      try {
+        const dbProfile = await fetchProfile();
+        if (dbProfile && dbProfile.skin_type) {
+          setAnswers(mapDbToAnswers(dbProfile));
+          setStep(STEPS.FINAL);
+        }
+      } catch (err) {
+        console.error("기존 프로필 로드 실패:", err);
+      }
+    };
+    preloadExistingProfile();
+  }, [fromPath]);
+
+  // 스텝 변경 시 스크롤 위로
+  useEffect(() => {
+    if (mainRef.current) mainRef.current.scrollTop = 0;
+  }, [step]);
 
   const currentField = STEP_FIELDS[step];
 
@@ -77,9 +132,7 @@ function ProfilePage() {
     setIsAutoNavigating(false);
   }, []);
 
-  useEffect(() => {
-    return () => clearAutoNavTimer();
-  }, [clearAutoNavTimer]);
+  useEffect(() => () => clearAutoNavTimer(), [clearAutoNavTimer]);
 
   const getNextButtonText = () => {
     if (step === STEPS.AI_END) return '진단 완료하기';
@@ -92,28 +145,21 @@ function ProfilePage() {
     clearAutoNavTimer();
 
     if (currentStep === STEPS.BASIC_TYPE) {
-      if (currentAnswers.basicType === '모름') {
-        setStep(STEPS.AI_START);
-      } else {
-        setStep(STEPS.COMMON_START);
-      }
-    }
-    else if (currentStep === STEPS.AI_END) {
+      setStep(currentAnswers.basicType === '모름' ? STEPS.AI_START : STEPS.COMMON_START);
+    } else if (currentStep === STEPS.AI_END) {
       setStep(STEPS.AI_BRIDGE);
-    }
-    else if (currentStep === STEPS.AI_BRIDGE) {
+    } else if (currentStep === STEPS.AI_BRIDGE) {
       setStep(STEPS.COMMON_START);
-    }
-    else if (currentStep === STEPS.FINAL) {
+    } else if (currentStep === STEPS.FINAL) {
       const finalData = { ...currentAnswers };
       if (currentAnswers.basicType === '모름') {
         finalData.basicType = calculateSkinType(currentAnswers);
       }
-      
-      // 기존 로컬스토리지 저장 로직 (필요시 유지 또는 삭제)
+
+      // 로컬 저장 (오프라인 fallback)
       localStorage.setItem('userProfile', JSON.stringify(finalData));
-      
-      // 🌟 [추가된 부분] 백엔드 DB 스키마에 맞게 payload 구성 및 전송
+
+      // 🌟 백엔드 DB 저장 (MyPage fetchProfile 에서 사용)
       const dbPayload = {
         skin_type: finalData.basicType,
         activity_env: finalData.env,
@@ -122,23 +168,19 @@ function ProfilePage() {
       };
 
       try {
-        await updateProfile(dbPayload); // DB에 설문 결과 저장!
-        
-        // navigate('/scan'); 
-        navigate('/scan'); 
+        await updateProfile(dbPayload);
+        navigate(NEXT_PATH_ON_COMPLETE);
       } catch (error) {
         console.error("프로필 저장 실패:", error);
         alert("프로필 저장에 실패했습니다. 다시 시도해주세요.");
       }
-    }
-    else {
+    } else {
       setStep(prev => prev + 1);
     }
   }, [navigate, clearAutoNavTimer]);
 
   const handleSelect = useCallback((field, value) => {
     clearAutoNavTimer();
-
     let newAnswers = { ...answers, [field]: value };
 
     if (field === 'basicType' && value !== '모름') {
@@ -148,33 +190,31 @@ function ProfilePage() {
 
     setAnswers(newAnswers);
 
-    // 마지막 단계에서는 자동으로 넘어가지 않음
+    // 마지막 단계는 자동 진행 X (사용자가 직접 완료 버튼 클릭)
     if (field === 'texture') return;
 
     setIsAutoNavigating(true);
     const currentStepSnapshot = step;
     timerRef.current = setTimeout(() => {
       handleNextStep(newAnswers, currentStepSnapshot);
-    }, 250);
+    }, AUTO_NAV_DELAY);
   }, [answers, step, clearAutoNavTimer, handleNextStep]);
 
   const handlePrev = () => {
     clearAutoNavTimer();
-
     if (step === STEPS.GENDER) {
-      navigate(-1); // 브라우저 뒤로가기 효과 (홈으로 가고 싶다면 navigate('/') 도 좋습니다)
+      navigate(fromPath);
       return;
     }
-
     setStep(prev => {
-      if (prev === STEPS.COMMON_START) {
-        return answers.diag1 ? STEPS.AI_BRIDGE : STEPS.BASIC_TYPE;
-      }
+      if (prev === STEPS.COMMON_START) return answers.diag1 ? STEPS.AI_BRIDGE : STEPS.BASIC_TYPE;
       if (prev === STEPS.AI_BRIDGE) return STEPS.AI_END;
       if (prev === STEPS.AI_START) return STEPS.BASIC_TYPE;
       return prev - 1;
     });
   };
+
+  const handleClose = () => navigate(fromPath);
 
   const progressPercentage = useMemo(() => {
     const isAiPath = !!answers.diag1 || step === STEPS.AI_BRIDGE || (step >= STEPS.AI_START && step <= STEPS.AI_END);
@@ -188,40 +228,52 @@ function ProfilePage() {
     } else if (step === STEPS.AI_BRIDGE) {
       currentProgressIndex = STEPS.AI_END;
     }
-
     return (currentProgressIndex / totalStepsCount) * 100;
   }, [step, answers.diag1]);
 
   const displayedSkinType = useMemo(() => {
-    if (answers.basicType === '모름' || !answers.basicType) {
-      return calculateSkinType(answers);
-    }
-    return answers.basicType;
+    return answers.basicType === '모름' || !answers.basicType
+      ? calculateSkinType(answers)
+      : answers.basicType;
   }, [answers]);
 
   return (
-    <div className="page survey">
+    <div className="page survey fade-in-up">
       <header className="survey-header">
-        <div className="header-side"></div>
-        <div className="logo">SunCare<span>.</span></div>
-        <button className="close-btn" onClick={() => navigate('/')} aria-label="닫기">
+        <div className="header-side" aria-hidden="true"></div>
+        <div className="survey-logo">프로필 설정</div>
+        <button
+          type="button"
+          className="close-btn"
+          onClick={handleClose}
+          aria-label="닫기"
+        >
           <i className="fa-solid fa-xmark"></i>
         </button>
       </header>
 
       <div className="progress-container">
-        <div className="progress-bar" style={{ width: `${progressPercentage}%` }}></div>
+        <div
+          className="progress-bar"
+          style={{ width: `${progressPercentage}%` }}
+        ></div>
       </div>
 
-      <main className="survey-main fade-in-up" key={step}>
+      <main ref={mainRef} className="survey-main" key={step}>
+
         {/* Step 1: 성별 */}
         {step === STEPS.GENDER && (
           <div>
             <h2 className="question-title">성별을 알려주세요.</h2>
             <div className="gender-wrap">
               {CONSTANTS.GENDER_OPTIONS.map(g => (
-                <div key={g} onClick={() => handleSelect('gender', g)}
-                     className={`gender-card ${answers.gender === g ? (g === '남성' ? 'active-male' : 'active-female') : ''}`}>
+                <div
+                  key={g}
+                  onClick={() => handleSelect('gender', g)}
+                  className={`gender-card ${answers.gender === g ? (g === '남성' ? 'active-male' : 'active-female') : ''}`}
+                  role="button"
+                  tabIndex={0}
+                >
                   <div className={`gender-icon ${g === '남성' ? 'male' : 'female'}`}>
                     <i className={`fa-solid ${g === '남성' ? 'fa-person' : 'fa-person-dress'}`}></i>
                   </div>
@@ -238,9 +290,22 @@ function ProfilePage() {
             <h2 className="question-title">평소 느끼는 피부 타입은?</h2>
             <div className="option-list">
               {CONSTANTS.BASIC_TYPE_OPTIONS.map((opt) => (
-                <button key={opt} onClick={() => handleSelect('basicType', opt)} className={`option-btn ${answers.basicType === opt ? 'active' : ''}`}>{opt}</button>
+                <button
+                  key={opt}
+                  type="button"
+                  onClick={() => handleSelect('basicType', opt)}
+                  className={`option-btn ${answers.basicType === opt ? 'active' : ''}`}
+                >
+                  {opt}
+                </button>
               ))}
-              <button onClick={() => handleSelect('basicType', '모름')} className={`option-btn unknown ${answers.basicType === '모름' ? 'active' : ''}`}>잘 모르겠음 (5단계 AI 정밀 진단)</button>
+              <button
+                type="button"
+                onClick={() => handleSelect('basicType', '모름')}
+                className={`option-btn unknown ${answers.basicType === '모름' ? 'active' : ''}`}
+              >
+                잘 모르겠음 (5단계 AI 정밀 진단)
+              </button>
             </div>
           </div>
         )}
@@ -254,7 +319,14 @@ function ProfilePage() {
             </h2>
             <div className="option-list">
               {AI_QUESTIONS[step].options.map((opt) => (
-                <button key={opt} onClick={() => handleSelect(currentField, opt)} className={`option-btn ${answers[currentField] === opt ? 'active' : ''}`}>{opt}</button>
+                <button
+                  key={opt}
+                  type="button"
+                  onClick={() => handleSelect(currentField, opt)}
+                  className={`option-btn ${answers[currentField] === opt ? 'active' : ''}`}
+                >
+                  {opt}
+                </button>
               ))}
             </div>
           </div>
@@ -268,40 +340,54 @@ function ProfilePage() {
             </div>
             <h2 className="bridge-title">AI 피부 진단 완료!</h2>
             <p className="bridge-description">
-              <br />회원님의 답변을 기반으로 정밀 분석한 결과,<br />
+              회원님의 답변을 기반으로 정밀 분석한 결과,<br />
               현재 피부는 <span className="highlight">"{displayedSkinType}"</span> 상태입니다.
             </p>
             <div className="bridge-notice-box">
-              <p>💡 이 결과를 바탕으로, 회원님께 딱 맞는 맞춤형 선크림을 추천하기 위해 <strong>마지막 3가지 취향 질문</strong>을 이어갈게요!</p>
+              💡 이 결과를 바탕으로, 회원님께 딱 맞는 맞춤형 선크림을 추천하기 위해 <strong>마지막 3가지 취향 질문</strong>을 이어갈게요!
             </div>
           </div>
         )}
 
-        {/* Step 9: 공통 질문 - 활동 환경 */}
+        {/* Step 9: 공통 - 활동 환경 */}
         {step === STEPS.COMMON_START && (
           <div>
             <h2 className="question-title">주로 활동하는 환경은?</h2>
             <div className="option-list">
               {CONSTANTS.ENV_OPTIONS.map((opt) => (
-                <button key={opt} onClick={() => handleSelect('env', opt)} className={`option-btn ${answers.env === opt ? 'active' : ''}`}>{opt}</button>
+                <button
+                  key={opt}
+                  type="button"
+                  onClick={() => handleSelect('env', opt)}
+                  className={`option-btn ${answers.env === opt ? 'active' : ''}`}
+                >
+                  {opt}
+                </button>
               ))}
             </div>
           </div>
         )}
 
-        {/* Step 10: 공통 질문 - 꺼려지는 점 */}
+        {/* Step 10: 공통 - 꺼려지는 점 */}
         {step === STEPS.CONCERN && (
           <div>
             <h2 className="question-title">선크림 사용 시<br/>가장 꺼려지는 점은?</h2>
             <div className="option-list">
               {CONSTANTS.CONCERN_OPTIONS.map((opt) => (
-                <button key={opt} onClick={() => handleSelect('concern', opt)} className={`option-btn ${answers.concern === opt ? 'active' : ''}`}>{opt}</button>
+                <button
+                  key={opt}
+                  type="button"
+                  onClick={() => handleSelect('concern', opt)}
+                  className={`option-btn ${answers.concern === opt ? 'active' : ''}`}
+                >
+                  {opt}
+                </button>
               ))}
             </div>
           </div>
         )}
 
-        {/* Step 11: 최종 질문 - 제형 (Trendy Card UI) */}
+        {/* Step 11: 최종 - 제형 */}
         {step === STEPS.FINAL && (
           <div>
             <h2 className="question-title">마지막! 선호하는<br/>선크림 제형이 있나요?</h2>
@@ -312,6 +398,8 @@ function ProfilePage() {
                   key={item.id}
                   onClick={() => handleSelect('texture', item.id)}
                   className={`texture-card ${answers.texture === item.id ? 'active' : ''}`}
+                  role="button"
+                  tabIndex={0}
                 >
                   <div className="texture-icon">
                     <i className={`fa-solid ${item.icon}`}></i>
@@ -331,16 +419,16 @@ function ProfilePage() {
       </main>
 
       <footer className={`survey-footer ${step === STEPS.FINAL ? 'final-step' : ''}`}>
-
-          <button
-            className="nav-btn prev"
-            onClick={handlePrev}
-            disabled={isAutoNavigating}
-          >
-            이전
-          </button>
-
         <button
+          type="button"
+          className="nav-btn prev"
+          onClick={handlePrev}
+          disabled={isAutoNavigating}
+        >
+          이전
+        </button>
+        <button
+          type="button"
           className="nav-btn next"
           onClick={() => handleNextStep(answers, step)}
           disabled={!isCurrentStepAnswered || isAutoNavigating}

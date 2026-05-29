@@ -37,13 +37,49 @@ api.interceptors.request.use((config) => {
   return config;
 }, (error) => Promise.reject(error));
 
+// 🌟 401 자동 로그아웃 중복 방지 플래그 (동시 호출 다발 시 한 번만 처리)
+let isHandlingAuthFailure = false;
+
+const handleAuthFailure = (reason) => {
+  if (isHandlingAuthFailure) return;
+  isHandlingAuthFailure = true;
+
+  console.warn(`[Auth] 자동 로그아웃: ${reason}`);
+
+  // 1. 로컬 토큰/세션 클리어
+  localStorage.removeItem('authToken');
+  localStorage.removeItem('userEmail');
+  localStorage.removeItem('userNickname');
+
+  // 2. useAuth 동기화 이벤트 발송 (마이페이지/사이드메뉴 등 즉시 갱신)
+  window.dispatchEvent(new Event('sun-care-auth-change'));
+
+  // 3. 로그인 페이지로 리다이렉트 (현재 페이지 redirect 보존)
+  const currentPath = window.location.pathname + window.location.search;
+  const isAlreadyAuthPage = ['/login', '/signup'].some(p => window.location.pathname.startsWith(p));
+
+  if (!isAlreadyAuthPage) {
+    window.location.href = `/login?redirect=${encodeURIComponent(currentPath)}&reason=expired`;
+  }
+
+  // 다음 tick 에 플래그 해제 (페이지 이동 전 다발 호출만 차단)
+  setTimeout(() => { isHandlingAuthFailure = false; }, 1000);
+};
+
 // 응답 인터셉터
 api.interceptors.response.use(
   (response) => response,
   (error) => {
-    if (error.response?.status === 403) {
-      console.error("403 Forbidden: 토큰이 일치하지 않거나 서버 설정 문제입니다.");
+    const status = error.response?.status;
+    const code = error.response?.data?.code;
+
+    // 🌟 401 (토큰 만료/누락/위변조) → 자동 로그아웃
+    if (status === 401) {
+      handleAuthFailure(code || 'UNAUTHORIZED');
+    } else if (status === 403) {
+      console.warn("[Auth] 403 Forbidden: 권한 부족 또는 서버 설정 문제");
     }
+
     return Promise.reject(error);
   }
 )

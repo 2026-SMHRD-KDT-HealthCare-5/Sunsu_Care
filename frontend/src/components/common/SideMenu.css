@@ -1,74 +1,114 @@
-/* 사이드 메뉴 본체 */
+/* ==========================================================================
+   SideMenu (오른쪽에서 슬라이드 인 되는 사이드 메뉴)
+   - 헤더: 이니셜 프로필 + 닫기 아이콘
+   - MY ACCOUNT / SERVICE 그룹
+   ========================================================================== */
+
+/* 🌟 로컬 변수: 컴포넌트 전용 디자인 토큰 */
+.side-menu,
+.side-menu *,
+.menu-overlay {
+  --sm-primary: #ff8c00;              /* 메인 강조색 */
+  --sm-text-strong: #222222;          /* 본문/제목 진한 글자 */
+  --sm-text: #333333;                 /* 일반 글자 */
+  --sm-text-muted: #475569;           /* 아이콘/보조 글자 */
+  --sm-bg: #ffffff;
+  --sm-bg-hover: #f8fafc;
+  --sm-border: #eeeeee;
+
+  --sm-width-mobile: min(420px, 90vw);  /* 사이드메뉴 폭 (모바일) */
+  --sm-shadow: -5px 0 25px rgba(0, 0, 0, 0.1);
+
+  --sm-transition: right 0.3s ease-in-out;
+  --sm-overlay-transition: opacity 0.3s ease;
+}
+
+/* ===== 사이드 메뉴 본체 ===== */
 .side-menu {
   position: fixed;
   top: 0;
-  right: -100vw; /* 기본은 화면 오른쪽 바깥에 완전히 숨김 */
-  width: min(420px, 90vw);
+  right: -100vw;                      /* 기본은 화면 오른쪽 바깥 */
+  width: var(--sm-width-mobile);
   height: 100vh;
-  background-color: #ffffff;
+  background-color: var(--sm-bg);
   z-index: 1000;
-  transition: right 0.3s ease-in-out;
+  transition: var(--sm-transition);
   display: flex;
   flex-direction: column;
-  box-shadow: -5px 0 25px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--sm-shadow);
   visibility: hidden;
 }
 
 .side-menu.active {
+  /* 모바일 컨테이너(max-width 480px) 우측에 딱 붙도록 */
   right: max(0px, calc((100vw - var(--max-width, 480px)) / 2));
   visibility: visible;
 }
 
-/* 어두운 배경 (오버레이) */
+/* ===== 어두운 배경 (오버레이) ===== */
 .menu-overlay {
   position: fixed;
   top: 0;
-  left: max(0px, calc((100vw - var(--max-width, 480px)) / 2));
-  right: max(0px, calc((100vw - var(--max-width, 480px)) / 2));
+  left: 0;
+  width: 100vw;
   height: 100vh;
-  background: rgba(0, 0, 0, 0.5);
-  z-index: 999;
-  display: none;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 998;
+  opacity: 0;
+  visibility: hidden;
+  transition: var(--sm-overlay-transition);
 }
 
 .menu-overlay.active {
-  display: block;
+  opacity: 1;
+  visibility: visible;
 }
 
-/* 상단 프로필 영역 */
+/* ===== 상단 프로필 헤더 ===== */
 .menu-header {
   padding: 30px 24px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid var(--sm-border);
 }
 
 .user-profile {
   display: flex;
   align-items: center;
+  gap: 12px;
   cursor: pointer;
 }
 
-.profile-icon {
-  color: #ff8c00;
-  font-size: 26px;
-  margin-right: 12px;
+/* 🌟 이니셜 프로필 원형 (MIK 디자인) */
+.user-initial {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--sm-primary);
+  color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 800;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+  user-select: none;
 }
 
 .profile-text {
   font-size: 16px;
   font-weight: 700;
-  color: #222;
+  color: var(--sm-text-strong);
 }
 
 .close-icon {
-  font-size: 24px;
+  font-size: 1.4rem;
   cursor: pointer;
-  color: #222;
+  color: var(--sm-text-strong);
 }
 
-/* 메뉴 리스트 영역 */
+/* ===== 메뉴 리스트 영역 ===== */
 .menu-list {
   flex: 1;
   overflow-y: auto;
@@ -85,42 +125,32 @@
   align-items: center;
   padding: 16px 24px;
   cursor: pointer;
-  color: #333;
   transition: background-color 0.2s;
 }
 
 .menu-item:hover {
-  background-color: #f8fafc;
+  background-color: var(--sm-bg-hover);
 }
 
 .menu-item i {
   width: 28px;
   text-align: left;
   margin-right: 12px;
-  color: #333;
   font-size: 18px;
+  color: var(--sm-text-muted);
 }
 
 .menu-item span {
   font-size: 15px;
-  font-weight: 500;
+  font-weight: 700;
+  color: var(--sm-text-strong);
 }
 
-/* 소제목 (MY ACCOUNT, SERVICE 등) */
+/* ===== 소제목 (MY ACCOUNT, SERVICE 등) ===== */
 .group-title {
-  color: #ff8c00;
+  color: var(--sm-primary);
   font-size: 12px;
-  font-weight: 700;
+  font-weight: 900;
   padding: 24px 24px 10px;
   letter-spacing: 0.5px;
-}
-
-/* 하단 버전 표시 */
-.menu-footer {
-  padding: 20px;
-  text-align: center;
-  border-top: 1px solid #eee;
-  color: #333;
-  font-size: 12px;
-  background-color: #f8fafc;
 }

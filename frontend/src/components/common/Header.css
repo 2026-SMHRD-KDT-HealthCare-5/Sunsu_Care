@@ -11,9 +11,18 @@
 }
 
 .header__logo {
+  display: flex;
+  align-items: center;
+  gap: 6px;
   font-size: var(--font-lg);
   font-weight: 700;
-  color: var(--color-primary);
+  color: var(--color-text);      /* 검정 (다른 페이지 헤더와 통일) */
+  text-decoration: none;
+}
+
+.header__logo-icon {
+  color: var(--color-primary);   /* 아이콘만 오렌지 (그대로) */
+  font-size: 1.1em;
 }
 
 .header__actions {

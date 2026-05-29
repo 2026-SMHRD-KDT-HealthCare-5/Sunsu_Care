@@ -1,5 +1,8 @@
 /* src/styles/global.css */
 
+/* 🌟 Pretendard 폰트 (사이트 전체 적용) */
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+
 @import "./reset.css";
 @import "./variables.css";
 

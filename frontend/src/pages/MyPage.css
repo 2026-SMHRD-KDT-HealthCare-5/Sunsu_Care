@@ -1,447 +1,526 @@
 /* ==========================================================================
-   SUNSUCARE 마이페이지 통합 마스터 스타일시트 (5월 15일 디자인 완전 복원)
+   MyPage CSS
+   - 옵션 B: 인라인 → 클래스, dead code 제거, 로컬 변수화, tag 톤 분기
+   - 어제 기능 6개 복원 (fetchProfile / fetchHistory / /account-settings 등)
+   - 색상 팔레트: 메인 #ff8c00 + 앰버(key) + 세이지(safe) + 레드(warn) — 기존 승인 톤 유지
+   - 폰트/배경은 global.css + variables.css 에서 관리
    ========================================================================== */
 
-/* --- 1. 기본 컨테이너 및 카드 공통 레이아웃 --- */
+/* 🌟 로컬 변수: MyPage 전용 디자인 토큰 */
+.mypage-container,
+.mypage-container * {
+  --mp-primary: #ff8c00;
+  --mp-primary-dark: #e67d00;
+  --mp-primary-pale: #fff7ed;
+  --mp-primary-border: #fed7aa;
+  --mp-avatar-ring: #fff3e0;
+
+  --mp-bg-page: #fafafa;
+  --mp-bg-card: #ffffff;
+  --mp-bg-soft: #fafafa;
+
+  --mp-border-card: #f0f0f0;
+  --mp-border-soft: #e5e7eb;
+  --mp-border-strong: #cbd5e1;
+
+  --mp-text-strong: #1f2937;
+  --mp-text-title: #1e293b;
+  --mp-text-body: #374151;
+  --mp-text-muted: #6b7280;
+  --mp-text-soft: #94a3b8;
+
+  /* 시맨틱 컬러 (안전/주의 — 사용자 승인 톤) */
+  --mp-key-bg: #fffbeb;          /* 따뜻한 꿀빛 앰버 */
+  --mp-key-border: #fde68a;
+  --mp-key-title: #b45309;
+  --mp-key-tag-text: #92400e;
+
+  --mp-warn-bg: #fef2f2;         /* 부드러운 레드 */
+  --mp-warn-border: #fecaca;
+  --mp-warn-title: #dc2626;
+  --mp-warn-tag-text: #991b1b;
+
+  --mp-safe-bg: #ecfdf5;         /* 세이지 그린 */
+  --mp-safe-border: #a7f3d0;
+  --mp-safe-title: #059669;
+
+  --mp-status-safe: #22c55e;
+  --mp-status-warn: #ef4444;
+
+  /* 피부 정보 tag — 단일 통일 (#ffedd5 BG + 메인 오렌지 글자) */
+  --mp-tag-bg:   #ffedd5;
+  --mp-tag-text: #ff8c00;
+
+  --mp-shadow-card: 0 6px 16px rgba(0, 0, 0, 0.04);
+  --mp-shadow-arrow: 0 2px 4px rgba(0, 0, 0, 0.03);
+  --mp-shadow-hover: 0 8px 20px rgba(255, 140, 0, 0.08);
+
+  --mp-transition: all 0.2s ease;
+}
+
+/* ===== 페이지 컨테이너 ===== */
 .mypage-container {
-    max-width: 500px;
-    margin: 0 auto;
-    background-color: #fafafa;  /* 깔끔한 라이트 그레이 */
-    min-height: 100vh;
-    padding-top: 20px;
-    padding-bottom: 40px;
+  max-width: 500px;
+  margin: 0 auto;
+  background-color: var(--mp-bg-page);
+  min-height: 100vh;
+  padding-top: 20px;
+  padding-bottom: 40px;
 }
 
-/* 🌟 페이지 상단 제목 */
 .mypage-title {
-    margin: 0 20px 16px 20px;
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: #1f2937;
-    display: flex;
-    align-items: center;
-    gap: 10px;
+  margin: 0 0 20px 26px;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #1C1E22;
 }
-.mypage-title i { color: #ff8c00; }
+.mypage-title i { color: #1C1E22; }
 
-/* 🌟 사용자 카드 (탭하면 /account-settings 이동) - 미니멀 디자인 */
-.mypage-user-card {
-    background: #ffffff;
-    border: 1px solid #f0f0f0;
-    border-radius: 14px;
-    padding: 20px;
-    margin: 0 20px 16px 20px;
-    transition: all 0.2s ease;
+/* ===== 공통 카드 ===== */
+.mypage-card {
+  background: var(--mp-bg-card);
+  border: 1px solid var(--mp-border-card);
+  border-radius: 14px;
+  padding: 20px;
+  margin: 0 20px 16px 20px;
+  box-shadow: none;
 }
 
+/* ===== 사용자 카드 ===== */
+.mypage-user-row {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.mypage-user-avatar {
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  background-color: var(--mp-primary);
+  color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 800;
+  font-size: 1.5rem;
+  flex-shrink: 0;
+  border: 2px solid var(--mp-avatar-ring);
+}
+
+.mypage-user-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.mypage-user-name {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--mp-text-strong);
+}
+
+.mypage-user-greeting {
+  margin: 0;
+  color: var(--mp-text-muted);
+  font-size: 0.875rem;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.mypage-user-greeting .icon-sun {
+  color: var(--mp-primary);
+}
+
+/* 사용자 카드 우측: 회원정보 관리 (연필 아이콘) */
+.mypage-user-action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--mp-text-muted);    /* 평상시: "수정하기"와 동일한 그레이 */
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: color 0.2s ease;
+  min-width: 36px;
+  padding: 6px;
+}
+
+/* 🌟 연필 hover — "수정하기"와 동일: 색상만 그레이 → 오렌지 */
+.mypage-user-action:hover {
+  color: var(--mp-primary);
+}
+
+/* 클릭 가능한 사용자 카드 (로그인 시 → /account-settings) — hover 효과 없음, 클릭만 */
 .mypage-user-card.is-clickable {
-    cursor: pointer;
-}
-.mypage-user-card.is-clickable:hover {
-    border-color: #ff8c00;
-    background-color: #fffaf3;
+  cursor: pointer;
 }
 
-/* "정보 관리" 안내 배지 - 단순한 아웃라인 스타일 */
-.mypage-user-edit-hint {
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    font-size: 0.78rem;
-    font-weight: 700;
-    color: #ff8c00;
-    background-color: #ffffff;
-    border: 1px solid #ff8c00;
-    padding: 6px 12px;
-    border-radius: 999px;
-    white-space: nowrap;
-    flex-shrink: 0;
-    transition: all 0.2s;
-}
-.mypage-user-card.is-clickable:hover .mypage-user-edit-hint {
-    background-color: #ff8c00;
-    color: #ffffff;
-}
-
-/* 🌟 사용자 카드 내부 (프로필 아이콘 + 이름/인사말 + 정보관리 배지) */
-.mypage-user-info {
-    display: flex;
-    align-items: center;   /* 카드 높이 기준 모두 수직 중앙 */
-    gap: 15px;
-}
-.mypage-user-info h2 { margin: 0; font-size: 1.15rem; font-weight: 700; color: #1f2937; }
-.mypage-user-info p { margin: 0; color: #6b7280; font-size: 0.875rem; }
-
-/* 텍스트 영역 (이름 + 인사말) */
-.mypage-user-info-text {
-    flex: 1;               /* 가운데 영역 차지 (배지를 자동으로 오른쪽 끝으로 밀어냄) */
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    min-width: 0;          /* 긴 닉네임 줄바꿈 대비 */
-}
-
-/* 🌟 카드 헤더 (심플) */
+/* ===== 카드 헤더 (수정하기 링크) ===== */
 .mypage-card-header {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 16px;
-    align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  align-items: center;
 }
+
 .mypage-card-title {
-    margin: 0;
-    font-size: 1rem;
-    color: #1f2937;
-    display: flex;
-    gap: 8px;
-    align-items: center;
-    font-weight: 700;
+  margin: 0;
+  font-size: 1rem;
+  color: var(--mp-text-strong);
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  font-weight: 700;
 }
-.mypage-card-title .icon-droplet { color: #ff8c00; }
+.mypage-card-title .icon-droplet {
+  color: var(--mp-primary);
+}
+
 .mypage-card-link {
-    color: #6b7280;
-    cursor: pointer;
-    font-weight: 600;
-    font-size: 0.8rem;
-    transition: color 0.2s;
+  color: var(--mp-text-muted);
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.8rem;
+  transition: color 0.2s;
 }
 .mypage-card-link:hover {
-    color: #ff8c00;
+  color: var(--mp-primary);
 }
 
-/* 🌟 히스토리 카드 제목 */
-.mypage-history-title {
-    margin: 0;
-    font-size: 1rem;
-}
-
-/* 🌟 빈 상태 미니 태그 */
-.mini-tag.empty { color: #94a3b8; }
-.mini-ing-section.safe-clean .mini-ing-title { color: #3a3a3a; margin-bottom: 0; }
-
-/* 🌟 슬라이드 카드 푸터(상세 리포트 보기) - 클릭 가능 */
-.slide-card-footer { cursor: pointer; }
-
-.mypage-card {
-    background: #ffffff;
-    border-radius: 14px;
-    padding: 20px;
-    margin: 0 20px 16px 20px;
-    border: 1px solid #f0f0f0;          /* 깔끔한 회색 테두리 */
-    box-shadow: none;                    /* 그림자 제거로 미니멀하게 */
-}
-
-.profile-icon {
-    font-size: 1.8rem;
-    background: #fff7ed;                /* 옅은 베이지 */
-    width: 52px;
-    height: 52px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 50%;
-    flex-shrink: 0;
-}
-
-/* --- 2. 내 피부 정보 네칸 그리드 스타일 --- */
+/* ===== 내 피부 정보 그리드 ===== */
 .skin-info-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
 }
 
 .skin-info-item {
-    background-color: #fafafa;       /* 컨테이너와 동일 */
-    border: 1px solid #f0f0f0;
-    border-radius: 10px;
-    padding: 12px;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
+  background-color: var(--mp-bg-soft);
+  border: 1px solid var(--mp-border-card);
+  border-radius: 10px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 }
 
 .info-label {
-    font-size: 0.78rem;
-    color: #6b7280;
-    font-weight: 600;
+  font-size: 0.78rem;
+  color: var(--mp-text-muted);
+  font-weight: 600;
 }
 
 .info-value {
-    font-size: 0.875rem;
-    font-weight: 700;
-    color: #1f2937;
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 4px 8px;
+  border-radius: 6px;
+  text-align: center;
+  display: inline-block;
 }
 
-/* 태그 - 미니멀: 배경 없이 글자만 강조 */
+/* tag 단일 통일 (4개 모두 동일 톤) */
 .info-value.tag {
-    color: #1f2937;
-    background-color: transparent;
-    border: none;
-    padding: 0;
+  background-color: var(--mp-tag-bg);
+  color: var(--mp-tag-text);
 }
 
-/* --- 3. 🌟 5월 15일 원본 디자인 복원: 분석 히스토리 슬라이더 영역 --- */
-.history-section { 
-    padding: 24px 0; 
+/* ===== 히스토리 섹션 ===== */
+.history-section {
+  padding: 24px 0;
 }
 
 .history-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 24px; /* 여백 확보 */
-    padding: 0 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  padding: 0 24px;
+}
+
+.history-title {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--mp-text-strong);
 }
 
 .slider-controls {
-    display: flex;
-    gap: 10px;
+  display: flex;
+  gap: 10px;
 }
 
 .slider-arrow {
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    border: 1px solid #e5e7eb;
-    background: #ffffff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    color: #6b7280;
-    transition: all 0.2s;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--mp-border-soft);
+  background: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  color: var(--mp-text-muted);
+  transition: var(--mp-transition);
+  box-shadow: var(--mp-shadow-arrow);
 }
-.slider-arrow:hover {
-    border-color: #ff8c00;
-    color: #ff8c00;
-    background-color: #fff;
-}
-
-.slider-arrow:hover {
-    border-color: #ff8c00;
-    color: #ff8c00;
-    background-color: #fff9f5;
-    transform: scale(1.05);
+.slider-arrow:disabled {
+  opacity: 0.3;
+  cursor: default;
+  background-color: var(--mp-bg-soft);
 }
 
+/* 빈 히스토리 안내 */
+.history-empty {
+  text-align: center;
+  padding: 30px 24px;
+  color: var(--mp-text-muted);
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+.history-empty-btn {
+  margin-top: 14px;
+  padding: 10px 18px;
+  border: 1px solid var(--mp-primary);
+  background: #ffffff;
+  color: var(--mp-primary);
+  border-radius: 20px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: var(--mp-transition);
+}
+
+/* 슬라이더 */
 .history-slider {
-    display: flex;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    gap: 18px; /* 여백 더 확보 */
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-    padding: 0 24px 24px 24px;
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  gap: 18px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding: 0 24px 24px 24px;
 }
-
 .history-slider::-webkit-scrollbar {
-    display: none;
+  display: none;
 }
 
-/* 🌟 슬라이드 단위 wrapper (날짜는 카드 밖, 카드는 안) */
-.history-slide-wrapper {
-    flex: 0 0 100%;
-    scroll-snap-align: center;
-    display: flex;
-    flex-direction: column;
-}
-
-/* 🌟 카드 박스 바깥, 우상단 날짜 */
-.slide-date-top {
-    align-self: flex-end;
-    font-size: 0.9rem;
-    color: #94a3b8;
-    font-weight: 500;
-    padding: 0 6px 8px 0;
-}
-
-/* 🌟🌟🌟 5월 15일 원본의 큼직하고 찌그러짐 없는 카드 UI 복원 🌟🌟🌟 */
 .history-slide-card {
-    min-height: 320px;
-    background: #fff;
-    border: 1px solid #f0f0f0;
-    border-radius: 16px;
-    padding: 24px;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    transition: all 0.2s;
-}
-
-.history-slide-card:hover {
-    border-color: #ff8c00;
+  flex: 0 0 100%;
+  min-height: 320px;
+  scroll-snap-align: center;
+  background: var(--mp-bg-card);
+  border: 1px solid var(--mp-border-card);
+  border-radius: 16px;
+  padding: 24px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: var(--mp-transition);
 }
 
 .slide-card-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    border-bottom: 1px solid #f0f0f0;
-    padding-bottom: 16px;
-    margin-bottom: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  border-bottom: 1px solid var(--mp-border-card);
+  padding-bottom: 16px;
+  margin-bottom: 16px;
+  gap: 12px;
+}
+
+.slide-card-head-text {
+  flex: 1;
+  min-width: 0;
 }
 
 .slide-card-title {
-    margin: 0 0 4px 0;
-    font-size: 1.35rem; /* 큼직한 폰트 복원 */
-    font-weight: 800;
-    color: #1e293b;
-    letter-spacing: -0.5px;
+  margin: 0 0 4px 0;
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--mp-text-title);
+  letter-spacing: -0.5px;
+  word-break: keep-all;
+  line-height: 1.3;
 }
 
 .slide-card-date {
-    font-size: 0.95rem;
-    color: #94a3b8;
+  font-size: 0.85rem;
+  color: var(--mp-text-soft);
+  font-weight: 500;
 }
 
 .slide-card-score-box {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  flex-shrink: 0;
 }
 
-/* 🌟 새 점수 영역 (제품명 제거 후 중앙 정렬) */
-.slide-card-score-area {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    padding: 8px 0 16px 0;
-    border-bottom: 1px solid #f1f5f9;
-    padding-bottom: 18px;
-    margin-bottom: 20px;
-    gap: 8px;
-}
-
-/* 🌟 점수 (메인 주황 #ff8c00 — 크고 시원하게) */
 .score-num {
-    font-size: 3.5rem;
-    font-weight: 900;
-    color: #ff8c00;
-    line-height: 1;
-    margin-bottom: 8px;
-    letter-spacing: -2px;
+  font-size: 2.4rem;
+  font-weight: 900;
+  color: var(--mp-primary);
+  line-height: 1;
+  margin-bottom: 6px;
+  letter-spacing: -1.5px;
 }
 
-/* "/ 100" 보조 텍스트 — 톤 다운 (점수에 시선이 집중되도록) */
 .score-total {
-    font-size: 1.05rem;
-    color: #d1d5db;
-    font-weight: 600;
-    letter-spacing: 0;
+  font-size: 0.9rem;
+  color: #d1d5db;
+  font-weight: 600;
+  letter-spacing: 0;
 }
-
-/* (.score-total 정의는 위쪽에 통합됨) */
 
 .status-badge {
-    padding: 4px 12px;
-    border-radius: 20px;
-    font-size: 0.8rem;
-    font-weight: 700;
-    color: white;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: white;
 }
+.status-badge.safe { background-color: var(--mp-status-safe); }
+.status-badge.warn { background-color: var(--mp-status-warn); }
 
-/* 상세 페이지(legacy-status-badge)와 동일한 색상으로 통일 */
-.status-badge.safe { background-color: #22c55e; }
-.status-badge.warn { background-color: #ef4444; }
-
-/* 🌟🌟🌟 요약 코드를 걷어내고 5월 15일 원본의 시원시원한 내부 성분 카드 복원 🌟🌟🌟 */
 .slide-card-body {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    margin: 15px 0 20px 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin: 15px 0 20px 0;
 }
 
-.mini-ing-section { padding: 14px; border-radius: 10px; border: 1px solid transparent; }
+/* 핵심/주의/안전 성분 섹션 (사용자 승인 팔레트) */
+.mini-ing-section {
+  padding: 14px;
+  border-radius: 10px;
+  border: 1px solid transparent;
+}
 
-/* ✨ 핵심 성분 (매칭된 좋은 성분 — 햇살 같은 꿀빛 앰버, 메인 주황과 자연스럽게 어울림) */
+/* ✨ 핵심 성분 — 따뜻한 꿀빛 앰버 */
 .mini-ing-section.key {
-    background-color: #fffbeb;
-    border-color: #fde68a;
+  background-color: var(--mp-key-bg);
+  border-color: var(--mp-key-border);
 }
-.mini-ing-section.key .mini-ing-title { color: #b45309; }   /* 진한 앰버 */
-.mini-ing-section.key .mini-tag {
-    background: #ffffff;
-    color: #92400e;                                          /* 갈색 톤 앰버 */
-    border: 1px solid #fde68a;
+.mini-ing-section.key .mini-ing-title {
+  color: var(--mp-key-title);
 }
 
-/* 🔴 주의 성분 발견 (위험 — 빨강) */
-.mini-ing-section.warn { background-color: #fef2f2; border-color: #fecaca; }
-.mini-ing-section.warn .mini-ing-title { color: #dc2626; }
-.mini-ing-section.warn .mini-tag {
-    background: #ffffff;
-    color: #991b1b;
-    border: 1px solid #fecaca;
+/* 🔴 주의 성분 발견 — 부드러운 레드 */
+.mini-ing-section.warn {
+  background-color: var(--mp-warn-bg);
+  border-color: var(--mp-warn-border);
+}
+.mini-ing-section.warn .mini-ing-title {
+  color: var(--mp-warn-title);
 }
 
-/* 🌿 주의 필요 성분 없음 (안전 — 따뜻한 세이지 그린) */
+/* 🌿 주의 필요 성분 없음 — 세이지 그린 (버그 수정: 빨강 → 초록) */
 .mini-ing-section.safe-clean {
-    background-color: #ecfdf5;
-    border-color: #a7f3d0;
+  background-color: var(--mp-safe-bg);
+  border-color: var(--mp-safe-border);
 }
 .mini-ing-section.safe-clean .mini-ing-title {
-    color: #059669;                                          /* 살짝 더 따뜻한 그린 */
-    margin-bottom: 0;
+  color: var(--mp-safe-title);
+  margin-bottom: 0;
 }
 
-/* 기본 미니 타이틀 */
 .mini-ing-title {
-    font-size: 0.875rem;
-    font-weight: 700;
-    margin-bottom: 10px;
-    display: flex;
-    align-items: center;
-    gap: 6px;
+  font-size: 0.875rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
-/* 기본 미니 태그 */
-.mini-ing-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+/* 미니 태그 — 부드러운 흰색 배경 + 컬러 보더 */
+.mini-ing-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
 .mini-tag {
-    background: #ffffff;
-    padding: 6px 10px;
-    border-radius: 6px;
-    font-size: 0.85rem;
-    color: #374151;
-    font-weight: 600;
-    border: 1px solid #f0f0f0;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  background: #ffffff;
+  border: 1px solid var(--mp-border-card);
+  color: var(--mp-text-body);
+}
+.mini-tag--key {
+  border-color: var(--mp-key-border);
+  color: var(--mp-key-tag-text);
+}
+.mini-tag--warn {
+  border-color: var(--mp-warn-border);
+  color: var(--mp-warn-tag-text);
+}
+.mini-tag--empty {
+  color: var(--mp-text-soft);
+  font-style: italic;
+  border-style: dashed;
 }
 
 .slide-card-footer {
-    text-align: center; 
-    color: #ff8c00; 
-    font-weight: 800; 
-    font-size: 1rem;
-    margin-top: auto; 
-    padding-top: 18px; 
-    border-top: 1px dashed #e2e8f0;
+  text-align: center;
+  color: var(--mp-primary);
+  font-weight: 800;
+  font-size: 1rem;
+  margin-top: auto;
+  padding-top: 18px;
+  border-top: 1px dashed var(--mp-border-soft);
+  cursor: pointer;
+  transition: var(--mp-transition);
 }
 
-/* --- 하단 버튼 컨트롤 섹션 --- */
+/* ===== 하단 액션 버튼 ===== */
 .action-btn-container {
-    width: 100%; display: flex; justify-content: center; gap: 15px; 
-    padding: 0 20px 40px 20px; box-sizing: border-box;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  padding: 0 20px 40px 20px;
+  box-sizing: border-box;
 }
 
-.re-analyze-btn, .logout-btn-half {
-    flex: 1; padding: 16px 0; border: none; border-radius: 16px; 
-    font-weight: 700; font-size: 1.05rem; cursor: pointer; 
-    display: flex; justify-content: center; align-items: center; gap: 8px;
-    transition: all 0.2s;
+.re-analyze-btn,
+.logout-btn-half {
+  flex: 1;
+  padding: 16px 0;
+  border: none;
+  border-radius: 16px;
+  font-weight: 700;
+  font-size: 1.05rem;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  transition: var(--mp-transition);
 }
 
-.re-analyze-btn { 
-    background: #ff8c00; 
-    color: white; 
+.re-analyze-btn {
+  background: var(--mp-primary);
+  color: white;
 }
-.re-analyze-btn:hover { background-color: #e67e22; }
+.re-analyze-btn:hover {
+  background-color: var(--mp-primary-dark);
+}
 
-.logout-btn-half { 
-    background: #ffffff; 
-    color: #64748b; 
-    border: 1px solid #cbd5e1;
+.logout-btn-half {
+  background: #ffffff;
+  color: var(--mp-text-muted);
+  border: 1px solid var(--mp-border-strong);
 }
-.logout-btn-half:hover { background-color: #f1f5f9; }
+.logout-btn-half:hover {
+  background-color: var(--mp-bg-soft);
+}
