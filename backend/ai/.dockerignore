@@ -1,0 +1,10 @@
+# .dockerignore
+.venv
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.git
+.env
+.vscode
+# 혹시 모델 파일이 로컬에 있다면 여기 적지 말고 COPY에서 명시적으로 복사하세요

@@ -1,0 +1,58 @@
+version: '3.8'
+
+networks:
+  suncare-network:
+    driver: bridge
+
+services:
+  mysql-db:
+    image: mysql:8.0
+    container_name: suncare-db
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: suncare_db
+    ports:
+      - "3306:3306"
+    networks:
+      - suncare-network
+    volumes:
+      - db_data:/var/lib/mysql # 🌟 DB 데이터를 서버 폴더에 저장 (데이터 보존)
+
+  express-back:
+    build: ./backend
+    container_name: suncare-backend
+    ports:
+      - "8000:8000"
+    depends_on:
+      - mysql-db
+      - fastapi-ai
+    environment:
+      DB_HOST: mysql-db
+      FASTAPI_URL: http://fastapi-ai:8001
+    networks:
+      - suncare-network
+
+  fastapi-ai:
+    build: ./backend/ai
+    container_name: suncare-ai
+    ports:
+      - "8001:8001"
+    networks:
+      - suncare-network
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        - VITE_API_BASE_URL=http://101.79.16.19:8000 # 🌟 서버 공인 IP로 명시
+    container_name: suncare-frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - express-back
+    networks:
+      - suncare-network
+
+# 🌟 볼륨 설정 추가 (파일 맨 아래에 붙여넣기)
+volumes:
+  db_data:
