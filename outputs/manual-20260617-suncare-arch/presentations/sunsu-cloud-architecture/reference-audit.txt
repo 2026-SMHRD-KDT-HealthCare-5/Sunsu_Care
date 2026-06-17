@@ -1,0 +1,12 @@
+Reference deck audit:
+- The provided PPTX is a service icon inventory and architecture example pack.
+- It contains a clean Naver Cloud classroom style: white background, VPC boundary, public/private subnets, service icons, and straight connector paths.
+- Some source icons are EMF and do not render cleanly through artifact-tool, so the final deck avoids embedding those assets.
+
+Classroom image audit:
+- Strengths: clear VPC boundary, simple request path, public/private subnet separation, GitHub deployment path, external storage/database callouts.
+- Gaps for Sunsu Care: no FastAPI AI service, no asynchronous callback/polling, no OCR/LLM external API dependency, no object upload lifecycle, no monitoring or secret boundary.
+
+Adaptation:
+- Preserve the classroom mental model.
+- Extend it with an AI private subnet, Object Storage image persistence, Cloud DB for MySQL, external OCR/Gemini API egress, and operations components.

@@ -1,0 +1,1695 @@
+{
+  "schema": "openai.presentation.layout/v4",
+  "unit": "px",
+  "slide": {
+    "aid": "sl/j2t83itg",
+    "id": "j2t83itg",
+    "slide": 21,
+    "layoutId": "/ppt/slideLayouts/slideLayout1.xml",
+    "layoutName": "제목 슬라이드",
+    "layoutType": "title",
+    "masterLayoutId": "/ppt/slideMasters/slideMaster1.xml",
+    "backgroundColor": "bg1",
+    "frame": {
+      "left": 0,
+      "top": 0,
+      "width": 1280,
+      "height": 720
+    }
+  },
+  "theme": {
+    "colorSchemeName": "Office 테마",
+    "colors": {
+      "accent1": "#4472C4",
+      "accent2": "#ED7D31",
+      "accent3": "#A5A5A5",
+      "accent4": "#FFC000",
+      "accent5": "#5B9BD5",
+      "accent6": "#70AD47",
+      "dk1": "#000000",
+      "lt1": "#FFFFFF",
+      "dk2": "#A7A7A7",
+      "lt2": "#535353",
+      "hlink": "#0000FF",
+      "folHlink": "#FF00FF"
+    },
+    "fontScheme": {
+      "name": "Office 테마",
+      "majorFont": {
+        "latinTypeface": "맑은 고딕",
+        "eastAsianTypeface": "맑은 고딕",
+        "complexScriptTypeface": "맑은 고딕"
+      },
+      "minorFont": {
+        "latinTypeface": "Helvetica",
+        "eastAsianTypeface": "Helvetica",
+        "complexScriptTypeface": "Helvetica"
+      }
+    },
+    "typefaces": [
+      "Arial",
+      "Helvetica",
+      "Nanum Square",
+      "맑은 고딕"
+    ]
+  },
+  "inheritedLayers": [
+    {
+      "scope": "layout",
+      "id": "/ppt/slideLayouts/slideLayout1.xml",
+      "name": "제목 슬라이드",
+      "type": "title",
+      "parentLayoutId": "/ppt/slideMasters/slideMaster1.xml",
+      "elements": [
+        {
+          "order": 1,
+          "kind": "shape",
+          "scope": "layout",
+          "aid": "template/layout//ppt/slideLayouts/slideLayout1.xml/11",
+          "id": "11",
+          "name": "제목 텍스트",
+          "bbox": [
+            160,
+            117.83,
+            960,
+            250.67
+          ],
+          "geometry": "rect",
+          "text": "제목 텍스트",
+          "textPreview": "제목 텍스트",
+          "resolvedTextStyle": {
+            "anchor": 3,
+            "verticalAlignment": "bottom"
+          },
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "제목 텍스트",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "제목 텍스트"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "order": 2,
+          "kind": "shape",
+          "scope": "layout",
+          "aid": "template/layout//ppt/slideLayouts/slideLayout1.xml/12",
+          "id": "12",
+          "name": "본문 첫 번째 줄…",
+          "bbox": [
+            160,
+            378.17,
+            960,
+            173.83
+          ],
+          "geometry": "rect",
+          "text": "본문 첫 번째 줄\n본문 두 번째 줄\n본문 세 번째 줄\n본문 네 번째 줄\n본문 다섯 번째 줄",
+          "textPreview": "본문 첫 번째 줄 | 본문 두 번째 줄 | 본문 세 번째 줄 | 본문 네 번째 줄 | 본문 다섯 번째 줄",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "본문 첫 번째 줄",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "본문 첫 번째 줄"
+                }
+              ]
+            },
+            {
+              "index": 2,
+              "text": "본문 두 번째 줄",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "본문 두 번째 줄"
+                }
+              ]
+            },
+            {
+              "index": 3,
+              "text": "본문 세 번째 줄",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "본문 세 번째 줄"
+                }
+              ]
+            },
+            {
+              "index": 4,
+              "text": "본문 네 번째 줄",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "본문 네 번째 줄"
+                }
+              ]
+            },
+            {
+              "index": 5,
+              "text": "본문 다섯 번째 줄",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "본문 다섯 번째 줄"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "order": 3,
+          "kind": "shape",
+          "scope": "layout",
+          "aid": "template/layout//ppt/slideLayouts/slideLayout1.xml/13",
+          "id": "13",
+          "name": "슬라이드 번호",
+          "bbox": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "geometry": "rect",
+          "text": "‹#›",
+          "textPreview": "‹#›",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "‹#›",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "‹#›"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "scope": "master",
+      "id": "/ppt/slideMasters/slideMaster1.xml",
+      "type": "master",
+      "backgroundColor": "#FFFFFF",
+      "elements": [
+        {
+          "order": 1,
+          "kind": "shape",
+          "scope": "master",
+          "aid": "template/master//ppt/slideMasters/slideMaster1.xml/2",
+          "id": "2",
+          "name": "제목 텍스트",
+          "bbox": [
+            88,
+            38.33,
+            1104,
+            139.17
+          ],
+          "geometry": "rect",
+          "text": "제목 텍스트",
+          "textPreview": "제목 텍스트",
+          "resolvedTextStyle": {
+            "anchor": 2,
+            "verticalAlignment": "middle",
+            "autoFit": "shrinkText",
+            "insets": {
+              "right": 4.8,
+              "left": 4.8
+            }
+          },
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "제목 텍스트",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "제목 텍스트"
+                }
+              ]
+            }
+          ],
+          "lineWidth": 1.33
+        },
+        {
+          "order": 2,
+          "kind": "shape",
+          "scope": "master",
+          "aid": "template/master//ppt/slideMasters/slideMaster1.xml/3",
+          "id": "3",
+          "name": "본문 첫 번째 줄…",
+          "bbox": [
+            88,
+            191.67,
+            1104,
+            456.83
+          ],
+          "geometry": "rect",
+          "text": "본문 첫 번째 줄\n본문 두 번째 줄\n본문 세 번째 줄\n본문 네 번째 줄\n본문 다섯 번째 줄",
+          "textPreview": "본문 첫 번째 줄 | 본문 두 번째 줄 | 본문 세 번째 줄 | 본문 네 번째 줄 | 본문 다섯 번째 줄",
+          "resolvedTextStyle": {
+            "autoFit": "shrinkText",
+            "insets": {
+              "right": 4.8,
+              "left": 4.8
+            }
+          },
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "본문 첫 번째 줄",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "본문 첫 번째 줄"
+                }
+              ]
+            },
+            {
+              "index": 2,
+              "text": "본문 두 번째 줄",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "본문 두 번째 줄"
+                }
+              ]
+            },
+            {
+              "index": 3,
+              "text": "본문 세 번째 줄",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "본문 세 번째 줄"
+                }
+              ]
+            },
+            {
+              "index": 4,
+              "text": "본문 네 번째 줄",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "본문 네 번째 줄"
+                }
+              ]
+            },
+            {
+              "index": 5,
+              "text": "본문 다섯 번째 줄",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "본문 다섯 번째 줄"
+                }
+              ]
+            }
+          ],
+          "lineWidth": 1.33
+        },
+        {
+          "order": 3,
+          "kind": "shape",
+          "scope": "master",
+          "aid": "template/master//ppt/slideMasters/slideMaster1.xml/4",
+          "id": "4",
+          "name": "슬라이드 번호",
+          "bbox": [
+            1163.27,
+            672.37,
+            28.73,
+            28.27
+          ],
+          "geometry": "rect",
+          "text": "‹#›",
+          "textPreview": "‹#›",
+          "resolvedTextStyle": {
+            "anchor": 2,
+            "verticalAlignment": "middle",
+            "wrap": "none",
+            "autoFit": "resizeShapeToFitText",
+            "insets": {
+              "right": 4.8,
+              "left": 4.8
+            }
+          },
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "‹#›",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "‹#›"
+                }
+              ]
+            }
+          ],
+          "lineWidth": 1.33
+        }
+      ]
+    }
+  ],
+  "elements": [
+    {
+      "order": 1,
+      "kind": "image",
+      "scope": "slide",
+      "aid": "im/rmhk3q5o",
+      "id": "55",
+      "name": "그림 33",
+      "bbox": [
+        1083.57,
+        700.96,
+        169.73,
+        14.21
+      ],
+      "rotation": 0,
+      "contentType": "image/x-emf",
+      "asset": {
+        "assetId": "/ppt/media/image3.emf",
+        "contentType": "image/x-emf",
+        "byteLength": 44740
+      },
+      "fillImage": {
+        "assetId": "/ppt/media/image3.emf",
+        "contentType": "image/x-emf",
+        "byteLength": 44740
+      }
+    },
+    {
+      "order": 2,
+      "kind": "image",
+      "scope": "slide",
+      "aid": "im/g7adsji5",
+      "id": "56",
+      "name": "그림 36",
+      "bbox": [
+        -2.52,
+        698.99,
+        1285.04,
+        22.32
+      ],
+      "rotation": 0,
+      "contentType": "image/x-emf",
+      "asset": {
+        "assetId": "/ppt/media/image4.emf",
+        "contentType": "image/x-emf",
+        "byteLength": 31396
+      },
+      "fillImage": {
+        "assetId": "/ppt/media/image4.emf",
+        "contentType": "image/x-emf",
+        "byteLength": 31396
+      }
+    },
+    {
+      "order": 3,
+      "kind": "image",
+      "scope": "slide",
+      "aid": "im/9s36hcrm",
+      "id": "57",
+      "name": "그림 37",
+      "bbox": [
+        16.89,
+        702.92,
+        165.15,
+        14.21
+      ],
+      "rotation": 0,
+      "contentType": "image/x-emf",
+      "asset": {
+        "assetId": "/ppt/media/image5.emf",
+        "contentType": "image/x-emf",
+        "byteLength": 370856
+      },
+      "fillImage": {
+        "assetId": "/ppt/media/image5.emf",
+        "contentType": "image/x-emf",
+        "byteLength": 370856
+      }
+    },
+    {
+      "order": 4,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/29gr2p8n",
+      "id": "39",
+      "name": "직사각형 38",
+      "bbox": [
+        961.4,
+        698.1,
+        313.7,
+        22.62
+      ],
+      "rotation": 0,
+      "geometry": "rect",
+      "text": "© NAVER Cloud Corp. All Rights Reserved.",
+      "textPreview": "© NAVER Cloud Corp. All Rights Reserved.",
+      "resolvedFontSize": 16,
+      "resolvedTextStyle": {
+        "fontSize": 16,
+        "typeface": "Helvetica",
+        "color": "tx1",
+        "alignment": "right",
+        "textTransform": "none",
+        "wrap": "square",
+        "autoFit": "resizeShapeToFitText",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "© NAVER Cloud Corp. All Rights Reserved."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "© NAVER Cloud Corp. All Rights Reserved.",
+          "resolvedTextStyle": {
+            "alignment": "right"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "© ",
+              "fontSize": 10.67,
+              "typeface": "Nanum Square",
+              "color": "bg1"
+            },
+            {
+              "index": 2,
+              "text": "NAVER Cloud Corp. All Rights Reserved.",
+              "fontSize": 10.67,
+              "typeface": "Nanum Square",
+              "color": "bg1"
+            }
+          ],
+          "bulletCharacter": "",
+          "marginLeft": 0,
+          "indent": 0,
+          "lineSpacingPercent": 100000,
+          "spaceBefore": 0,
+          "spaceAfter": 0
+        }
+      ]
+    },
+    {
+      "order": 5,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/u9knih4b",
+      "id": "22",
+      "name": "TextBox 21",
+      "bbox": [
+        172.34,
+        119.61,
+        63.48,
+        35.54
+      ],
+      "geometry": "rect",
+      "text": "VPC",
+      "textPreview": "VPC",
+      "resolvedFontSize": 16,
+      "resolvedTextStyle": {
+        "fontSize": 16,
+        "typeface": "Helvetica",
+        "color": "tx1",
+        "alignment": "right",
+        "textTransform": "none",
+        "wrap": "none",
+        "autoFit": "resizeShapeToFitText",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "VPC"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "VPC",
+          "runs": [
+            {
+              "index": 1,
+              "text": "VPC",
+              "fontSize": 21.33,
+              "typeface": "Arial",
+              "color": "#4D4E4D",
+              "bold": true
+            }
+          ],
+          "bulletCharacter": "",
+          "marginLeft": 0,
+          "indent": 0,
+          "lineSpacingPercent": 100000,
+          "spaceBefore": 0,
+          "spaceAfter": 0
+        }
+      ]
+    },
+    {
+      "order": 6,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/1orytsvu",
+      "id": "25",
+      "name": "직선 연결선[R] 43",
+      "bbox": [
+        243.69,
+        137.38,
+        888.19,
+        2.19
+      ],
+      "geometry": "line",
+      "lineColor": {
+        "type": "theme",
+        "value": "bg1",
+        "transform": {
+          "darken": 0.25
+        }
+      },
+      "lineWidth": 1
+    },
+    {
+      "order": 7,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/cvixczed",
+      "id": "28",
+      "name": "TextBox 27",
+      "bbox": [
+        181.88,
+        259.46,
+        121.21,
+        25.85
+      ],
+      "geometry": "rect",
+      "text": "Internet Gateway",
+      "textPreview": "Internet Gateway",
+      "resolvedFontSize": 13.33,
+      "resolvedTextStyle": {
+        "fontSize": 13.33,
+        "typeface": "Arial",
+        "color": {
+          "type": "theme",
+          "value": "bg2",
+          "transform": {
+            "darken": 0.25
+          }
+        },
+        "alignment": "center",
+        "textTransform": "none",
+        "wrap": "none",
+        "autoFit": "resizeShapeToFitText",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Internet Gateway"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Internet Gateway",
+          "runs": [
+            {
+              "index": 1,
+              "text": "Internet Gateway",
+              "color": {
+                "type": "theme",
+                "value": "bg2",
+                "transform": {
+                  "lighten": 0.6
+                }
+              }
+            }
+          ],
+          "bulletCharacter": "",
+          "marginLeft": 0,
+          "indent": 0,
+          "lineSpacingPercent": 100000,
+          "spaceBefore": 0,
+          "spaceAfter": 0
+        }
+      ]
+    },
+    {
+      "order": 8,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/5gbq1ory",
+      "id": "29",
+      "name": "TextBox 28",
+      "bbox": [
+        721.23,
+        258.64,
+        150.66,
+        42.01
+      ],
+      "geometry": "rect",
+      "text": "VPC\n(Virtual Private Cloud)",
+      "textPreview": "VPC | (Virtual Private Cloud)",
+      "resolvedFontSize": 16,
+      "resolvedTextStyle": {
+        "fontSize": 16,
+        "typeface": "Helvetica",
+        "color": "tx1",
+        "alignment": "right",
+        "textTransform": "none",
+        "wrap": "none",
+        "autoFit": "resizeShapeToFitText",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 2,
+        "lines": [
+          {
+            "index": 1,
+            "text": "VPC"
+          },
+          {
+            "index": 2,
+            "text": "(Virtual Private Cloud)"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "VPC",
+          "resolvedTextStyle": {
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "VPC",
+              "fontSize": 13.33,
+              "typeface": "Arial",
+              "color": {
+                "type": "theme",
+                "value": "bg2",
+                "transform": {
+                  "lighten": 0.6
+                }
+              }
+            }
+          ],
+          "bulletCharacter": "",
+          "marginLeft": 0,
+          "indent": 0,
+          "lineSpacingPercent": 100000,
+          "spaceBefore": 0,
+          "spaceAfter": 0
+        },
+        {
+          "index": 2,
+          "text": "(Virtual Private Cloud)",
+          "resolvedTextStyle": {
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "(Virtual Private Cloud)",
+              "fontSize": 13.33,
+              "typeface": "Arial",
+              "color": {
+                "type": "theme",
+                "value": "bg2",
+                "transform": {
+                  "lighten": 0.6
+                }
+              }
+            }
+          ],
+          "bulletCharacter": "",
+          "marginLeft": 0,
+          "indent": 0,
+          "lineSpacingPercent": 100000,
+          "spaceBefore": 0,
+          "spaceAfter": 0
+        }
+      ]
+    },
+    {
+      "order": 9,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/val87ed8",
+      "id": "30",
+      "name": "TextBox 29",
+      "bbox": [
+        352.94,
+        259.46,
+        42.61,
+        25.85
+      ],
+      "geometry": "rect",
+      "text": "NIC",
+      "textPreview": "NIC",
+      "resolvedFontSize": 16,
+      "resolvedTextStyle": {
+        "fontSize": 16,
+        "typeface": "Helvetica",
+        "color": "tx1",
+        "alignment": "right",
+        "textTransform": "none",
+        "wrap": "none",
+        "autoFit": "resizeShapeToFitText",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "NIC"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "NIC",
+          "runs": [
+            {
+              "index": 1,
+              "text": "NIC",
+              "fontSize": 13.33,
+              "typeface": "Arial",
+              "color": {
+                "type": "theme",
+                "value": "bg2",
+                "transform": {
+                  "lighten": 0.6
+                }
+              }
+            }
+          ],
+          "bulletCharacter": "",
+          "marginLeft": 0,
+          "indent": 0,
+          "lineSpacingPercent": 100000,
+          "spaceBefore": 0,
+          "spaceAfter": 0
+        }
+      ]
+    },
+    {
+      "order": 10,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/6psfil0r",
+      "id": "31",
+      "name": "TextBox 30",
+      "bbox": [
+        440.03,
+        259.46,
+        146.79,
+        25.85
+      ],
+      "geometry": "rect",
+      "text": "On Premise Gateway",
+      "textPreview": "On Premise Gateway",
+      "resolvedFontSize": 16,
+      "resolvedTextStyle": {
+        "fontSize": 16,
+        "typeface": "Helvetica",
+        "color": "tx1",
+        "alignment": "right",
+        "textTransform": "none",
+        "wrap": "none",
+        "autoFit": "resizeShapeToFitText",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "On Premise Gateway"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "On Premise Gateway",
+          "resolvedTextStyle": {
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "On Premise Gateway",
+              "fontSize": 13.33,
+              "typeface": "Arial",
+              "color": {
+                "type": "theme",
+                "value": "bg2",
+                "transform": {
+                  "lighten": 0.6
+                }
+              }
+            }
+          ],
+          "bulletCharacter": "",
+          "marginLeft": 0,
+          "indent": 0,
+          "lineSpacingPercent": 100000,
+          "spaceBefore": 0,
+          "spaceAfter": 0
+        }
+      ]
+    },
+    {
+      "order": 11,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/dcbulwva",
+      "id": "32",
+      "name": "TextBox 31",
+      "bbox": [
+        625.54,
+        259.46,
+        59.61,
+        25.85
+      ],
+      "geometry": "rect",
+      "text": "Router",
+      "textPreview": "Router",
+      "resolvedFontSize": 16,
+      "resolvedTextStyle": {
+        "fontSize": 16,
+        "typeface": "Helvetica",
+        "color": "tx1",
+        "alignment": "right",
+        "textTransform": "none",
+        "wrap": "none",
+        "autoFit": "resizeShapeToFitText",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Router"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Router",
+          "resolvedTextStyle": {
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Router",
+              "fontSize": 13.33,
+              "typeface": "Arial",
+              "color": {
+                "type": "theme",
+                "value": "bg2",
+                "transform": {
+                  "lighten": 0.6
+                }
+              }
+            }
+          ],
+          "bulletCharacter": "",
+          "marginLeft": 0,
+          "indent": 0,
+          "lineSpacingPercent": 100000,
+          "spaceBefore": 0,
+          "spaceAfter": 0
+        }
+      ]
+    },
+    {
+      "order": 12,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/2x4nap4r",
+      "id": "35",
+      "name": "TextBox 34",
+      "bbox": [
+        912.5,
+        259.46,
+        47.66,
+        25.85
+      ],
+      "geometry": "rect",
+      "text": "VPG",
+      "textPreview": "VPG",
+      "resolvedFontSize": 16,
+      "resolvedTextStyle": {
+        "fontSize": 16,
+        "typeface": "Helvetica",
+        "color": "tx1",
+        "alignment": "right",
+        "textTransform": "none",
+        "wrap": "none",
+        "autoFit": "resizeShapeToFitText",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "VPG"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "VPG",
+          "runs": [
+            {
+              "index": 1,
+              "text": "VPG",
+              "fontSize": 13.33,
+              "typeface": "Arial",
+              "color": {
+                "type": "theme",
+                "value": "bg2",
+                "transform": {
+                  "lighten": 0.6
+                }
+              }
+            }
+          ],
+          "bulletCharacter": "",
+          "marginLeft": 0,
+          "indent": 0,
+          "lineSpacingPercent": 100000,
+          "spaceBefore": 0,
+          "spaceAfter": 0
+        }
+      ]
+    },
+    {
+      "order": 13,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/p4r65wju",
+      "id": "47",
+      "name": "TextBox 23",
+      "bbox": [
+        177.14,
+        343.28,
+        53.6,
+        32.9
+      ],
+      "geometry": "rect",
+      "text": "ETC",
+      "textPreview": "ETC",
+      "resolvedFontSize": 21.33,
+      "resolvedTextStyle": {
+        "fontSize": 21.33,
+        "typeface": "Arial",
+        "color": "#4D4E4D",
+        "bold": true,
+        "alignment": "right",
+        "textTransform": "none",
+        "wrap": "none",
+        "autoFit": "resizeShapeToFitText",
+        "insets": {
+          "top": 0,
+          "right": 4.8,
+          "bottom": 0,
+          "left": 4.8
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "ETC"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "ETC",
+          "runs": [
+            {
+              "index": 1,
+              "text": "ETC"
+            }
+          ],
+          "bulletCharacter": "",
+          "marginLeft": 0,
+          "indent": 0,
+          "lineSpacingPercent": 100000,
+          "spaceBefore": 0,
+          "spaceAfter": 0
+        }
+      ],
+      "lineWidth": 1.33
+    },
+    {
+      "order": 14,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/ih4byhgn",
+      "id": "48",
+      "name": "직선 연결선[R] 24",
+      "bbox": [
+        248.65,
+        363.24,
+        337.24,
+        0
+      ],
+      "geometry": "line",
+      "resolvedFontSize": 16,
+      "resolvedTextStyle": {
+        "fontSize": 16,
+        "typeface": "Helvetica",
+        "color": "tx1",
+        "alignment": "right",
+        "textTransform": "none",
+        "insets": {
+          "top": 0,
+          "right": 4.8,
+          "bottom": 0,
+          "left": 4.8
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": ""
+          }
+        ]
+      },
+      "lineColor": "#BFBFBF"
+    },
+    {
+      "order": 15,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/72x4nap4",
+      "id": "49",
+      "name": "TextBox 51",
+      "bbox": [
+        726.71,
+        345.66,
+        133.33,
+        133.33
+      ],
+      "geometry": "line",
+      "text": "Finance",
+      "textPreview": "Finance",
+      "resolvedFontSize": 21.33,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 21.33,
+        "typeface": "Arial",
+        "color": "#4D4E4D",
+        "bold": true,
+        "alignment": "right",
+        "verticalAlignment": "top",
+        "textTransform": "none",
+        "wrap": "none",
+        "autoFit": "resizeShapeToFitText",
+        "insets": {
+          "top": 4.8,
+          "right": 4.8,
+          "bottom": 4.8,
+          "left": 4.8
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Finance"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Finance",
+          "runs": [
+            {
+              "index": 1,
+              "text": "Finance"
+            }
+          ],
+          "bulletCharacter": "",
+          "marginLeft": 0,
+          "indent": 0,
+          "lineSpacingPercent": 100000,
+          "spaceBefore": 0,
+          "spaceAfter": 0
+        }
+      ],
+      "lineWidth": 1.33
+    },
+    {
+      "order": 16,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/xc3ylc7u",
+      "id": "50",
+      "name": "직선 연결선[R] 52",
+      "bbox": [
+        832.21,
+        365.62,
+        305.17,
+        0
+      ],
+      "geometry": "line",
+      "resolvedFontSize": 16,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 16,
+        "typeface": "Helvetica",
+        "color": "tx1",
+        "alignment": "right",
+        "verticalAlignment": "top",
+        "textTransform": "none",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 4.8,
+          "right": 4.8,
+          "bottom": 4.8,
+          "left": 4.8
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": ""
+          }
+        ]
+      },
+      "lineColor": "#BFBFBF",
+      "lineWidth": 1
+    },
+    {
+      "order": 17,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/mlkjm1cf",
+      "id": "53",
+      "name": "TextBox 35",
+      "bbox": [
+        224.01,
+        479.38,
+        43.35,
+        25.85
+      ],
+      "geometry": "rect",
+      "text": "Tmax",
+      "textPreview": "Tmax",
+      "resolvedFontSize": 13.33,
+      "resolvedTextStyle": {
+        "fontSize": 13.33,
+        "typeface": "Arial",
+        "color": "#AFABAB",
+        "alignment": "center",
+        "textTransform": "none",
+        "wrap": "none",
+        "autoFit": "resizeShapeToFitText",
+        "insets": {
+          "top": 0,
+          "right": 4.8,
+          "bottom": 0,
+          "left": 4.8
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Tmax"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Tmax",
+          "runs": [
+            {
+              "index": 1,
+              "text": "Tmax",
+              "color": {
+                "type": "theme",
+                "value": "bg2",
+                "transform": {
+                  "lighten": 0.6
+                }
+              }
+            }
+          ],
+          "bulletCharacter": "",
+          "marginLeft": 0,
+          "indent": 0,
+          "lineSpacingPercent": 100000,
+          "spaceBefore": 0,
+          "spaceAfter": 0
+        }
+      ],
+      "lineWidth": 1.33
+    },
+    {
+      "order": 18,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/xkf6dcbu",
+      "id": "54",
+      "name": "TextBox 35",
+      "bbox": [
+        726.71,
+        479.48,
+        136.25,
+        25.85
+      ],
+      "geometry": "rect",
+      "text": "Public Finance Cloud",
+      "textPreview": "Public Finance Cloud",
+      "resolvedFontSize": 13.33,
+      "resolvedTextStyle": {
+        "fontSize": 13.33,
+        "typeface": "Arial",
+        "color": "#AFABAB",
+        "alignment": "center",
+        "textTransform": "none",
+        "wrap": "none",
+        "autoFit": "resizeShapeToFitText",
+        "insets": {
+          "top": 0,
+          "right": 4.8,
+          "bottom": 0,
+          "left": 4.8
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Public Finance Cloud"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Public Finance Cloud",
+          "runs": [
+            {
+              "index": 1,
+              "text": "Public Finance Cloud"
+            }
+          ],
+          "bulletCharacter": "",
+          "marginLeft": 0,
+          "indent": 0,
+          "lineSpacingPercent": 100000,
+          "spaceBefore": 0,
+          "spaceAfter": 0
+        }
+      ],
+      "lineWidth": 1.33
+    },
+    {
+      "order": 19,
+      "kind": "image",
+      "scope": "slide",
+      "aid": "im/yxobm58z",
+      "id": "58",
+      "name": "그림 4",
+      "bbox": [
+        351.57,
+        203.06,
+        45.35,
+        45.35
+      ],
+      "contentType": "image/png",
+      "asset": {
+        "assetId": "/ppt/media/image200.png",
+        "contentType": "image/png",
+        "byteLength": 4599
+      },
+      "fillImage": {
+        "assetId": "/ppt/media/image200.png",
+        "contentType": "image/png",
+        "byteLength": 4599
+      }
+    },
+    {
+      "order": 20,
+      "kind": "image",
+      "scope": "slide",
+      "aid": "im/nih4byhg",
+      "id": "59",
+      "name": "그림 8",
+      "bbox": [
+        632.67,
+        203.54,
+        45.35,
+        45.35
+      ],
+      "contentType": "image/png",
+      "asset": {
+        "assetId": "/ppt/media/image201.png",
+        "contentType": "image/png",
+        "byteLength": 15139
+      },
+      "fillImage": {
+        "assetId": "/ppt/media/image201.png",
+        "contentType": "image/png",
+        "byteLength": 15139
+      }
+    },
+    {
+      "order": 21,
+      "kind": "image",
+      "scope": "slide",
+      "aid": "im/3m94fu18",
+      "id": "60",
+      "name": "그림 12",
+      "bbox": [
+        914.06,
+        203.06,
+        45.35,
+        45.35
+      ],
+      "contentType": "image/png",
+      "asset": {
+        "assetId": "/ppt/media/image202.png",
+        "contentType": "image/png",
+        "byteLength": 16817
+      },
+      "fillImage": {
+        "assetId": "/ppt/media/image202.png",
+        "contentType": "image/png",
+        "byteLength": 16817
+      }
+    },
+    {
+      "order": 22,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/m58z25kb",
+      "id": "6",
+      "name": "TextBox 5",
+      "bbox": [
+        1008.89,
+        259.6,
+        115.82,
+        25.85
+      ],
+      "geometry": "rect",
+      "text": "Mirror Resource",
+      "textPreview": "Mirror Resource",
+      "resolvedFontSize": 16,
+      "resolvedTextStyle": {
+        "fontSize": 16,
+        "typeface": "Helvetica",
+        "color": "tx1",
+        "alignment": "right",
+        "textTransform": "none",
+        "wrap": "none",
+        "autoFit": "resizeShapeToFitText",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Mirror Resource"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Mirror Resource",
+          "runs": [
+            {
+              "index": 1,
+              "text": "Mirror Resource",
+              "fontSize": 13.33,
+              "typeface": "Arial",
+              "color": {
+                "type": "theme",
+                "value": "bg2",
+                "transform": {
+                  "lighten": 0.6
+                }
+              }
+            }
+          ],
+          "bulletCharacter": "",
+          "marginLeft": 0,
+          "indent": 0,
+          "lineSpacingPercent": 100000,
+          "spaceBefore": 0,
+          "spaceAfter": 0
+        }
+      ]
+    },
+    {
+      "order": 23,
+      "kind": "image",
+      "scope": "slide",
+      "aid": "im/a5gbq1or",
+      "id": "61",
+      "name": "그림 7",
+      "bbox": [
+        213.14,
+        203.86,
+        45.35,
+        45.35
+      ],
+      "contentType": "image/png",
+      "asset": {
+        "assetId": "/ppt/media/image203.png",
+        "contentType": "image/png",
+        "byteLength": 14219
+      },
+      "fillImage": {
+        "assetId": "/ppt/media/image203.png",
+        "contentType": "image/png",
+        "byteLength": 14219
+      }
+    },
+    {
+      "order": 24,
+      "kind": "image",
+      "scope": "slide",
+      "aid": "im/lszqtcj6",
+      "id": "62",
+      "name": "그림 11",
+      "bbox": [
+        490.74,
+        203.86,
+        45.35,
+        45.35
+      ],
+      "contentType": "image/png",
+      "asset": {
+        "assetId": "/ppt/media/image204.png",
+        "contentType": "image/png",
+        "byteLength": 12772
+      },
+      "fillImage": {
+        "assetId": "/ppt/media/image204.png",
+        "contentType": "image/png",
+        "byteLength": 12772
+      }
+    },
+    {
+      "order": 25,
+      "kind": "image",
+      "scope": "slide",
+      "aid": "im/s72x4nap",
+      "id": "63",
+      "name": "그림 15",
+      "bbox": [
+        772.16,
+        203.86,
+        45.35,
+        45.35
+      ],
+      "contentType": "image/png",
+      "asset": {
+        "assetId": "/ppt/media/image205.png",
+        "contentType": "image/png",
+        "byteLength": 15558
+      },
+      "fillImage": {
+        "assetId": "/ppt/media/image205.png",
+        "contentType": "image/png",
+        "byteLength": 15558
+      }
+    },
+    {
+      "order": 26,
+      "kind": "image",
+      "scope": "slide",
+      "aid": "im/3ylc7u54",
+      "id": "64",
+      "name": "그림 18",
+      "bbox": [
+        1044.12,
+        203.86,
+        45.35,
+        45.35
+      ],
+      "contentType": "image/png",
+      "asset": {
+        "assetId": "/ppt/media/image206.png",
+        "contentType": "image/png",
+        "byteLength": 9189
+      },
+      "fillImage": {
+        "assetId": "/ppt/media/image206.png",
+        "contentType": "image/png",
+        "byteLength": 9189
+      }
+    },
+    {
+      "order": 27,
+      "kind": "image",
+      "scope": "slide",
+      "aid": "im/adsji5sn",
+      "id": "65",
+      "name": "그림 20",
+      "bbox": [
+        225.98,
+        426.6,
+        45.35,
+        45.35
+      ],
+      "contentType": "image/png",
+      "asset": {
+        "assetId": "/ppt/media/image207.png",
+        "contentType": "image/png",
+        "byteLength": 12483
+      },
+      "fillImage": {
+        "assetId": "/ppt/media/image207.png",
+        "contentType": "image/png",
+        "byteLength": 12483
+      }
+    },
+    {
+      "order": 28,
+      "kind": "image",
+      "scope": "slide",
+      "aid": "im/h4byhgn2",
+      "id": "66",
+      "name": "그림 23",
+      "bbox": [
+        770.7,
+        426.6,
+        45.35,
+        45.35
+      ],
+      "contentType": "image/png",
+      "asset": {
+        "assetId": "/ppt/media/image208.png",
+        "contentType": "image/png",
+        "byteLength": 16522
+      },
+      "fillImage": {
+        "assetId": "/ppt/media/image208.png",
+        "contentType": "image/png",
+        "byteLength": 16522
+      }
+    }
+  ],
+  "composeRuns": []
+}

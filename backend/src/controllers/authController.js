@@ -1,197 +1,277 @@
 // controller: 요청 받기 -> service 호출 -> 응답 내보내기
 
+//authService 함수 호출
 const authService = require("../services/authService");
 
 // 1. 회원가입 API 요청 처리
-const signup = async (req, res) => {
+const signup = async (req, res, next) => {
   try {
-    console.log("회원가입 요청 body:", req.body);
-
+    //1-1. 요청 body에서 값 꺼내 변수에 저장
     const { email, password, nickname } = req.body;
 
-    // 1-1. 입력값 검증
+    // 1-2. 입력값 검증
     if (!email || !password || !nickname) {
+
+      //누락된 입력값 확인 로그 (if 조건 true -> 값 누락)
       console.log("회원가입 입력값 누락:", {
         email: !!email,
         password: !!password,
         nickname: !!nickname,
       });
 
-      // 400: 요청값 오류
-      // .json(): 응답 데이터 json 형태로 출력
+      //누락된 입력값 front확인 로그 (if 조건 true -> 값 누락)
       return res.status(400).json({
         success: false,
         message: "이메일, 비밀번호, 닉네임을 모두 입력하세요",
       });
     }
-
-    console.log("authService.signup 호출 직전:", {
+    // 1-3. 회원가입 처리 전에 요청 값 확인 (if 조건 fasle -> 값 모두 있다)
+    console.log("요청 값 확인:", 
+    {
       email,
       nickname,
       passwordLength: password.length,
     });
 
-    // authService의 signup 함수에 매개변수 값 넘겨서 DB에 저장/처리
-    // 수정한 이유:
-    // service에서 success, status, message, user 형태의 최종 응답 객체를 만들어 넘기기 때문에
-    // controller에서는 result를 그대로 응답으로 내보내면 됨
-    // 추가 수정 이유:
-    // authService가 callback 방식이 아니라 async/await 방식으로 변경되었기 때문에
-    // Promise로 감싸지 않고 await authService.signup(...)으로 직접 결과를 받음
+    // 1-4. service의 회원가입 처리 결과를 기다린 후 저장
     const result = await authService.signup(email, password, nickname);
 
-    console.log("authService.signup 결과:", result);
+    // 1-5. back 확인 로그
+    console.log("회원가입 API 결과:", result);
+    console.log("회원가입 응답 상태:", result.status);
 
-    // 수정한 이유:
-    // 회원가입 성공은 201, 이메일 중복은 409처럼
-    // service에서 넘겨준 status 값에 따라 응답 상태코드를 결정함
-    console.log("회원가입 응답 status:", result.status);
-
+    // 1-6. HTTP상태, json형태로 front로 응답
     return res.status(result.status).json(result);
-  } catch (err) {
-    console.log("회원가입 에러:", err);
-    console.log("회원가입 에러 message:", err.message);
-    console.log("회원가입 에러 code:", err.code);
+  } 
+  // 1-7. 서버/DB에러
+  catch (err) 
+  {
+    console.log("회원가입 에러:", err);  //에러 전체 정보
+    console.log("회원가입 에러 message:", err.message); //에러 문장 
+    console.log("회원가입 에러 code:", err.code); //에러 종류 코드
 
-    // DB/서버 에러 검출 (500: 서버 내부 오류)
-    return res.status(500).json({
-      success: false,
-      message: "회원가입 실패",
-      error: err.message,
-    });
+    // 1-8. DB/서버 에러는 app.js의 전역 에러 처리 미들웨어로 전달
+    const error = new Error("회원가입 실패");
+    error.status = 500;
+    return next(error); //Express가 에러 처리 미들웨어로 에러를 던짐
   }
 };
 
 // 2. 로그인 API 요청 처리
-const login = async (req, res) => {
+const login = async (req, res, next) => {
   try {
-    console.log("로그인 요청 body:", req.body);
-
+    // 2-1. 요청 body에서 값 꺼내 변수에 저장
     const { email, password } = req.body;
 
-    // 2-1. 입력값 검증
+    // 2-2. 입력값 검증
     if (!email || !password) {
+      // 누락된 입력값 검증 로그 (if 조건 true -> 값 누락)
       console.log("로그인 입력값 누락:", {
         email: !!email,
         password: !!password,
       });
 
+      //누락된 입력값 front확인 로그 (if 조건 true -> 값 누락)
       return res.status(400).json({
         success: false,
         message: "이메일과 비밀번호를 모두 입력하세요",
       });
     }
-
-    console.log("authService.login 호출 직전:", {
+    // 2-3. 요청 값 확인 (if 조건 false -> 값 모두 있음)
+    console.log("요청 값 확인:", {
       email,
       passwordLength: password.length,
     });
 
-    // authService의 login 함수에 매개변수 값 넘겨서 DB에 저장/처리
-    // 수정한 이유:
-    // 기존에는 callback 안에서 result를 받았지만,
-    // authService가 async/await 방식으로 변경되었기 때문에
-    // await authService.login(...)으로 직접 결과를 받음
+    // 2-4. service의 로그인 처리 결과를 기다린 후 저장
     const result = await authService.login(email, password);
 
-    console.log("authService.login 결과:", result);
+    // 2-5. back 결과 로그
+    console.log("로그인 API 결과:", result);
+    console.log("로그인 응답 상태:", result.status);
 
-    // 이메일 또는 비밀번호가 틀린 경우
+    // 2-6. 로그인 정보 틀린 경우
     if (!result.success) {
-      console.log("로그인 실패 result:", result);
 
+      //back 확인 로그
+      console.log("로그인 실패:", result);
+
+      // HTTP상태, json형태로 front로 응답
       return res.status(401).json({
         success: false,
         message: result.message,
       });
     }
 
-    console.log("로그인 성공 user:", result.user);
-    console.log("로그인 성공 token 존재 여부:", !!result.token);
-    console.log("로그인 성공 token 앞부분:", result.token?.slice(0, 20));
+    // 2-7. 로그인 성공 back 확인 로그
+    console.log("로그인 성공:", {
+      user_idx: result.user?.user_idx,
+      hasToken: !!result.token
+    })
 
-    // 로그인 성공 응답
+    // 2-8. 로그인 성공 front로 응답
     return res.status(200).json({
       success: true,
       message: "로그인 성공",
       user: result.user,
       token: result.token,
     });
-  } catch (err) {
+  } 
+  // 2-9.서버/DB 에러
+  catch (err) 
+  {
     console.log("로그인 에러:", err);
     console.log("로그인 에러 message:", err.message);
     console.log("로그인 에러 code:", err.code);
 
-    return res.status(500).json({
-      success: false,
-      message: "로그인 실패",
-      error: err.message,
-    });
+    // 2-10. DB/서버 에러는 app.js의 전역 에러 처리 미들웨어로 전달
+    const error = new Error("로그인 실패");
+    error.status = 500;
+    return next(error);
   }
 };
 
 // 3. 로그아웃 API 요청 처리
-const logout = async (req, res) => {
+const logout = async (req, res, next) => {
   try {
-    // 수정한 이유:
-    // 기존에는 callback 안에서 result를 받았지만,
-    // authService가 async/await 방식으로 변경되었기 때문에
-    // await authService.logout()으로 직접 결과를 받음
+    // 3-1. service의 로그아웃 처리 결과를 기다린 후 저장
     const result = await authService.logout();
 
-    console.log("authService.logout 결과:", result);
+    // 3-2. back 결과 로그
+    console.log("로그아웃 API 결과:", result);
+    console.log("로그아웃 응답 상태:", result.status);
 
+    // 3-3. HTTP상태, json형태로 front로 응답
     return res.status(200).json({
       success: true,
       message: result.message,
     });
-  } catch (err) {
+  } 
+  // 3-4. 서버/DB 에러
+  catch (err) 
+  {
     console.log("로그아웃 에러:", err);
     console.log("로그아웃 에러 message:", err.message);
+    console.log("로그아웃 에러 code:", err.code);
 
-    return res.status(500).json({
-      success: false,
-      message: "로그아웃 실패",
-      error: err.message,
-    });
+    // 3-5. DB/서버 에러는 app.js의 전역 에러 처리 미들웨어로 전달
+    const error = new Error("로그아웃 실패");
+    error.status = 500;
+    return next(error);
   }
 };
 
-// 4. 닉네임 변경
-const updateNickname = async (req, res) => {
+// 4. 닉네임 변경 API 요청 처리
+const updateNickname = async (req, res, next) => {
   try {
+    // 4-1. 인증된 사용자 정보에서 user_idx 꺼내기 (기존 닉네임)
     const user_idx = req.user?.user_idx;
+
+    // 4-2. 요청 body에서 변경할 닉네임 꺼내기 (변경할 닉네임)
     const { nickname } = req.body;
+
+    // 4-3. 요청 값 확인 로그
+    console.log("닉네임 변경 요청 값:", {
+      user_idx,
+      nickname,
+    });
+
+    // 4-4. service의 닉네임 변경 처리 결과를 기다린 후 저장
     const result = await authService.updateNickname(user_idx, nickname);
+
+    // 4-5. back 결과 로그
+    console.log("닉네임 변경 API 결과:", result);
+    console.log("닉네임 변경 응답 상태:", result.status);
+
+    // 4-6. HTTP상태, json형태로 front로 응답
     return res.status(result.status).json(result);
-  } catch (err) {
-    console.log('닉네임 변경 컨트롤러 에러:', err);
-    return res.status(500).json({ success: false, message: '닉네임 변경 실패', error: err.message });
+  }
+  // 4-7. 서버/DB 에러
+  catch (err) 
+  {
+    console.log("닉네임 변경 에러:", err);
+    console.log("닉네임 변경 에러 message:", err.message);
+    console.log("닉네임 변경 에러 code:", err.code);
+
+    // 4-8. DB/서버 에러는 app.js의 전역 에러 처리 미들웨어로 전달
+    const error = new Error("닉네임 변경 실패");
+    error.status = 500;
+    return next(error);
   }
 };
 
-// 5. 비밀번호 변경
-const updatePassword = async (req, res) => {
+// 5. 비밀번호 변경 API 요청 처리
+const updatePassword = async (req, res, next) => {
   try {
+    // 5-1. 인증된 사용자 정보에서 user_idx 꺼내기 (기존 PW)
     const user_idx = req.user?.user_idx;
+
+    // 5-2. 요청 body에서 현재 비밀번호와 새 비밀번호 꺼내기 (변경할 PW)
     const { currentPassword, newPassword } = req.body;
+
+    // 5-3. 요청 값 확인 로그
+    console.log("비밀번호 변경 요청 값 확인:", {
+      user_idx,
+      currentPasswordLength: currentPassword?.length,
+      newPasswordLength: newPassword?.length,
+    });
+
+    // 5-4. service의 비밀번호 변경 처리 결과를 기다린 후 저장
     const result = await authService.updatePassword(user_idx, currentPassword, newPassword);
+
+    // 5-5. back 결과 로그
+    console.log("비밀번호 변경 API 결과:", result);
+    console.log("비밀번호 변경 응답 상태:", result.status);
+
+    // 5-6. HTTP상태, json형태로 front로 응답
     return res.status(result.status).json(result);
-  } catch (err) {
-    console.log('비밀번호 변경 컨트롤러 에러:', err);
-    return res.status(500).json({ success: false, message: '비밀번호 변경 실패', error: err.message });
+  }
+  // 5-7. 서버/DB 에러
+  catch (err) 
+  {
+    console.log("비밀번호 변경 에러:", err);
+    console.log("비밀번호 변경 에러 message:", err.message);
+    console.log("비밀번호 변경 에러 code:", err.code);
+
+    // 5-8. DB/서버 에러는 app.js의 전역 에러 처리 미들웨어로 전달
+    const error = new Error("비밀번호 변경 실패");
+    error.status = 500;
+    return next(error);
   }
 };
 
-// 6. 회원 탈퇴
-const deleteAccount = async (req, res) => {
+// 6. 회원 탈퇴 API 요청 처리
+const deleteAccount = async (req, res, next) => {
   try {
+    // 6-1. 인증된 사용자 정보에서 user_idx 꺼내기
     const user_idx = req.user?.user_idx;
+
+    // 6-2. 요청 값 확인 로그
+    console.log("회원 탈퇴 요청 값 확인:", {
+      user_idx,
+    });
+
+    // 6-3. service의 회원 탈퇴 처리 결과를 기다린 후 저장
     const result = await authService.deleteAccount(user_idx);
+
+    // 6-4. back 결과 로그
+    console.log("회원 탈퇴 API 결과:", result);
+    console.log("회원 탈퇴 응답 상태:", result.status);
+
+    // 6-5. HTTP상태, json형태로 front로 응답
     return res.status(result.status).json(result);
-  } catch (err) {
-    console.log('회원 탈퇴 컨트롤러 에러:', err);
-    return res.status(500).json({ success: false, message: '회원 탈퇴 실패', error: err.message });
+  }
+  // 6-6. 서버/DB 에러
+  catch (err) 
+  {
+    console.log("회원 탈퇴 에러:", err);
+    console.log("회원 탈퇴 에러 message:", err.message);
+    console.log("회원 탈퇴 에러 code:", err.code);
+
+    // 6-7. DB/서버 에러는 app.js의 전역 에러 처리 미들웨어로 전달
+    const error = new Error("회원 탈퇴 실패");
+    error.status = 500;
+    return next(error);
   }
 };
 

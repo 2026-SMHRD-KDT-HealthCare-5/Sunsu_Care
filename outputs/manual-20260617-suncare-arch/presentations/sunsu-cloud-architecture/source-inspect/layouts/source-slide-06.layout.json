@@ -1,0 +1,2129 @@
+{
+  "schema": "openai.presentation.layout/v4",
+  "unit": "px",
+  "slide": {
+    "aid": "sl/58z25kb6",
+    "id": "58z25kb6",
+    "slide": 7,
+    "layoutId": "/ppt/slideLayouts/slideLayout1.xml",
+    "layoutName": "제목 슬라이드",
+    "layoutType": "title",
+    "masterLayoutId": "/ppt/slideMasters/slideMaster1.xml",
+    "backgroundColor": "bg1",
+    "frame": {
+      "left": 0,
+      "top": 0,
+      "width": 1280,
+      "height": 720
+    }
+  },
+  "theme": {
+    "colorSchemeName": "Office 테마",
+    "colors": {
+      "accent1": "#4472C4",
+      "accent2": "#ED7D31",
+      "accent3": "#A5A5A5",
+      "accent4": "#FFC000",
+      "accent5": "#5B9BD5",
+      "accent6": "#70AD47",
+      "dk1": "#000000",
+      "lt1": "#FFFFFF",
+      "dk2": "#A7A7A7",
+      "lt2": "#535353",
+      "hlink": "#0000FF",
+      "folHlink": "#FF00FF"
+    },
+    "fontScheme": {
+      "name": "Office 테마",
+      "majorFont": {
+        "latinTypeface": "맑은 고딕",
+        "eastAsianTypeface": "맑은 고딕",
+        "complexScriptTypeface": "맑은 고딕"
+      },
+      "minorFont": {
+        "latinTypeface": "Helvetica",
+        "eastAsianTypeface": "Helvetica",
+        "complexScriptTypeface": "Helvetica"
+      }
+    },
+    "typefaces": [
+      "Arial",
+      "Helvetica",
+      "Nanum Square",
+      "맑은 고딕"
+    ]
+  },
+  "inheritedLayers": [
+    {
+      "scope": "layout",
+      "id": "/ppt/slideLayouts/slideLayout1.xml",
+      "name": "제목 슬라이드",
+      "type": "title",
+      "parentLayoutId": "/ppt/slideMasters/slideMaster1.xml",
+      "elements": [
+        {
+          "order": 1,
+          "kind": "shape",
+          "scope": "layout",
+          "aid": "template/layout//ppt/slideLayouts/slideLayout1.xml/11",
+          "id": "11",
+          "name": "제목 텍스트",
+          "bbox": [
+            160,
+            117.83,
+            960,
+            250.67
+          ],
+          "geometry": "rect",
+          "text": "제목 텍스트",
+          "textPreview": "제목 텍스트",
+          "resolvedTextStyle": {
+            "anchor": 3,
+            "verticalAlignment": "bottom"
+          },
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "제목 텍스트",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "제목 텍스트"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "order": 2,
+          "kind": "shape",
+          "scope": "layout",
+          "aid": "template/layout//ppt/slideLayouts/slideLayout1.xml/12",
+          "id": "12",
+          "name": "본문 첫 번째 줄…",
+          "bbox": [
+            160,
+            378.17,
+            960,
+            173.83
+          ],
+          "geometry": "rect",
+          "text": "본문 첫 번째 줄\n본문 두 번째 줄\n본문 세 번째 줄\n본문 네 번째 줄\n본문 다섯 번째 줄",
+          "textPreview": "본문 첫 번째 줄 | 본문 두 번째 줄 | 본문 세 번째 줄 | 본문 네 번째 줄 | 본문 다섯 번째 줄",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "본문 첫 번째 줄",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "본문 첫 번째 줄"
+                }
+              ]
+            },
+            {
+              "index": 2,
+              "text": "본문 두 번째 줄",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "본문 두 번째 줄"
+                }
+              ]
+            },
+            {
+              "index": 3,
+              "text": "본문 세 번째 줄",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "본문 세 번째 줄"
+                }
+              ]
+            },
+            {
+              "index": 4,
+              "text": "본문 네 번째 줄",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "본문 네 번째 줄"
+                }
+              ]
+            },
+            {
+              "index": 5,
+              "text": "본문 다섯 번째 줄",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "본문 다섯 번째 줄"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "order": 3,
+          "kind": "shape",
+          "scope": "layout",
+          "aid": "template/layout//ppt/slideLayouts/slideLayout1.xml/13",
+          "id": "13",
+          "name": "슬라이드 번호",
+          "bbox": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "geometry": "rect",
+          "text": "‹#›",
+          "textPreview": "‹#›",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "‹#›",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "‹#›"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "scope": "master",
+      "id": "/ppt/slideMasters/slideMaster1.xml",
+      "type": "master",
+      "backgroundColor": "#FFFFFF",
+      "elements": [
+        {
+          "order": 1,
+          "kind": "shape",
+          "scope": "master",
+          "aid": "template/master//ppt/slideMasters/slideMaster1.xml/2",
+          "id": "2",
+          "name": "제목 텍스트",
+          "bbox": [
+            88,
+            38.33,
+            1104,
+            139.17
+          ],
+          "geometry": "rect",
+          "text": "제목 텍스트",
+          "textPreview": "제목 텍스트",
+          "resolvedTextStyle": {
+            "anchor": 2,
+            "verticalAlignment": "middle",
+            "autoFit": "shrinkText",
+            "insets": {
+              "right": 4.8,
+              "left": 4.8
+            }
+          },
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "제목 텍스트",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "제목 텍스트"
+                }
+              ]
+            }
+          ],
+          "lineWidth": 1.33
+        },
+        {
+          "order": 2,
+          "kind": "shape",
+          "scope": "master",
+          "aid": "template/master//ppt/slideMasters/slideMaster1.xml/3",
+          "id": "3",
+          "name": "본문 첫 번째 줄…",
+          "bbox": [
+            88,
+            191.67,
+            1104,
+            456.83
+          ],
+          "geometry": "rect",
+          "text": "본문 첫 번째 줄\n본문 두 번째 줄\n본문 세 번째 줄\n본문 네 번째 줄\n본문 다섯 번째 줄",
+          "textPreview": "본문 첫 번째 줄 | 본문 두 번째 줄 | 본문 세 번째 줄 | 본문 네 번째 줄 | 본문 다섯 번째 줄",
+          "resolvedTextStyle": {
+            "autoFit": "shrinkText",
+            "insets": {
+              "right": 4.8,
+              "left": 4.8
+            }
+          },
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "본문 첫 번째 줄",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "본문 첫 번째 줄"
+                }
+              ]
+            },
+            {
+              "index": 2,
+              "text": "본문 두 번째 줄",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "본문 두 번째 줄"
+                }
+              ]
+            },
+            {
+              "index": 3,
+              "text": "본문 세 번째 줄",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "본문 세 번째 줄"
+                }
+              ]
+            },
+            {
+              "index": 4,
+              "text": "본문 네 번째 줄",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "본문 네 번째 줄"
+                }
+              ]
+            },
+            {
+              "index": 5,
+              "text": "본문 다섯 번째 줄",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "본문 다섯 번째 줄"
+                }
+              ]
+            }
+          ],
+          "lineWidth": 1.33
+        },
+        {
+          "order": 3,
+          "kind": "shape",
+          "scope": "master",
+          "aid": "template/master//ppt/slideMasters/slideMaster1.xml/4",
+          "id": "4",
+          "name": "슬라이드 번호",
+          "bbox": [
+            1163.27,
+            672.37,
+            28.73,
+            28.27
+          ],
+          "geometry": "rect",
+          "text": "‹#›",
+          "textPreview": "‹#›",
+          "resolvedTextStyle": {
+            "anchor": 2,
+            "verticalAlignment": "middle",
+            "wrap": "none",
+            "autoFit": "resizeShapeToFitText",
+            "insets": {
+              "right": 4.8,
+              "left": 4.8
+            }
+          },
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "‹#›",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "‹#›"
+                }
+              ]
+            }
+          ],
+          "lineWidth": 1.33
+        }
+      ]
+    }
+  ],
+  "elements": [
+    {
+      "order": 1,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/4fu18jqh",
+      "id": "260",
+      "name": "TextBox 45",
+      "bbox": [
+        177.14,
+        118.03,
+        105.8,
+        32.9
+      ],
+      "geometry": "rect",
+      "text": "Database",
+      "textPreview": "Database",
+      "resolvedFontSize": 21.33,
+      "resolvedTextStyle": {
+        "fontSize": 21.33,
+        "typeface": "Arial",
+        "color": "#4D4E4D",
+        "bold": true,
+        "alignment": "right",
+        "textTransform": "none",
+        "wrap": "none",
+        "autoFit": "resizeShapeToFitText",
+        "insets": {
+          "top": 0,
+          "right": 4.8,
+          "bottom": 0,
+          "left": 4.8
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Database"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Database",
+          "runs": [
+            {
+              "index": 1,
+              "text": "Database"
+            }
+          ],
+          "bulletCharacter": "",
+          "marginLeft": 0,
+          "indent": 0,
+          "lineSpacingPercent": 100000,
+          "spaceBefore": 0,
+          "spaceAfter": 0
+        }
+      ],
+      "lineWidth": 1.33
+    },
+    {
+      "order": 2,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/x0nuxc3y",
+      "id": "261",
+      "name": "직선 연결선[R] 46",
+      "bbox": [
+        287.24,
+        139.57,
+        850.13,
+        0
+      ],
+      "geometry": "line",
+      "resolvedFontSize": 16,
+      "resolvedTextStyle": {
+        "fontSize": 16,
+        "typeface": "Helvetica",
+        "color": "tx1",
+        "alignment": "right",
+        "textTransform": "none",
+        "insets": {
+          "top": 0,
+          "right": 4.8,
+          "bottom": 0,
+          "left": 4.8
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": ""
+          }
+        ]
+      },
+      "lineColor": "#BFBFBF"
+    },
+    {
+      "order": 3,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/u18jqh0f",
+      "id": "271",
+      "name": "TextBox 56",
+      "bbox": [
+        494.72,
+        394.15,
+        44.03,
+        25.85
+      ],
+      "geometry": "rect",
+      "text": "Redis",
+      "textPreview": "Redis",
+      "resolvedFontSize": 13.33,
+      "resolvedTextStyle": {
+        "fontSize": 13.33,
+        "typeface": "Arial",
+        "color": "#AFABAB",
+        "alignment": "center",
+        "textTransform": "none",
+        "wrap": "none",
+        "autoFit": "resizeShapeToFitText",
+        "insets": {
+          "top": 0,
+          "right": 4.8,
+          "bottom": 0,
+          "left": 4.8
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Redis"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Redis",
+          "runs": [
+            {
+              "index": 1,
+              "text": "Redis",
+              "color": {
+                "type": "theme",
+                "value": "bg2",
+                "transform": {
+                  "lighten": 0.6
+                }
+              }
+            }
+          ],
+          "bulletCharacter": "",
+          "marginLeft": 0,
+          "indent": 0,
+          "lineSpacingPercent": 100000,
+          "spaceBefore": 0,
+          "spaceAfter": 0
+        }
+      ],
+      "lineWidth": 1.33
+    },
+    {
+      "order": 4,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/1orytsvu",
+      "id": "272",
+      "name": "TextBox 57",
+      "bbox": [
+        213.75,
+        394.15,
+        54.46,
+        25.85
+      ],
+      "geometry": "rect",
+      "text": "MySQL",
+      "textPreview": "MySQL",
+      "resolvedFontSize": 13.33,
+      "resolvedTextStyle": {
+        "fontSize": 13.33,
+        "typeface": "Arial",
+        "color": "#AFABAB",
+        "alignment": "center",
+        "textTransform": "none",
+        "wrap": "none",
+        "autoFit": "resizeShapeToFitText",
+        "insets": {
+          "top": 0,
+          "right": 4.8,
+          "bottom": 0,
+          "left": 4.8
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "MySQL"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "MySQL",
+          "runs": [
+            {
+              "index": 1,
+              "text": "MySQL",
+              "color": {
+                "type": "theme",
+                "value": "bg2",
+                "transform": {
+                  "lighten": 0.6
+                }
+              }
+            }
+          ],
+          "bulletCharacter": "",
+          "marginLeft": 0,
+          "indent": 0,
+          "lineSpacingPercent": 100000,
+          "spaceBefore": 0,
+          "spaceAfter": 0
+        }
+      ],
+      "lineWidth": 1.33
+    },
+    {
+      "order": 5,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/c7u54zid",
+      "id": "273",
+      "name": "TextBox 58",
+      "bbox": [
+        337.57,
+        394.15,
+        82.56,
+        25.85
+      ],
+      "geometry": "rect",
+      "text": "PostgreSQL",
+      "textPreview": "PostgreSQL",
+      "resolvedFontSize": 13.33,
+      "resolvedTextStyle": {
+        "fontSize": 13.33,
+        "typeface": "Arial",
+        "color": "#AFABAB",
+        "alignment": "center",
+        "textTransform": "none",
+        "wrap": "none",
+        "autoFit": "resizeShapeToFitText",
+        "insets": {
+          "top": 0,
+          "right": 4.8,
+          "bottom": 0,
+          "left": 4.8
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "PostgreSQL"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "PostgreSQL",
+          "runs": [
+            {
+              "index": 1,
+              "text": "PostgreSQL",
+              "color": {
+                "type": "theme",
+                "value": "bg2",
+                "transform": {
+                  "lighten": 0.6
+                }
+              }
+            }
+          ],
+          "bulletCharacter": "",
+          "marginLeft": 0,
+          "indent": 0,
+          "lineSpacingPercent": 100000,
+          "spaceBefore": 0,
+          "spaceAfter": 0
+        }
+      ],
+      "lineWidth": 1.33
+    },
+    {
+      "order": 6,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/4r65wjud",
+      "id": "282",
+      "name": "TextBox 56",
+      "bbox": [
+        608.81,
+        394.15,
+        88.62,
+        42.01
+      ],
+      "geometry": "rect",
+      "text": "Cloud DB\nfor MongoDB",
+      "textPreview": "Cloud DB | for MongoDB",
+      "resolvedFontSize": 16,
+      "resolvedTextStyle": {
+        "fontSize": 16,
+        "typeface": "Helvetica",
+        "color": "tx1",
+        "alignment": "right",
+        "textTransform": "none",
+        "wrap": "none",
+        "autoFit": "resizeShapeToFitText",
+        "insets": {
+          "top": 0,
+          "right": 4.8,
+          "bottom": 0,
+          "left": 4.8
+        }
+      },
+      "textLayout": {
+        "lineCount": 2,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Cloud DB"
+          },
+          {
+            "index": 2,
+            "text": "for MongoDB"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Cloud DB",
+          "resolvedTextStyle": {
+            "fontSize": 13.33,
+            "typeface": "Arial",
+            "color": "#AFABAB",
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Cloud DB",
+              "color": {
+                "type": "theme",
+                "value": "bg2",
+                "transform": {
+                  "lighten": 0.6
+                }
+              }
+            }
+          ],
+          "bulletCharacter": "",
+          "marginLeft": 0,
+          "indent": 0,
+          "lineSpacingPercent": 100000,
+          "spaceBefore": 0,
+          "spaceAfter": 0
+        },
+        {
+          "index": 2,
+          "text": "for MongoDB",
+          "resolvedTextStyle": {
+            "fontSize": 13.33,
+            "typeface": "Arial",
+            "color": "#AFABAB",
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "for MongoDB",
+              "color": {
+                "type": "theme",
+                "value": "bg2",
+                "transform": {
+                  "lighten": 0.6
+                }
+              }
+            }
+          ],
+          "bulletCharacter": "",
+          "marginLeft": 0,
+          "indent": 0,
+          "lineSpacingPercent": 100000,
+          "spaceBefore": 0,
+          "spaceAfter": 0
+        }
+      ],
+      "lineWidth": 1.33
+    },
+    {
+      "order": 7,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/xc3ylc7u",
+      "id": "283",
+      "name": "TextBox 56",
+      "bbox": [
+        741.52,
+        394.15,
+        101.92,
+        42.01
+      ],
+      "geometry": "rect",
+      "text": "Cloud DB\nfor PostgreSQL",
+      "textPreview": "Cloud DB | for PostgreSQL",
+      "resolvedFontSize": 16,
+      "resolvedTextStyle": {
+        "fontSize": 16,
+        "typeface": "Helvetica",
+        "color": "tx1",
+        "alignment": "right",
+        "textTransform": "none",
+        "wrap": "none",
+        "autoFit": "resizeShapeToFitText",
+        "insets": {
+          "top": 0,
+          "right": 4.8,
+          "bottom": 0,
+          "left": 4.8
+        }
+      },
+      "textLayout": {
+        "lineCount": 2,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Cloud DB"
+          },
+          {
+            "index": 2,
+            "text": "for PostgreSQL"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Cloud DB",
+          "resolvedTextStyle": {
+            "fontSize": 13.33,
+            "typeface": "Arial",
+            "color": "#AFABAB",
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Cloud DB",
+              "color": {
+                "type": "theme",
+                "value": "bg2",
+                "transform": {
+                  "lighten": 0.6
+                }
+              }
+            }
+          ],
+          "bulletCharacter": "",
+          "marginLeft": 0,
+          "indent": 0,
+          "lineSpacingPercent": 100000,
+          "spaceBefore": 0,
+          "spaceAfter": 0
+        },
+        {
+          "index": 2,
+          "text": "for PostgreSQL",
+          "resolvedTextStyle": {
+            "fontSize": 13.33,
+            "typeface": "Arial",
+            "color": "#AFABAB",
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "for PostgreSQL",
+              "color": {
+                "type": "theme",
+                "value": "bg2",
+                "transform": {
+                  "lighten": 0.6
+                }
+              }
+            }
+          ],
+          "bulletCharacter": "",
+          "marginLeft": 0,
+          "indent": 0,
+          "lineSpacingPercent": 100000,
+          "spaceBefore": 0,
+          "spaceAfter": 0
+        }
+      ],
+      "lineWidth": 1.33
+    },
+    {
+      "order": 8,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/mtwra5gb",
+      "id": "284",
+      "name": "TextBox 56",
+      "bbox": [
+        906.49,
+        394.15,
+        47.73,
+        25.85
+      ],
+      "geometry": "rect",
+      "text": "Tibero",
+      "textPreview": "Tibero",
+      "resolvedFontSize": 13.33,
+      "resolvedTextStyle": {
+        "fontSize": 13.33,
+        "typeface": "Arial",
+        "color": "#AFABAB",
+        "alignment": "center",
+        "textTransform": "none",
+        "wrap": "none",
+        "autoFit": "resizeShapeToFitText",
+        "insets": {
+          "top": 0,
+          "right": 4.8,
+          "bottom": 0,
+          "left": 4.8
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Tibero"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Tibero",
+          "runs": [
+            {
+              "index": 1,
+              "text": "Tibero",
+              "color": {
+                "type": "theme",
+                "value": "bg2",
+                "transform": {
+                  "lighten": 0.6
+                }
+              }
+            }
+          ],
+          "bulletCharacter": "",
+          "marginLeft": 0,
+          "indent": 0,
+          "lineSpacingPercent": 100000,
+          "spaceBefore": 0,
+          "spaceAfter": 0
+        }
+      ],
+      "lineWidth": 1.33
+    },
+    {
+      "order": 9,
+      "kind": "image",
+      "scope": "slide",
+      "aid": "im/m94fu18j",
+      "id": "285",
+      "name": "그림 35",
+      "bbox": [
+        1083.57,
+        701.75,
+        169.73,
+        14.21
+      ],
+      "rotation": 0,
+      "contentType": "image/x-emf",
+      "asset": {
+        "assetId": "/ppt/media/image3.emf",
+        "contentType": "image/x-emf",
+        "byteLength": 44740
+      },
+      "fillImage": {
+        "assetId": "/ppt/media/image3.emf",
+        "contentType": "image/x-emf",
+        "byteLength": 44740
+      }
+    },
+    {
+      "order": 10,
+      "kind": "image",
+      "scope": "slide",
+      "aid": "im/x0nuxc3y",
+      "id": "286",
+      "name": "그림 36",
+      "bbox": [
+        -2.52,
+        699.78,
+        1285.04,
+        22.32
+      ],
+      "rotation": 0,
+      "contentType": "image/x-emf",
+      "asset": {
+        "assetId": "/ppt/media/image4.emf",
+        "contentType": "image/x-emf",
+        "byteLength": 31396
+      },
+      "fillImage": {
+        "assetId": "/ppt/media/image4.emf",
+        "contentType": "image/x-emf",
+        "byteLength": 31396
+      }
+    },
+    {
+      "order": 11,
+      "kind": "image",
+      "scope": "slide",
+      "aid": "im/4fu18jqh",
+      "id": "287",
+      "name": "그림 37",
+      "bbox": [
+        16.89,
+        703.71,
+        165.15,
+        14.21
+      ],
+      "rotation": 0,
+      "contentType": "image/x-emf",
+      "asset": {
+        "assetId": "/ppt/media/image5.emf",
+        "contentType": "image/x-emf",
+        "byteLength": 370856
+      },
+      "fillImage": {
+        "assetId": "/ppt/media/image5.emf",
+        "contentType": "image/x-emf",
+        "byteLength": 370856
+      }
+    },
+    {
+      "order": 12,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/q1orytsv",
+      "id": "39",
+      "name": "직사각형 38",
+      "bbox": [
+        961.4,
+        698.89,
+        313.7,
+        22.62
+      ],
+      "rotation": 0,
+      "geometry": "rect",
+      "text": "© NAVER Cloud Corp. All Rights Reserved.",
+      "textPreview": "© NAVER Cloud Corp. All Rights Reserved.",
+      "resolvedFontSize": 16,
+      "resolvedTextStyle": {
+        "fontSize": 16,
+        "typeface": "Helvetica",
+        "color": "tx1",
+        "alignment": "right",
+        "textTransform": "none",
+        "wrap": "square",
+        "autoFit": "resizeShapeToFitText",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "© NAVER Cloud Corp. All Rights Reserved."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "© NAVER Cloud Corp. All Rights Reserved.",
+          "resolvedTextStyle": {
+            "alignment": "right"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "© ",
+              "fontSize": 10.67,
+              "typeface": "Nanum Square",
+              "color": "bg1"
+            },
+            {
+              "index": 2,
+              "text": "NAVER Cloud Corp. All Rights Reserved.",
+              "fontSize": 10.67,
+              "typeface": "Nanum Square",
+              "color": "bg1"
+            }
+          ],
+          "bulletCharacter": "",
+          "marginLeft": 0,
+          "indent": 0,
+          "lineSpacingPercent": 100000,
+          "spaceBefore": 0,
+          "spaceAfter": 0
+        }
+      ]
+    },
+    {
+      "order": 13,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/zqtcj6to",
+      "id": "41",
+      "name": "TextBox 40",
+      "bbox": [
+        340.47,
+        263.32,
+        76.78,
+        25.85
+      ],
+      "geometry": "rect",
+      "text": "Cloud DB",
+      "textPreview": "Cloud DB",
+      "resolvedFontSize": 16,
+      "resolvedTextStyle": {
+        "fontSize": 16,
+        "typeface": "Helvetica",
+        "color": "tx1",
+        "alignment": "right",
+        "textTransform": "none",
+        "wrap": "none",
+        "autoFit": "resizeShapeToFitText",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Cloud DB"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Cloud DB",
+          "resolvedTextStyle": {
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Cloud DB",
+              "fontSize": 13.33,
+              "typeface": "Arial",
+              "color": {
+                "type": "theme",
+                "value": "bg2",
+                "transform": {
+                  "lighten": 0.6
+                }
+              }
+            }
+          ],
+          "bulletCharacter": "",
+          "marginLeft": 0,
+          "indent": 0,
+          "lineSpacingPercent": 100000,
+          "spaceBefore": 0,
+          "spaceAfter": 0
+        }
+      ]
+    },
+    {
+      "order": 14,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/obm58z25",
+      "id": "42",
+      "name": "TextBox 41",
+      "bbox": [
+        619.08,
+        263.32,
+        71.05,
+        25.85
+      ],
+      "geometry": "rect",
+      "text": "CUBRID",
+      "textPreview": "CUBRID",
+      "resolvedFontSize": 16,
+      "resolvedTextStyle": {
+        "fontSize": 16,
+        "typeface": "Helvetica",
+        "color": "tx1",
+        "alignment": "right",
+        "textTransform": "none",
+        "wrap": "none",
+        "autoFit": "resizeShapeToFitText",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "CUBRID"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "CUBRID",
+          "resolvedTextStyle": {
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "CUBRID",
+              "fontSize": 13.33,
+              "typeface": "Arial",
+              "color": {
+                "type": "theme",
+                "value": "bg2",
+                "transform": {
+                  "lighten": 0.6
+                }
+              }
+            }
+          ],
+          "bulletCharacter": "",
+          "marginLeft": 0,
+          "indent": 0,
+          "lineSpacingPercent": 100000,
+          "spaceBefore": 0,
+          "spaceAfter": 0
+        }
+      ]
+    },
+    {
+      "order": 15,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/6xkf6dcb",
+      "id": "44",
+      "name": "TextBox 43",
+      "bbox": [
+        756.95,
+        263.32,
+        71.05,
+        25.85
+      ],
+      "geometry": "rect",
+      "text": "MariaDB",
+      "textPreview": "MariaDB",
+      "resolvedFontSize": 16,
+      "resolvedTextStyle": {
+        "fontSize": 16,
+        "typeface": "Helvetica",
+        "color": "tx1",
+        "alignment": "right",
+        "textTransform": "none",
+        "wrap": "none",
+        "autoFit": "resizeShapeToFitText",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "MariaDB"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "MariaDB",
+          "resolvedTextStyle": {
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "MariaDB",
+              "fontSize": 13.33,
+              "typeface": "Arial",
+              "color": {
+                "type": "theme",
+                "value": "bg2",
+                "transform": {
+                  "lighten": 0.6
+                }
+              }
+            }
+          ],
+          "bulletCharacter": "",
+          "marginLeft": 0,
+          "indent": 0,
+          "lineSpacingPercent": 100000,
+          "spaceBefore": 0,
+          "spaceAfter": 0
+        }
+      ]
+    },
+    {
+      "order": 16,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/oza1gvy9",
+      "id": "46",
+      "name": "TextBox 45",
+      "bbox": [
+        893.48,
+        263.32,
+        73.75,
+        25.85
+      ],
+      "geometry": "rect",
+      "text": "eXperDB",
+      "textPreview": "eXperDB",
+      "resolvedFontSize": 16,
+      "resolvedTextStyle": {
+        "fontSize": 16,
+        "typeface": "Helvetica",
+        "color": "tx1",
+        "alignment": "right",
+        "textTransform": "none",
+        "wrap": "none",
+        "autoFit": "resizeShapeToFitText",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "eXperDB"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "eXperDB",
+          "resolvedTextStyle": {
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "eXperDB",
+              "fontSize": 13.33,
+              "typeface": "Arial",
+              "color": {
+                "type": "theme",
+                "value": "bg2",
+                "transform": {
+                  "lighten": 0.6
+                }
+              }
+            }
+          ],
+          "bulletCharacter": "",
+          "marginLeft": 0,
+          "indent": 0,
+          "lineSpacingPercent": 100000,
+          "spaceBefore": 0,
+          "spaceAfter": 0
+        }
+      ]
+    },
+    {
+      "order": 17,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/al87ed8b",
+      "id": "48",
+      "name": "TextBox 47",
+      "bbox": [
+        1035.56,
+        263.32,
+        66.34,
+        25.85
+      ],
+      "geometry": "rect",
+      "text": "MSSQL",
+      "textPreview": "MSSQL",
+      "resolvedFontSize": 16,
+      "resolvedTextStyle": {
+        "fontSize": 16,
+        "typeface": "Helvetica",
+        "color": "tx1",
+        "alignment": "right",
+        "textTransform": "none",
+        "wrap": "none",
+        "autoFit": "resizeShapeToFitText",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "MSSQL"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "MSSQL",
+          "resolvedTextStyle": {
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "MSSQL",
+              "fontSize": 13.33,
+              "typeface": "Arial",
+              "color": {
+                "type": "theme",
+                "value": "bg2",
+                "transform": {
+                  "lighten": 0.6
+                }
+              }
+            }
+          ],
+          "bulletCharacter": "",
+          "marginLeft": 0,
+          "indent": 0,
+          "lineSpacingPercent": 100000,
+          "spaceBefore": 0,
+          "spaceAfter": 0
+        }
+      ]
+    },
+    {
+      "order": 18,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/lc7u54zi",
+      "id": "50",
+      "name": "TextBox 49",
+      "bbox": [
+        478.34,
+        263.32,
+        76.78,
+        42.01
+      ],
+      "geometry": "rect",
+      "text": "Cloud DB\n(MSSQL)",
+      "textPreview": "Cloud DB | (MSSQL)",
+      "resolvedFontSize": 16,
+      "resolvedTextStyle": {
+        "fontSize": 16,
+        "typeface": "Helvetica",
+        "color": "tx1",
+        "alignment": "right",
+        "textTransform": "none",
+        "wrap": "none",
+        "autoFit": "resizeShapeToFitText",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 2,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Cloud DB"
+          },
+          {
+            "index": 2,
+            "text": "(MSSQL)"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Cloud DB",
+          "resolvedTextStyle": {
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Cloud DB",
+              "fontSize": 13.33,
+              "typeface": "Arial",
+              "color": {
+                "type": "theme",
+                "value": "bg2",
+                "transform": {
+                  "lighten": 0.6
+                }
+              }
+            }
+          ],
+          "bulletCharacter": "",
+          "marginLeft": 0,
+          "indent": 0,
+          "lineSpacingPercent": 100000,
+          "spaceBefore": 0,
+          "spaceAfter": 0
+        },
+        {
+          "index": 2,
+          "text": "(MSSQL)",
+          "resolvedTextStyle": {
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "(MSSQL)",
+              "fontSize": 13.33,
+              "typeface": "Arial",
+              "color": {
+                "type": "theme",
+                "value": "bg2",
+                "transform": {
+                  "lighten": 0.6
+                }
+              }
+            }
+          ],
+          "bulletCharacter": "",
+          "marginLeft": 0,
+          "indent": 0,
+          "lineSpacingPercent": 100000,
+          "spaceBefore": 0,
+          "spaceAfter": 0
+        }
+      ]
+    },
+    {
+      "order": 19,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/36hcrmhk",
+      "id": "52",
+      "name": "TextBox 51",
+      "bbox": [
+        202.59,
+        263.32,
+        76.78,
+        42.01
+      ],
+      "geometry": "rect",
+      "text": "Cloud DB\nfor Redis",
+      "textPreview": "Cloud DB | for Redis",
+      "resolvedFontSize": 16,
+      "resolvedTextStyle": {
+        "fontSize": 16,
+        "typeface": "Helvetica",
+        "color": "tx1",
+        "alignment": "right",
+        "textTransform": "none",
+        "wrap": "none",
+        "autoFit": "resizeShapeToFitText",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 2,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Cloud DB"
+          },
+          {
+            "index": 2,
+            "text": "for Redis"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Cloud DB",
+          "resolvedTextStyle": {
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Cloud DB",
+              "fontSize": 13.33,
+              "typeface": "Arial",
+              "color": {
+                "type": "theme",
+                "value": "bg2",
+                "transform": {
+                  "lighten": 0.6
+                }
+              }
+            }
+          ],
+          "bulletCharacter": "",
+          "marginLeft": 0,
+          "indent": 0,
+          "lineSpacingPercent": 100000,
+          "spaceBefore": 0,
+          "spaceAfter": 0
+        },
+        {
+          "index": 2,
+          "text": "for Redis",
+          "resolvedTextStyle": {
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "for Redis",
+              "fontSize": 13.33,
+              "typeface": "Arial",
+              "color": {
+                "type": "theme",
+                "value": "bg2",
+                "transform": {
+                  "lighten": 0.6
+                }
+              }
+            }
+          ],
+          "bulletCharacter": "",
+          "marginLeft": 0,
+          "indent": 0,
+          "lineSpacingPercent": 100000,
+          "spaceBefore": 0,
+          "spaceAfter": 0
+        }
+      ]
+    },
+    {
+      "order": 20,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/ylc7u54z",
+      "id": "2",
+      "name": "TextBox 56",
+      "bbox": [
+        1011.55,
+        394.15,
+        113.36,
+        42.01
+      ],
+      "geometry": "rect",
+      "text": "Database\nMigration Service",
+      "textPreview": "Database | Migration Service",
+      "resolvedFontSize": 16,
+      "resolvedTextStyle": {
+        "fontSize": 16,
+        "typeface": "Helvetica",
+        "color": "tx1",
+        "alignment": "right",
+        "textTransform": "none",
+        "wrap": "none",
+        "autoFit": "resizeShapeToFitText",
+        "insets": {
+          "top": 0,
+          "right": 4.8,
+          "bottom": 0,
+          "left": 4.8
+        }
+      },
+      "textLayout": {
+        "lineCount": 2,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Database"
+          },
+          {
+            "index": 2,
+            "text": "Migration Service"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Database",
+          "resolvedTextStyle": {
+            "fontSize": 13.33,
+            "typeface": "Arial",
+            "color": "#AFABAB",
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Database",
+              "color": {
+                "type": "theme",
+                "value": "bg2",
+                "transform": {
+                  "lighten": 0.6
+                }
+              }
+            }
+          ],
+          "bulletCharacter": "",
+          "marginLeft": 0,
+          "indent": 0,
+          "lineSpacingPercent": 100000,
+          "spaceBefore": 0,
+          "spaceAfter": 0
+        },
+        {
+          "index": 2,
+          "text": "Migration Service",
+          "resolvedTextStyle": {
+            "fontSize": 13.33,
+            "typeface": "Arial",
+            "color": "#AFABAB",
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Migration Service",
+              "color": {
+                "type": "theme",
+                "value": "bg2",
+                "transform": {
+                  "lighten": 0.6
+                }
+              }
+            }
+          ],
+          "bulletCharacter": "",
+          "marginLeft": 0,
+          "indent": 0,
+          "lineSpacingPercent": 100000,
+          "spaceBefore": 0,
+          "spaceAfter": 0
+        }
+      ],
+      "lineWidth": 1.33
+    },
+    {
+      "order": 21,
+      "kind": "image",
+      "scope": "slide",
+      "aid": "im/f6dcbulw",
+      "id": "288",
+      "name": "그림 10",
+      "bbox": [
+        630.61,
+        200.69,
+        45.35,
+        45.35
+      ],
+      "contentType": "image/png",
+      "asset": {
+        "assetId": "/ppt/media/image45.png",
+        "contentType": "image/png",
+        "byteLength": 12352
+      },
+      "fillImage": {
+        "assetId": "/ppt/media/image45.png",
+        "contentType": "image/png",
+        "byteLength": 12352
+      }
+    },
+    {
+      "order": 22,
+      "kind": "image",
+      "scope": "slide",
+      "aid": "im/mlkjm1cf",
+      "id": "289",
+      "name": "그림 20",
+      "bbox": [
+        494.05,
+        333.48,
+        45.35,
+        45.35
+      ],
+      "contentType": "image/png",
+      "asset": {
+        "assetId": "/ppt/media/image46.png",
+        "contentType": "image/png",
+        "byteLength": 7855
+      },
+      "fillImage": {
+        "assetId": "/ppt/media/image46.png",
+        "contentType": "image/png",
+        "byteLength": 7855
+      }
+    },
+    {
+      "order": 23,
+      "kind": "image",
+      "scope": "slide",
+      "aid": "im/wra5gbq1",
+      "id": "290",
+      "name": "그림 3",
+      "bbox": [
+        219.25,
+        201.49,
+        45.35,
+        45.35
+      ],
+      "contentType": "image/png",
+      "asset": {
+        "assetId": "/ppt/media/image47.png",
+        "contentType": "image/png",
+        "byteLength": 12505
+      },
+      "fillImage": {
+        "assetId": "/ppt/media/image47.png",
+        "contentType": "image/png",
+        "byteLength": 12505
+      }
+    },
+    {
+      "order": 24,
+      "kind": "image",
+      "scope": "slide",
+      "aid": "im/lc7u54zi",
+      "id": "291",
+      "name": "그림 7",
+      "bbox": [
+        358.44,
+        201.49,
+        45.35,
+        45.35
+      ],
+      "contentType": "image/png",
+      "asset": {
+        "assetId": "/ppt/media/image48.png",
+        "contentType": "image/png",
+        "byteLength": 11380
+      },
+      "fillImage": {
+        "assetId": "/ppt/media/image48.png",
+        "contentType": "image/png",
+        "byteLength": 11380
+      }
+    },
+    {
+      "order": 25,
+      "kind": "image",
+      "scope": "slide",
+      "aid": "im/eloj2t83",
+      "id": "292",
+      "name": "그림 11",
+      "bbox": [
+        495,
+        201.63,
+        45.35,
+        45.35
+      ],
+      "contentType": "image/png",
+      "asset": {
+        "assetId": "/ppt/media/image49.png",
+        "contentType": "image/png",
+        "byteLength": 11809
+      },
+      "fillImage": {
+        "assetId": "/ppt/media/image49.png",
+        "contentType": "image/png",
+        "byteLength": 11809
+      }
+    },
+    {
+      "order": 26,
+      "kind": "image",
+      "scope": "slide",
+      "aid": "im/36hcrmhk",
+      "id": "293",
+      "name": "그림 15",
+      "bbox": [
+        769.8,
+        202.04,
+        45.35,
+        45.35
+      ],
+      "contentType": "image/png",
+      "asset": {
+        "assetId": "/ppt/media/image50.png",
+        "contentType": "image/png",
+        "byteLength": 15428
+      },
+      "fillImage": {
+        "assetId": "/ppt/media/image50.png",
+        "contentType": "image/png",
+        "byteLength": 15428
+      }
+    },
+    {
+      "order": 27,
+      "kind": "image",
+      "scope": "slide",
+      "aid": "im/wfyxobm5",
+      "id": "294",
+      "name": "그림 19",
+      "bbox": [
+        907.68,
+        202.67,
+        45.35,
+        45.35
+      ],
+      "contentType": "image/png",
+      "asset": {
+        "assetId": "/ppt/media/image51.png",
+        "contentType": "image/png",
+        "byteLength": 12011
+      },
+      "fillImage": {
+        "assetId": "/ppt/media/image51.png",
+        "contentType": "image/png",
+        "byteLength": 12011
+      }
+    },
+    {
+      "order": 28,
+      "kind": "image",
+      "scope": "slide",
+      "aid": "im/l0rqd4vm",
+      "id": "295",
+      "name": "그림 23",
+      "bbox": [
+        1045.25,
+        202.67,
+        45.35,
+        45.35
+      ],
+      "contentType": "image/png",
+      "asset": {
+        "assetId": "/ppt/media/image52.png",
+        "contentType": "image/png",
+        "byteLength": 6803
+      },
+      "fillImage": {
+        "assetId": "/ppt/media/image52.png",
+        "contentType": "image/png",
+        "byteLength": 6803
+      }
+    },
+    {
+      "order": 29,
+      "kind": "image",
+      "scope": "slide",
+      "aid": "im/ed8bat47",
+      "id": "296",
+      "name": "그림 27",
+      "bbox": [
+        217.83,
+        333.48,
+        45.35,
+        45.35
+      ],
+      "contentType": "image/png",
+      "asset": {
+        "assetId": "/ppt/media/image53.png",
+        "contentType": "image/png",
+        "byteLength": 14662
+      },
+      "fillImage": {
+        "assetId": "/ppt/media/image53.png",
+        "contentType": "image/png",
+        "byteLength": 14662
+      }
+    },
+    {
+      "order": 30,
+      "kind": "image",
+      "scope": "slide",
+      "aid": "im/7u54zido",
+      "id": "297",
+      "name": "그림 30",
+      "bbox": [
+        358.44,
+        333.48,
+        45.35,
+        45.35
+      ],
+      "contentType": "image/png",
+      "asset": {
+        "assetId": "/ppt/media/image54.png",
+        "contentType": "image/png",
+        "byteLength": 10839
+      },
+      "fillImage": {
+        "assetId": "/ppt/media/image54.png",
+        "contentType": "image/png",
+        "byteLength": 10839
+      }
+    },
+    {
+      "order": 31,
+      "kind": "image",
+      "scope": "slide",
+      "aid": "im/w7mp0bi9",
+      "id": "298",
+      "name": "그림 33",
+      "bbox": [
+        630.45,
+        333.48,
+        45.35,
+        45.35
+      ],
+      "contentType": "image/png",
+      "asset": {
+        "assetId": "/ppt/media/image55.png",
+        "contentType": "image/png",
+        "byteLength": 13970
+      },
+      "fillImage": {
+        "assetId": "/ppt/media/image55.png",
+        "contentType": "image/png",
+        "byteLength": 13970
+      }
+    },
+    {
+      "order": 32,
+      "kind": "image",
+      "scope": "slide",
+      "aid": "im/psfil0rq",
+      "id": "299",
+      "name": "그림 42",
+      "bbox": [
+        769.8,
+        333.48,
+        45.35,
+        45.35
+      ],
+      "contentType": "image/png",
+      "asset": {
+        "assetId": "/ppt/media/image56.png",
+        "contentType": "image/png",
+        "byteLength": 20639
+      },
+      "fillImage": {
+        "assetId": "/ppt/media/image56.png",
+        "contentType": "image/png",
+        "byteLength": 20639
+      }
+    },
+    {
+      "order": 33,
+      "kind": "image",
+      "scope": "slide",
+      "aid": "im/qtcj6tov",
+      "id": "300",
+      "name": "그림 46",
+      "bbox": [
+        907.12,
+        333.48,
+        45.35,
+        45.35
+      ],
+      "contentType": "image/png",
+      "asset": {
+        "assetId": "/ppt/media/image57.png",
+        "contentType": "image/png",
+        "byteLength": 12446
+      },
+      "fillImage": {
+        "assetId": "/ppt/media/image57.png",
+        "contentType": "image/png",
+        "byteLength": 12446
+      }
+    },
+    {
+      "order": 34,
+      "kind": "image",
+      "scope": "slide",
+      "aid": "im/je9cvixc",
+      "id": "301",
+      "name": "그림 50",
+      "bbox": [
+        1045.25,
+        333.73,
+        45.35,
+        45.35
+      ],
+      "contentType": "image/png",
+      "asset": {
+        "assetId": "/ppt/media/image58.png",
+        "contentType": "image/png",
+        "byteLength": 16799
+      },
+      "fillImage": {
+        "assetId": "/ppt/media/image58.png",
+        "contentType": "image/png",
+        "byteLength": 16799
+      }
+    }
+  ],
+  "composeRuns": []
+}

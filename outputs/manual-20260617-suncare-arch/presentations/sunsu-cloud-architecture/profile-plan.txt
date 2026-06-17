@@ -1,0 +1,22 @@
+task mode: create
+primary deck-profile: engineering-platform
+secondary gates: product-platform linkage, Naver Cloud classroom architecture reference
+required proof objects:
+- cloud deployment map for Sunsu Care
+- request and asynchronous AI analysis sequence
+- security boundary and network segmentation view
+- data and storage responsibility map
+- operations and scaling roadmap
+source/asset requirements:
+- Local project README, backend routes, Express/FastAPI code, package metadata
+- User-provided classroom architecture image and Naver Cloud service icon deck as visual reference
+brand authenticity constraints:
+- Do not recreate official Naver Cloud logos or service marks from scratch
+- Use service names and generic editable icons/shapes instead of pseudo-official icons
+profile-specific QA gates:
+- Architecture labels must map to real project components
+- Connector direction must reflect actual upload, callback, polling, and recommendation flows
+- Security boundaries must distinguish public entry, private service, and data layers
+known missing inputs:
+- Target production cloud account and exact NCP SKU choices are not confirmed
+- Final domain, SSL certificate, GPU instance sizing, and production secrets policy are assumptions

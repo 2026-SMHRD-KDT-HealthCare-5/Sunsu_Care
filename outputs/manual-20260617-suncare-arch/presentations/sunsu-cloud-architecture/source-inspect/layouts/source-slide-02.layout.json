@@ -1,0 +1,2295 @@
+{
+  "schema": "openai.presentation.layout/v4",
+  "unit": "px",
+  "slide": {
+    "aid": "sl/pg3ex0nu",
+    "id": "pg3ex0nu",
+    "slide": 3,
+    "layoutId": "/ppt/slideLayouts/slideLayout1.xml",
+    "layoutName": "제목 슬라이드",
+    "layoutType": "title",
+    "masterLayoutId": "/ppt/slideMasters/slideMaster1.xml",
+    "frame": {
+      "left": 0,
+      "top": 0,
+      "width": 1280,
+      "height": 720
+    }
+  },
+  "theme": {
+    "colorSchemeName": "Office 테마",
+    "colors": {
+      "accent1": "#4472C4",
+      "accent2": "#ED7D31",
+      "accent3": "#A5A5A5",
+      "accent4": "#FFC000",
+      "accent5": "#5B9BD5",
+      "accent6": "#70AD47",
+      "dk1": "#000000",
+      "lt1": "#FFFFFF",
+      "dk2": "#A7A7A7",
+      "lt2": "#535353",
+      "hlink": "#0000FF",
+      "folHlink": "#FF00FF"
+    },
+    "fontScheme": {
+      "name": "Office 테마",
+      "majorFont": {
+        "latinTypeface": "맑은 고딕",
+        "eastAsianTypeface": "맑은 고딕",
+        "complexScriptTypeface": "맑은 고딕"
+      },
+      "minorFont": {
+        "latinTypeface": "Helvetica",
+        "eastAsianTypeface": "Helvetica",
+        "complexScriptTypeface": "Helvetica"
+      }
+    },
+    "typefaces": [
+      "Arial",
+      "Helvetica",
+      "Nanum Square",
+      "맑은 고딕"
+    ]
+  },
+  "inheritedLayers": [
+    {
+      "scope": "layout",
+      "id": "/ppt/slideLayouts/slideLayout1.xml",
+      "name": "제목 슬라이드",
+      "type": "title",
+      "parentLayoutId": "/ppt/slideMasters/slideMaster1.xml",
+      "elements": [
+        {
+          "order": 1,
+          "kind": "shape",
+          "scope": "layout",
+          "aid": "template/layout//ppt/slideLayouts/slideLayout1.xml/11",
+          "id": "11",
+          "name": "제목 텍스트",
+          "bbox": [
+            160,
+            117.83,
+            960,
+            250.67
+          ],
+          "geometry": "rect",
+          "text": "제목 텍스트",
+          "textPreview": "제목 텍스트",
+          "resolvedTextStyle": {
+            "anchor": 3,
+            "verticalAlignment": "bottom"
+          },
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "제목 텍스트",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "제목 텍스트"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "order": 2,
+          "kind": "shape",
+          "scope": "layout",
+          "aid": "template/layout//ppt/slideLayouts/slideLayout1.xml/12",
+          "id": "12",
+          "name": "본문 첫 번째 줄…",
+          "bbox": [
+            160,
+            378.17,
+            960,
+            173.83
+          ],
+          "geometry": "rect",
+          "text": "본문 첫 번째 줄\n본문 두 번째 줄\n본문 세 번째 줄\n본문 네 번째 줄\n본문 다섯 번째 줄",
+          "textPreview": "본문 첫 번째 줄 | 본문 두 번째 줄 | 본문 세 번째 줄 | 본문 네 번째 줄 | 본문 다섯 번째 줄",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "본문 첫 번째 줄",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "본문 첫 번째 줄"
+                }
+              ]
+            },
+            {
+              "index": 2,
+              "text": "본문 두 번째 줄",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "본문 두 번째 줄"
+                }
+              ]
+            },
+            {
+              "index": 3,
+              "text": "본문 세 번째 줄",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "본문 세 번째 줄"
+                }
+              ]
+            },
+            {
+              "index": 4,
+              "text": "본문 네 번째 줄",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "본문 네 번째 줄"
+                }
+              ]
+            },
+            {
+              "index": 5,
+              "text": "본문 다섯 번째 줄",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "본문 다섯 번째 줄"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "order": 3,
+          "kind": "shape",
+          "scope": "layout",
+          "aid": "template/layout//ppt/slideLayouts/slideLayout1.xml/13",
+          "id": "13",
+          "name": "슬라이드 번호",
+          "bbox": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "geometry": "rect",
+          "text": "‹#›",
+          "textPreview": "‹#›",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "‹#›",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "‹#›"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "scope": "master",
+      "id": "/ppt/slideMasters/slideMaster1.xml",
+      "type": "master",
+      "backgroundColor": "#FFFFFF",
+      "elements": [
+        {
+          "order": 1,
+          "kind": "shape",
+          "scope": "master",
+          "aid": "template/master//ppt/slideMasters/slideMaster1.xml/2",
+          "id": "2",
+          "name": "제목 텍스트",
+          "bbox": [
+            88,
+            38.33,
+            1104,
+            139.17
+          ],
+          "geometry": "rect",
+          "text": "제목 텍스트",
+          "textPreview": "제목 텍스트",
+          "resolvedTextStyle": {
+            "anchor": 2,
+            "verticalAlignment": "middle",
+            "autoFit": "shrinkText",
+            "insets": {
+              "right": 4.8,
+              "left": 4.8
+            }
+          },
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "제목 텍스트",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "제목 텍스트"
+                }
+              ]
+            }
+          ],
+          "lineWidth": 1.33
+        },
+        {
+          "order": 2,
+          "kind": "shape",
+          "scope": "master",
+          "aid": "template/master//ppt/slideMasters/slideMaster1.xml/3",
+          "id": "3",
+          "name": "본문 첫 번째 줄…",
+          "bbox": [
+            88,
+            191.67,
+            1104,
+            456.83
+          ],
+          "geometry": "rect",
+          "text": "본문 첫 번째 줄\n본문 두 번째 줄\n본문 세 번째 줄\n본문 네 번째 줄\n본문 다섯 번째 줄",
+          "textPreview": "본문 첫 번째 줄 | 본문 두 번째 줄 | 본문 세 번째 줄 | 본문 네 번째 줄 | 본문 다섯 번째 줄",
+          "resolvedTextStyle": {
+            "autoFit": "shrinkText",
+            "insets": {
+              "right": 4.8,
+              "left": 4.8
+            }
+          },
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "본문 첫 번째 줄",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "본문 첫 번째 줄"
+                }
+              ]
+            },
+            {
+              "index": 2,
+              "text": "본문 두 번째 줄",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "본문 두 번째 줄"
+                }
+              ]
+            },
+            {
+              "index": 3,
+              "text": "본문 세 번째 줄",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "본문 세 번째 줄"
+                }
+              ]
+            },
+            {
+              "index": 4,
+              "text": "본문 네 번째 줄",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "본문 네 번째 줄"
+                }
+              ]
+            },
+            {
+              "index": 5,
+              "text": "본문 다섯 번째 줄",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "본문 다섯 번째 줄"
+                }
+              ]
+            }
+          ],
+          "lineWidth": 1.33
+        },
+        {
+          "order": 3,
+          "kind": "shape",
+          "scope": "master",
+          "aid": "template/master//ppt/slideMasters/slideMaster1.xml/4",
+          "id": "4",
+          "name": "슬라이드 번호",
+          "bbox": [
+            1163.27,
+            672.37,
+            28.73,
+            28.27
+          ],
+          "geometry": "rect",
+          "text": "‹#›",
+          "textPreview": "‹#›",
+          "resolvedTextStyle": {
+            "anchor": 2,
+            "verticalAlignment": "middle",
+            "wrap": "none",
+            "autoFit": "resizeShapeToFitText",
+            "insets": {
+              "right": 4.8,
+              "left": 4.8
+            }
+          },
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "‹#›",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "‹#›"
+                }
+              ]
+            }
+          ],
+          "lineWidth": 1.33
+        }
+      ]
+    }
+  ],
+  "elements": [
+    {
+      "order": 1,
+      "kind": "image",
+      "scope": "slide",
+      "aid": "im/fa9w3m94",
+      "id": "122",
+      "name": "그림 48",
+      "bbox": [
+        1083.57,
+        701.75,
+        169.73,
+        14.21
+      ],
+      "rotation": 0,
+      "contentType": "image/x-emf",
+      "asset": {
+        "assetId": "/ppt/media/image3.emf",
+        "contentType": "image/x-emf",
+        "byteLength": 44740
+      },
+      "fillImage": {
+        "assetId": "/ppt/media/image3.emf",
+        "contentType": "image/x-emf",
+        "byteLength": 44740
+      }
+    },
+    {
+      "order": 2,
+      "kind": "image",
+      "scope": "slide",
+      "aid": "im/qpg3ex0n",
+      "id": "123",
+      "name": "그림 49",
+      "bbox": [
+        -2.52,
+        699.78,
+        1285.04,
+        22.32
+      ],
+      "rotation": 0,
+      "contentType": "image/x-emf",
+      "asset": {
+        "assetId": "/ppt/media/image4.emf",
+        "contentType": "image/x-emf",
+        "byteLength": 31396
+      },
+      "fillImage": {
+        "assetId": "/ppt/media/image4.emf",
+        "contentType": "image/x-emf",
+        "byteLength": 31396
+      }
+    },
+    {
+      "order": 3,
+      "kind": "image",
+      "scope": "slide",
+      "aid": "im/x4nap4r6",
+      "id": "124",
+      "name": "그림 50",
+      "bbox": [
+        16.89,
+        703.71,
+        165.15,
+        14.21
+      ],
+      "rotation": 0,
+      "contentType": "image/x-emf",
+      "asset": {
+        "assetId": "/ppt/media/image5.emf",
+        "contentType": "image/x-emf",
+        "byteLength": 370856
+      },
+      "fillImage": {
+        "assetId": "/ppt/media/image5.emf",
+        "contentType": "image/x-emf",
+        "byteLength": 370856
+      }
+    },
+    {
+      "order": 4,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/2hwfyxob",
+      "id": "52",
+      "name": "직사각형 51",
+      "bbox": [
+        961.4,
+        698.89,
+        313.7,
+        22.62
+      ],
+      "rotation": 0,
+      "geometry": "rect",
+      "text": "© NAVER Cloud Corp. All Rights Reserved.",
+      "textPreview": "© NAVER Cloud Corp. All Rights Reserved.",
+      "resolvedFontSize": 16,
+      "resolvedTextStyle": {
+        "fontSize": 16,
+        "typeface": "Helvetica",
+        "color": "tx1",
+        "alignment": "right",
+        "textTransform": "none",
+        "wrap": "square",
+        "autoFit": "resizeShapeToFitText",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "© NAVER Cloud Corp. All Rights Reserved."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "© NAVER Cloud Corp. All Rights Reserved.",
+          "resolvedTextStyle": {
+            "alignment": "right"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "© ",
+              "fontSize": 10.67,
+              "typeface": "Nanum Square",
+              "color": "bg1"
+            },
+            {
+              "index": 2,
+              "text": "NAVER Cloud Corp. All Rights Reserved.",
+              "fontSize": 10.67,
+              "typeface": "Nanum Square",
+              "color": "bg1"
+            }
+          ],
+          "bulletCharacter": "",
+          "marginLeft": 0,
+          "indent": 0,
+          "lineSpacingPercent": 100000,
+          "spaceBefore": 0,
+          "spaceAfter": 0
+        }
+      ]
+    },
+    {
+      "order": 5,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/r2p8nqxs",
+      "id": "53",
+      "name": "TextBox 52",
+      "bbox": [
+        172.34,
+        120.07,
+        112.62,
+        35.54
+      ],
+      "geometry": "rect",
+      "text": "Compute",
+      "textPreview": "Compute",
+      "resolvedFontSize": 16,
+      "resolvedTextStyle": {
+        "fontSize": 16,
+        "typeface": "Helvetica",
+        "color": "tx1",
+        "alignment": "right",
+        "textTransform": "none",
+        "wrap": "none",
+        "autoFit": "resizeShapeToFitText",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Compute"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Compute",
+          "runs": [
+            {
+              "index": 1,
+              "text": "Compute",
+              "fontSize": 21.33,
+              "typeface": "Arial",
+              "color": "#4D4E4D",
+              "bold": true
+            }
+          ],
+          "bulletCharacter": "",
+          "marginLeft": 0,
+          "indent": 0,
+          "lineSpacingPercent": 100000,
+          "spaceBefore": 0,
+          "spaceAfter": 0
+        }
+      ]
+    },
+    {
+      "order": 6,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/r65wjudg",
+      "id": "79",
+      "name": "직선 연결선[R] 78",
+      "bbox": [
+        287.24,
+        139.57,
+        850.13,
+        0
+      ],
+      "geometry": "line",
+      "lineColor": {
+        "type": "theme",
+        "value": "bg1",
+        "transform": {
+          "darken": 0.25
+        }
+      },
+      "lineWidth": 1
+    },
+    {
+      "order": 7,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/obm58z25",
+      "id": "90",
+      "name": "TextBox 51",
+      "bbox": [
+        1033.24,
+        389.16,
+        69.44,
+        42.01
+      ],
+      "geometry": "rect",
+      "text": "High CPU\nServer",
+      "textPreview": "High CPU | Server",
+      "resolvedFontSize": 16,
+      "resolvedTextStyle": {
+        "fontSize": 16,
+        "typeface": "Helvetica",
+        "color": "tx1",
+        "alignment": "right",
+        "textTransform": "none",
+        "wrap": "none",
+        "autoFit": "resizeShapeToFitText",
+        "insets": {
+          "top": 0,
+          "right": 4.8,
+          "bottom": 0,
+          "left": 4.8
+        }
+      },
+      "textLayout": {
+        "lineCount": 2,
+        "lines": [
+          {
+            "index": 1,
+            "text": "High CPU"
+          },
+          {
+            "index": 2,
+            "text": "Server"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "High CPU",
+          "resolvedTextStyle": {
+            "fontSize": 13.33,
+            "typeface": "Arial",
+            "color": "#AFABAB",
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "High CPU",
+              "color": {
+                "type": "theme",
+                "value": "bg2",
+                "transform": {
+                  "lighten": 0.6
+                }
+              }
+            }
+          ],
+          "bulletCharacter": "",
+          "marginLeft": 0,
+          "indent": 0,
+          "lineSpacingPercent": 100000,
+          "spaceBefore": 0,
+          "spaceAfter": 0
+        },
+        {
+          "index": 2,
+          "text": "Server",
+          "resolvedTextStyle": {
+            "fontSize": 13.33,
+            "typeface": "Arial",
+            "color": "#AFABAB",
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Server",
+              "color": {
+                "type": "theme",
+                "value": "bg2",
+                "transform": {
+                  "lighten": 0.6
+                }
+              }
+            }
+          ],
+          "bulletCharacter": "",
+          "marginLeft": 0,
+          "indent": 0,
+          "lineSpacingPercent": 100000,
+          "spaceBefore": 0,
+          "spaceAfter": 0
+        }
+      ],
+      "lineWidth": 1.33
+    },
+    {
+      "order": 8,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/65wjudg7",
+      "id": "92",
+      "name": "TextBox 51",
+      "bbox": [
+        204.21,
+        521.84,
+        70.11,
+        25.85
+      ],
+      "geometry": "rect",
+      "text": "Virtual PC",
+      "textPreview": "Virtual PC",
+      "resolvedFontSize": 16,
+      "resolvedTextStyle": {
+        "fontSize": 16,
+        "typeface": "Helvetica",
+        "color": "tx1",
+        "alignment": "right",
+        "textTransform": "none",
+        "wrap": "none",
+        "autoFit": "resizeShapeToFitText",
+        "insets": {
+          "top": 0,
+          "right": 4.8,
+          "bottom": 0,
+          "left": 4.8
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Virtual PC"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Virtual PC",
+          "resolvedTextStyle": {
+            "fontSize": 13.33,
+            "typeface": "Arial",
+            "color": "#AFABAB",
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Virtual PC",
+              "color": {
+                "type": "theme",
+                "value": "bg2",
+                "transform": {
+                  "lighten": 0.6
+                }
+              }
+            }
+          ],
+          "bulletCharacter": "",
+          "marginLeft": 0,
+          "indent": 0,
+          "lineSpacingPercent": 100000,
+          "spaceBefore": 0,
+          "spaceAfter": 0
+        }
+      ],
+      "lineWidth": 1.33
+    },
+    {
+      "order": 9,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/orytsvu9",
+      "id": "98",
+      "name": "TextBox 97",
+      "bbox": [
+        331.63,
+        263.32,
+        94.45,
+        25.85
+      ],
+      "geometry": "rect",
+      "text": "Auto Scaling",
+      "textPreview": "Auto Scaling",
+      "resolvedFontSize": 16,
+      "resolvedTextStyle": {
+        "fontSize": 16,
+        "typeface": "Helvetica",
+        "color": "tx1",
+        "alignment": "right",
+        "textTransform": "none",
+        "wrap": "none",
+        "autoFit": "resizeShapeToFitText",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Auto Scaling"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Auto Scaling",
+          "runs": [
+            {
+              "index": 1,
+              "text": "Auto Scaling",
+              "fontSize": 13.33,
+              "typeface": "Arial",
+              "color": {
+                "type": "theme",
+                "value": "bg2",
+                "transform": {
+                  "lighten": 0.6
+                }
+              }
+            }
+          ],
+          "bulletCharacter": "",
+          "marginLeft": 0,
+          "indent": 0,
+          "lineSpacingPercent": 100000,
+          "spaceBefore": 0,
+          "spaceAfter": 0
+        }
+      ]
+    },
+    {
+      "order": 10,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/hcrmhk3q",
+      "id": "99",
+      "name": "TextBox 98",
+      "bbox": [
+        596.53,
+        263.32,
+        116.16,
+        25.85
+      ],
+      "geometry": "rect",
+      "text": "Cloud Functions",
+      "textPreview": "Cloud Functions",
+      "resolvedFontSize": 16,
+      "resolvedTextStyle": {
+        "fontSize": 16,
+        "typeface": "Helvetica",
+        "color": "tx1",
+        "alignment": "right",
+        "textTransform": "none",
+        "wrap": "none",
+        "autoFit": "resizeShapeToFitText",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Cloud Functions"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Cloud Functions",
+          "runs": [
+            {
+              "index": 1,
+              "text": "Cloud Functions",
+              "fontSize": 13.33,
+              "typeface": "Arial",
+              "color": {
+                "type": "theme",
+                "value": "bg2",
+                "transform": {
+                  "lighten": 0.6
+                }
+              }
+            }
+          ],
+          "bulletCharacter": "",
+          "marginLeft": 0,
+          "indent": 0,
+          "lineSpacingPercent": 100000,
+          "spaceBefore": 0,
+          "spaceAfter": 0
+        }
+      ]
+    },
+    {
+      "order": 11,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/b6xkf6dc",
+      "id": "101",
+      "name": "TextBox 100",
+      "bbox": [
+        738.1,
+        263.32,
+        108.75,
+        25.85
+      ],
+      "geometry": "rect",
+      "text": "CPU Intensive ",
+      "textPreview": "CPU Intensive",
+      "resolvedFontSize": 16,
+      "resolvedTextStyle": {
+        "fontSize": 16,
+        "typeface": "Helvetica",
+        "color": "tx1",
+        "alignment": "right",
+        "textTransform": "none",
+        "wrap": "none",
+        "autoFit": "resizeShapeToFitText",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "CPU Intensive"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "CPU Intensive ",
+          "runs": [
+            {
+              "index": 1,
+              "text": "CPU Intensive ",
+              "fontSize": 13.33,
+              "typeface": "Arial",
+              "color": {
+                "type": "theme",
+                "value": "bg2",
+                "transform": {
+                  "lighten": 0.6
+                }
+              }
+            }
+          ],
+          "bulletCharacter": "",
+          "marginLeft": 0,
+          "indent": 0,
+          "lineSpacingPercent": 100000,
+          "spaceBefore": 0,
+          "spaceAfter": 0
+        }
+      ]
+    },
+    {
+      "order": 12,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/tcj6tova",
+      "id": "103",
+      "name": "TextBox 102",
+      "bbox": [
+        884.48,
+        263.32,
+        91.75,
+        25.85
+      ],
+      "geometry": "rect",
+      "text": "GPU Server",
+      "textPreview": "GPU Server",
+      "resolvedFontSize": 16,
+      "resolvedTextStyle": {
+        "fontSize": 16,
+        "typeface": "Helvetica",
+        "color": "tx1",
+        "alignment": "right",
+        "textTransform": "none",
+        "wrap": "none",
+        "autoFit": "resizeShapeToFitText",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "GPU Server"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "GPU Server",
+          "runs": [
+            {
+              "index": 1,
+              "text": "GPU Server",
+              "fontSize": 13.33,
+              "typeface": "Arial",
+              "color": {
+                "type": "theme",
+                "value": "bg2",
+                "transform": {
+                  "lighten": 0.6
+                }
+              }
+            }
+          ],
+          "bulletCharacter": "",
+          "marginLeft": 0,
+          "indent": 0,
+          "lineSpacingPercent": 100000,
+          "spaceBefore": 0,
+          "spaceAfter": 0
+        }
+      ]
+    },
+    {
+      "order": 13,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/byhgn29g",
+      "id": "105",
+      "name": "TextBox 104",
+      "bbox": [
+        1044.82,
+        263.32,
+        47.83,
+        25.85
+      ],
+      "geometry": "rect",
+      "text": "HPC",
+      "textPreview": "HPC",
+      "resolvedFontSize": 16,
+      "resolvedTextStyle": {
+        "fontSize": 16,
+        "typeface": "Helvetica",
+        "color": "tx1",
+        "alignment": "right",
+        "textTransform": "none",
+        "wrap": "none",
+        "autoFit": "resizeShapeToFitText",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "HPC"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "HPC",
+          "runs": [
+            {
+              "index": 1,
+              "text": "HPC",
+              "fontSize": 13.33,
+              "typeface": "Arial",
+              "color": {
+                "type": "theme",
+                "value": "bg2",
+                "transform": {
+                  "lighten": 0.6
+                }
+              }
+            }
+          ],
+          "bulletCharacter": "",
+          "marginLeft": 0,
+          "indent": 0,
+          "lineSpacingPercent": 100000,
+          "spaceBefore": 0,
+          "spaceAfter": 0
+        }
+      ]
+    },
+    {
+      "order": 14,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/0je9cvix",
+      "id": "106",
+      "name": "TextBox 105",
+      "bbox": [
+        212.04,
+        394.15,
+        58.94,
+        25.85
+      ],
+      "geometry": "rect",
+      "text": "Server",
+      "textPreview": "Server",
+      "resolvedFontSize": 16,
+      "resolvedTextStyle": {
+        "fontSize": 16,
+        "typeface": "Helvetica",
+        "color": "tx1",
+        "alignment": "right",
+        "textTransform": "none",
+        "wrap": "none",
+        "autoFit": "resizeShapeToFitText",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Server"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Server",
+          "runs": [
+            {
+              "index": 1,
+              "text": "Server",
+              "fontSize": 13.33,
+              "typeface": "Arial",
+              "color": {
+                "type": "theme",
+                "value": "bg2",
+                "transform": {
+                  "lighten": 0.6
+                }
+              }
+            }
+          ],
+          "bulletCharacter": "",
+          "marginLeft": 0,
+          "indent": 0,
+          "lineSpacingPercent": 100000,
+          "spaceBefore": 0,
+          "spaceAfter": 0
+        }
+      ]
+    },
+    {
+      "order": 15,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/t47y1kre",
+      "id": "107",
+      "name": "TextBox 106",
+      "bbox": [
+        321.23,
+        394.15,
+        116.33,
+        25.85
+      ],
+      "geometry": "rect",
+      "text": "Server/Compact",
+      "textPreview": "Server/Compact",
+      "resolvedFontSize": 16,
+      "resolvedTextStyle": {
+        "fontSize": 16,
+        "typeface": "Helvetica",
+        "color": "tx1",
+        "alignment": "right",
+        "textTransform": "none",
+        "wrap": "none",
+        "autoFit": "resizeShapeToFitText",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Server/Compact"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Server/Compact",
+          "runs": [
+            {
+              "index": 1,
+              "text": "Server/Compact",
+              "fontSize": 13.33,
+              "typeface": "Arial",
+              "color": {
+                "type": "theme",
+                "value": "bg2",
+                "transform": {
+                  "lighten": 0.6
+                }
+              }
+            }
+          ],
+          "bulletCharacter": "",
+          "marginLeft": 0,
+          "indent": 0,
+          "lineSpacingPercent": 100000,
+          "spaceBefore": 0,
+          "spaceAfter": 0
+        }
+      ]
+    },
+    {
+      "order": 16,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/i9s36hcr",
+      "id": "108",
+      "name": "TextBox 107",
+      "bbox": [
+        465.32,
+        394.15,
+        103.87,
+        42.01
+      ],
+      "geometry": "rect",
+      "text": "Server\n/High-Memory",
+      "textPreview": "Server | /High-Memory",
+      "resolvedFontSize": 16,
+      "resolvedTextStyle": {
+        "fontSize": 16,
+        "typeface": "Helvetica",
+        "color": "tx1",
+        "alignment": "right",
+        "textTransform": "none",
+        "wrap": "none",
+        "autoFit": "resizeShapeToFitText",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 2,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Server"
+          },
+          {
+            "index": 2,
+            "text": "/High-Memory"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Server",
+          "resolvedTextStyle": {
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Server",
+              "fontSize": 13.33,
+              "typeface": "Arial",
+              "color": {
+                "type": "theme",
+                "value": "bg2",
+                "transform": {
+                  "lighten": 0.6
+                }
+              }
+            }
+          ],
+          "bulletCharacter": "",
+          "marginLeft": 0,
+          "indent": 0,
+          "lineSpacingPercent": 100000,
+          "spaceBefore": 0,
+          "spaceAfter": 0
+        },
+        {
+          "index": 2,
+          "text": "/High-Memory",
+          "resolvedTextStyle": {
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "/High-Memory",
+              "fontSize": 13.33,
+              "typeface": "Arial",
+              "color": {
+                "type": "theme",
+                "value": "bg2",
+                "transform": {
+                  "lighten": 0.6
+                }
+              }
+            }
+          ],
+          "bulletCharacter": "",
+          "marginLeft": 0,
+          "indent": 0,
+          "lineSpacingPercent": 100000,
+          "spaceBefore": 0,
+          "spaceAfter": 0
+        }
+      ]
+    },
+    {
+      "order": 17,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/bulwval8",
+      "id": "109",
+      "name": "TextBox 108",
+      "bbox": [
+        607.32,
+        394.15,
+        95.62,
+        25.85
+      ],
+      "geometry": "rect",
+      "text": "Server/Micro",
+      "textPreview": "Server/Micro",
+      "resolvedFontSize": 16,
+      "resolvedTextStyle": {
+        "fontSize": 16,
+        "typeface": "Helvetica",
+        "color": "tx1",
+        "alignment": "right",
+        "textTransform": "none",
+        "wrap": "none",
+        "autoFit": "resizeShapeToFitText",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Server/Micro"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Server/Micro",
+          "runs": [
+            {
+              "index": 1,
+              "text": "Server/Micro",
+              "fontSize": 13.33,
+              "typeface": "Arial",
+              "color": {
+                "type": "theme",
+                "value": "bg2",
+                "transform": {
+                  "lighten": 0.6
+                }
+              }
+            }
+          ],
+          "bulletCharacter": "",
+          "marginLeft": 0,
+          "indent": 0,
+          "lineSpacingPercent": 100000,
+          "spaceBefore": 0,
+          "spaceAfter": 0
+        }
+      ]
+    },
+    {
+      "order": 18,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/h0fepkzu",
+      "id": "114",
+      "name": "TextBox 113",
+      "bbox": [
+        748.39,
+        394.15,
+        90.24,
+        25.85
+      ],
+      "geometry": "rect",
+      "text": "SSD Server",
+      "textPreview": "SSD Server",
+      "resolvedFontSize": 16,
+      "resolvedTextStyle": {
+        "fontSize": 16,
+        "typeface": "Helvetica",
+        "color": "tx1",
+        "alignment": "right",
+        "textTransform": "none",
+        "wrap": "none",
+        "autoFit": "resizeShapeToFitText",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "SSD Server"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "SSD Server",
+          "runs": [
+            {
+              "index": 1,
+              "text": "SSD Server",
+              "fontSize": 13.33,
+              "typeface": "Arial",
+              "color": {
+                "type": "theme",
+                "value": "bg2",
+                "transform": {
+                  "lighten": 0.6
+                }
+              }
+            }
+          ],
+          "bulletCharacter": "",
+          "marginLeft": 0,
+          "indent": 0,
+          "lineSpacingPercent": 100000,
+          "spaceBefore": 0,
+          "spaceAfter": 0
+        }
+      ]
+    },
+    {
+      "order": 19,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/sfil0rqd",
+      "id": "115",
+      "name": "TextBox 114",
+      "bbox": [
+        870.38,
+        389.16,
+        121.37,
+        42.01
+      ],
+      "geometry": "rect",
+      "text": "Virtual Dedicated\nServer",
+      "textPreview": "Virtual Dedicated | Server",
+      "resolvedFontSize": 16,
+      "resolvedTextStyle": {
+        "fontSize": 16,
+        "typeface": "Helvetica",
+        "color": "tx1",
+        "alignment": "right",
+        "textTransform": "none",
+        "wrap": "none",
+        "autoFit": "resizeShapeToFitText",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 2,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Virtual Dedicated"
+          },
+          {
+            "index": 2,
+            "text": "Server"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Virtual Dedicated",
+          "resolvedTextStyle": {
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Virtual Dedicated",
+              "fontSize": 13.33,
+              "typeface": "Arial",
+              "color": {
+                "type": "theme",
+                "value": "bg2",
+                "transform": {
+                  "lighten": 0.6
+                }
+              }
+            }
+          ],
+          "bulletCharacter": "",
+          "marginLeft": 0,
+          "indent": 0,
+          "lineSpacingPercent": 100000,
+          "spaceBefore": 0,
+          "spaceAfter": 0
+        },
+        {
+          "index": 2,
+          "text": "Server",
+          "resolvedTextStyle": {
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Server",
+              "fontSize": 13.33,
+              "typeface": "Arial",
+              "color": {
+                "type": "theme",
+                "value": "bg2",
+                "transform": {
+                  "lighten": 0.6
+                }
+              }
+            }
+          ],
+          "bulletCharacter": "",
+          "marginLeft": 0,
+          "indent": 0,
+          "lineSpacingPercent": 100000,
+          "spaceBefore": 0,
+          "spaceAfter": 0
+        }
+      ]
+    },
+    {
+      "order": 20,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/obm58z25",
+      "id": "119",
+      "name": "TextBox 118",
+      "bbox": [
+        472.79,
+        263.32,
+        87.88,
+        42.01
+      ],
+      "geometry": "rect",
+      "text": "Bare Metal \nServer",
+      "textPreview": "Bare Metal  | Server",
+      "resolvedFontSize": 16,
+      "resolvedTextStyle": {
+        "fontSize": 16,
+        "typeface": "Helvetica",
+        "color": "tx1",
+        "alignment": "right",
+        "textTransform": "none",
+        "wrap": "none",
+        "autoFit": "resizeShapeToFitText",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 2,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Bare Metal"
+          },
+          {
+            "index": 2,
+            "text": "Server"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Bare Metal ",
+          "resolvedTextStyle": {
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Bare Metal ",
+              "fontSize": 13.33,
+              "typeface": "Arial",
+              "color": {
+                "type": "theme",
+                "value": "bg2",
+                "transform": {
+                  "lighten": 0.6
+                }
+              }
+            }
+          ],
+          "bulletCharacter": "",
+          "marginLeft": 0,
+          "indent": 0,
+          "lineSpacingPercent": 100000,
+          "spaceBefore": 0,
+          "spaceAfter": 0
+        },
+        {
+          "index": 2,
+          "text": "Server",
+          "resolvedTextStyle": {
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Server",
+              "fontSize": 13.33,
+              "typeface": "Arial",
+              "color": {
+                "type": "theme",
+                "value": "bg2",
+                "transform": {
+                  "lighten": 0.6
+                }
+              }
+            }
+          ],
+          "bulletCharacter": "",
+          "marginLeft": 0,
+          "indent": 0,
+          "lineSpacingPercent": 100000,
+          "spaceBefore": 0,
+          "spaceAfter": 0
+        }
+      ]
+    },
+    {
+      "order": 21,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/d8bat47y",
+      "id": "121",
+      "name": "TextBox 120",
+      "bbox": [
+        181.81,
+        263.32,
+        118.34,
+        42.01
+      ],
+      "geometry": "rect",
+      "text": "Application \nServer Launcher",
+      "textPreview": "Application  | Server Launcher",
+      "resolvedFontSize": 16,
+      "resolvedTextStyle": {
+        "fontSize": 16,
+        "typeface": "Helvetica",
+        "color": "tx1",
+        "alignment": "right",
+        "textTransform": "none",
+        "wrap": "none",
+        "autoFit": "resizeShapeToFitText",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 2,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Application"
+          },
+          {
+            "index": 2,
+            "text": "Server Launcher"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Application ",
+          "resolvedTextStyle": {
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Application ",
+              "fontSize": 13.33,
+              "typeface": "Arial",
+              "color": {
+                "type": "theme",
+                "value": "bg2",
+                "transform": {
+                  "lighten": 0.6
+                }
+              }
+            }
+          ],
+          "bulletCharacter": "",
+          "marginLeft": 0,
+          "indent": 0,
+          "lineSpacingPercent": 100000,
+          "spaceBefore": 0,
+          "spaceAfter": 0
+        },
+        {
+          "index": 2,
+          "text": "Server Launcher",
+          "resolvedTextStyle": {
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Server Launcher",
+              "fontSize": 13.33,
+              "typeface": "Arial",
+              "color": {
+                "type": "theme",
+                "value": "bg2",
+                "transform": {
+                  "lighten": 0.6
+                }
+              }
+            }
+          ],
+          "bulletCharacter": "",
+          "marginLeft": 0,
+          "indent": 0,
+          "lineSpacingPercent": 100000,
+          "spaceBefore": 0,
+          "spaceAfter": 0
+        }
+      ]
+    },
+    {
+      "order": 22,
+      "kind": "image",
+      "scope": "slide",
+      "aid": "im/8jqh0fep",
+      "id": "125",
+      "name": "그림 6",
+      "bbox": [
+        217.51,
+        201.74,
+        45.35,
+        45.35
+      ],
+      "contentType": "image/png",
+      "asset": {
+        "assetId": "/ppt/media/image6.png",
+        "contentType": "image/png",
+        "byteLength": 17187
+      },
+      "fillImage": {
+        "assetId": "/ppt/media/image6.png",
+        "contentType": "image/png",
+        "byteLength": 17187
+      }
+    },
+    {
+      "order": 23,
+      "kind": "image",
+      "scope": "slide",
+      "aid": "im/fyxobm58",
+      "id": "126",
+      "name": "그림 8",
+      "bbox": [
+        353.14,
+        201.74,
+        45.35,
+        45.35
+      ],
+      "contentType": "image/png",
+      "asset": {
+        "assetId": "/ppt/media/image7.png",
+        "contentType": "image/png",
+        "byteLength": 6939
+      },
+      "fillImage": {
+        "assetId": "/ppt/media/image7.png",
+        "contentType": "image/png",
+        "byteLength": 6939
+      }
+    },
+    {
+      "order": 24,
+      "kind": "image",
+      "scope": "slide",
+      "aid": "im/qd4vmtwr",
+      "id": "127",
+      "name": "그림 10",
+      "bbox": [
+        492.73,
+        201.74,
+        45.35,
+        45.35
+      ],
+      "contentType": "image/png",
+      "asset": {
+        "assetId": "/ppt/media/image8.png",
+        "contentType": "image/png",
+        "byteLength": 8266
+      },
+      "fillImage": {
+        "assetId": "/ppt/media/image8.png",
+        "contentType": "image/png",
+        "byteLength": 8266
+      }
+    },
+    {
+      "order": 25,
+      "kind": "image",
+      "scope": "slide",
+      "aid": "im/xs72x4na",
+      "id": "128",
+      "name": "그림 12",
+      "bbox": [
+        631.13,
+        201.74,
+        45.35,
+        45.35
+      ],
+      "contentType": "image/png",
+      "asset": {
+        "assetId": "/ppt/media/image9.png",
+        "contentType": "image/png",
+        "byteLength": 11578
+      },
+      "fillImage": {
+        "assetId": "/ppt/media/image9.png",
+        "contentType": "image/png",
+        "byteLength": 11578
+      }
+    },
+    {
+      "order": 26,
+      "kind": "image",
+      "scope": "slide",
+      "aid": "im/87ed8bat",
+      "id": "129",
+      "name": "그림 14",
+      "bbox": [
+        769.51,
+        201.74,
+        45.35,
+        45.35
+      ],
+      "contentType": "image/png",
+      "asset": {
+        "assetId": "/ppt/media/image10.png",
+        "contentType": "image/png",
+        "byteLength": 19866
+      },
+      "fillImage": {
+        "assetId": "/ppt/media/image10.png",
+        "contentType": "image/png",
+        "byteLength": 19866
+      }
+    },
+    {
+      "order": 27,
+      "kind": "image",
+      "scope": "slide",
+      "aid": "im/2p8nqxs7",
+      "id": "130",
+      "name": "그림 16",
+      "bbox": [
+        906.08,
+        201.74,
+        45.35,
+        45.35
+      ],
+      "contentType": "image/png",
+      "asset": {
+        "assetId": "/ppt/media/image11.png",
+        "contentType": "image/png",
+        "byteLength": 4899
+      },
+      "fillImage": {
+        "assetId": "/ppt/media/image11.png",
+        "contentType": "image/png",
+        "byteLength": 4899
+      }
+    },
+    {
+      "order": 28,
+      "kind": "image",
+      "scope": "slide",
+      "aid": "im/ra5gbq1o",
+      "id": "131",
+      "name": "그림 18",
+      "bbox": [
+        1043.43,
+        201.74,
+        45.35,
+        45.35
+      ],
+      "contentType": "image/png",
+      "asset": {
+        "assetId": "/ppt/media/image12.png",
+        "contentType": "image/png",
+        "byteLength": 9226
+      },
+      "fillImage": {
+        "assetId": "/ppt/media/image12.png",
+        "contentType": "image/png",
+        "byteLength": 9226
+      }
+    },
+    {
+      "order": 29,
+      "kind": "image",
+      "scope": "slide",
+      "aid": "im/gvy90je9",
+      "id": "132",
+      "name": "그림 20",
+      "bbox": [
+        214.83,
+        334.18,
+        45.35,
+        45.35
+      ],
+      "contentType": "image/png",
+      "asset": {
+        "assetId": "/ppt/media/image13.png",
+        "contentType": "image/png",
+        "byteLength": 3966
+      },
+      "fillImage": {
+        "assetId": "/ppt/media/image13.png",
+        "contentType": "image/png",
+        "byteLength": 3966
+      }
+    },
+    {
+      "order": 30,
+      "kind": "image",
+      "scope": "slide",
+      "aid": "im/9gr2p8nq",
+      "id": "133",
+      "name": "그림 22",
+      "bbox": [
+        353.14,
+        334.18,
+        45.35,
+        45.35
+      ],
+      "contentType": "image/png",
+      "asset": {
+        "assetId": "/ppt/media/image14.png",
+        "contentType": "image/png",
+        "byteLength": 15702
+      },
+      "fillImage": {
+        "assetId": "/ppt/media/image14.png",
+        "contentType": "image/png",
+        "byteLength": 15702
+      }
+    },
+    {
+      "order": 31,
+      "kind": "image",
+      "scope": "slide",
+      "aid": "im/2hwfyxob",
+      "id": "134",
+      "name": "그림 24",
+      "bbox": [
+        492.3,
+        334.18,
+        45.35,
+        45.35
+      ],
+      "contentType": "image/png",
+      "asset": {
+        "assetId": "/ppt/media/image15.png",
+        "contentType": "image/png",
+        "byteLength": 13975
+      },
+      "fillImage": {
+        "assetId": "/ppt/media/image15.png",
+        "contentType": "image/png",
+        "byteLength": 13975
+      }
+    },
+    {
+      "order": 32,
+      "kind": "image",
+      "scope": "slide",
+      "aid": "im/r2p8nqxs",
+      "id": "135",
+      "name": "그림 27",
+      "bbox": [
+        631.59,
+        334.18,
+        45.35,
+        45.35
+      ],
+      "contentType": "image/png",
+      "asset": {
+        "assetId": "/ppt/media/image16.png",
+        "contentType": "image/png",
+        "byteLength": 15204
+      },
+      "fillImage": {
+        "assetId": "/ppt/media/image16.png",
+        "contentType": "image/png",
+        "byteLength": 15204
+      }
+    },
+    {
+      "order": 33,
+      "kind": "image",
+      "scope": "slide",
+      "aid": "im/kjm1cfa9",
+      "id": "136",
+      "name": "그림 29",
+      "bbox": [
+        769.51,
+        334.18,
+        45.35,
+        45.35
+      ],
+      "contentType": "image/png",
+      "asset": {
+        "assetId": "/ppt/media/image17.png",
+        "contentType": "image/png",
+        "byteLength": 9061
+      },
+      "fillImage": {
+        "assetId": "/ppt/media/image17.png",
+        "contentType": "image/png",
+        "byteLength": 9061
+      }
+    },
+    {
+      "order": 34,
+      "kind": "image",
+      "scope": "slide",
+      "aid": "im/94fu18jq",
+      "id": "137",
+      "name": "그림 31",
+      "bbox": [
+        907.07,
+        333.5,
+        48,
+        48
+      ],
+      "contentType": "image/png",
+      "asset": {
+        "assetId": "/ppt/media/image18.png",
+        "contentType": "image/png",
+        "byteLength": 10783
+      },
+      "fillImage": {
+        "assetId": "/ppt/media/image18.png",
+        "contentType": "image/png",
+        "byteLength": 10783
+      }
+    },
+    {
+      "order": 35,
+      "kind": "image",
+      "scope": "slide",
+      "aid": "im/25kb6xkf",
+      "id": "138",
+      "name": "그림 33",
+      "bbox": [
+        1043.35,
+        334.18,
+        45.35,
+        45.35
+      ],
+      "contentType": "image/png",
+      "asset": {
+        "assetId": "/ppt/media/image19.png",
+        "contentType": "image/png",
+        "byteLength": 12189
+      },
+      "fillImage": {
+        "assetId": "/ppt/media/image19.png",
+        "contentType": "image/png",
+        "byteLength": 12189
+      }
+    },
+    {
+      "order": 36,
+      "kind": "image",
+      "scope": "slide",
+      "aid": "im/rqd4vmtw",
+      "id": "139",
+      "name": "그림 35",
+      "bbox": [
+        214.83,
+        465.9,
+        45.35,
+        45.35
+      ],
+      "contentType": "image/png",
+      "asset": {
+        "assetId": "/ppt/media/image20.png",
+        "contentType": "image/png",
+        "byteLength": 11619
+      },
+      "fillImage": {
+        "assetId": "/ppt/media/image20.png",
+        "contentType": "image/png",
+        "byteLength": 11619
+      }
+    },
+    {
+      "order": 37,
+      "kind": "image",
+      "scope": "slide",
+      "aid": "im/bulwval8",
+      "id": "140",
+      "name": "그림 38",
+      "bbox": [
+        353.14,
+        466.48,
+        45.35,
+        45.35
+      ],
+      "contentType": "image/png",
+      "asset": {
+        "assetId": "/ppt/media/image10.png",
+        "contentType": "image/png",
+        "byteLength": 19866
+      },
+      "fillImage": {
+        "assetId": "/ppt/media/image10.png",
+        "contentType": "image/png",
+        "byteLength": 19866
+      }
+    },
+    {
+      "order": 38,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/fa9w3m94",
+      "id": "40",
+      "name": "TextBox 51",
+      "bbox": [
+        328.14,
+        521.84,
+        95.36,
+        25.85
+      ],
+      "geometry": "rect",
+      "text": "CPU Intensive",
+      "textPreview": "CPU Intensive",
+      "resolvedFontSize": 16,
+      "resolvedTextStyle": {
+        "fontSize": 16,
+        "typeface": "Helvetica",
+        "color": "tx1",
+        "alignment": "right",
+        "textTransform": "none",
+        "wrap": "none",
+        "autoFit": "resizeShapeToFitText",
+        "insets": {
+          "top": 0,
+          "right": 4.8,
+          "bottom": 0,
+          "left": 4.8
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "CPU Intensive"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "CPU Intensive",
+          "resolvedTextStyle": {
+            "fontSize": 13.33,
+            "typeface": "Arial",
+            "color": "#AFABAB",
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "CPU Intensive",
+              "color": {
+                "type": "theme",
+                "value": "bg2",
+                "transform": {
+                  "lighten": 0.6
+                }
+              }
+            }
+          ],
+          "bulletCharacter": "",
+          "marginLeft": 0,
+          "indent": 0,
+          "lineSpacingPercent": 100000,
+          "spaceBefore": 0,
+          "spaceAfter": 0
+        }
+      ],
+      "lineWidth": 1.33
+    }
+  ],
+  "composeRuns": []
+}

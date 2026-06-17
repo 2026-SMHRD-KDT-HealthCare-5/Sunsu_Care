@@ -1,0 +1,1779 @@
+{
+  "sourcePptx": "C:\\Users\\smhrd1\\Downloads\\서비스 아이콘 및 활용예시_230421_20230509150450.pptx",
+  "workspace": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture",
+  "outDir": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect",
+  "generatedAt": "2026-06-17T03:31:47.720Z",
+  "slideCount": 27,
+  "slideArtifacts": [
+    {
+      "slide": 1,
+      "previewPath": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\source-slides\\source-slide-01.png",
+      "previewRelativePath": "source-inspect/source-slides/source-slide-01.png",
+      "layoutPath": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\layouts\\source-slide-01.layout.json",
+      "layoutRelativePath": "source-inspect/layouts/source-slide-01.layout.json"
+    },
+    {
+      "slide": 2,
+      "previewPath": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\source-slides\\source-slide-02.png",
+      "previewRelativePath": "source-inspect/source-slides/source-slide-02.png",
+      "layoutPath": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\layouts\\source-slide-02.layout.json",
+      "layoutRelativePath": "source-inspect/layouts/source-slide-02.layout.json"
+    },
+    {
+      "slide": 3,
+      "previewPath": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\source-slides\\source-slide-03.png",
+      "previewRelativePath": "source-inspect/source-slides/source-slide-03.png",
+      "layoutPath": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\layouts\\source-slide-03.layout.json",
+      "layoutRelativePath": "source-inspect/layouts/source-slide-03.layout.json"
+    },
+    {
+      "slide": 4,
+      "previewPath": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\source-slides\\source-slide-04.png",
+      "previewRelativePath": "source-inspect/source-slides/source-slide-04.png",
+      "layoutPath": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\layouts\\source-slide-04.layout.json",
+      "layoutRelativePath": "source-inspect/layouts/source-slide-04.layout.json"
+    },
+    {
+      "slide": 5,
+      "previewPath": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\source-slides\\source-slide-05.png",
+      "previewRelativePath": "source-inspect/source-slides/source-slide-05.png",
+      "layoutPath": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\layouts\\source-slide-05.layout.json",
+      "layoutRelativePath": "source-inspect/layouts/source-slide-05.layout.json"
+    },
+    {
+      "slide": 6,
+      "previewPath": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\source-slides\\source-slide-06.png",
+      "previewRelativePath": "source-inspect/source-slides/source-slide-06.png",
+      "layoutPath": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\layouts\\source-slide-06.layout.json",
+      "layoutRelativePath": "source-inspect/layouts/source-slide-06.layout.json"
+    },
+    {
+      "slide": 7,
+      "previewPath": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\source-slides\\source-slide-07.png",
+      "previewRelativePath": "source-inspect/source-slides/source-slide-07.png",
+      "layoutPath": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\layouts\\source-slide-07.layout.json",
+      "layoutRelativePath": "source-inspect/layouts/source-slide-07.layout.json"
+    },
+    {
+      "slide": 8,
+      "previewPath": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\source-slides\\source-slide-08.png",
+      "previewRelativePath": "source-inspect/source-slides/source-slide-08.png",
+      "layoutPath": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\layouts\\source-slide-08.layout.json",
+      "layoutRelativePath": "source-inspect/layouts/source-slide-08.layout.json"
+    },
+    {
+      "slide": 9,
+      "previewPath": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\source-slides\\source-slide-09.png",
+      "previewRelativePath": "source-inspect/source-slides/source-slide-09.png",
+      "layoutPath": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\layouts\\source-slide-09.layout.json",
+      "layoutRelativePath": "source-inspect/layouts/source-slide-09.layout.json"
+    },
+    {
+      "slide": 10,
+      "previewPath": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\source-slides\\source-slide-10.png",
+      "previewRelativePath": "source-inspect/source-slides/source-slide-10.png",
+      "layoutPath": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\layouts\\source-slide-10.layout.json",
+      "layoutRelativePath": "source-inspect/layouts/source-slide-10.layout.json"
+    },
+    {
+      "slide": 11,
+      "previewPath": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\source-slides\\source-slide-11.png",
+      "previewRelativePath": "source-inspect/source-slides/source-slide-11.png",
+      "layoutPath": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\layouts\\source-slide-11.layout.json",
+      "layoutRelativePath": "source-inspect/layouts/source-slide-11.layout.json"
+    },
+    {
+      "slide": 12,
+      "previewPath": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\source-slides\\source-slide-12.png",
+      "previewRelativePath": "source-inspect/source-slides/source-slide-12.png",
+      "layoutPath": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\layouts\\source-slide-12.layout.json",
+      "layoutRelativePath": "source-inspect/layouts/source-slide-12.layout.json"
+    },
+    {
+      "slide": 13,
+      "previewPath": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\source-slides\\source-slide-13.png",
+      "previewRelativePath": "source-inspect/source-slides/source-slide-13.png",
+      "layoutPath": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\layouts\\source-slide-13.layout.json",
+      "layoutRelativePath": "source-inspect/layouts/source-slide-13.layout.json"
+    },
+    {
+      "slide": 14,
+      "previewPath": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\source-slides\\source-slide-14.png",
+      "previewRelativePath": "source-inspect/source-slides/source-slide-14.png",
+      "layoutPath": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\layouts\\source-slide-14.layout.json",
+      "layoutRelativePath": "source-inspect/layouts/source-slide-14.layout.json"
+    },
+    {
+      "slide": 15,
+      "previewPath": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\source-slides\\source-slide-15.png",
+      "previewRelativePath": "source-inspect/source-slides/source-slide-15.png",
+      "layoutPath": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\layouts\\source-slide-15.layout.json",
+      "layoutRelativePath": "source-inspect/layouts/source-slide-15.layout.json"
+    },
+    {
+      "slide": 16,
+      "previewPath": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\source-slides\\source-slide-16.png",
+      "previewRelativePath": "source-inspect/source-slides/source-slide-16.png",
+      "layoutPath": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\layouts\\source-slide-16.layout.json",
+      "layoutRelativePath": "source-inspect/layouts/source-slide-16.layout.json"
+    },
+    {
+      "slide": 17,
+      "previewPath": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\source-slides\\source-slide-17.png",
+      "previewRelativePath": "source-inspect/source-slides/source-slide-17.png",
+      "layoutPath": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\layouts\\source-slide-17.layout.json",
+      "layoutRelativePath": "source-inspect/layouts/source-slide-17.layout.json"
+    },
+    {
+      "slide": 18,
+      "previewPath": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\source-slides\\source-slide-18.png",
+      "previewRelativePath": "source-inspect/source-slides/source-slide-18.png",
+      "layoutPath": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\layouts\\source-slide-18.layout.json",
+      "layoutRelativePath": "source-inspect/layouts/source-slide-18.layout.json"
+    },
+    {
+      "slide": 19,
+      "previewPath": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\source-slides\\source-slide-19.png",
+      "previewRelativePath": "source-inspect/source-slides/source-slide-19.png",
+      "layoutPath": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\layouts\\source-slide-19.layout.json",
+      "layoutRelativePath": "source-inspect/layouts/source-slide-19.layout.json"
+    },
+    {
+      "slide": 20,
+      "previewPath": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\source-slides\\source-slide-20.png",
+      "previewRelativePath": "source-inspect/source-slides/source-slide-20.png",
+      "layoutPath": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\layouts\\source-slide-20.layout.json",
+      "layoutRelativePath": "source-inspect/layouts/source-slide-20.layout.json"
+    },
+    {
+      "slide": 21,
+      "previewPath": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\source-slides\\source-slide-21.png",
+      "previewRelativePath": "source-inspect/source-slides/source-slide-21.png",
+      "layoutPath": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\layouts\\source-slide-21.layout.json",
+      "layoutRelativePath": "source-inspect/layouts/source-slide-21.layout.json"
+    },
+    {
+      "slide": 22,
+      "previewPath": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\source-slides\\source-slide-22.png",
+      "previewRelativePath": "source-inspect/source-slides/source-slide-22.png",
+      "layoutPath": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\layouts\\source-slide-22.layout.json",
+      "layoutRelativePath": "source-inspect/layouts/source-slide-22.layout.json"
+    },
+    {
+      "slide": 23,
+      "previewPath": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\source-slides\\source-slide-23.png",
+      "previewRelativePath": "source-inspect/source-slides/source-slide-23.png",
+      "layoutPath": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\layouts\\source-slide-23.layout.json",
+      "layoutRelativePath": "source-inspect/layouts/source-slide-23.layout.json"
+    },
+    {
+      "slide": 24,
+      "previewPath": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\source-slides\\source-slide-24.png",
+      "previewRelativePath": "source-inspect/source-slides/source-slide-24.png",
+      "layoutPath": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\layouts\\source-slide-24.layout.json",
+      "layoutRelativePath": "source-inspect/layouts/source-slide-24.layout.json"
+    },
+    {
+      "slide": 25,
+      "previewPath": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\source-slides\\source-slide-25.png",
+      "previewRelativePath": "source-inspect/source-slides/source-slide-25.png",
+      "layoutPath": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\layouts\\source-slide-25.layout.json",
+      "layoutRelativePath": "source-inspect/layouts/source-slide-25.layout.json"
+    },
+    {
+      "slide": 26,
+      "previewPath": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\source-slides\\source-slide-26.png",
+      "previewRelativePath": "source-inspect/source-slides/source-slide-26.png",
+      "layoutPath": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\layouts\\source-slide-26.layout.json",
+      "layoutRelativePath": "source-inspect/layouts/source-slide-26.layout.json"
+    },
+    {
+      "slide": 27,
+      "previewPath": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\source-slides\\source-slide-27.png",
+      "previewRelativePath": "source-inspect/source-slides/source-slide-27.png",
+      "layoutPath": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\layouts\\source-slide-27.layout.json",
+      "layoutRelativePath": "source-inspect/layouts/source-slide-27.layout.json"
+    }
+  ],
+  "inspectPath": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\template-inspect.ndjson",
+  "inspectRelativePath": "source-inspect/template-inspect.ndjson",
+  "inspectTruncated": true,
+  "inspectMetadata": {
+    "revision": "fgj3fy",
+    "target": {
+      "id": "pr/aizo5v"
+    },
+    "kind": {
+      "requested": "slide,textbox,shape,image,table,chart",
+      "tokens": [
+        "slide",
+        "textbox",
+        "shape",
+        "image",
+        "table",
+        "chart"
+      ]
+    },
+    "include": {
+      "tokens": []
+    },
+    "exclude": {
+      "tokens": []
+    },
+    "notices": []
+  },
+  "extractedMedia": [
+    {
+      "entry": "ppt/media/image44.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image44.png",
+      "relativePath": "source-inspect/assets/ppt/media/image44.png",
+      "bytes": 13142
+    },
+    {
+      "entry": "ppt/media/image45.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image45.png",
+      "relativePath": "source-inspect/assets/ppt/media/image45.png",
+      "bytes": 12352
+    },
+    {
+      "entry": "ppt/media/image46.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image46.png",
+      "relativePath": "source-inspect/assets/ppt/media/image46.png",
+      "bytes": 7855
+    },
+    {
+      "entry": "ppt/media/image47.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image47.png",
+      "relativePath": "source-inspect/assets/ppt/media/image47.png",
+      "bytes": 12505
+    },
+    {
+      "entry": "ppt/media/image48.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image48.png",
+      "relativePath": "source-inspect/assets/ppt/media/image48.png",
+      "bytes": 11380
+    },
+    {
+      "entry": "ppt/media/image49.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image49.png",
+      "relativePath": "source-inspect/assets/ppt/media/image49.png",
+      "bytes": 11809
+    },
+    {
+      "entry": "ppt/media/image50.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image50.png",
+      "relativePath": "source-inspect/assets/ppt/media/image50.png",
+      "bytes": 15428
+    },
+    {
+      "entry": "ppt/media/image51.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image51.png",
+      "relativePath": "source-inspect/assets/ppt/media/image51.png",
+      "bytes": 12011
+    },
+    {
+      "entry": "ppt/media/image52.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image52.png",
+      "relativePath": "source-inspect/assets/ppt/media/image52.png",
+      "bytes": 6803
+    },
+    {
+      "entry": "ppt/media/image53.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image53.png",
+      "relativePath": "source-inspect/assets/ppt/media/image53.png",
+      "bytes": 14662
+    },
+    {
+      "entry": "ppt/media/image54.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image54.png",
+      "relativePath": "source-inspect/assets/ppt/media/image54.png",
+      "bytes": 10839
+    },
+    {
+      "entry": "ppt/media/image55.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image55.png",
+      "relativePath": "source-inspect/assets/ppt/media/image55.png",
+      "bytes": 13970
+    },
+    {
+      "entry": "ppt/media/image56.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image56.png",
+      "relativePath": "source-inspect/assets/ppt/media/image56.png",
+      "bytes": 20639
+    },
+    {
+      "entry": "ppt/media/image57.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image57.png",
+      "relativePath": "source-inspect/assets/ppt/media/image57.png",
+      "bytes": 12446
+    },
+    {
+      "entry": "ppt/media/image58.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image58.png",
+      "relativePath": "source-inspect/assets/ppt/media/image58.png",
+      "bytes": 16799
+    },
+    {
+      "entry": "ppt/media/image59.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image59.png",
+      "relativePath": "source-inspect/assets/ppt/media/image59.png",
+      "bytes": 12537
+    },
+    {
+      "entry": "ppt/media/image60.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image60.png",
+      "relativePath": "source-inspect/assets/ppt/media/image60.png",
+      "bytes": 10729
+    },
+    {
+      "entry": "ppt/media/image61.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image61.png",
+      "relativePath": "source-inspect/assets/ppt/media/image61.png",
+      "bytes": 8542
+    },
+    {
+      "entry": "ppt/media/image62.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image62.png",
+      "relativePath": "source-inspect/assets/ppt/media/image62.png",
+      "bytes": 12291
+    },
+    {
+      "entry": "ppt/media/image63.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image63.png",
+      "relativePath": "source-inspect/assets/ppt/media/image63.png",
+      "bytes": 13736
+    },
+    {
+      "entry": "ppt/media/image64.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image64.png",
+      "relativePath": "source-inspect/assets/ppt/media/image64.png",
+      "bytes": 6732
+    },
+    {
+      "entry": "ppt/media/image65.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image65.png",
+      "relativePath": "source-inspect/assets/ppt/media/image65.png",
+      "bytes": 16763
+    },
+    {
+      "entry": "ppt/media/image66.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image66.png",
+      "relativePath": "source-inspect/assets/ppt/media/image66.png",
+      "bytes": 11867
+    },
+    {
+      "entry": "ppt/media/image67.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image67.png",
+      "relativePath": "source-inspect/assets/ppt/media/image67.png",
+      "bytes": 9289
+    },
+    {
+      "entry": "ppt/media/image68.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image68.png",
+      "relativePath": "source-inspect/assets/ppt/media/image68.png",
+      "bytes": 11714
+    },
+    {
+      "entry": "ppt/media/image69.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image69.png",
+      "relativePath": "source-inspect/assets/ppt/media/image69.png",
+      "bytes": 20290
+    },
+    {
+      "entry": "ppt/media/image70.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image70.png",
+      "relativePath": "source-inspect/assets/ppt/media/image70.png",
+      "bytes": 9883
+    },
+    {
+      "entry": "ppt/media/image71.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image71.png",
+      "relativePath": "source-inspect/assets/ppt/media/image71.png",
+      "bytes": 19181
+    },
+    {
+      "entry": "ppt/media/image72.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image72.png",
+      "relativePath": "source-inspect/assets/ppt/media/image72.png",
+      "bytes": 21146
+    },
+    {
+      "entry": "ppt/media/image73.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image73.png",
+      "relativePath": "source-inspect/assets/ppt/media/image73.png",
+      "bytes": 10916
+    },
+    {
+      "entry": "ppt/media/image74.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image74.png",
+      "relativePath": "source-inspect/assets/ppt/media/image74.png",
+      "bytes": 10541
+    },
+    {
+      "entry": "ppt/media/image75.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image75.png",
+      "relativePath": "source-inspect/assets/ppt/media/image75.png",
+      "bytes": 11857
+    },
+    {
+      "entry": "ppt/media/image76.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image76.png",
+      "relativePath": "source-inspect/assets/ppt/media/image76.png",
+      "bytes": 13862
+    },
+    {
+      "entry": "ppt/media/image77.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image77.png",
+      "relativePath": "source-inspect/assets/ppt/media/image77.png",
+      "bytes": 10952
+    },
+    {
+      "entry": "ppt/media/image78.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image78.png",
+      "relativePath": "source-inspect/assets/ppt/media/image78.png",
+      "bytes": 12972
+    },
+    {
+      "entry": "ppt/media/image79.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image79.png",
+      "relativePath": "source-inspect/assets/ppt/media/image79.png",
+      "bytes": 19175
+    },
+    {
+      "entry": "ppt/media/image80.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image80.png",
+      "relativePath": "source-inspect/assets/ppt/media/image80.png",
+      "bytes": 16622
+    },
+    {
+      "entry": "ppt/media/image81.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image81.png",
+      "relativePath": "source-inspect/assets/ppt/media/image81.png",
+      "bytes": 16442
+    },
+    {
+      "entry": "ppt/media/image82.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image82.png",
+      "relativePath": "source-inspect/assets/ppt/media/image82.png",
+      "bytes": 8364
+    },
+    {
+      "entry": "ppt/media/image83.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image83.png",
+      "relativePath": "source-inspect/assets/ppt/media/image83.png",
+      "bytes": 15568
+    },
+    {
+      "entry": "ppt/media/image84.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image84.png",
+      "relativePath": "source-inspect/assets/ppt/media/image84.png",
+      "bytes": 4981
+    },
+    {
+      "entry": "ppt/media/image85.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image85.png",
+      "relativePath": "source-inspect/assets/ppt/media/image85.png",
+      "bytes": 13678
+    },
+    {
+      "entry": "ppt/media/image86.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image86.png",
+      "relativePath": "source-inspect/assets/ppt/media/image86.png",
+      "bytes": 14492
+    },
+    {
+      "entry": "ppt/media/image87.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image87.png",
+      "relativePath": "source-inspect/assets/ppt/media/image87.png",
+      "bytes": 11856
+    },
+    {
+      "entry": "ppt/media/image88.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image88.png",
+      "relativePath": "source-inspect/assets/ppt/media/image88.png",
+      "bytes": 12880
+    },
+    {
+      "entry": "ppt/media/image89.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image89.png",
+      "relativePath": "source-inspect/assets/ppt/media/image89.png",
+      "bytes": 12124
+    },
+    {
+      "entry": "ppt/media/image90.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image90.png",
+      "relativePath": "source-inspect/assets/ppt/media/image90.png",
+      "bytes": 14937
+    },
+    {
+      "entry": "ppt/media/image91.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image91.png",
+      "relativePath": "source-inspect/assets/ppt/media/image91.png",
+      "bytes": 13657
+    },
+    {
+      "entry": "ppt/media/image92.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image92.png",
+      "relativePath": "source-inspect/assets/ppt/media/image92.png",
+      "bytes": 13632
+    },
+    {
+      "entry": "ppt/media/image93.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image93.png",
+      "relativePath": "source-inspect/assets/ppt/media/image93.png",
+      "bytes": 17419
+    },
+    {
+      "entry": "ppt/media/image94.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image94.png",
+      "relativePath": "source-inspect/assets/ppt/media/image94.png",
+      "bytes": 6155
+    },
+    {
+      "entry": "ppt/media/image95.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image95.png",
+      "relativePath": "source-inspect/assets/ppt/media/image95.png",
+      "bytes": 16608
+    },
+    {
+      "entry": "ppt/media/image96.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image96.png",
+      "relativePath": "source-inspect/assets/ppt/media/image96.png",
+      "bytes": 15992
+    },
+    {
+      "entry": "ppt/media/image97.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image97.png",
+      "relativePath": "source-inspect/assets/ppt/media/image97.png",
+      "bytes": 13338
+    },
+    {
+      "entry": "ppt/media/image98.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image98.png",
+      "relativePath": "source-inspect/assets/ppt/media/image98.png",
+      "bytes": 14483
+    },
+    {
+      "entry": "ppt/media/image99.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image99.png",
+      "relativePath": "source-inspect/assets/ppt/media/image99.png",
+      "bytes": 14068
+    },
+    {
+      "entry": "ppt/media/image100.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image100.png",
+      "relativePath": "source-inspect/assets/ppt/media/image100.png",
+      "bytes": 15401
+    },
+    {
+      "entry": "ppt/media/image101.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image101.png",
+      "relativePath": "source-inspect/assets/ppt/media/image101.png",
+      "bytes": 12611
+    },
+    {
+      "entry": "ppt/media/image102.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image102.png",
+      "relativePath": "source-inspect/assets/ppt/media/image102.png",
+      "bytes": 8687
+    },
+    {
+      "entry": "ppt/media/image103.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image103.png",
+      "relativePath": "source-inspect/assets/ppt/media/image103.png",
+      "bytes": 11851
+    },
+    {
+      "entry": "ppt/media/image104.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image104.png",
+      "relativePath": "source-inspect/assets/ppt/media/image104.png",
+      "bytes": 13752
+    },
+    {
+      "entry": "ppt/media/image105.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image105.png",
+      "relativePath": "source-inspect/assets/ppt/media/image105.png",
+      "bytes": 12121
+    },
+    {
+      "entry": "ppt/media/image106.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image106.png",
+      "relativePath": "source-inspect/assets/ppt/media/image106.png",
+      "bytes": 15822
+    },
+    {
+      "entry": "ppt/media/image107.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image107.png",
+      "relativePath": "source-inspect/assets/ppt/media/image107.png",
+      "bytes": 15186
+    },
+    {
+      "entry": "ppt/media/image108.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image108.png",
+      "relativePath": "source-inspect/assets/ppt/media/image108.png",
+      "bytes": 15084
+    },
+    {
+      "entry": "ppt/media/image109.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image109.png",
+      "relativePath": "source-inspect/assets/ppt/media/image109.png",
+      "bytes": 7595
+    },
+    {
+      "entry": "ppt/media/image110.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image110.png",
+      "relativePath": "source-inspect/assets/ppt/media/image110.png",
+      "bytes": 6608
+    },
+    {
+      "entry": "ppt/media/image111.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image111.png",
+      "relativePath": "source-inspect/assets/ppt/media/image111.png",
+      "bytes": 20923
+    },
+    {
+      "entry": "ppt/media/image112.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image112.png",
+      "relativePath": "source-inspect/assets/ppt/media/image112.png",
+      "bytes": 15157
+    },
+    {
+      "entry": "ppt/media/image113.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image113.png",
+      "relativePath": "source-inspect/assets/ppt/media/image113.png",
+      "bytes": 8203
+    },
+    {
+      "entry": "ppt/media/image114.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image114.png",
+      "relativePath": "source-inspect/assets/ppt/media/image114.png",
+      "bytes": 16414
+    },
+    {
+      "entry": "ppt/media/image115.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image115.png",
+      "relativePath": "source-inspect/assets/ppt/media/image115.png",
+      "bytes": 20406
+    },
+    {
+      "entry": "ppt/media/image116.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image116.png",
+      "relativePath": "source-inspect/assets/ppt/media/image116.png",
+      "bytes": 16432
+    },
+    {
+      "entry": "ppt/media/image117.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image117.png",
+      "relativePath": "source-inspect/assets/ppt/media/image117.png",
+      "bytes": 16949
+    },
+    {
+      "entry": "ppt/media/image118.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image118.png",
+      "relativePath": "source-inspect/assets/ppt/media/image118.png",
+      "bytes": 15361
+    },
+    {
+      "entry": "ppt/media/image119.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image119.png",
+      "relativePath": "source-inspect/assets/ppt/media/image119.png",
+      "bytes": 12841
+    },
+    {
+      "entry": "ppt/media/image120.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image120.png",
+      "relativePath": "source-inspect/assets/ppt/media/image120.png",
+      "bytes": 18606
+    },
+    {
+      "entry": "ppt/media/image121.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image121.png",
+      "relativePath": "source-inspect/assets/ppt/media/image121.png",
+      "bytes": 19272
+    },
+    {
+      "entry": "ppt/media/image122.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image122.png",
+      "relativePath": "source-inspect/assets/ppt/media/image122.png",
+      "bytes": 14707
+    },
+    {
+      "entry": "ppt/media/image123.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image123.png",
+      "relativePath": "source-inspect/assets/ppt/media/image123.png",
+      "bytes": 10136
+    },
+    {
+      "entry": "ppt/media/image124.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image124.png",
+      "relativePath": "source-inspect/assets/ppt/media/image124.png",
+      "bytes": 16261
+    },
+    {
+      "entry": "ppt/media/image125.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image125.png",
+      "relativePath": "source-inspect/assets/ppt/media/image125.png",
+      "bytes": 16012
+    },
+    {
+      "entry": "ppt/media/image126.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image126.png",
+      "relativePath": "source-inspect/assets/ppt/media/image126.png",
+      "bytes": 13392
+    },
+    {
+      "entry": "ppt/media/image127.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image127.png",
+      "relativePath": "source-inspect/assets/ppt/media/image127.png",
+      "bytes": 14563
+    },
+    {
+      "entry": "ppt/media/image128.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image128.png",
+      "relativePath": "source-inspect/assets/ppt/media/image128.png",
+      "bytes": 14826
+    },
+    {
+      "entry": "ppt/media/image129.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image129.png",
+      "relativePath": "source-inspect/assets/ppt/media/image129.png",
+      "bytes": 15043
+    },
+    {
+      "entry": "ppt/media/image130.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image130.png",
+      "relativePath": "source-inspect/assets/ppt/media/image130.png",
+      "bytes": 14353
+    },
+    {
+      "entry": "ppt/media/image13.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image13.png",
+      "relativePath": "source-inspect/assets/ppt/media/image13.png",
+      "bytes": 3966
+    },
+    {
+      "entry": "ppt/media/image132.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image132.png",
+      "relativePath": "source-inspect/assets/ppt/media/image132.png",
+      "bytes": 10268
+    },
+    {
+      "entry": "ppt/media/image133.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image133.png",
+      "relativePath": "source-inspect/assets/ppt/media/image133.png",
+      "bytes": 10490
+    },
+    {
+      "entry": "ppt/media/image134.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image134.png",
+      "relativePath": "source-inspect/assets/ppt/media/image134.png",
+      "bytes": 12793
+    },
+    {
+      "entry": "ppt/media/image135.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image135.png",
+      "relativePath": "source-inspect/assets/ppt/media/image135.png",
+      "bytes": 13499
+    },
+    {
+      "entry": "ppt/media/image136.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image136.png",
+      "relativePath": "source-inspect/assets/ppt/media/image136.png",
+      "bytes": 11283
+    },
+    {
+      "entry": "ppt/media/image137.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image137.png",
+      "relativePath": "source-inspect/assets/ppt/media/image137.png",
+      "bytes": 9413
+    },
+    {
+      "entry": "ppt/media/image138.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image138.png",
+      "relativePath": "source-inspect/assets/ppt/media/image138.png",
+      "bytes": 4736
+    },
+    {
+      "entry": "ppt/media/image139.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image139.png",
+      "relativePath": "source-inspect/assets/ppt/media/image139.png",
+      "bytes": 23994
+    },
+    {
+      "entry": "ppt/media/image140.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image140.png",
+      "relativePath": "source-inspect/assets/ppt/media/image140.png",
+      "bytes": 13529
+    },
+    {
+      "entry": "ppt/media/image141.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image141.png",
+      "relativePath": "source-inspect/assets/ppt/media/image141.png",
+      "bytes": 12765
+    },
+    {
+      "entry": "ppt/media/image142.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image142.png",
+      "relativePath": "source-inspect/assets/ppt/media/image142.png",
+      "bytes": 20507
+    },
+    {
+      "entry": "ppt/media/image143.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image143.png",
+      "relativePath": "source-inspect/assets/ppt/media/image143.png",
+      "bytes": 12157
+    },
+    {
+      "entry": "ppt/media/image144.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image144.png",
+      "relativePath": "source-inspect/assets/ppt/media/image144.png",
+      "bytes": 12548
+    },
+    {
+      "entry": "ppt/media/image145.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image145.png",
+      "relativePath": "source-inspect/assets/ppt/media/image145.png",
+      "bytes": 10558
+    },
+    {
+      "entry": "ppt/media/image146.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image146.png",
+      "relativePath": "source-inspect/assets/ppt/media/image146.png",
+      "bytes": 17413
+    },
+    {
+      "entry": "ppt/media/image147.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image147.png",
+      "relativePath": "source-inspect/assets/ppt/media/image147.png",
+      "bytes": 11383
+    },
+    {
+      "entry": "ppt/media/image148.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image148.png",
+      "relativePath": "source-inspect/assets/ppt/media/image148.png",
+      "bytes": 13176
+    },
+    {
+      "entry": "ppt/media/image149.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image149.png",
+      "relativePath": "source-inspect/assets/ppt/media/image149.png",
+      "bytes": 19667
+    },
+    {
+      "entry": "ppt/media/image150.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image150.png",
+      "relativePath": "source-inspect/assets/ppt/media/image150.png",
+      "bytes": 6474
+    },
+    {
+      "entry": "ppt/media/image151.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image151.png",
+      "relativePath": "source-inspect/assets/ppt/media/image151.png",
+      "bytes": 17436
+    },
+    {
+      "entry": "ppt/media/image152.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image152.png",
+      "relativePath": "source-inspect/assets/ppt/media/image152.png",
+      "bytes": 16576
+    },
+    {
+      "entry": "ppt/media/image153.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image153.png",
+      "relativePath": "source-inspect/assets/ppt/media/image153.png",
+      "bytes": 10857
+    },
+    {
+      "entry": "ppt/media/image154.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image154.png",
+      "relativePath": "source-inspect/assets/ppt/media/image154.png",
+      "bytes": 17616
+    },
+    {
+      "entry": "ppt/media/image155.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image155.png",
+      "relativePath": "source-inspect/assets/ppt/media/image155.png",
+      "bytes": 16334
+    },
+    {
+      "entry": "ppt/media/image156.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image156.png",
+      "relativePath": "source-inspect/assets/ppt/media/image156.png",
+      "bytes": 9535
+    },
+    {
+      "entry": "ppt/media/image14.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image14.png",
+      "relativePath": "source-inspect/assets/ppt/media/image14.png",
+      "bytes": 15702
+    },
+    {
+      "entry": "ppt/media/image158.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image158.png",
+      "relativePath": "source-inspect/assets/ppt/media/image158.png",
+      "bytes": 11172
+    },
+    {
+      "entry": "ppt/media/image159.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image159.png",
+      "relativePath": "source-inspect/assets/ppt/media/image159.png",
+      "bytes": 11094
+    },
+    {
+      "entry": "ppt/media/image43.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image43.png",
+      "relativePath": "source-inspect/assets/ppt/media/image43.png",
+      "bytes": 16145
+    },
+    {
+      "entry": "ppt/media/image161.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image161.png",
+      "relativePath": "source-inspect/assets/ppt/media/image161.png",
+      "bytes": 8294
+    },
+    {
+      "entry": "ppt/media/image162.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image162.png",
+      "relativePath": "source-inspect/assets/ppt/media/image162.png",
+      "bytes": 14956
+    },
+    {
+      "entry": "ppt/media/image163.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image163.png",
+      "relativePath": "source-inspect/assets/ppt/media/image163.png",
+      "bytes": 18279
+    },
+    {
+      "entry": "ppt/media/image164.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image164.png",
+      "relativePath": "source-inspect/assets/ppt/media/image164.png",
+      "bytes": 24609
+    },
+    {
+      "entry": "ppt/media/image165.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image165.png",
+      "relativePath": "source-inspect/assets/ppt/media/image165.png",
+      "bytes": 16251
+    },
+    {
+      "entry": "ppt/media/image166.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image166.png",
+      "relativePath": "source-inspect/assets/ppt/media/image166.png",
+      "bytes": 6828
+    },
+    {
+      "entry": "ppt/media/image167.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image167.png",
+      "relativePath": "source-inspect/assets/ppt/media/image167.png",
+      "bytes": 12206
+    },
+    {
+      "entry": "ppt/media/image168.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image168.png",
+      "relativePath": "source-inspect/assets/ppt/media/image168.png",
+      "bytes": 4501
+    },
+    {
+      "entry": "ppt/media/image169.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image169.png",
+      "relativePath": "source-inspect/assets/ppt/media/image169.png",
+      "bytes": 13114
+    },
+    {
+      "entry": "ppt/media/image170.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image170.png",
+      "relativePath": "source-inspect/assets/ppt/media/image170.png",
+      "bytes": 17868
+    },
+    {
+      "entry": "ppt/media/image171.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image171.png",
+      "relativePath": "source-inspect/assets/ppt/media/image171.png",
+      "bytes": 20604
+    },
+    {
+      "entry": "ppt/media/image172.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image172.png",
+      "relativePath": "source-inspect/assets/ppt/media/image172.png",
+      "bytes": 14667
+    },
+    {
+      "entry": "ppt/media/image173.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image173.png",
+      "relativePath": "source-inspect/assets/ppt/media/image173.png",
+      "bytes": 18300
+    },
+    {
+      "entry": "ppt/media/image174.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image174.png",
+      "relativePath": "source-inspect/assets/ppt/media/image174.png",
+      "bytes": 14180
+    },
+    {
+      "entry": "ppt/media/image175.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image175.png",
+      "relativePath": "source-inspect/assets/ppt/media/image175.png",
+      "bytes": 8291
+    },
+    {
+      "entry": "ppt/media/image176.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image176.png",
+      "relativePath": "source-inspect/assets/ppt/media/image176.png",
+      "bytes": 14199
+    },
+    {
+      "entry": "ppt/media/image177.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image177.png",
+      "relativePath": "source-inspect/assets/ppt/media/image177.png",
+      "bytes": 17168
+    },
+    {
+      "entry": "ppt/media/image178.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image178.png",
+      "relativePath": "source-inspect/assets/ppt/media/image178.png",
+      "bytes": 15585
+    },
+    {
+      "entry": "ppt/media/image179.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image179.png",
+      "relativePath": "source-inspect/assets/ppt/media/image179.png",
+      "bytes": 12990
+    },
+    {
+      "entry": "ppt/media/image180.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image180.png",
+      "relativePath": "source-inspect/assets/ppt/media/image180.png",
+      "bytes": 15501
+    },
+    {
+      "entry": "ppt/media/image181.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image181.png",
+      "relativePath": "source-inspect/assets/ppt/media/image181.png",
+      "bytes": 19226
+    },
+    {
+      "entry": "ppt/media/image182.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image182.png",
+      "relativePath": "source-inspect/assets/ppt/media/image182.png",
+      "bytes": 8285
+    },
+    {
+      "entry": "ppt/media/image183.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image183.png",
+      "relativePath": "source-inspect/assets/ppt/media/image183.png",
+      "bytes": 11143
+    },
+    {
+      "entry": "ppt/media/image184.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image184.png",
+      "relativePath": "source-inspect/assets/ppt/media/image184.png",
+      "bytes": 12081
+    },
+    {
+      "entry": "ppt/media/image185.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image185.png",
+      "relativePath": "source-inspect/assets/ppt/media/image185.png",
+      "bytes": 10362
+    },
+    {
+      "entry": "ppt/media/image186.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image186.png",
+      "relativePath": "source-inspect/assets/ppt/media/image186.png",
+      "bytes": 7085
+    },
+    {
+      "entry": "ppt/media/image187.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image187.png",
+      "relativePath": "source-inspect/assets/ppt/media/image187.png",
+      "bytes": 19528
+    },
+    {
+      "entry": "ppt/media/image188.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image188.png",
+      "relativePath": "source-inspect/assets/ppt/media/image188.png",
+      "bytes": 16258
+    },
+    {
+      "entry": "ppt/media/image189.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image189.png",
+      "relativePath": "source-inspect/assets/ppt/media/image189.png",
+      "bytes": 15905
+    },
+    {
+      "entry": "ppt/media/image190.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image190.png",
+      "relativePath": "source-inspect/assets/ppt/media/image190.png",
+      "bytes": 16037
+    },
+    {
+      "entry": "ppt/media/image191.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image191.png",
+      "relativePath": "source-inspect/assets/ppt/media/image191.png",
+      "bytes": 12714
+    },
+    {
+      "entry": "ppt/media/image192.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image192.png",
+      "relativePath": "source-inspect/assets/ppt/media/image192.png",
+      "bytes": 19078
+    },
+    {
+      "entry": "ppt/media/image193.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image193.png",
+      "relativePath": "source-inspect/assets/ppt/media/image193.png",
+      "bytes": 9433
+    },
+    {
+      "entry": "ppt/media/image194.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image194.png",
+      "relativePath": "source-inspect/assets/ppt/media/image194.png",
+      "bytes": 15541
+    },
+    {
+      "entry": "ppt/media/image195.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image195.png",
+      "relativePath": "source-inspect/assets/ppt/media/image195.png",
+      "bytes": 13260
+    },
+    {
+      "entry": "ppt/media/image196.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image196.png",
+      "relativePath": "source-inspect/assets/ppt/media/image196.png",
+      "bytes": 13405
+    },
+    {
+      "entry": "ppt/media/image197.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image197.png",
+      "relativePath": "source-inspect/assets/ppt/media/image197.png",
+      "bytes": 11902
+    },
+    {
+      "entry": "ppt/media/image198.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image198.png",
+      "relativePath": "source-inspect/assets/ppt/media/image198.png",
+      "bytes": 17828
+    },
+    {
+      "entry": "ppt/media/image199.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image199.png",
+      "relativePath": "source-inspect/assets/ppt/media/image199.png",
+      "bytes": 19807
+    },
+    {
+      "entry": "ppt/media/image200.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image200.png",
+      "relativePath": "source-inspect/assets/ppt/media/image200.png",
+      "bytes": 4599
+    },
+    {
+      "entry": "ppt/media/image201.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image201.png",
+      "relativePath": "source-inspect/assets/ppt/media/image201.png",
+      "bytes": 15139
+    },
+    {
+      "entry": "ppt/media/image202.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image202.png",
+      "relativePath": "source-inspect/assets/ppt/media/image202.png",
+      "bytes": 16817
+    },
+    {
+      "entry": "ppt/media/image203.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image203.png",
+      "relativePath": "source-inspect/assets/ppt/media/image203.png",
+      "bytes": 14219
+    },
+    {
+      "entry": "ppt/media/image204.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image204.png",
+      "relativePath": "source-inspect/assets/ppt/media/image204.png",
+      "bytes": 12772
+    },
+    {
+      "entry": "ppt/media/image205.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image205.png",
+      "relativePath": "source-inspect/assets/ppt/media/image205.png",
+      "bytes": 15558
+    },
+    {
+      "entry": "ppt/media/image206.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image206.png",
+      "relativePath": "source-inspect/assets/ppt/media/image206.png",
+      "bytes": 9189
+    },
+    {
+      "entry": "ppt/media/image207.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image207.png",
+      "relativePath": "source-inspect/assets/ppt/media/image207.png",
+      "bytes": 12483
+    },
+    {
+      "entry": "ppt/media/image208.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image208.png",
+      "relativePath": "source-inspect/assets/ppt/media/image208.png",
+      "bytes": 16522
+    },
+    {
+      "entry": "ppt/media/image209.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image209.png",
+      "relativePath": "source-inspect/assets/ppt/media/image209.png",
+      "bytes": 8282
+    },
+    {
+      "entry": "ppt/media/image210.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image210.png",
+      "relativePath": "source-inspect/assets/ppt/media/image210.png",
+      "bytes": 7132
+    },
+    {
+      "entry": "ppt/media/image211.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image211.png",
+      "relativePath": "source-inspect/assets/ppt/media/image211.png",
+      "bytes": 8776
+    },
+    {
+      "entry": "ppt/media/image212.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image212.png",
+      "relativePath": "source-inspect/assets/ppt/media/image212.png",
+      "bytes": 10808
+    },
+    {
+      "entry": "ppt/media/image213.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image213.png",
+      "relativePath": "source-inspect/assets/ppt/media/image213.png",
+      "bytes": 13522
+    },
+    {
+      "entry": "ppt/media/image214.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image214.png",
+      "relativePath": "source-inspect/assets/ppt/media/image214.png",
+      "bytes": 14449
+    },
+    {
+      "entry": "ppt/media/image215.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image215.png",
+      "relativePath": "source-inspect/assets/ppt/media/image215.png",
+      "bytes": 14476
+    },
+    {
+      "entry": "ppt/media/image42.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image42.png",
+      "relativePath": "source-inspect/assets/ppt/media/image42.png",
+      "bytes": 15404
+    },
+    {
+      "entry": "ppt/media/image216.emf",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image216.emf",
+      "relativePath": "source-inspect/assets/ppt/media/image216.emf",
+      "bytes": 43864
+    },
+    {
+      "entry": "ppt/media/image217.emf",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image217.emf",
+      "relativePath": "source-inspect/assets/ppt/media/image217.emf",
+      "bytes": 45772
+    },
+    {
+      "entry": "ppt/media/image218.emf",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image218.emf",
+      "relativePath": "source-inspect/assets/ppt/media/image218.emf",
+      "bytes": 34344
+    },
+    {
+      "entry": "ppt/media/image219.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image219.png",
+      "relativePath": "source-inspect/assets/ppt/media/image219.png",
+      "bytes": 12778
+    },
+    {
+      "entry": "ppt/media/image220.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image220.png",
+      "relativePath": "source-inspect/assets/ppt/media/image220.png",
+      "bytes": 17522
+    },
+    {
+      "entry": "ppt/media/image221.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image221.png",
+      "relativePath": "source-inspect/assets/ppt/media/image221.png",
+      "bytes": 3969
+    },
+    {
+      "entry": "ppt/media/image222.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image222.png",
+      "relativePath": "source-inspect/assets/ppt/media/image222.png",
+      "bytes": 13965
+    },
+    {
+      "entry": "ppt/media/image223.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image223.png",
+      "relativePath": "source-inspect/assets/ppt/media/image223.png",
+      "bytes": 16828
+    },
+    {
+      "entry": "ppt/media/image224.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image224.png",
+      "relativePath": "source-inspect/assets/ppt/media/image224.png",
+      "bytes": 8725
+    },
+    {
+      "entry": "ppt/media/image225.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image225.png",
+      "relativePath": "source-inspect/assets/ppt/media/image225.png",
+      "bytes": 7691
+    },
+    {
+      "entry": "ppt/media/image226.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image226.png",
+      "relativePath": "source-inspect/assets/ppt/media/image226.png",
+      "bytes": 8346
+    },
+    {
+      "entry": "ppt/media/image227.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image227.png",
+      "relativePath": "source-inspect/assets/ppt/media/image227.png",
+      "bytes": 17158
+    },
+    {
+      "entry": "ppt/media/image228.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image228.png",
+      "relativePath": "source-inspect/assets/ppt/media/image228.png",
+      "bytes": 11461
+    },
+    {
+      "entry": "ppt/media/image229.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image229.png",
+      "relativePath": "source-inspect/assets/ppt/media/image229.png",
+      "bytes": 4310
+    },
+    {
+      "entry": "ppt/media/image230.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image230.png",
+      "relativePath": "source-inspect/assets/ppt/media/image230.png",
+      "bytes": 3657
+    },
+    {
+      "entry": "ppt/media/image231.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image231.png",
+      "relativePath": "source-inspect/assets/ppt/media/image231.png",
+      "bytes": 9060
+    },
+    {
+      "entry": "ppt/media/image232.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image232.png",
+      "relativePath": "source-inspect/assets/ppt/media/image232.png",
+      "bytes": 1487
+    },
+    {
+      "entry": "ppt/media/image233.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image233.png",
+      "relativePath": "source-inspect/assets/ppt/media/image233.png",
+      "bytes": 2617
+    },
+    {
+      "entry": "ppt/media/image234.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image234.png",
+      "relativePath": "source-inspect/assets/ppt/media/image234.png",
+      "bytes": 5018
+    },
+    {
+      "entry": "ppt/media/image41.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image41.png",
+      "relativePath": "source-inspect/assets/ppt/media/image41.png",
+      "bytes": 16154
+    },
+    {
+      "entry": "ppt/media/image235.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image235.png",
+      "relativePath": "source-inspect/assets/ppt/media/image235.png",
+      "bytes": 15451
+    },
+    {
+      "entry": "ppt/media/image236.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image236.png",
+      "relativePath": "source-inspect/assets/ppt/media/image236.png",
+      "bytes": 8259
+    },
+    {
+      "entry": "ppt/media/image237.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image237.png",
+      "relativePath": "source-inspect/assets/ppt/media/image237.png",
+      "bytes": 14653
+    },
+    {
+      "entry": "ppt/media/image238.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image238.png",
+      "relativePath": "source-inspect/assets/ppt/media/image238.png",
+      "bytes": 3844
+    },
+    {
+      "entry": "ppt/media/image239.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image239.png",
+      "relativePath": "source-inspect/assets/ppt/media/image239.png",
+      "bytes": 4162
+    },
+    {
+      "entry": "ppt/media/image40.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image40.png",
+      "relativePath": "source-inspect/assets/ppt/media/image40.png",
+      "bytes": 14261
+    },
+    {
+      "entry": "ppt/media/image240.emf",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image240.emf",
+      "relativePath": "source-inspect/assets/ppt/media/image240.emf",
+      "bytes": 49864
+    },
+    {
+      "entry": "ppt/media/image241.emf",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image241.emf",
+      "relativePath": "source-inspect/assets/ppt/media/image241.emf",
+      "bytes": 6428
+    },
+    {
+      "entry": "ppt/media/image242.emf",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image242.emf",
+      "relativePath": "source-inspect/assets/ppt/media/image242.emf",
+      "bytes": 43836
+    },
+    {
+      "entry": "ppt/media/image243.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image243.png",
+      "relativePath": "source-inspect/assets/ppt/media/image243.png",
+      "bytes": 15786
+    },
+    {
+      "entry": "ppt/media/image244.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image244.png",
+      "relativePath": "source-inspect/assets/ppt/media/image244.png",
+      "bytes": 15825
+    },
+    {
+      "entry": "ppt/media/image245.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image245.png",
+      "relativePath": "source-inspect/assets/ppt/media/image245.png",
+      "bytes": 9321
+    },
+    {
+      "entry": "ppt/media/image246.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image246.png",
+      "relativePath": "source-inspect/assets/ppt/media/image246.png",
+      "bytes": 19157
+    },
+    {
+      "entry": "ppt/media/image247.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image247.png",
+      "relativePath": "source-inspect/assets/ppt/media/image247.png",
+      "bytes": 43528
+    },
+    {
+      "entry": "ppt/media/image248.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image248.png",
+      "relativePath": "source-inspect/assets/ppt/media/image248.png",
+      "bytes": 11261
+    },
+    {
+      "entry": "ppt/media/image39.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image39.png",
+      "relativePath": "source-inspect/assets/ppt/media/image39.png",
+      "bytes": 20127
+    },
+    {
+      "entry": "ppt/media/image249.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image249.png",
+      "relativePath": "source-inspect/assets/ppt/media/image249.png",
+      "bytes": 2721
+    },
+    {
+      "entry": "ppt/media/image250.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image250.png",
+      "relativePath": "source-inspect/assets/ppt/media/image250.png",
+      "bytes": 189817
+    },
+    {
+      "entry": "ppt/media/image251.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image251.png",
+      "relativePath": "source-inspect/assets/ppt/media/image251.png",
+      "bytes": 5030
+    },
+    {
+      "entry": "ppt/media/image252.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image252.png",
+      "relativePath": "source-inspect/assets/ppt/media/image252.png",
+      "bytes": 13681
+    },
+    {
+      "entry": "ppt/media/image253.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image253.png",
+      "relativePath": "source-inspect/assets/ppt/media/image253.png",
+      "bytes": 17173
+    },
+    {
+      "entry": "ppt/media/image254.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image254.png",
+      "relativePath": "source-inspect/assets/ppt/media/image254.png",
+      "bytes": 9052
+    },
+    {
+      "entry": "ppt/media/image255.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image255.png",
+      "relativePath": "source-inspect/assets/ppt/media/image255.png",
+      "bytes": 21268
+    },
+    {
+      "entry": "ppt/media/image131.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image131.png",
+      "relativePath": "source-inspect/assets/ppt/media/image131.png",
+      "bytes": 10513
+    },
+    {
+      "entry": "ppt/media/image38.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image38.png",
+      "relativePath": "source-inspect/assets/ppt/media/image38.png",
+      "bytes": 17735
+    },
+    {
+      "entry": "ppt/media/image12.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image12.png",
+      "relativePath": "source-inspect/assets/ppt/media/image12.png",
+      "bytes": 9226
+    },
+    {
+      "entry": "ppt/media/image11.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image11.png",
+      "relativePath": "source-inspect/assets/ppt/media/image11.png",
+      "bytes": 4899
+    },
+    {
+      "entry": "ppt/media/image37.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image37.png",
+      "relativePath": "source-inspect/assets/ppt/media/image37.png",
+      "bytes": 15461
+    },
+    {
+      "entry": "ppt/media/image10.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image10.png",
+      "relativePath": "source-inspect/assets/ppt/media/image10.png",
+      "bytes": 19866
+    },
+    {
+      "entry": "ppt/media/image9.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image9.png",
+      "relativePath": "source-inspect/assets/ppt/media/image9.png",
+      "bytes": 11578
+    },
+    {
+      "entry": "ppt/media/image8.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image8.png",
+      "relativePath": "source-inspect/assets/ppt/media/image8.png",
+      "bytes": 8266
+    },
+    {
+      "entry": "ppt/media/image7.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image7.png",
+      "relativePath": "source-inspect/assets/ppt/media/image7.png",
+      "bytes": 6939
+    },
+    {
+      "entry": "ppt/media/image6.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image6.png",
+      "relativePath": "source-inspect/assets/ppt/media/image6.png",
+      "bytes": 17187
+    },
+    {
+      "entry": "ppt/media/image5.emf",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image5.emf",
+      "relativePath": "source-inspect/assets/ppt/media/image5.emf",
+      "bytes": 370856
+    },
+    {
+      "entry": "ppt/media/image4.emf",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image4.emf",
+      "relativePath": "source-inspect/assets/ppt/media/image4.emf",
+      "bytes": 31396
+    },
+    {
+      "entry": "ppt/media/image3.emf",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image3.emf",
+      "relativePath": "source-inspect/assets/ppt/media/image3.emf",
+      "bytes": 44740
+    },
+    {
+      "entry": "ppt/media/image2.emf",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image2.emf",
+      "relativePath": "source-inspect/assets/ppt/media/image2.emf",
+      "bytes": 43724
+    },
+    {
+      "entry": "ppt/media/image1.emf",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image1.emf",
+      "relativePath": "source-inspect/assets/ppt/media/image1.emf",
+      "bytes": 372208
+    },
+    {
+      "entry": "ppt/media/image36.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image36.png",
+      "relativePath": "source-inspect/assets/ppt/media/image36.png",
+      "bytes": 7353
+    },
+    {
+      "entry": "ppt/media/image35.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image35.png",
+      "relativePath": "source-inspect/assets/ppt/media/image35.png",
+      "bytes": 15783
+    },
+    {
+      "entry": "ppt/media/image34.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image34.png",
+      "relativePath": "source-inspect/assets/ppt/media/image34.png",
+      "bytes": 11355
+    },
+    {
+      "entry": "ppt/media/image33.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image33.png",
+      "relativePath": "source-inspect/assets/ppt/media/image33.png",
+      "bytes": 11884
+    },
+    {
+      "entry": "ppt/media/image32.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image32.png",
+      "relativePath": "source-inspect/assets/ppt/media/image32.png",
+      "bytes": 16540
+    },
+    {
+      "entry": "ppt/media/image31.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image31.png",
+      "relativePath": "source-inspect/assets/ppt/media/image31.png",
+      "bytes": 19400
+    },
+    {
+      "entry": "ppt/media/image30.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image30.png",
+      "relativePath": "source-inspect/assets/ppt/media/image30.png",
+      "bytes": 11243
+    },
+    {
+      "entry": "ppt/media/image29.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image29.png",
+      "relativePath": "source-inspect/assets/ppt/media/image29.png",
+      "bytes": 15807
+    },
+    {
+      "entry": "ppt/media/image28.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image28.png",
+      "relativePath": "source-inspect/assets/ppt/media/image28.png",
+      "bytes": 7690
+    },
+    {
+      "entry": "ppt/media/image27.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image27.png",
+      "relativePath": "source-inspect/assets/ppt/media/image27.png",
+      "bytes": 14164
+    },
+    {
+      "entry": "ppt/media/image26.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image26.png",
+      "relativePath": "source-inspect/assets/ppt/media/image26.png",
+      "bytes": 12400
+    },
+    {
+      "entry": "ppt/media/image25.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image25.png",
+      "relativePath": "source-inspect/assets/ppt/media/image25.png",
+      "bytes": 8738
+    },
+    {
+      "entry": "ppt/media/image24.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image24.png",
+      "relativePath": "source-inspect/assets/ppt/media/image24.png",
+      "bytes": 5072
+    },
+    {
+      "entry": "ppt/media/image23.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image23.png",
+      "relativePath": "source-inspect/assets/ppt/media/image23.png",
+      "bytes": 19714
+    },
+    {
+      "entry": "ppt/media/image22.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image22.png",
+      "relativePath": "source-inspect/assets/ppt/media/image22.png",
+      "bytes": 14963
+    },
+    {
+      "entry": "ppt/media/image21.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image21.png",
+      "relativePath": "source-inspect/assets/ppt/media/image21.png",
+      "bytes": 19232
+    },
+    {
+      "entry": "ppt/media/image20.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image20.png",
+      "relativePath": "source-inspect/assets/ppt/media/image20.png",
+      "bytes": 11619
+    },
+    {
+      "entry": "ppt/media/image19.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image19.png",
+      "relativePath": "source-inspect/assets/ppt/media/image19.png",
+      "bytes": 12189
+    },
+    {
+      "entry": "ppt/media/image18.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image18.png",
+      "relativePath": "source-inspect/assets/ppt/media/image18.png",
+      "bytes": 10783
+    },
+    {
+      "entry": "ppt/media/image17.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image17.png",
+      "relativePath": "source-inspect/assets/ppt/media/image17.png",
+      "bytes": 9061
+    },
+    {
+      "entry": "ppt/media/image16.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image16.png",
+      "relativePath": "source-inspect/assets/ppt/media/image16.png",
+      "bytes": 15204
+    },
+    {
+      "entry": "ppt/media/image15.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image15.png",
+      "relativePath": "source-inspect/assets/ppt/media/image15.png",
+      "bytes": 13975
+    },
+    {
+      "entry": "ppt/media/image157.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image157.png",
+      "relativePath": "source-inspect/assets/ppt/media/image157.png",
+      "bytes": 11672
+    },
+    {
+      "entry": "ppt/media/image160.png",
+      "path": "C:\\Users\\smhrd1\\Desktop\\Sunsu_Care_Git\\outputs\\manual-20260617-suncare-arch\\presentations\\sunsu-cloud-architecture\\source-inspect\\assets\\ppt\\media\\image160.png",
+      "relativePath": "source-inspect/assets/ppt/media/image160.png",
+      "bytes": 12194
+    }
+  ],
+  "fonts": [
+    "+mj-cs",
+    "+mj-ea",
+    "+mj-lt",
+    "+mn-cs",
+    "+mn-ea",
+    "+mn-lt",
+    "Arial",
+    "Calibri",
+    "Helvetica",
+    "Nanum Square",
+    "NanumGothicOTF",
+    "NanumSquare Bold",
+    "NanumSquareOTF Bold",
+    "맑은 고딕"
+  ],
+  "packageParts": {
+    "mediaCount": 255,
+    "slideXmlCount": 27,
+    "chartCount": 0,
+    "tableSlideCount": 0
+  }
+}

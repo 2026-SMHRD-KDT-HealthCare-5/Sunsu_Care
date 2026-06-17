@@ -1,0 +1,7 @@
+1. Cover with service title and four-scope rail.
+2. Two-column before/after comparison from classroom architecture to Sunsu Care.
+3. Large VPC architecture diagram with public, private app, AI, and data zones.
+4. Numbered asynchronous sequence flow with callback/polling paths.
+5. Security boundary slide showing public/private/data/external trust zones.
+6. Data responsibility matrix for Object Storage, Cloud DB, cache, model artifacts, logs.
+7. Roadmap timeline from MVP Docker server to NKS/queue/observability hardening.

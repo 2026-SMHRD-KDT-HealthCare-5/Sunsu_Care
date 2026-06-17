@@ -194,32 +194,36 @@
   gap: 8px;
 }
 
-/* 핵심 성분 행 (양쪽 정렬: 이름 좌측, 설명 우측) */
+/* 핵심 성분 행 (양쪽 정렬: 이름 좌측, 설명 우측, 길면 줄바꿈) */
 .legacy-key-row {
   background-color: var(--hd-key-bg);
   padding: 12px 16px;
   border-radius: var(--hd-border-radius-sm);
   display: flex;
-  align-items: center;
+  align-items: flex-start;          /* 줄바꿈 시 위쪽 정렬 */
   justify-content: space-between;
   gap: 12px;
+  flex-wrap: wrap;                  /* 좁아지면 자연스럽게 줄바꿈 */
 }
 .legacy-key-name {
   color: #92400e;           /* 🌟 MyPage --mp-key-tag-text 와 통일 (앰버 다크) */
   font-weight: 800;
   font-size: 0.9rem;
   text-align: left;
-  flex: 1;
+  flex: 1 1 auto;
   min-width: 0;
-  word-break: keep-all;
+  word-break: keep-all;     /* 한글 단어 단위 보존 */
+  overflow-wrap: anywhere;  /* 너무 긴 단어는 강제 줄바꿈 */
 }
 .legacy-key-desc {
   color: #0b0b0b;
   font-size: 0.85rem;
   font-weight: 500;
   text-align: right;
-  flex-shrink: 0;
-  white-space: nowrap;
+  flex: 0 1 auto;           /* 필요 시 줄어들 수 있게 */
+  min-width: 0;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
 }
 
 /* 추천 이유 영역 */
@@ -244,32 +248,36 @@
   margin-top: 6px;
 }
 
-/* 주의 성분 행 (양쪽 정렬: 이름 좌측, 설명 우측) */
+/* 주의 성분 행 (양쪽 정렬: 이름 좌측, 설명 우측, 길면 줄바꿈) */
 .legacy-warn-row {
   background-color: var(--hd-warn-bg);
   border-left: 4px solid var(--hd-warn);
   padding: 12px 16px;
   border-radius: var(--hd-border-radius-sm);
   display: flex;
-  align-items: center;
+  align-items: flex-start;          /* 줄바꿈 시 위쪽 정렬 */
   justify-content: space-between;
   gap: 12px;
+  flex-wrap: wrap;                  /* 좁아지면 자연스럽게 줄바꿈 */
 }
 .legacy-warn-name {
   color: #991b1b;           /* 🌟 MyPage --mp-warn-tag-text 와 통일 (레드 다크) */
   font-weight: 800;
   font-size: 0.95rem;
   text-align: left;
-  flex: 1;
+  flex: 1 1 auto;
   min-width: 0;
   word-break: keep-all;
+  overflow-wrap: anywhere;
 }
 .legacy-warn-desc {
   color: var(--hd-warn-text);
   font-size: 0.85rem;
   text-align: right;
-  flex-shrink: 0;
-  white-space: nowrap;
+  flex: 0 1 auto;
+  min-width: 0;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
 }
 
 /* ===== 추천 제품 카드 ===== */

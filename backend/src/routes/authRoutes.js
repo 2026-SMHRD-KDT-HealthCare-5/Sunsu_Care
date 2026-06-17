@@ -1,7 +1,3 @@
-
-//routes: 요청에 대한 각 URL을 어떤 controller 함수로 연결할지 정의
-
-// express 프레임워크 호출
 const express = require("express")
 
 // express.Router 객체 생성

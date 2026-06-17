@@ -1,0 +1,26 @@
+slide size: 1280x720
+background: off-white paper (#F7F8F5) with white diagram surfaces and blue VPC boundary lines.
+typography: Malgun Gothic for Korean content, Arial fallback for Latin labels.
+palette:
+- ink: #1F2933 for primary text
+- cloud blue: #16A3D8 for VPC and entry paths
+- mint: #2CB67D for app/API success paths
+- amber: #F59E0B for AI and external dependency paths
+- red: #E11D48 for security/risk notes
+- slate: #64748B for secondary labels
+chart grammar: no chart series; use matrices and roadmap bars.
+diagram grammar: rectangular service nodes, thin connector bands, numbered circles for sequence.
+connector grammar: horizontal/vertical 2px lines with arrow glyphs and labels.
+container grammar: VPC and subnet boundaries are meaningful; no decorative cards.
+footer grammar: quiet source and slide number at bottom.
+kicker grammar: small uppercase role label plus accent rule.
+brand asset policy: no fabricated official logos; use generic editable icons and service names.
+layout families:
+- cover with architecture scope rail
+- before/after comparison
+- full architecture map
+- numbered sequence flow
+- security boundary diagram
+- data matrix
+- roadmap timeline
+banned motifs: pseudo-cloud logos, decorative blobs, excessive gradients, repeated card grids.
