@@ -118,7 +118,7 @@ const SideMenu = ({ isOpen, onClose }) => {
           <div className="group-title">SERVICE</div>
           <div className="menu-group">
             <div className="menu-item" onClick={() => handleNav('/guide')}>
-              <i className="fa-solid fa-book-open"></i> <span>정보</span>
+              <i className="fa-solid fa-book-open"></i> <span>피부 관리 가이드</span>
             </div>
             <div className="menu-item" onClick={() => handleNav('/ShoppingPage')}>
               <i className="fa-solid fa-bag-shopping"></i> <span>쇼핑</span>

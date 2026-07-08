@@ -170,9 +170,9 @@
 
 /* 섹션 아이콘 색상 (인라인 → 클래스) */
 /* 🌟 MyPage(mini-ing-section) 와 동일 톤으로 통일 */
-.legacy-sec-title .icon-key    { color: #b45309; }   /* 앰버 (MyPage --mp-key-title) */
-.legacy-sec-title .icon-warn   { color: #dc2626; }   /* 레드 (MyPage --mp-warn-title) */
-.legacy-sec-title .icon-reason { color: #ef4444; }
+.legacy-sec-title .icon-key    { color: var(--hd-primary); }
+.legacy-sec-title .icon-warn   { color: var(--hd-primary); }
+.legacy-sec-title .icon-reason { color: var(--hd-primary); }
 .legacy-sec-title .icon-wand { color: var(--hd-primary); }
 
 /* AI 생성 배지 */

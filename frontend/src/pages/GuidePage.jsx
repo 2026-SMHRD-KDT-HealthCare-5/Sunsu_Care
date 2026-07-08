@@ -9,8 +9,8 @@ function GuidePage() {
     return (
         <div className="page guide">
             <div className="guide__header">
-                <span className="guide__overline">INFORMATION</span>
-                <h1 className="guide__title">정보 공유</h1>
+                <span className="guide__overline">Skin Insight</span>
+                <h1 className="guide__title">피부 관리 가이드</h1>
                 <p className="guide__subtitle">
                     자외선과 피부 보호에 대해
                     <br />더 알아보고 싶다면 확인해보세요

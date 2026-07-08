@@ -30,6 +30,26 @@ const getScoreColorClass = (score) => {
     return 'score-danger';
 };
 
+const normalizeIng = (data, csv) => {
+    if (Array.isArray(data) && data.length > 0) {
+        const seen = new Set();
+        return data.filter(Boolean).map(it =>
+            typeof it === 'string'
+                ? { name: it.trim(), warning: '' }
+                : { name: String(it.name || '').trim(), warning: it.warning || '' }
+        ).filter(it => {
+            if (!it.name || seen.has(it.name)) return false;
+            seen.add(it.name);
+            return true;
+        });
+    }
+    if (typeof csv === 'string' && csv.trim()) {
+        return [...new Set(csv.split(',').map(s => s.trim()).filter(Boolean))]
+            .map(name => ({ name, warning: '' }));
+    }
+    return [];
+};
+
 const HistoryDetailPage = () => {
     const { id } = useParams();
     const navigate = useNavigate();
@@ -50,26 +70,26 @@ const HistoryDetailPage = () => {
     // 현재 항목 데이터
     const raw = location.state?.analysisData;
     const [report, setReport] = useState(() => ({
-        id: raw?.id || id,
-        name: raw?.name || "분석된 제품",
-        date: raw?.date || "",
-        score: raw?.score ?? 0,
-        status: raw?.status || "알 수 없음",
-        keyIng: Array.isArray(raw?.keyIng) ? raw.keyIng : [],
-        warnIng: Array.isArray(raw?.warnIng) ? raw.warnIng : []
+        id: raw?.id || raw?.analysis_idx || id,
+        name: raw?.name || raw?.prod_name || "분석된 제품",
+        date: raw?.date || raw?.joined_at || "",
+        score: raw?.score ?? raw?.match_score ?? 0,
+        status: raw?.status || raw?.match_status || "알 수 없음",
+        keyIng: normalizeIng(raw?.keyIng || raw?.key_ingredients_data, raw?.key_ingredients),
+        warnIng: normalizeIng(raw?.warnIng || raw?.warn_ingredients_data, raw?.warn_ingredients)
     }));
 
     // location.state가 바뀌면 report 갱신 (prev/next 이동 시)
     useEffect(() => {
         if (raw) {
             setReport({
-                id: raw.id || id,
-                name: raw.name || "분석된 제품",
-                date: raw.date || "",
-                score: raw.score ?? 0,
-                status: raw.status || "알 수 없음",
-                keyIng: Array.isArray(raw.keyIng) ? raw.keyIng : [],
-                warnIng: Array.isArray(raw.warnIng) ? raw.warnIng : []
+                id: raw.id || raw.analysis_idx || id,
+                name: raw.name || raw.prod_name || "분석된 제품",
+                date: raw.date || raw.joined_at || "",
+                score: raw.score ?? raw.match_score ?? 0,
+                status: raw.status || raw.match_status || "알 수 없음",
+                keyIng: normalizeIng(raw.keyIng || raw.key_ingredients_data, raw.key_ingredients),
+                warnIng: normalizeIng(raw.warnIng || raw.warn_ingredients_data, raw.warn_ingredients)
             });
         }
     }, [raw, id]);
@@ -94,27 +114,6 @@ const HistoryDetailPage = () => {
     // ============================================================
     useEffect(() => {
         let mounted = true;
-
-        // 🌟 백엔드 신규 필드 key_ingredients_data/warn_ingredients_data 우선 사용
-        const normalizeIng = (data, csv) => {
-            if (Array.isArray(data) && data.length > 0) {
-                const seen = new Set();
-                return data.filter(Boolean).map(it =>
-                    typeof it === 'string'
-                        ? { name: it.trim(), warning: '' }
-                        : { name: String(it.name || '').trim(), warning: it.warning || '' }
-                ).filter(it => {
-                    if (!it.name || seen.has(it.name)) return false;
-                    seen.add(it.name);
-                    return true;
-                });
-            }
-            if (typeof csv === 'string' && csv.trim()) {
-                return [...new Set(csv.split(',').map(s => s.trim()).filter(Boolean))]
-                    .map(name => ({ name, warning: '' }));
-            }
-            return [];
-        };
 
         fetchHistory()
             .then(data => {
@@ -158,18 +157,17 @@ const HistoryDetailPage = () => {
     // ============================================================
     useEffect(() => {
         if (!listLoaded) return;
-        if (raw) return; // state 있으면 그대로 사용
 
         const found = savedList.find(item => Number(item.id) === Number(id));
         if (found) {
             setReport(found);
-        } else if (savedList.length > 0) {
+        } else if (!raw && savedList.length > 0) {
             // id가 본인 분석이 아니면 첫 번째 분석으로
             navigate(`/history/${savedList[0].id}`, {
                 replace: true,
                 state: { analysisData: savedList[0] }
             });
-        } else {
+        } else if (!raw) {
             // 분석 자체가 없으면 마이페이지로
             navigate('/mypage', { replace: true });
         }
@@ -316,8 +314,8 @@ const HistoryDetailPage = () => {
                                     date: new Date(item.joined_at).toLocaleDateString(),
                                     score: item.match_score ?? 0,
                                     status: item.match_status || (item.match_score >= 75 ? '적합' : '주의'),
-                                    keyIng: item.key_ingredients ? item.key_ingredients.split(',') : [],
-                                    warnIng: item.warn_ingredients ? item.warn_ingredients.split(',') : []
+                                    keyIng: normalizeIng(item.key_ingredients_data, item.key_ingredients),
+                                    warnIng: normalizeIng(item.warn_ingredients_data, item.warn_ingredients)
                                 })));
                             }
                         });
@@ -366,8 +364,8 @@ const HistoryDetailPage = () => {
                             date: new Date(item.joined_at).toLocaleDateString(),
                             score: item.match_score ?? 0,
                             status: item.match_status || (item.match_score >= 75 ? '적합' : '주의'),
-                            keyIng: item.key_ingredients ? item.key_ingredients.split(',') : [],
-                            warnIng: item.warn_ingredients ? item.warn_ingredients.split(',') : []
+                            keyIng: normalizeIng(item.key_ingredients_data, item.key_ingredients),
+                            warnIng: normalizeIng(item.warn_ingredients_data, item.warn_ingredients)
                         }))
                         : [];
                     setSavedList(updatedList);

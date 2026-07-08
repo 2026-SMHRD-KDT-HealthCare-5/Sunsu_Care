@@ -11,7 +11,7 @@ const ITEMS = [
   { to: '/', icon: 'fa-solid fa-house', label: '홈' },
   { to: '/#recommend', icon: 'fa-solid fa-wand-magic-sparkles', label: 'AI추천' },
   { to: '/#analysis', icon: 'fa-solid fa-magnifying-glass-chart', label: 'AI분석' },
-  { to: '/guide', icon: 'fa-solid fa-book-open', label: '정보' },
+  { to: '/guide', icon: 'fa-solid fa-book-open', label: '가이드' },
 ];
 
 function BottomNav() {
@@ -33,7 +33,7 @@ function BottomNav() {
           window.history.pushState(null, '', to);
         }
       } else {
-        // 다른 페이지(정보, 마이페이지 등)에서 홈 화면의 특정 구역으로 갈 경우
+        // 다른 페이지(가이드, 마이페이지 등)에서 홈 화면의 특정 구역으로 갈 경우
         navigate(to);
         setTimeout(() => {
           const element = document.getElementById(targetId);
@@ -44,7 +44,7 @@ function BottomNav() {
         }, HOME_HASH_SCROLL_DELAY_MS);
       }
     } else {
-      // 2. 해시가 없는 일반 페이지 이동 (예: 홈, 정보 탭)
+      // 2. 해시가 없는 일반 페이지 이동 (예: 홈, 가이드 탭)
       if (location.pathname !== to) {
         navigate(to);
       }

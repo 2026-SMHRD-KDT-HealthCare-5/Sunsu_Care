@@ -1,4 +1,4 @@
-//서버/API 생성하기 위한 npm 웹 프레임워크 호출
+//서버 API 생성하기 위한 npm 웹 프레임워크 호출
 const express = require('express');
 
 //CORS 허용 설정을 위한 Express 미들웨어 호출
@@ -17,13 +17,13 @@ const app = express();
 
 //전역 미들웨어 설정 (해당하는 브라우저 요청만 허용)
 app.use(cors({
-    origin: "http://localhost:5173"
+    origin: "http://localhost:5173"  
 }));
 
 //JSON 요청 데이터를 req.body로 읽기 위한 미들웨어
 app.use(express.json());
 
-//클라이언트가 form 형식으로 보낸 요총 데이털를 req.body로 읽기 위한 미들웨어
+//클라이언트가 form 형식으로 보낸 요청 데이털를 req.body로 읽기 위한 미들웨어
 app.use(express.urlencoded({ extended: true }));
 
 // 제품 이미지 정적 서빙 (backend/uploads/products/<filename> → /uploads/products/<filename>)

@@ -1,6 +1,5 @@
 const path = require('path');
 
-
 // 최상단에서 환경변수 로드
 require('dotenv').config({ path: path.join(__dirname, '.env') });
 

@@ -189,10 +189,10 @@ const AccountSettings = () => {
                 </form>
             </div>
 
-            {/* ── 3. 위험 구역 (회원 탈퇴) ── */}
+            {/* ── 3. 계정 삭제 안내 (회원 탈퇴) ── */}
             <div className="mypage-card danger-zone-card">
                 <div className="danger-text-info">
-                    <h3 className="danger-title"><i className="fa-solid fa-triangle-exclamation"></i> 위험 구역</h3>
+                    <h3 className="danger-title"><i className="fa-solid fa-triangle-exclamation"></i> 계정 삭제 안내</h3>
                     <p>회원 탈퇴 시 모든 분석 히스토리와 정보가 영구 삭제됩니다.</p>
                 </div>
                 <button className="withdraw-btn" onClick={handleDeleteAccount} disabled={submitting}>
