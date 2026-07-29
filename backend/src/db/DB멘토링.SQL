@@ -11,7 +11,7 @@ URL : https://aquerytool.com/aquerymain/index/?rurl=cbb296ce-d143-4308-923a-077c
 Password : 7f68s0
 
 -- ============================================================
--- 1) tb_user (사용자) — 멘토링 대비 변경 있음
+-- 1) tb_user (사용자)
 -- ============================================================
 CREATE TABLE `tb_user` (
   `user_idx`       int NOT NULL AUTO_INCREMENT COMMENT '회원 번호',
@@ -29,7 +29,7 @@ CREATE TABLE `tb_user` (
 ) ENGINE=InnoDB COMMENT='사용자';
 
 -- ============================================================
--- 2) tb_profile (사용자 정보) — 멘토링 대비 변경 있음
+-- 2) tb_profile (사용자 정보)
 -- ============================================================
 CREATE TABLE `tb_profile` (
   `profile_idx`       int NOT NULL AUTO_INCREMENT COMMENT '프로필 번호',
@@ -48,7 +48,7 @@ CREATE TABLE `tb_profile` (
 ) ENGINE=InnoDB COMMENT='사용자 정보';
 
 -- ============================================================
--- 3) tb_product (선케어 제품) — 멘토링과 동일
+-- 3) tb_product (선케어 제품)
 -- ============================================================
 CREATE TABLE `tb_product` (
   `prod_idx`        int NOT NULL AUTO_INCREMENT COMMENT '제품 코드',
@@ -63,7 +63,7 @@ CREATE TABLE `tb_product` (
 ) ENGINE=InnoDB AUTO_INCREMENT=101 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='선케어 제품';
 
 -- ============================================================
--- 4) tb_product_detail (제품 성분 정보) — 멘토링 대비 변경 있음
+-- 4) tb_product_detail (제품 성분 정보) —
 -- ============================================================
 CREATE TABLE `tb_product_detail` (
   `mixed_idx`   int NOT NULL AUTO_INCREMENT COMMENT '배합 번호',
@@ -82,7 +82,7 @@ CREATE TABLE `tb_product_detail` (
 ) ENGINE=InnoDB COMMENT='제품 성분 정보';
 
 -- ============================================================
--- 5) tb_ingredient (성분 정보) — 멘토링 대비 변경 있음
+-- 5) tb_ingredient (성분 정보)
 -- ============================================================
 CREATE TABLE `tb_ingredient` (
   `ingre_idx`         int NOT NULL AUTO_INCREMENT COMMENT '성분 번호',
@@ -96,7 +96,7 @@ CREATE TABLE `tb_ingredient` (
 ) ENGINE=InnoDB COMMENT='성분 정보';
 
 -- ============================================================
--- 6) tb_upload (업로드 파일) — 멘토링과 동일
+-- 6) tb_upload (업로드 파일)
 -- ============================================================
 CREATE TABLE `tb_upload` (
   `file_idx`     int NOT NULL AUTO_INCREMENT COMMENT '파일 번호',
@@ -113,7 +113,7 @@ CREATE TABLE `tb_upload` (
 ) ENGINE=InnoDB COMMENT='업로드 파일';
 
 -- ============================================================
--- 7) tb_analysis (YOLO 분석) — 멘토링과 동일
+-- 7) tb_analysis (YOLO 분석)
 -- ============================================================
 CREATE TABLE `tb_analysis` (
   `analysis_idx`       int NOT NULL AUTO_INCREMENT COMMENT '분석 번호',
@@ -132,7 +132,7 @@ CREATE TABLE `tb_analysis` (
 ) ENGINE=InnoDB COMMENT='YOLO 분석';
 
 -- ============================================================
--- 8) tb_recommendation (제품 추천) — 멘토링과 동일
+-- 8) tb_recommendation (제품 추천)
 -- ============================================================
 CREATE TABLE `tb_recommendation` (
   `reco_idx`     int NOT NULL AUTO_INCREMENT COMMENT '추천 번호',
@@ -152,7 +152,7 @@ CREATE TABLE `tb_recommendation` (
 ) ENGINE=InnoDB COMMENT='제품 추천';
 
 -- ============================================================
--- 9) tb_analysis_log (FastAPI 작업 로그) — 멘토링에 없던 신규
+-- 9) tb_analysis_log (FastAPI 작업 로그)
 -- ============================================================
 CREATE TABLE `tb_analysis_log` (
   `log_idx`          int NOT NULL AUTO_INCREMENT COMMENT '이력 번호',
@@ -163,7 +163,7 @@ CREATE TABLE `tb_analysis_log` (
 ) ENGINE=InnoDB;
 
 -- ============================================================
--- 10) ocr_tasks (OCR 작업 큐) — 멘토링에 없던 신규
+-- 10) ocr_tasks (OCR 작업 큐)
 -- ============================================================
 CREATE TABLE `ocr_tasks` (
   `task_id`     varchar(36) NOT NULL,
@@ -176,7 +176,7 @@ CREATE TABLE `ocr_tasks` (
 ) ENGINE=InnoDB;
 
 -- ============================================================
--- 11) tmp_crawled_main_ingredient (크롤링 주요성분 스테이징) — 신규
+-- 11) tmp_crawled_main_ingredient
 -- ============================================================
 CREATE TABLE `tmp_crawled_main_ingredient` (
   `row_no`             int DEFAULT NULL COMMENT '원본 번호',
@@ -190,7 +190,7 @@ CREATE TABLE `tmp_crawled_main_ingredient` (
 ) ENGINE=InnoDB;
 
 -- ============================================================
--- 12) tmp_product_ingredient (제품-성분 매칭 스테이징) — 신규
+-- 12) tmp_product_ingredient
 -- ============================================================
 CREATE TABLE `tmp_product_ingredient` (
   `row_no`             int NOT NULL AUTO_INCREMENT COMMENT '행 번호',

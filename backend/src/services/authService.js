@@ -170,6 +170,8 @@ const updateNickname = async (user_idx, newNickname) => {
 // 5. 비밀번호 변경 처리 함수
 const updatePassword = async (user_idx, currentPassword, newPassword) => {
   try {
+    // 5-1. 요청값 검증
+    // 현재 비밀번호와 새 비밀번호가 모두 들어왔는지 먼저 확인
     if (!currentPassword || !newPassword) {
       return {
         success: false,
@@ -178,6 +180,8 @@ const updatePassword = async (user_idx, currentPassword, newPassword) => {
       };
     }
 
+    // 5-2. 새 비밀번호 최소 길이 검증
+    // 너무 짧은 비밀번호가 저장되지 않도록 서버에서도 한 번 더 제한
     if (newPassword.length < 6) {
       return {
         success: false,
@@ -186,9 +190,11 @@ const updatePassword = async (user_idx, currentPassword, newPassword) => {
       };
     }
 
-    // 현재 비밀번호 확인
+    // 5-3. 현재 로그인한 사용자의 기존 비밀번호 해시값 조회
+    // DB 조회는 repository 계층에 위임
     const passwordRow = await authRepository.findPasswordHashByUserIdx(user_idx);
 
+    // 5-4. 사용자 정보가 없거나 이미 탈퇴된 계정인 경우 처리
     if (!passwordRow) {
       return {
         success: false,
@@ -197,11 +203,14 @@ const updatePassword = async (user_idx, currentPassword, newPassword) => {
       };
     }
 
+    // 5-5. 입력한 현재 비밀번호와 DB에 저장된 해시 비밀번호 비교
+    // bcrypt.compare(원본 비밀번호, 해시 비밀번호)
     const isMatch = await bcrypt.compare(
       currentPassword,
       passwordRow.password_hash,
     );
 
+    // 5-6. 현재 비밀번호가 일치하지 않으면 변경 중단
     if (!isMatch) {
       return {
         success: false,
@@ -210,10 +219,11 @@ const updatePassword = async (user_idx, currentPassword, newPassword) => {
       };
     }
 
-    // 새 비밀번호 해시 후 저장
+    // 5-7. 새 비밀번호를 bcrypt로 다시 암호화한 뒤 DB에 저장
     const hashed = await bcrypt.hash(newPassword, SALT_ROUNDS);
     await authRepository.updatePassword(user_idx, hashed);
 
+    // 5-8. controller에게 돌려줄 비밀번호 변경 결과
     return {
       success: true,
       status: 200,
@@ -228,8 +238,11 @@ const updatePassword = async (user_idx, currentPassword, newPassword) => {
 // 6. 회원 탈퇴 (소프트 삭제 - deleted_at 표시)
 const deleteAccount = async (user_idx) => {
   try {
+    // 6-1. 실제 회원 데이터를 삭제하지 않고 deleted_at 값을 기록하는 소프트 삭제 방식 사용
+    // 사용자와 연결된 분석/업로드 데이터 관계를 유지하기 위해 repository 계층에 위임
     const result = await authRepository.softDeleteByUserIdx(user_idx);
 
+    // 6-2. 변경된 행이 없으면 이미 탈퇴했거나 존재하지 않는 사용자로 처리
     if (result.affectedRows === 0) {
       return {
         success: false,
@@ -238,6 +251,7 @@ const deleteAccount = async (user_idx) => {
       };
     }
 
+    // 6-3. controller에게 돌려줄 회원 탈퇴 결과
     return {
       success: true,
       status: 200,

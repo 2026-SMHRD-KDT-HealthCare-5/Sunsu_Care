@@ -94,6 +94,8 @@
 - **모바일 우선** (`max-width: 500px` 컨테이너)
 - **계층별 책임 분리** — Route → Controller → Service → Repository
 - **DB 접근 분리** — Service는 기능 로직, Repository는 SQL·CRUD 담당
+- **프로필 저장 분기** — Service에서 기존 프로필을 확인한 뒤 최초 등록은 INSERT, 재설정은 UPDATE
+- **공통 오류 응답** — Controller에서 발생한 서버 오류를 `next(error)`로 전달해 전역 미들웨어에서 처리
 - **환경 설정 분리** — `.env` → Config 검증 → Connection Pool 생성
 - **단일 진실 공급원 (SSOT)** — 키/URL/색상/DB 모두 한 곳에서만 관리
 - **컴포넌트별 로컬 CSS 변수** (`--mp-*`, `--pp-*` 등)
@@ -129,7 +131,10 @@
 - **Google Gemini 2.5/2.0 Flash (Lite)** — 자연어 추천 이유 생성
 - **파일 영속 캐시** + **다중 모델 cooldown Map** — 자동 우회 시스템
 
-### Database (MySQL — 8 테이블)
+### Database (MySQL)
+
+핵심 서비스 테이블:
+
 ```
 tb_user            (회원 및 인증 정보)
 tb_profile         (피부 프로필)
@@ -139,6 +144,15 @@ tb_ingredient      (공공 API 공식 성분 사전)
 tb_product_detail  (제품–공식 성분 최종 매핑)
 tb_analysis        (분석 결과)
 tb_analysis_log    (분석 로그)
+```
+
+운영 및 성분 매칭 테이블:
+
+```
+tb_recommendation               (제품 추천 결과)
+ocr_tasks                       (OCR 작업 큐)
+tmp_crawled_main_ingredient     (크롤링 성분 중복 제거·1차 매칭 검증)
+tmp_product_ingredient          (제품별 원본 성분·공식 성분 매칭)
 ```
 
 Gemini 추천 이유는 `backend/cache/ai_reason_cache.json` 파일에 캐시합니다.
