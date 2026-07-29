@@ -57,26 +57,44 @@
 ## 🏗 시스템 아키텍처
 
 ```
-┌──────────────────────────────────────────────────────┐
-│            [ 모바일 브라우저 - React 19 ]              │
-└────────────────────┬─────────────────────────────────┘
-                     │ HTTPS + axios 인터셉터 (자동 라우팅)
-        ┌────────────┴────────────┐
-        ▼                         ▼
- ┌──────────────────┐    ┌────────────────────────┐
- │ Express + JWT    │    │ FastAPI + YOLO + OCR   │
- │   port 4000      │    │   port 8001            │
- └────────┬─────────┘    └───────────┬────────────┘
-          │                          │
-          ▼                          ▼
-   ┌────────────┐           ┌────────────────┐
-   │ MySQL 8.x  │           │ Gemini 2.x LLM │
-   │ 8 tables   │           │ + 파일 캐시   │
-   └────────────┘           └────────────────┘
+┌──────────────────────────────────────────────────────────────┐
+│                  모바일 브라우저 - React 19                    │
+└─────────────────────────────┬────────────────────────────────┘
+                              │ HTTP + Axios
+                              ▼
+                    ┌─────────────────────┐
+                    │ Express Router      │
+                    │ + Auth Middleware   │
+                    │    port 4000        │
+                    └──────────┬──────────┘
+                               ▼
+                    ┌─────────────────────┐
+                    │ Controller          │
+                    │ 요청 검증 · HTTP 응답 │
+                    └──────────┬──────────┘
+                               ▼
+                    ┌─────────────────────┐
+                    │ Service             │
+                    │ 인증 · 기능 로직     │
+                    └──────┬────────┬─────┘
+                           │        │ 분석 요청 / Callback
+                           ▼        ▼
+                 ┌──────────────┐  ┌──────────────────────┐
+                 │ Repository   │  │ FastAPI + YOLO + OCR│
+                 │ SQL · CRUD   │  │      port 8001       │
+                 └──────┬───────┘  └──────────┬───────────┘
+                        ▼                     ▼
+                 ┌──────────────┐      ┌───────────────┐
+                 │ MySQL Pool   │      │ Gemini 2.x LLM│
+                 │ + MySQL 8.x  │      │ + 파일 캐시   │
+                 └──────────────┘      └───────────────┘
 ```
 
 ### 핵심 설계 원칙
 - **모바일 우선** (`max-width: 500px` 컨테이너)
+- **계층별 책임 분리** — Route → Controller → Service → Repository
+- **DB 접근 분리** — Service는 기능 로직, Repository는 SQL·CRUD 담당
+- **환경 설정 분리** — `.env` → Config 검증 → Connection Pool 생성
 - **단일 진실 공급원 (SSOT)** — 키/URL/색상/DB 모두 한 곳에서만 관리
 - **컴포넌트별 로컬 CSS 변수** (`--mp-*`, `--pp-*` 등)
 - **이벤트 기반 인증 동기화** (`dispatchEvent` + `storage` 이벤트)
@@ -95,8 +113,9 @@
 
 ### Backend (Express API)
 - **Node.js 18+** + **Express 4**
-- **MySQL2** (Promise + 풀)
-- **JWT** (24시간 토큰) + **bcrypt** 해싱
+- **MySQL2/Promise** — Connection Pool과 Repository 기반 DB 접근
+- **JWT** — 1시간 유효 토큰 발급 및 인증 미들웨어 검증
+- **bcrypt** — 회원가입 비밀번호 해싱 및 로그인 비밀번호 비교
 - **Multer** 이미지 업로드
 
 ### AI Service (Python)
@@ -112,15 +131,17 @@
 
 ### Database (MySQL — 8 테이블)
 ```
-tb_users          (회원)
-tb_profile        (피부 프로필)
-tb_upload         (업로드 파일)
-tb_product        (제품 마스터)
-tb_ingredient     (성분 사전 + skin_warning 컬럼)
-tb_analysis       (분석 결과)
-tb_analysis_log   (분석 로그)
-tb_ai_reason_cache (Gemini 응답 캐시 — 옵션)
+tb_user            (회원 및 인증 정보)
+tb_profile         (피부 프로필)
+tb_upload          (업로드 파일)
+tb_product         (제품 마스터)
+tb_ingredient      (공공 API 공식 성분 사전)
+tb_product_detail  (제품–공식 성분 최종 매핑)
+tb_analysis        (분석 결과)
+tb_analysis_log    (분석 로그)
 ```
+
+Gemini 추천 이유는 `backend/cache/ai_reason_cache.json` 파일에 캐시합니다.
 
 ---
 
@@ -134,31 +155,43 @@ Sunsu_Care/
 │
 ├── backend/
 │   ├── package.json
-│   ├── server.js                 # Express 진입점
-│   ├── .env                      # ⚠️ DB/JWT/Gemini 설정
+│   ├── server.js                 # .env 로드 및 Express 실행
+│   ├── .env                      # 로컬 환경변수(Git 추적 제외)
 │   ├── cache/
 │   │   └── ai_reason_cache.json  # Gemini 응답 영속 캐시
 │   ├── uploads/                  # Multer 업로드 저장소
 │   │
 │   ├── src/
+│   │   ├── app.js                     # 미들웨어·라우터 등록
+│   │   ├── config/
+│   │   │   └── database.js            # DB 환경변수 검증·설정
+│   │   ├── db/
+│   │   │   ├── index.js               # MySQL Connection Pool
+│   │   │   ├── connection.py          # SQLAlchemy async
+│   │   │   └── update_ingredient_warnings.sql
+│   │   ├── routes/
+│   │   │   ├── authRoutes.js
+│   │   │   ├── profileRoutes.js
+│   │   │   └── suncareRoutes.js
 │   │   ├── controllers/
-│   │   │   ├── suncareController.js   # ⭐ 메인 컨트롤러
 │   │   │   ├── authController.js
 │   │   │   └── profileController.js
-│   │   ├── routes/
+│   │   │   └── suncareController.js
 │   │   ├── services/
-│   │   │   └── geminiService.js       # ⭐ 멀티 모델 Fallback
+│   │   │   ├── authService.js          # 인증·계정 기능 로직
+│   │   │   ├── profileService.js       # 프로필 기능 로직
+│   │   │   ├── fastapiService.js       # AI 서버 연동
+│   │   │   └── geminiService.js        # 멀티 모델 Fallback
+│   │   ├── repositories/
+│   │   │   ├── authRepository.js       # 회원 SQL·CRUD
+│   │   │   └── profileRepository.js    # 프로필 SQL·CRUD
 │   │   ├── middlewares/
-│   │   │   └── authMiddleware.js      # ⭐ JWT 만료 분기
-│   │   ├── db/
-│   │   │   ├── index.js               # MySQL 풀
-│   │   │   ├── connection.py          # SQLAlchemy async
-│   │   │   └── update_ingredient_warnings.sql  # 성분 효능 SEED
+│   │   │   └── authMiddleware.js       # JWT 검증·사용자 식별
 │   │   ├── scripts/
-│   │   │   ├── updateIngredientWarnings.js     # ⭐ db:seed-warnings
-│   │   │   └── checkIngredients.js             # 진단 도구
+│   │   │   ├── updateIngredientWarnings.js
+│   │   │   └── checkIngredients.js
 │   │   └── utils/
-│   │       └── compatibilityScore.js  # 적합도 알고리즘
+│   │       └── compatibilityScore.js   # 적합도 알고리즘
 │   │
 │   └── ai/
 │       └── models/
@@ -287,6 +320,26 @@ VITE_API_BASE_URL=http://localhost:4000/api
 VITE_INTERNAL_TOKEN=internal_service_to_service_token
 ```
 
+### DB 환경설정 적용 흐름
+
+```text
+backend/.env
+    ↓ server.js에서 dotenv 로드
+config/database.js
+    ↓ DB 환경변수 읽기·필수값 검증
+db/index.js
+    ↓ mysql2/promise Connection Pool 생성
+Repository
+    ↓ 공통 Pool로 SQL 실행
+MySQL
+```
+
+- DB 접속값은 코드에 직접 작성하지 않고 `backend/.env`에서 관리합니다.
+- `config/database.js`는 `DB_HOST`, `DB_USER`, `DB_PASSWORD`, `DB_NAME`의 누락 여부를 검사합니다.
+- `db/index.js`는 검증된 설정으로 공통 Connection Pool을 생성합니다.
+- `authRepository`, `profileRepository`는 공통 Pool을 사용해 SQL을 실행합니다.
+- `.env`는 `.gitignore`에 등록되어 실제 접속 정보가 저장소에 올라가지 않습니다.
+
 ### 4. DB 초기 세팅
 
 ```bash
@@ -383,17 +436,20 @@ npm run dev
 ## 🔌 API 엔드포인트
 
 ### 인증
-| Method | Path | 설명 |
-|---|---|---|
-| POST | `/api/auth/signup` | 회원가입 |
-| POST | `/api/auth/login` | 로그인 (JWT 발급) |
-| POST | `/api/auth/logout` | 로그아웃 |
+| Method | Path | 인증 | 설명 |
+|---|---|---:|---|
+| POST | `/api/auth/signup` | - | 회원가입 |
+| POST | `/api/auth/login` | - | 로그인 및 JWT 발급 |
+| POST | `/api/auth/logout` | - | 로그아웃 응답 |
+| PUT | `/api/auth/nickname` | JWT | 닉네임 변경 |
+| PUT | `/api/auth/password` | JWT | 비밀번호 변경 |
+| DELETE | `/api/auth/me` | JWT | 회원 탈퇴(소프트 삭제) |
 
 ### 프로필
 | Method | Path | 설명 |
 |---|---|---|
 | GET | `/api/profile` | 내 프로필 조회 |
-| POST | `/api/profile` | 프로필 저장/수정 |
+| PUT | `/api/profile` | 프로필 최초 저장 또는 수정 |
 
 ### 분석 (Suncare)
 | Method | Path | 설명 |
